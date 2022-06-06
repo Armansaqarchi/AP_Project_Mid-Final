@@ -1,4 +1,4 @@
-package service.model.message;
+package messenger.service.model.message;
 
 public abstract class Message
 {

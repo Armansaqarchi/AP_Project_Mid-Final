@@ -1,4 +1,4 @@
-package service.model.server;
+package messenger.service.model.server;
 
 public enum RuleType
 {

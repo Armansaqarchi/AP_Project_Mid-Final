@@ -1,8 +1,8 @@
-package service.model.server;
+package messenger.service.model.server;
 
 import java.util.LinkedList;
 
-public class Channel
+public abstract class Channel
 {
     private String id;
     private String name;

@@ -1,4 +1,4 @@
-package service.model;
+package messenger.service.model;
 
 public class PrivateChat
 {
