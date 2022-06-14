@@ -1,4 +1,4 @@
-package service.model.user;
+package messenger.service.model.user;
 
 public enum UserStatus
 {

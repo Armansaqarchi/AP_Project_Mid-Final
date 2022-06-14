@@ -1,6 +1,7 @@
-package service.model.user;
+package messenger.service.model.user;
 
 import java.util.LinkedList;
+import java.util.UUID;
 
 public class User
 {
@@ -22,5 +23,5 @@ public class User
     //list of servers and their channels
     private LinkedList<ServerIDs> servers;
 
-
+    private LinkedList<UUID> unreadMessages;
 }
