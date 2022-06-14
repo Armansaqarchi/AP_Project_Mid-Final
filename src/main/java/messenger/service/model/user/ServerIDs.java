@@ -1,4 +1,4 @@
-package service.model.user;
+package messenger.service.model.user;
 
 //this class is only used to save servers id and
 // its channels ids in a user object
@@ -9,6 +9,6 @@ public class ServerIDs
     //the servers id
     private String id;
 
-    //ids of channels that the user is a member of them
+    //name of channels that the user is a member of them
     LinkedList<String> channels;
 }
