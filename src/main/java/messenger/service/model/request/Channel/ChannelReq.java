@@ -10,5 +10,7 @@ import messenger.service.model.request.server.ServerReq;
 
 public class ChannelReq extends ServerReq
 {
+    private ChannelRequestType type;
+
     private String channelName;
 }

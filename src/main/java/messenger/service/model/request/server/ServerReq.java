@@ -10,5 +10,7 @@ import messenger.service.model.request.Request;
 
 public abstract class ServerReq extends Request
 {
+    private ServerRequestType type;
+
     private String serverId;
 }
