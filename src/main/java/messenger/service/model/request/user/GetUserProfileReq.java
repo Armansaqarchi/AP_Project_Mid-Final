@@ -6,9 +6,7 @@
 
 package messenger.service.model.request.user;
 
-import messenger.service.model.request.Request;
-
-public class GetUserProfileReq extends Request
+public class GetUserProfileReq extends UserRequest
 {
     private String usersId;
 }

@@ -7,7 +7,7 @@ package messenger.service.model.request.user;
 
 import messenger.service.model.request.Request;
 
-public class FriendReq extends Request
+public class FriendReq extends UserRequest
 {
     private String receiver;
 }

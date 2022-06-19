@@ -1,5 +1,5 @@
 /**
- * this is used to handle request that are related to user
+ * type of requests that are being sent and related to user
  *
  * @author mahdi
  */

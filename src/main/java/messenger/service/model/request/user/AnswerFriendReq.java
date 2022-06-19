@@ -7,9 +7,7 @@
 
 package messenger.service.model.request.user;
 
-import messenger.service.model.request.Request;
-
-public class AnswerFriendReq extends Request
+public class AnswerFriendReq extends UserRequest
 {
     private String receiver;
     private boolean isAccepted;

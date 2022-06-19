@@ -6,8 +6,6 @@
 
 package messenger.service.model.request.user;
 
-import messenger.service.model.request.Request;
-
-public class GetFriendListReq extends Request
+public class GetFriendListReq extends UserRequest
 {
 }

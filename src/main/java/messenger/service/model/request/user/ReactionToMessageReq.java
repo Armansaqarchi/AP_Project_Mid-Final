@@ -7,11 +7,10 @@
 package messenger.service.model.request.user;
 
 import messenger.service.model.message.Reaction;
-import messenger.service.model.request.Request;
 
 import java.util.UUID;
 
-public class ReactionToMessageReq extends Request
+public class ReactionToMessageReq extends UserRequest
 {
     private UUID messageId;
 

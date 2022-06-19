@@ -5,9 +5,7 @@
  */
 package messenger.service.model.request.user;
 
-import messenger.service.model.request.Request;
-
-public class BlockUserReq extends Request
+public class BlockUserReq extends UserRequest
 {
     //user id of who is blocked
     private String userid;

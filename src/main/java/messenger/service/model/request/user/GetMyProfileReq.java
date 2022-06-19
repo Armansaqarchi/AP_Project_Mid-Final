@@ -6,8 +6,6 @@
 
 package messenger.service.model.request.user;
 
-import messenger.service.model.request.Request;
-
-public class GetMyProfileReq extends Request
+public class GetMyProfileReq extends UserRequest
 {
 }
