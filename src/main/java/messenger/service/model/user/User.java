@@ -24,4 +24,6 @@ public class User
     private LinkedList<ServerIDs> servers;
 
     private LinkedList<UUID> unreadMessages;
+
+    //list of friends requests
 }

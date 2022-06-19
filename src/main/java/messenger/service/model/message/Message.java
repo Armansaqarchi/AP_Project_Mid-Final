@@ -1,6 +1,7 @@
 package messenger.service.model.message;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.UUID;
 
 public abstract class Message
@@ -14,5 +15,8 @@ public abstract class Message
     private String receiverId;
     private MessageType type;
     private LocalDateTime date;
+
+    //list of reactions to this message
+    private LinkedList<Reaction> reactions;
 
 }
