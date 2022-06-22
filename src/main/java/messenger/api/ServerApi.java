@@ -15,7 +15,7 @@ public class ServerApi
 
     }
 
-    public void addUser(AddUsersServerReq request)
+    public void addUser(AddUserServerReq request)
     {
 
     }
@@ -35,7 +35,7 @@ public class ServerApi
 
     }
 
-    public void removeUsers(RemoveUsersServerReq request)
+    public void removeUser(RemoveUserServerReq request)
     {
 
     }

@@ -4,7 +4,7 @@ import messenger.service.model.request.Channel.*;
 
 public class ChannelApi
 {
-    public void addUsers(AddUsersChannelReq request)
+    public void addUser(AddUserChannelReq request)
     {
 
     }
@@ -29,7 +29,7 @@ public class ChannelApi
 
     }
 
-    public void removeUsers(RemoveUsersChannelReq request)
+    public void removeUser(RemoveUserChannelReq request)
     {
 
     }

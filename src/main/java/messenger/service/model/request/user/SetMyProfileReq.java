@@ -13,5 +13,6 @@ public class SetMyProfileReq extends UserRequest
     private String password;
     private String email;
     private String phoneNumber;
-    private String profileImage;
+
+    private byte[] profileImage;
 }
