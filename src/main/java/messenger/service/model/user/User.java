@@ -1,5 +1,7 @@
 package messenger.service.model.user;
 
+import messenger.service.model.request.user.FriendReq;
+
 import java.util.LinkedList;
 import java.util.UUID;
 
@@ -10,7 +12,8 @@ public class User
     private String password;
     private String email;
     private String phoneNumber;
-    private String profileImage;
+
+    private byte[] profileImage;
 
     private UserStatus userStatus;
 
@@ -24,4 +27,7 @@ public class User
     private LinkedList<ServerIDs> servers;
 
     private LinkedList<UUID> unreadMessages;
+
+    //list of friend requests that user does not answer them yet
+    private LinkedList<UUID> friendRequests;
 }
