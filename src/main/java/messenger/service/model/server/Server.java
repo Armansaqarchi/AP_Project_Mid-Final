@@ -5,6 +5,8 @@ import java.util.LinkedList;
 
 public class Server
 {
+    private byte[] image;
+
     private String id;
     private String ownerId;
     private String name;
