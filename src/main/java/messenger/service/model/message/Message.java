@@ -17,6 +17,6 @@ public abstract class Message
     private LocalDateTime date;
 
     //list of reactions to this message
-    private LinkedList<Reaction> reactions;
+    private LinkedList<MessageReaction> reactions;
 
 }
