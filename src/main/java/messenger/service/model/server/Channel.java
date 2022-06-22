@@ -8,6 +8,8 @@ public abstract class Channel implements Serializable
 {
     private UUID id;
     private String name;
+
+    private ChannelType type;
     //id of users
     private LinkedList<String> users;
 
