@@ -18,6 +18,6 @@ public abstract class Message implements Serializable
     private LocalDateTime date;
 
     //list of reactions to this message
-    private LinkedList<Reaction> reactions;
+    private LinkedList<MessageReaction> reactions;
 
 }
