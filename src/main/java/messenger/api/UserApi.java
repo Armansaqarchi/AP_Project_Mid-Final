@@ -48,4 +48,19 @@ public class UserApi
     {
 
     }
+
+    public void getBlockedUsers(GetBlockedUsersReq request)
+    {
+
+    }
+
+    public void getServers(GetServersReq request)
+    {
+
+    }
+
+    public void getPrivateChats(GetPrivateChatsReq request)
+    {
+
+    }
 }
