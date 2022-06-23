@@ -1,4 +1,4 @@
-package messenger.api;
+package messenger.api.connection;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
