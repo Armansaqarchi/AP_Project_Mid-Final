@@ -12,4 +12,9 @@ public class Response implements Transferable
 
     //verification of request or description about failure of request
     private String message;
+
+    public String getReceiverId()
+    {
+        return receiverId;
+    }
 }

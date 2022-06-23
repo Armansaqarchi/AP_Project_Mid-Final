@@ -51,6 +51,10 @@ public class ConnectionHandler
         }
     }
 
+    public ServerThread getServerThread(String id)
+    {
+        return connections.get(id);
+    }
     public void addConnection(String id , ServerThread serverThread)
     {
         connections.put(id, serverThread);

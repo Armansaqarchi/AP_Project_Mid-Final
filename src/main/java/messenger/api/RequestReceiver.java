@@ -1,5 +1,6 @@
 package messenger.api;
 
+import messenger.service.model.exception.InvalidTypeException;
 import messenger.service.model.request.Authentication.AuthenticationReq;
 import messenger.service.model.request.Channel.ChannelReq;
 import messenger.service.model.request.Request;
@@ -33,15 +34,14 @@ public class RequestReceiver
     private final ChannelApi channelApi;
     private final ServerApi serverApi;
 
-    public void getRequest(Request request)
-    {
+    public void getRequest(Request request) throws InvalidTypeException {
         switch (request.getType())
         {
             case USER -> userApi.getRequest((UserRequest) request);
             case AUTHENTICATION -> authenticationApi.getRequest((AuthenticationReq) request);
             case CHANNEL -> channelApi.getRequest((ChannelReq) request);
             case SERVER -> serverApi.getRequest((ServerReq) request);
-            //default -> trow invalid type exception
+            default -> throw new InvalidTypeException();
         }
     }
 }

@@ -3,6 +3,8 @@ package messenger.api.connection;
 import messenger.api.MessageReceiver;
 import messenger.api.RequestReceiver;
 import messenger.service.model.Transferable;
+import messenger.service.model.exception.InvalidObjectException;
+import messenger.service.model.exception.InvalidTypeException;
 import messenger.service.model.message.Message;
 import messenger.service.model.request.Request;
 
@@ -60,16 +62,19 @@ public class ServerThread implements Runnable
                 }
                 else
                 {
-                    //trow exception about that users inputs invalid object
+                    throw new InvalidObjectException();
                 }
             }
-            catch (IOException | ClassNotFoundException e)
+            catch (IOException | ClassNotFoundException |
+                   InvalidTypeException | InvalidObjectException e)
             {
                 e.printStackTrace();
             }
         }
 
         ConnectionHandler.getConnectionHandler().removeConnection(id);
+
+        //user status must turn to offline in this line
     }
 
     public void send(Transferable transferable)
@@ -80,7 +85,7 @@ public class ServerThread implements Runnable
         }
         catch (IOException e)
         {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 }
