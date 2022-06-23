@@ -4,42 +4,57 @@ import messenger.service.model.request.Channel.*;
 
 public class ChannelApi
 {
-    public void addUser(AddUserChannelReq request)
+
+    public void getRequest(ChannelReq request)
+    {
+        switch(request.subType())
+        {
+            case REMOVE_USER -> removeUser((RemoveUserChannelReq) request);
+            case ADD_USER -> addUser((AddUserChannelReq) request);
+            case PIN_MESSAGE -> pinMessage((PinMessageReq) request);
+            case CREAT_CHANNEL -> creatChannel((CreatChannelReq) request);
+            case DELETE_CHANNEL -> deleteChannel((DeleteChannelReq) request);
+            case RENAME_CHANNEL -> renameChannel((RenameChannelReq) request);
+            case GET_CHAT_HISTORY -> getChatHistory((GetChatHistoryReq) request);
+            //default -> trow invalid type exception
+        }
+    }
+    private void addUser(AddUserChannelReq request)
     {
 
     }
 
-    public void creatChannel(CreatChannelReq request)
+    private void creatChannel(CreatChannelReq request)
     {
 
     }
 
-    public void deleteChannel(DeleteChannelReq request)
+    private void deleteChannel(DeleteChannelReq request)
     {
 
     }
 
-    public void getChatHistory(GetChatHistoryReq request)
+    private void getChatHistory(GetChatHistoryReq request)
     {
 
     }
 
-    public void pinMessage(PinMessageReq request)
+    private void pinMessage(PinMessageReq request)
     {
 
     }
 
-    public void getPinnedMessage(GetPinnedMsgReq request)
+    private void getPinnedMessage(GetPinnedMsgReq request)
     {
 
     }
 
-    public void removeUser(RemoveUserChannelReq request)
+    private void removeUser(RemoveUserChannelReq request)
     {
 
     }
 
-    public void renameChannel(RenameChannelReq request)
+    private void renameChannel(RenameChannelReq request)
     {
 
     }
