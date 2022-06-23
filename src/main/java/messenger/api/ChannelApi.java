@@ -29,6 +29,11 @@ public class ChannelApi
 
     }
 
+    public void getPinnedMessage(GetPinnedMsgReq request)
+    {
+
+    }
+
     public void removeUser(RemoveUserChannelReq request)
     {
 

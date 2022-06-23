@@ -8,7 +8,7 @@ package messenger.service.model.request.Channel;
 
 import messenger.service.model.request.server.ServerReq;
 
-public class ChannelReq extends ServerReq
+public abstract class ChannelReq extends ServerReq
 {
     private ChannelRequestType type;
 
