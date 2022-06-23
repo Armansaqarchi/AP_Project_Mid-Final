@@ -1,6 +1,8 @@
 package messenger.service.model.response;
 
-public class Response
+import messenger.service.model.Transferable;
+
+public class Response implements Transferable
 {
     //id of who receives this response
     private String receiverId;
