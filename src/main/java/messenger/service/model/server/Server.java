@@ -1,9 +1,10 @@
 package messenger.service.model.server;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class Server
+public class Server implements Serializable
 {
     private byte[] image;
 
