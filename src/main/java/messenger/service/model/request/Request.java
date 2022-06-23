@@ -13,4 +13,9 @@ public abstract class Request
     private String senderId;
 
     private RequestType type;
+
+    public RequestType getType()
+    {
+        return type;
+    }
 }

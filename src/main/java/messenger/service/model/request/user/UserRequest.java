@@ -11,4 +11,9 @@ import messenger.service.model.request.Request;
 public abstract class UserRequest extends Request
 {
     private UserRequestType type;
+
+    public UserRequestType subType()
+    {
+        return type;
+    }
 }

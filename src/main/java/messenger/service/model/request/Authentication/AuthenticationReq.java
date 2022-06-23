@@ -8,4 +8,9 @@ public abstract class AuthenticationReq extends Request
 
     private String id;
     private String password;
+
+    public AuthenticationReqType subType()
+    {
+        return type;
+    }
 }

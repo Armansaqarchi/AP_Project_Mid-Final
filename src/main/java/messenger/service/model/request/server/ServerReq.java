@@ -13,4 +13,9 @@ public abstract class ServerReq extends Request
     private ServerRequestType type;
 
     private String serverId;
+
+    public ServerRequestType subType()
+    {
+        return type;
+    }
 }

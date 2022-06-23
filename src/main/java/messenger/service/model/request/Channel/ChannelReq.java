@@ -6,11 +6,17 @@
 
 package messenger.service.model.request.Channel;
 
-import messenger.service.model.request.server.ServerReq;
+import messenger.service.model.request.Request;
 
-public abstract class ChannelReq extends ServerReq
+public abstract class ChannelReq extends Request
 {
     private ChannelRequestType type;
 
+    private String serverId;
     private String channelName;
+
+    public ChannelRequestType subType()
+    {
+        return type;
+    }
 }
