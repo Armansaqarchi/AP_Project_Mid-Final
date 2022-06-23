@@ -8,23 +8,30 @@ import messenger.service.model.request.user.UserRequest;
 
 public class RequestReceiver
 {
-//    public static RequestHandler requestHandler;
-//
-//    public static void getRequestHandler()
-//    {
-//
-//    }
-//
-//    private RequestHandler()
-//    {
-//        userApi = new UserApi();
-//        authenticationApi = new AuthenticationApi();
-//    }
+    private static RequestReceiver requestReceiver;
 
-    private UserApi userApi;
-    private AuthenticationApi authenticationApi;
-    private ChannelApi channelApi;
-    private ServerApi serverApi;
+    public static RequestReceiver getRequestReceiver()
+    {
+        if(null == requestReceiver)
+        {
+            requestReceiver = new RequestReceiver();
+        }
+
+        return requestReceiver;
+    }
+
+    private RequestReceiver()
+    {
+        userApi = new UserApi();
+        authenticationApi = new AuthenticationApi();
+        channelApi = new ChannelApi();
+        serverApi = new ServerApi();
+    }
+
+    private final UserApi userApi;
+    private final AuthenticationApi authenticationApi;
+    private final ChannelApi channelApi;
+    private final ServerApi serverApi;
 
     public void getRequest(Request request)
     {

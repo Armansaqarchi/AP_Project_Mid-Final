@@ -9,9 +9,26 @@ import java.util.concurrent.Executors;
 
 public class ConnectionHandler
 {
+    private static ConnectionHandler connectionHandler;
+
     //connection of clients
     //maps usernames to server threads of each client
-    HashMap<String , ServerThread> connections;
+    private HashMap<String , ServerThread> connections;
+
+    private ConnectionHandler()
+    {
+
+    }
+
+    public static ConnectionHandler getConnectionHandler()
+    {
+        if(null == connectionHandler)
+        {
+            connectionHandler = new ConnectionHandler();
+        }
+
+        return connectionHandler;
+    }
 
     public void run()
     {
@@ -32,5 +49,15 @@ public class ConnectionHandler
         {
             exception.printStackTrace();
         }
+    }
+
+    public void addConnection(String id , ServerThread serverThread)
+    {
+        connections.put(id, serverThread);
+    }
+
+    public void removeConnection(String id)
+    {
+        connections.remove(id);
     }
 }
