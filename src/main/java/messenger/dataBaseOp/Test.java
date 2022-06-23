@@ -1,5 +1,8 @@
 package messenger.dataBaseOp;
 
+import messenger.service.model.user.User;
+import org.springframework.aop.scope.ScopedObject;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,9 +20,17 @@ public class Test {
 
 
         try{
-            Class.forName("org.mariadb.jdbc.Driver");
+            Class.forName("org.postgresql.Driver");
 
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Discord");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Discord",
+                    "root", "Arman");
+
+            UserOp userOperator = new UserOp(connection);
+
+
+
+
+            userOperator.insertUser("1", "Arman", "sagharichiha", "arman.saghari81@gmail.com", "09301847526");
 
 
 
@@ -28,9 +39,7 @@ public class Test {
             e.printStackTrace();
         }
         finally{
-            if(connection != null) {
-                connection.close();
-            }
+
         }
 
 

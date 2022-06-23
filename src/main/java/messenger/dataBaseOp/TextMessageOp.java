@@ -2,6 +2,7 @@ package messenger.dataBaseOp;
 
 import java.sql.Connection;
 
+/*
 public class TextMessageOp extends Op {
 
 
@@ -33,3 +34,4 @@ public class TextMessageOp extends Op {
 
     }
 }
+*/

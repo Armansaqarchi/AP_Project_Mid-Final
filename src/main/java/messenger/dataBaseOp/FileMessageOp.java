@@ -1,4 +1,4 @@
-package messenger.dataBaseOp;
+/*package messenger.dataBaseOp;
 
 import java.sql.Connection;
 
@@ -32,4 +32,4 @@ public class FileMessageOp extends Op {
     public void deleteFileMessageById(String id){
 
     }
-}
+}*/

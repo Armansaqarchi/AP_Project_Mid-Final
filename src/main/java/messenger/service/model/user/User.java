@@ -3,6 +3,7 @@ package messenger.service.model.user;
 import messenger.service.model.request.user.FriendReq;
 import java.io.Serializable;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.UUID;
 
@@ -60,5 +61,24 @@ public class User implements Serializable
         this.servers = servers;
         this.unreadMessages = unreadMessages;
         this.friendRequests = friendRequests;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", profileImage=" + Arrays.toString(profileImage) +
+                ", userStatus=" + userStatus +
+                ", friendList=" + friendList +
+                ", blockedUsers=" + blockedUsers +
+                ", privateChats=" + privateChats +
+                ", servers=" + servers +
+                ", unreadMessages=" + unreadMessages +
+                ", friendRequests=" + friendRequests +
+                '}';
     }
 }

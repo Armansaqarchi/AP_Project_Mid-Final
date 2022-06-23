@@ -1,5 +1,6 @@
 package messenger.dataBaseOp;
 
+/*
 import messenger.service.model.message.TextMessage;
 
 import java.sql.Connection;
@@ -36,3 +37,4 @@ public abstract class MessageOp extends Op {
 
     }
 }
+*/

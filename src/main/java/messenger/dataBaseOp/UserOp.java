@@ -4,7 +4,7 @@ import messenger.service.model.user.ServerIDs;
 import messenger.service.model.user.User;
 import messenger.service.model.user.UserStatus;
 
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -14,17 +14,17 @@ import java.util.UUID;
 
 public class UserOp extends Op{
 
-    private Connection connection;
-
 
     public UserOp(Connection connection){
         super(connection);
+
     }
 
     public User findById(String id) throws SQLException{
-        String query = "SELECT * WHERE USer_id = " + id;
+        String query = "SELECT * WHERE user_id = " + id;
 
-        ResultSet resultSet = statement.executeQuery(query);
+        PreparedStatement pStatement = connection.prepareStatement(query);
+        ResultSet resultSet = pStatement.executeQuery(query);
 
         if(resultSet.next()){
             if(resultSet.getObject(0) instanceof User){
@@ -37,13 +37,17 @@ public class UserOp extends Op{
     }
 
     public User findByName(String name) throws SQLException{
-        String query = "SELECT * WHERE user_id = " + name;
+        String query = "SELECT * FROM users WHERE name = 'arman'";
 
         ResultSet resultSet = statement.executeQuery(query);
 
         if(resultSet.next()){
-            if(resultSet.getObject(0) instanceof User){
-                return (User)resultSet.getObject(0);
+            System.out.println(resultSet.getString("password"));
+            try {
+                return (User)createUserFromData(resultSet);
+            }
+            catch(SQLException | ClassNotFoundException | IOException e){
+                e.printStackTrace();
             }
         }
 
@@ -83,27 +87,69 @@ public class UserOp extends Op{
 
     public void insertUser(String id, String name, String password, String email, String phoneNumber)
     throws SQLException{
-        String query = String.format("insert into users values ( %s, %s', %s, %s, %s)",
-                id, name, password, email, phoneNumber);
-        statement.executeUpdate(query);
+        System.out.println(connection);
 
+        PreparedStatement ps = connection.prepareStatement(
+                "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        ps.setString(1, id);
+        ps.setString(2, name);
+        ps.setString(3, password);
+        ps.setString(4, email);
+        ps.setString(5, phoneNumber);
+        ps.setObject(6, Types.BINARY);
+        ps.setString(7, "Online");
+        ps.setNull(8, Types.BINARY);
+        ps.setNull(9, Types.BINARY);
+        ps.setNull(10, Types.BINARY);
+        ps.setNull(11, Types.BINARY);
+        ps.setNull(12, Types.BINARY);
+        ps.setNull(13, Types.BINARY);;
+
+
+        ps.executeUpdate();
+        ps.close();
+
+        System.out.println("data has been inserted successfully.");
 
     }
 
-    public boolean updateUser(String type, String newValue, String id) throws SQLException{
-        String query = "UPDATE users" +
-                "SET " + type + " = " + newValue +
-                "WHERE user_id = " + id;
+    private byte[] objectConvertor(Object o) throws IOException{
 
-        int situation = statement.executeUpdate(query);
+        ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(bout);
 
-        if(situation == 2){
-            return false;
-        }
+        out.writeObject(o);
+
+        return bout.toByteArray();
+    }
+
+    public void updateProfile(String id, String type, String newValue)throws SQLException{
+        String query = "UPDATE users SET ? = ? where id = ?";
+
+        PreparedStatement st = connection.prepareStatement(query);
+        st.setString(1, type);
+        st.setString(2, newValue);
+        st.setString(3, id);
 
 
-        return true;
+        st.executeUpdate();
 
+    }
+
+    public <T> void updateLists(String columnName, String id, T t)throws SQLException{
+
+        String query = "SELECT * FROM users where id = ?";
+        PreparedStatement ps = connection.prepareStatement(query);
+
+        ps.setString(1, id);
+
+        ResultSet resultSet = ps.executeQuery();
+
+        
+
+
+        //need an exception to handle if type of t matches type of elements of list.
 
     }
 
@@ -146,7 +192,7 @@ public class UserOp extends Op{
         String phoneNumber = resultSet.getString("phone_number");
 
         byte[] profileImage = resultSet.getBytes("profile_image");
-        UserStatus us = UserStatus.valueOf(resultSet.getString("user_status"));
+        UserStatus us = getNameFromValue(resultSet.getString("user_status"));
         LinkedList<String> friendList;
         LinkedList<String> blockedUsers;
         LinkedList<String> privateChats;
@@ -196,6 +242,29 @@ public class UserOp extends Op{
         return new User(id, name, password, email, phoneNumber,
                 profileImage, us, friendList, blockedUsers, privateChats, servers,
                 unreadMessages, friendRequests);
+    }
+
+
+    private UserStatus getNameFromValue(String value){
+        switch(value){
+            case "Online":
+                return UserStatus.ONLINE;
+
+            case "Offline":
+                return UserStatus.OFFLINE;
+
+            case "Idle":
+                return UserStatus.IDLE;
+
+            case "Do not disturb":
+                return UserStatus.DO_NOT_DISTURB;
+
+            case "Invisible":
+                return UserStatus.INVISIBLE;
+
+        }
+
+        return null;
     }
 
 

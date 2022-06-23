@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -17,6 +18,7 @@ public abstract class Op {
 
         try{
             statement = connection.createStatement();
+
         }
         catch(SQLException e){
             printSQLException(e);
@@ -47,6 +49,10 @@ public abstract class Op {
     }
 
     protected Object byteConvertor(byte[] bytes) throws IOException, ClassNotFoundException{
+
+        if(bytes == null){
+            return null;
+        }
 
         ByteArrayInputStream byteArray = new ByteArrayInputStream(bytes);
         ObjectInputStream in = new ObjectInputStream(byteArray);

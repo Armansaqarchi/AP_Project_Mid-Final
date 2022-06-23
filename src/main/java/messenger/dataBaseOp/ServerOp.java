@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-
+/*
 class ServerOp extends Op{
 
 
@@ -50,3 +50,4 @@ class ServerOp extends Op{
 
 
 }
+*/
