@@ -7,20 +7,11 @@ package messenger.service.model.request.user;
 
 import messenger.service.model.request.Request;
 
-import java.util.Objects;
+import java.io.Serializable;
 import java.util.UUID;
 
-public class FriendReq extends UserRequest
+public class FriendReq extends UserRequest implements Serializable
 {
-    private UUID id;
+    private UUID friendRequest;
     private String receiver;
-
-    @Override
-    public boolean equals(Object o)
-    {
-        if (this == o) return true;
-        if (!(o instanceof FriendReq)) return false;
-        FriendReq friendReq = (FriendReq) o;
-        return id.equals(friendReq.id);
-    }
 }

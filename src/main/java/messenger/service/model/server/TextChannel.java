@@ -1,5 +1,6 @@
 package messenger.service.model.server;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.UUID;
 
