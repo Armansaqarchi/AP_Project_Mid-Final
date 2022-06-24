@@ -6,9 +6,7 @@
 
 package messenger.service.model.request.Channel;
 
-import java.util.LinkedList;
-
-public class AddUsersChannelReq extends ChannelReq
+public class AddUserChannelReq extends ChannelReq
 {
-    private LinkedList<String> userIds;
+    private String userId;
 }

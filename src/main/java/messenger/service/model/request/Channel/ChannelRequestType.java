@@ -7,7 +7,7 @@ package messenger.service.model.request.Channel;
 
 public enum ChannelRequestType
 {
-    ADD_USERS , CREAT_CHANNEL , DELETE_CHANNEL ,
-    GET_CHAT_HISTORY , PIN_MESSAGE , REMOVE_USERS ,
-    RENAME_SERVER
+    ADD_USER , CREAT_CHANNEL , DELETE_CHANNEL ,
+    GET_CHAT_HISTORY , PIN_MESSAGE , REMOVE_USER ,
+    RENAME_CHANNEL
 }

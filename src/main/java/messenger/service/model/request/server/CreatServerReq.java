@@ -9,4 +9,6 @@ package messenger.service.model.request.server;
 public class CreatServerReq extends ServerReq
 {
     private String name;
+
+    private byte[] image;
 }
