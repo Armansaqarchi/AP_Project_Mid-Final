@@ -21,12 +21,14 @@ public class UserOp extends Op{
 
     }
 
-    public User findById(String id) throws SQLException, IOException, ClassNotFoundException{
-        String query = "SELECT * FROM users WHERE user_id = ?";
+
+    private User findByConfig(String config, String columnName)
+            throws SQLException, ClassNotFoundException, IOException{
+        String query = "SELECT * FROM users WHERE " + columnName + " = ?";
 
 
         PreparedStatement pStatement = connection.prepareStatement(query);
-        pStatement.setString(1, id);
+        pStatement.setString(1, config);
         ResultSet resultSet = pStatement.executeQuery();
 
         if(resultSet.next()){
@@ -37,53 +39,21 @@ public class UserOp extends Op{
         return null;
     }
 
-    public User findByName(String name) throws SQLException{
-        String query = "SELECT * FROM users WHERE name = 'arman'";
 
-        ResultSet resultSet = statement.executeQuery(query);
-
-        if(resultSet.next()){
-            System.out.println(resultSet.getString("password"));
-            try {
-                return (User)createUserFromData(resultSet);
-            }
-            catch(SQLException | ClassNotFoundException | IOException e){
-                e.printStackTrace();
-            }
-        }
-
-
-        return null;
+    public User findById(String id) throws SQLException, IOException, ClassNotFoundException{
+        return findByConfig(id, "user_id");
     }
 
-    public User findByEmail(String email) throws SQLException{
-        String query = "SELECT * WHERE user_id = " + email;
-
-        ResultSet resultSet = statement.executeQuery(query);
-
-        if(resultSet.next()){
-            if(resultSet.getObject(0) instanceof User){
-                return (User)resultSet.getObject(0);
-            }
-        }
-
-
-        return null;
+    public User findByName(String name) throws SQLException, ClassNotFoundException, IOException{
+        return findByConfig(name, "name");
     }
 
-    public User findByPhoneNumber(String phoneNumber) throws SQLException{
-        String query = "SELECT * WHERE user_id = " + phoneNumber;
+    public User findByEmail(String email) throws SQLException, IOException, ClassNotFoundException{
+        return findByConfig(email, "email");
+    }
 
-        ResultSet resultSet = statement.executeQuery(query);
-
-        if(resultSet.next()){
-            if(resultSet.getObject(0) instanceof User){
-                return (User)resultSet.getObject(0);
-            }
-        }
-
-
-        return null;
+    public User findByPhoneNumber(String phoneNumber) throws SQLException, ClassNotFoundException, IOException{
+        return findByConfig(phoneNumber, "phone_number");
     }
 
     public void insertUser(String id, String name, String password, String email, String phoneNumber)
@@ -98,7 +68,7 @@ public class UserOp extends Op{
         ps.setString(3, password);
         ps.setString(4, email);
         ps.setString(5, phoneNumber);
-        ps.setObject(6, Types.BINARY);
+        ps.setNull(6, Types.BINARY);
         ps.setString(7, "Online");
         ps.setNull(8, Types.BINARY);
         ps.setNull(9, Types.BINARY);
@@ -118,12 +88,12 @@ public class UserOp extends Op{
 
 
     public void updateProfile(String id, String type, String newValue)throws SQLException{
-        String query = "UPDATE users SET ? = ? where id = ?";
+        String query = "UPDATE users SET " + type +" = ? where user_id = ?";
 
         PreparedStatement st = connection.prepareStatement(query);
-        st.setString(1, type);
-        st.setString(2, newValue);
-        st.setString(3, id);
+
+        st.setString(1, newValue);
+        st.setString(2, id);
 
 
         st.executeUpdate();
@@ -203,9 +173,11 @@ public class UserOp extends Op{
 
 
     public HashMap<String, String> findByUserStatus(String status) throws SQLException{
-        String query = "SELECT * FROM user WHERE user_status = " + status;
+        String query = "SELECT * FROM users WHERE user_status = ?";
 
-        ResultSet resultSet = statement.executeQuery(query);
+        PreparedStatement pst2 = connection.prepareStatement(query);
+        pst2.setString(1, status);
+        ResultSet resultSet = pst2.executeQuery();
          HashMap<String, String> users = new HashMap<>();
 
         while(resultSet.next()){
@@ -220,9 +192,11 @@ public class UserOp extends Op{
 
     public boolean deleteUserById(String id) throws SQLException{
 
-        String query = "DELETE FROM users WHERE user_id = " + id;
+        String query = "DELETE FROM users WHERE user_id = ?";
 
-        int affectedRows = statement.executeUpdate(query);
+        PreparedStatement pst2 = connection.prepareStatement(query);
+        pst2.setString(1, id);
+        int affectedRows = pst2.executeUpdate();
 
         if(affectedRows == 0) return false;
 
