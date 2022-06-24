@@ -32,4 +32,16 @@ public class ClientSocket implements Runnable
             }
         }
     }
+
+    public void send(Transferable transferable)
+    {
+        try
+        {
+            outputStream.writeObject(transferable);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
