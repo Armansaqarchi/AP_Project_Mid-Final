@@ -117,11 +117,12 @@ public abstract class Op {
     protected ResultSet findByConfig(String config, String columnName, String tableName)
             throws IOException, SQLException, ClassNotFoundException{
 
-        String query = "SELECT * FROM message WHERE " + columnName + " = ?";
+        String query = "SELECT * FROM " + tableName + " WHERE ? = ?";
 
 
         PreparedStatement pStatement = connection.prepareStatement(query);
-        pStatement.setString(1, config);
+        pStatement.setString(1, columnName);
+        pStatement.setString(2, config);
         ResultSet resultSet = pStatement.executeQuery();
 
         if(resultSet.next()){
