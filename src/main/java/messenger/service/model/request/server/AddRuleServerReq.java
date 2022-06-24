@@ -9,5 +9,14 @@ import messenger.service.model.server.Rule;
 
 public class AddRuleServerReq extends ServerReq
 {
-    private Rule rule;
+    private final Rule rule;
+
+    public AddRuleServerReq(String senderId, String serverId, Rule rule) {
+        super(senderId, ServerRequestType.ADD_RULE, serverId);
+        this.rule = rule;
+    }
+
+    public Rule getRule() {
+        return rule;
+    }
 }

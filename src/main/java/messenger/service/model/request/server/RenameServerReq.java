@@ -8,5 +8,15 @@ package messenger.service.model.request.server;
 
 public class RenameServerReq extends ServerReq
 {
-    private String newName;
+    private final String newName;
+
+    public RenameServerReq(String senderId,  String serverId, String newName) {
+        super(senderId, ServerRequestType.RENAME_SERVER, serverId);
+        this.newName = newName;
+    }
+
+    public String getNewName()
+    {
+        return newName;
+    }
 }
