@@ -172,6 +172,10 @@ public class UserOp extends Op{
     private User createUserFromData(ResultSet resultSet) throws SQLException, IOException,
             ClassNotFoundException {
 
+        if(resultSet == null){
+            return null;
+        }
+
         String id = resultSet.getString("user_id");
         String name = resultSet.getString("name");
         String password = resultSet.getString("password");
@@ -230,15 +234,6 @@ public class UserOp extends Op{
                 profileImage, us, friendList, blockedUsers, privateChats, servers,
                 unreadMessages, friendRequests);
     }
-
-
-
-
-
-
-
-
-
 
 
 

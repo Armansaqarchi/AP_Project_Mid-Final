@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.UUID;
 
-public abstract class MessageOp extends Op {
+public class MessageOp extends Op {
 
 
     public MessageOp(Connection connection){

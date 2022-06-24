@@ -1,6 +1,7 @@
 package messenger.dataBaseOp;
 
 import messenger.service.model.message.MessageType;
+import messenger.service.model.message.TextMessage;
 import messenger.service.model.user.User;
 
 
@@ -28,8 +29,9 @@ public class Test {
                     "root", "Arman");
 
             UserOp userOperator = new UserOp(connection);
+            MessageOp messageOperator = new ("")
 
-            userOperator.deleteById("1", "users");
+            System.out.println(;);
 
             System.out.println(MessageType.valueOf(MessageType.FILE_PRIVATE.name()));
 
