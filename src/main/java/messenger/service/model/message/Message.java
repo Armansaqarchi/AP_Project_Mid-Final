@@ -2,11 +2,12 @@ package messenger.service.model.message;
 
 import messenger.service.model.Transferable;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.UUID;
 
-public abstract class Message implements Transferable
+public abstract class Message implements Transferable , Serializable
 {
     private UUID id;
     private String senderId;
