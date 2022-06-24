@@ -83,4 +83,6 @@ public abstract class Message
     public void setReactions(LinkedList<Reaction> reactions) {
         this.reactions = reactions;
     }
+
+    public abstract Object getContent();
 }

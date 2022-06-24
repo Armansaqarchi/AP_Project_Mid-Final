@@ -68,8 +68,10 @@ public abstract class MessageOp extends Op {
     }
 
 
-    public void insertMessage(Message message){
-        insertMessage(message.getId().toString(), message.getSenderId(), message.getReceiverId());
+    public void insertMessage(Message message) throws SQLException, IOException{
+        insertMessage(message.getId().toString(),
+                message.getSenderId(), message.getReceiverId(),message.getType(),
+                message.getDate(), message.getContent());
     }
 
     public void updateMessage(String id, String type, String newValue)throws SQLException{
