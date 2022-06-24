@@ -9,5 +9,6 @@ public class SignupReq extends AuthenticationReq
     private String name;
     private String email;
     private String phoneNumber;
-    private String profileImage;
+
+    private byte[] profileImage;
 }
