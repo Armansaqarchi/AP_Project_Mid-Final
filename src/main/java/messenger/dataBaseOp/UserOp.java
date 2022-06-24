@@ -3,6 +3,7 @@ package messenger.dataBaseOp;
 import messenger.service.model.user.ServerIDs;
 import messenger.service.model.user.User;
 import messenger.service.model.user.UserStatus;
+import org.springframework.util.SerializationUtils;
 
 import java.io.*;
 import java.sql.*;
@@ -20,16 +21,16 @@ public class UserOp extends Op{
 
     }
 
-    public User findById(String id) throws SQLException{
-        String query = "SELECT * WHERE user_id = " + id;
+    public User findById(String id) throws SQLException, IOException, ClassNotFoundException{
+        String query = "SELECT * FROM users WHERE user_id = ?";
+
 
         PreparedStatement pStatement = connection.prepareStatement(query);
-        ResultSet resultSet = pStatement.executeQuery(query);
+        pStatement.setString(1, id);
+        ResultSet resultSet = pStatement.executeQuery();
 
         if(resultSet.next()){
-            if(resultSet.getObject(0) instanceof User){
-                return (User)resultSet.getObject(0);
-            }
+            return createUserFromData(resultSet);
         }
 
 
@@ -114,15 +115,7 @@ public class UserOp extends Op{
 
     }
 
-    private byte[] objectConvertor(Object o) throws IOException{
 
-        ByteArrayOutputStream bout = new ByteArrayOutputStream();
-        ObjectOutputStream out = new ObjectOutputStream(bout);
-
-        out.writeObject(o);
-
-        return bout.toByteArray();
-    }
 
     public void updateProfile(String id, String type, String newValue)throws SQLException{
         String query = "UPDATE users SET ? = ? where id = ?";
@@ -137,21 +130,77 @@ public class UserOp extends Op{
 
     }
 
-    public <T> void updateLists(String columnName, String id, T t)throws SQLException{
+    public <T> boolean updateList(UpdateType type, String columnName, String id, T t)
+            throws SQLException, IOException, ClassNotFoundException{
 
-        String query = "SELECT * FROM users where id = ?";
-        PreparedStatement ps = connection.prepareStatement(query);
+        LinkedList<T> targetList = null;
 
-        ps.setString(1, id);
+        String query = "SELECT * FROM users WHERE user_id = ?";
+        PreparedStatement pst = connection.prepareStatement(query);
 
-        ResultSet resultSet = ps.executeQuery();
+        pst.setString(1, id);
+        ResultSet resultSet = pst.executeQuery();
 
-        
+        Object o = null;
+        while(resultSet.next()) {
+            o = byteConvertor(resultSet.getBytes(columnName));
+        }
+        if(o instanceof LinkedList<?>){
+            targetList = (LinkedList<T>) o;
+        }
 
 
-        //need an exception to handle if type of t matches type of elements of list.
+        switch(type.showValue()){
 
+
+            case "Add" :
+                targetList =  addToLists(targetList, t);
+                break;
+
+
+            case "Remove" :
+                targetList = removeFromList(targetList, t);
+                break;
+
+            default:
+                return false;
+
+
+        }
+
+
+
+        byte[] updatedList = objectConvertor(targetList);
+
+        String query2 = "UPDATE users SET " + columnName +" = ? WHERE user_id = ?";
+
+        PreparedStatement pst2 = connection.prepareStatement(query2);
+
+        pst2.setBytes(1, updatedList);
+        pst2.setString(2, "3");
+
+
+        pst2.executeUpdate();
+
+        return true;
     }
+
+    private <T> LinkedList<T> addToLists(LinkedList<T> list, T t){
+
+
+        if(list == null){
+            list = new LinkedList<>();
+        }
+
+        list.add(t);
+        return list;
+    }
+
+    private <T> LinkedList<T> removeFromList(LinkedList<T> list, T t){
+        list.remove(t);
+        return list;
+    }
+
 
     public HashMap<String, String> findByUserStatus(String status) throws SQLException{
         String query = "SELECT * FROM user WHERE user_status = " + status;

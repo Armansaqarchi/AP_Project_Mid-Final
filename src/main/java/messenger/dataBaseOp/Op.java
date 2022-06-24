@@ -1,5 +1,7 @@
 package messenger.dataBaseOp;
 
+import org.springframework.util.SerializationUtils;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -48,17 +50,14 @@ public abstract class Op {
         }
     }
 
-    protected Object byteConvertor(byte[] bytes) throws IOException, ClassNotFoundException{
+    public Object byteConvertor(byte[] bytes) throws IOException, ClassNotFoundException{
 
-        if(bytes == null){
-            return null;
-        }
+        return SerializationUtils.deserialize(bytes);
+    }
 
-        ByteArrayInputStream byteArray = new ByteArrayInputStream(bytes);
-        ObjectInputStream in = new ObjectInputStream(byteArray);
+    public byte[] objectConvertor(Object o) throws IOException{
 
-
-        return in.readObject();
+        return SerializationUtils.serialize(o);
     }
 
 

@@ -3,11 +3,13 @@ package messenger.dataBaseOp;
 import messenger.service.model.user.User;
 import org.springframework.aop.scope.ScopedObject;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 
 public class Test {
 
@@ -28,14 +30,18 @@ public class Test {
             UserOp userOperator = new UserOp(connection);
 
 
+            boolean bool = userOperator.updateList(UpdateType.ADD, "friend_list", "3", "test23");
+            System.out.println(bool);
 
 
-            userOperator.insertUser("1", "Arman", "sagharichiha", "arman.saghari81@gmail.com", "09301847526");
+            System.out.println(userOperator.findById("3"));
+            //Object o = userOperator.byteConvertor(userOperator.objectConvertor(new String("test")));
+
 
 
 
         }
-        catch(ClassNotFoundException | SQLException e){
+        catch(ClassNotFoundException | SQLException | IOException e){
             e.printStackTrace();
         }
         finally{
