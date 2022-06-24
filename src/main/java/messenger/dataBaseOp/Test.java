@@ -1,7 +1,8 @@
 package messenger.dataBaseOp;
 
+import messenger.service.model.message.MessageType;
 import messenger.service.model.user.User;
-import org.springframework.aop.scope.ScopedObject;
+
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -26,17 +27,11 @@ public class Test {
             connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Discord",
                     "root", "Arman");
 
-
             UserOp userOperator = new UserOp(connection);
 
-            userOperator.deleteUserById("1");
+            userOperator.deleteById("1", "users");
 
-
-
-
-
-
-
+            System.out.println(MessageType.valueOf(MessageType.FILE_PRIVATE.name()));
 
         }
         catch(ClassNotFoundException | SQLException e){

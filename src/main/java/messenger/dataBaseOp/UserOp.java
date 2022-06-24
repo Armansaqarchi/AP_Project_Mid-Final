@@ -22,43 +22,30 @@ public class UserOp extends Op{
     }
 
 
-    private User findByConfig(String config, String columnName)
+    private User findByConfigUser(String config, String columnName)
             throws SQLException, ClassNotFoundException, IOException{
-        String query = "SELECT * FROM users WHERE " + columnName + " = ?";
-
-
-        PreparedStatement pStatement = connection.prepareStatement(query);
-        pStatement.setString(1, config);
-        ResultSet resultSet = pStatement.executeQuery();
-
-        if(resultSet.next()){
-            return createUserFromData(resultSet);
-        }
-
-
-        return null;
+        return createUserFromData(findByConfig(config, columnName, "users"));
     }
 
 
     public User findById(String id) throws SQLException, IOException, ClassNotFoundException{
-        return findByConfig(id, "user_id");
+        return findByConfigUser(id, "user_id");
     }
 
     public User findByName(String name) throws SQLException, ClassNotFoundException, IOException{
-        return findByConfig(name, "name");
+        return findByConfigUser(name, "name");
     }
 
     public User findByEmail(String email) throws SQLException, IOException, ClassNotFoundException{
-        return findByConfig(email, "email");
+        return findByConfigUser(email, "email");
     }
 
     public User findByPhoneNumber(String phoneNumber) throws SQLException, ClassNotFoundException, IOException{
-        return findByConfig(phoneNumber, "phone_number");
+        return findByConfigUser(phoneNumber, "phone_number");
     }
 
     public void insertUser(String id, String name, String password, String email, String phoneNumber)
     throws SQLException{
-        System.out.println(connection);
 
         PreparedStatement ps = connection.prepareStatement(
                 "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -85,6 +72,11 @@ public class UserOp extends Op{
 
     }
 
+    public void insertUser(User user)throws SQLException{
+        insertUser(user.getId(), user.getName(), user.getPassword(),
+                user.getEmail(), user.getPhoneNumber());
+    }
+
 
 
     public void updateProfile(String id, String type, String newValue)throws SQLException{
@@ -101,7 +93,7 @@ public class UserOp extends Op{
     }
 
     public <T> boolean updateList(UpdateType type, String columnName, String id, T t)
-            throws SQLException, IOException, ClassNotFoundException{
+            throws SQLException, IOException, ClassNotFoundException {
 
         LinkedList<T> targetList = null;
 
@@ -112,23 +104,23 @@ public class UserOp extends Op{
         ResultSet resultSet = pst.executeQuery();
 
         Object o = null;
-        while(resultSet.next()) {
+        while (resultSet.next()) {
             o = byteConvertor(resultSet.getBytes(columnName));
         }
-        if(o instanceof LinkedList<?>){
+        if (o instanceof LinkedList<?>) {
             targetList = (LinkedList<T>) o;
         }
 
 
-        switch(type.showValue()){
+        switch (type.showValue()) {
 
 
-            case "Add" :
-                targetList =  addToLists(targetList, t);
+            case "Add":
+                targetList = addToLists(targetList, t);
                 break;
 
 
-            case "Remove" :
+            case "Remove":
                 targetList = removeFromList(targetList, t);
                 break;
 
@@ -139,10 +131,9 @@ public class UserOp extends Op{
         }
 
 
-
         byte[] updatedList = objectConvertor(targetList);
 
-        String query2 = "UPDATE users SET " + columnName +" = ? WHERE user_id = ?";
+        String query2 = "UPDATE users SET " + columnName + " = ? WHERE user_id = ?";
 
         PreparedStatement pst2 = connection.prepareStatement(query2);
 
@@ -153,22 +144,6 @@ public class UserOp extends Op{
         pst2.executeUpdate();
 
         return true;
-    }
-
-    private <T> LinkedList<T> addToLists(LinkedList<T> list, T t){
-
-
-        if(list == null){
-            list = new LinkedList<>();
-        }
-
-        list.add(t);
-        return list;
-    }
-
-    private <T> LinkedList<T> removeFromList(LinkedList<T> list, T t){
-        list.remove(t);
-        return list;
     }
 
 
@@ -190,18 +165,7 @@ public class UserOp extends Op{
         return users;
     }
 
-    public boolean deleteUserById(String id) throws SQLException{
 
-        String query = "DELETE FROM users WHERE user_id = ?";
-
-        PreparedStatement pst2 = connection.prepareStatement(query);
-        pst2.setString(1, id);
-        int affectedRows = pst2.executeUpdate();
-
-        if(affectedRows == 0) return false;
-
-        return true;
-    }
 
 
 
@@ -215,7 +179,7 @@ public class UserOp extends Op{
         String phoneNumber = resultSet.getString("phone_number");
 
         byte[] profileImage = resultSet.getBytes("profile_image");
-        UserStatus us = getNameFromValue(resultSet.getString("user_status"));
+        UserStatus us = UserStatus.getValueFromStatus(resultSet.getString("user_status"));
         LinkedList<String> friendList;
         LinkedList<String> blockedUsers;
         LinkedList<String> privateChats;
@@ -268,27 +232,7 @@ public class UserOp extends Op{
     }
 
 
-    private UserStatus getNameFromValue(String value){
-        switch(value){
-            case "Online":
-                return UserStatus.ONLINE;
 
-            case "Offline":
-                return UserStatus.OFFLINE;
-
-            case "Idle":
-                return UserStatus.IDLE;
-
-            case "Do not disturb":
-                return UserStatus.DO_NOT_DISTURB;
-
-            case "Invisible":
-                return UserStatus.INVISIBLE;
-
-        }
-
-        return null;
-    }
 
 
 

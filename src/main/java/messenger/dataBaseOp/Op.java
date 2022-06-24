@@ -1,14 +1,15 @@
 package messenger.dataBaseOp;
 
+import messenger.service.model.message.Message;
+import messenger.service.model.message.Reaction;
 import org.springframework.util.SerializationUtils;
 
+import javax.xml.transform.Result;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.LinkedList;
 
 public abstract class Op {
 
@@ -61,6 +62,75 @@ public abstract class Op {
     }
 
 
+    protected <T> LinkedList<T> updateByType(UpdateType type, LinkedList<T> targetList, T t){
+
+        switch(type.showValue()){
+
+
+            case "Add" :
+                targetList =  addToLists(targetList, t);
+                break;
+
+
+            case "Remove" :
+                targetList = removeFromList(targetList, t);
+                break;
+
+
+        }
+
+        return targetList;
+
+    }
+
+
+
+    protected  <T> LinkedList<T> addToLists(LinkedList<T> list, T t){
+
+
+        if(list == null){
+            list = new LinkedList<>();
+        }
+
+        list.add(t);
+        return list;
+    }
+
+    protected  <T> LinkedList<T> removeFromList(LinkedList<T> list, T t){
+        list.remove(t);
+        return list;
+    }
+
+    public boolean deleteById(String id, String tableName) throws SQLException{
+
+        String query = "DELETE FROM " + tableName + " WHERE user_id = ?";
+
+        PreparedStatement pst2 = connection.prepareStatement(query);
+        pst2.setString(1, id);
+        int affectedRows = pst2.executeUpdate();
+
+        if(affectedRows == 0) return false;
+
+        return true;
+    }
+
+    protected ResultSet findByConfig(String config, String columnName, String tableName)
+            throws IOException, SQLException, ClassNotFoundException{
+
+        String query = "SELECT * FROM message WHERE " + columnName + " = ?";
+
+
+        PreparedStatement pStatement = connection.prepareStatement(query);
+        pStatement.setString(1, config);
+        ResultSet resultSet = pStatement.executeQuery();
+
+        if(resultSet.next()){
+            return resultSet;
+        }
+
+
+        return null;
+    }
 
 
 
