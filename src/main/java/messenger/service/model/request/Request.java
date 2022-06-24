@@ -7,10 +7,17 @@
 
 package messenger.service.model.request;
 
-public abstract class Request
+import messenger.service.model.Transferable;
+
+public abstract class Request implements Transferable
 {
     //id of user who sent request
     private String senderId;
 
     private RequestType type;
+
+    public RequestType getType()
+    {
+        return type;
+    }
 }

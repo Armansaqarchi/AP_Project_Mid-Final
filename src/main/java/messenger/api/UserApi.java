@@ -4,47 +4,82 @@ import messenger.service.model.request.user.*;
 
 public class UserApi
 {
-    public void answerFriendReq(AnswerFriendReq request)
+
+    public void getRequest(UserRequest request)
+    {
+        switch(request.subType())
+        {
+            case BLOCK_USER -> blockUser((BlockUserReq) request);
+            case FRIEND_REQ -> friendReq((FriendReq) request);
+            case GET_SERVERS -> getServers((GetServersReq) request);
+            case SET_PROFILE -> setMyProfile((SetMyProfileReq) request);
+            case GET_MY_PROFILE -> getMyProfile((GetMyProfileReq) request);
+            case GET_FRIEND_LIST -> getFriendListReq((GetFriendListReq) request);
+            case GET_USER_STATUS -> getUserStatus((GetUserStatusReq) request);
+            case GET_USER_PROFILE -> getUserProfile((GetUserProfileReq) request);
+            case ANSWER_FRIEND_REQ -> answerFriendReq((AnswerFriendReq) request);
+            case GET_BLOCKED_USERS -> getBlockedUsers((GetBlockedUsersReq) request);
+            case GET_PRIVATE_CHATS -> getPrivateChats((GetPrivateChatsReq) request);
+            case REACTION_TO_MESSAGE -> reactionToMessage((ReactionToMessageReq) request);
+            //default -> trow invalid type exception
+        }
+    }
+    private void answerFriendReq(AnswerFriendReq request)
     {
 
     }
 
-    public void blockUser(BlockUserReq request)
+    private void blockUser(BlockUserReq request)
     {
 
     }
 
-    public void FriendReq(FriendReq request)
+    private void friendReq(FriendReq request)
     {
 
     }
 
-    public void getFriendListReq(GetFriendListReq request)
+    private void getFriendListReq(GetFriendListReq request)
     {
 
     }
 
-    public void getMyProfile(GetMyProfileReq request)
+    private void getMyProfile(GetMyProfileReq request)
     {
 
     }
 
-    public void getUsersProfile(GetUserStatusReq request)
+    private void getUserProfile(GetUserProfileReq request)
     {
 
     }
 
-    public void getUserStatus(GetUserStatusReq request)
+    private void getUserStatus(GetUserStatusReq request)
     {
 
     }
 
-    public void reactionToMessage(ReactionToMessageReq request)
+    private void reactionToMessage(ReactionToMessageReq request)
     {
 
     }
 
-    public void setMyProfile(SetMyProfileReq request)
+    private void setMyProfile(SetMyProfileReq request)
+    {
+
+    }
+
+    private void getBlockedUsers(GetBlockedUsersReq request)
+    {
+
+    }
+
+    private void getServers(GetServersReq request)
+    {
+
+    }
+
+    private void getPrivateChats(GetPrivateChatsReq request)
     {
 
     }

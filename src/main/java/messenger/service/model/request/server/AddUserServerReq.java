@@ -8,7 +8,7 @@ package messenger.service.model.request.server;
 
 import java.util.LinkedList;
 
-public class AddUsersServerReq extends ServerReq
+public class AddUserServerReq extends ServerReq
 {
-    private LinkedList<String> userIds;
+    private String userIds;
 }
