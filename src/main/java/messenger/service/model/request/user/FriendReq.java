@@ -6,6 +6,7 @@
 package messenger.service.model.request.user;
 
 import messenger.service.model.request.Request;
+import messenger.service.model.request.RequestType;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -22,5 +23,28 @@ public class FriendReq extends UserRequest
         if (!(o instanceof FriendReq)) return false;
         FriendReq friendReq = (FriendReq) o;
         return id.equals(friendReq.id);
+    }
+
+
+    public FriendReq(String senderId, RequestType type, UserRequestType type1, UUID id, String receiver) {
+        super(senderId, type, type1);
+        this.id = id;
+        this.receiver = receiver;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
     }
 }

@@ -20,4 +20,10 @@ public abstract class Request implements Transferable
     {
         return type;
     }
+
+
+    public Request(String senderId, RequestType type) {
+        this.senderId = senderId;
+        this.type = type;
+    }
 }
