@@ -1,6 +1,6 @@
 package messenger.service.model.message;
 
-public class FileMessage
+public class FileMessage extends Message
 {
     private byte[] content;
 }
