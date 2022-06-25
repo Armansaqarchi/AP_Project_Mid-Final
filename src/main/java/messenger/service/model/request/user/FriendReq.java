@@ -26,8 +26,8 @@ public class FriendReq extends UserRequest
     }
 
 
-    public FriendReq(String senderId, RequestType type, UserRequestType type1, UUID id, String receiver) {
-        super(senderId, type, type1);
+    public FriendReq(String senderId, UUID id, String receiver) {
+        super(senderId, UserRequestType.FRIEND_REQ);
         this.id = id;
         this.receiver = receiver;
     }
@@ -47,4 +47,6 @@ public class FriendReq extends UserRequest
     public void setReceiver(String receiver) {
         this.receiver = receiver;
     }
+
+
 }

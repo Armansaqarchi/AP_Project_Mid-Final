@@ -12,7 +12,7 @@ import messenger.service.model.Transferable;
 public abstract class Request implements Transferable
 {
     //id of user who sent request
-    private String senderId;
+    protected String senderId;
 
     public Request(String senderId, RequestType type)
     {
@@ -32,9 +32,4 @@ public abstract class Request implements Transferable
         return type;
     }
 
-
-    public Request(String senderId, RequestType type) {
-        this.senderId = senderId;
-        this.type = type;
-    }
 }
