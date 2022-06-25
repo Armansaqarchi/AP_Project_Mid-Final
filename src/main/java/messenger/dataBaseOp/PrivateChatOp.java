@@ -29,7 +29,7 @@ public class PrivateChatOp extends Op{
             throws SQLException{
 
         PreparedStatement ps = connection.prepareStatement(
-                "INSERT INTO friend_requests VALUES (?, ?)");
+                "INSERT INTO private_chats VALUES (?, ?)");
 
         ps.setString(1, id.toString());
         ps.setNull(2, Types.BINARY);
@@ -38,6 +38,10 @@ public class PrivateChatOp extends Op{
         ps.close();
 
         System.out.println("data has been inserted successfully.");
+    }
+
+    public boolean deletePrivateChatById(String id)throws SQLException{
+        return deleteById(id, "private_chats", "id");
     }
 
 
@@ -104,14 +108,16 @@ public class PrivateChatOp extends Op{
 
         String id = resultSet.getString("id");
 
+        LinkedList<UUID> listOfMessages = null;
+
         Object messages = byteConvertor(resultSet.getBytes("messages"));
 
         if(messages instanceof LinkedList<?>){
-            return new PrivateChat(id, (LinkedList<UUID>) messages);
+            listOfMessages = (LinkedList<UUID>) messages;
         }
 
+        return new PrivateChat(id, listOfMessages);
 
-        return null;
 
     }
 

@@ -121,7 +121,7 @@ public class MessageOp extends Op {
         return true;
     }
 
-    public boolean deleteById(String id) throws SQLException{
+    public boolean deleteUserById(String id) throws SQLException{
         return deleteById(id, "messages", "message_id");
     }
 

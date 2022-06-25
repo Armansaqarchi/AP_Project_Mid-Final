@@ -221,13 +221,13 @@ public class UserOp extends Op{
         else{
             servers = null;
         }
-        if((o = byteConvertor(resultSet.getBytes("friend_list"))) instanceof LinkedList<?>){
+        if((o = byteConvertor(resultSet.getBytes("unread_messages"))) instanceof LinkedList<?>){
             unreadMessages = (LinkedList<UUID>) o;
         }
         else{
             unreadMessages = null;
         }
-        if((o = byteConvertor(resultSet.getBytes("friend_list"))) instanceof LinkedList<?>){
+        if((o = byteConvertor(resultSet.getBytes("friend_requests"))) instanceof LinkedList<?>){
             friendRequests = (LinkedList<UUID>) o;
         }
         else{

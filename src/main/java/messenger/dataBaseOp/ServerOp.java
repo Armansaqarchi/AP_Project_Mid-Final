@@ -21,12 +21,12 @@ class ServerOp extends Op{
         super(connection);
     }
 
-    public Server findByConfigMessage(String config, String columnName)
+    private Server findByConfigMessage(String config, String columnName)
             throws IOException, SQLException, ClassNotFoundException{
         return createServerFromData(findByConfig(config, columnName, "server"));
     }
 
-    public  Server findByChannelId(String id)
+    public  Server findByServerId(String id)
             throws IOException, SQLException, ClassNotFoundException{
         return findByConfigMessage(id, "server_id");
     }
@@ -55,6 +55,7 @@ class ServerOp extends Op{
 
         System.out.println("data has been inserted successfully.");
     }
+
 
     public void updateServerConfig(String id, String type, String newValue) throws SQLException{
         String query = "UPDATE server SET " + type +" = ? where server_id = ?";
@@ -114,7 +115,7 @@ class ServerOp extends Op{
 
         PreparedStatement pst2 = connection.prepareStatement(query2);
         pst2.setBytes(1, updatedList);
-        pst2.setString(2, "3");
+        pst2.setString(2, id);
 
 
         pst2.executeUpdate();
@@ -128,7 +129,60 @@ class ServerOp extends Op{
     }
 
 
+    public <T,U>boolean updateServerHashList(UpdateType type, String id, T key, U value)
+    throws SQLException, IOException, ClassNotFoundException{
 
+        HashMap<T, U> targetList = null;
+
+        String query = "SELECT * FROM server WHERE server_id = ?";
+
+        PreparedStatement pst = connection.prepareStatement(query);
+
+        pst.setString(1, id);
+        ResultSet resultSet = pst.executeQuery();
+
+        Object o = null;
+        while (resultSet.next()) {
+            o = byteConvertor(resultSet.getBytes("rules"));
+        }
+        if (o instanceof HashMap<?,?>) {
+            targetList = (HashMap<T, U>) o;
+        }
+
+
+        switch (type.showValue()) {
+
+
+            case "Add":
+                if(targetList == null){
+                    targetList = new HashMap<>();
+                }
+                targetList.put(key, value);
+                break;
+
+            case "Remove":
+                targetList.remove(key, value);
+                break;
+
+            default:
+                return false;
+
+        }
+
+
+        byte[] updatedList = objectConvertor(targetList);
+
+        String query2 = "UPDATE server SET rules = ? WHERE server_id = ?";
+
+        PreparedStatement pst2 = connection.prepareStatement(query2);
+        pst2.setBytes(1, updatedList);
+        pst2.setString(2, id);
+
+
+        pst2.executeUpdate();
+
+        return true;
+    }
 
 
     public Server createServerFromData(ResultSet resultSet)

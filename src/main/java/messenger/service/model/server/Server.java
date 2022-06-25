@@ -1,6 +1,7 @@
 package messenger.service.model.server;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.UUID;
@@ -93,5 +94,19 @@ public class Server implements Serializable
 
     public void setChannels(HashMap<String, UUID> channels) {
         this.channels = channels;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Server{" +
+                "image=" + Arrays.toString(image) +
+                ", id='" + id + '\'' +
+                ", ownerId='" + ownerId + '\'' +
+                ", name='" + name + '\'' +
+                ", users=" + users +
+                ", rules=" + rules +
+                ", channels=" + channels +
+                '}';
     }
 }

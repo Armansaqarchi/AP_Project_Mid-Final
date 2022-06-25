@@ -59,7 +59,7 @@ public class FriendRequestOp extends Op{
 
     public void insertFriendReq(FriendReq friendReq) throws IOException, SQLException{
         insertFriendReq(friendReq.getId(), friendReq.getReceiver(),
-                friendReq.getSubType(), friendReq.getSenderId());
+                friendReq.subType(), friendReq.getSenderId());
     }
 
     public void updateProfile(String id, String type, String newValue)throws SQLException{

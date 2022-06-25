@@ -51,7 +51,7 @@ public abstract class Op {
         }
     }
 
-    public boolean deleteById(String id, String tableName, String idColumnName) throws SQLException{
+    protected boolean deleteById(String id, String tableName, String idColumnName) throws SQLException{
 
         String query = "DELETE FROM " + tableName + " WHERE " + idColumnName + " = ?";
 

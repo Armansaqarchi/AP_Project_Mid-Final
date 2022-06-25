@@ -1,9 +1,12 @@
 package messenger.dataBaseOp;
 
+import messenger.service.model.PrivateChat;
 import messenger.service.model.message.Message;
 import messenger.service.model.message.MessageType;
 import messenger.service.model.message.Reaction;
 import messenger.service.model.message.TextMessage;
+import messenger.service.model.server.Rule;
+import messenger.service.model.server.RuleType;
 import messenger.service.model.user.User;
 import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties;
 
@@ -35,13 +38,14 @@ public class Test {
 
             UserOp userOperator = new UserOp(connection);
             MessageOp messageOperator = new MessageOp(connection);
-
-            messageOperator.updateReactions(UpdateType.ADD, "7", Reaction.LIKE);
-
+            ChannelOp channelOperator = new ChannelOp(connection);
+            PrivateChatOp pChatOperator = new PrivateChatOp(connection);
+            FriendRequestOp frOperator = new FriendRequestOp(connection);
+            ServerOp serverOp = new ServerOp(connection);
 
 
         }
-        catch(ClassNotFoundException | SQLException| IOException e){
+        catch(ClassNotFoundException | SQLException e){
             e.printStackTrace();
         }
         finally{
