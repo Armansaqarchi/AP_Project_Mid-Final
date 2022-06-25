@@ -11,11 +11,17 @@ import messenger.service.model.request.RequestType;
 
 public abstract class UserRequest extends Request
 {
-    private UserRequestType type;
+    private final UserRequestType subType;
+
+    public UserRequest(String senderId, UserRequestType subType)
+    {
+        super(senderId, RequestType.USER);
+        this.subType = subType;
+    }
 
     public UserRequestType subType()
     {
-        return type;
+        return subType;
     }
 
 

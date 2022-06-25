@@ -8,5 +8,11 @@ import java.util.LinkedList;
 
 public class GetServersRes extends GetInfoRes
 {
-    private LinkedList<ServerIDs> servers;
+    private final LinkedList<ServerIDs> servers;
+
+    public GetServersRes(String receiverId, boolean isAccepted, String message,
+                         LinkedList<ServerIDs> servers) {
+        super(receiverId, isAccepted, message);
+        this.servers = servers;
+    }
 }

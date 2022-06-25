@@ -10,5 +10,14 @@ import java.util.UUID;
 
 public class PinMessageReq extends ChannelReq
 {
-    private UUID messageId;
+    private final UUID messageId;
+
+    public PinMessageReq(String senderId, String serverId, String channelName, UUID messageId) {
+        super(senderId, ChannelRequestType.PIN_MESSAGE, serverId, channelName);
+        this.messageId = messageId;
+    }
+
+    public UUID getMessageId() {
+        return messageId;
+    }
 }

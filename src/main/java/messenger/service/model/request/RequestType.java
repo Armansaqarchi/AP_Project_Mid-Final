@@ -6,5 +6,5 @@ package messenger.service.model.request;
 
 public enum RequestType
 {
-    USER , SERVER , CHANNEL , AUTHENTICATION
+    USER , SERVER , CHANNEL , AUTHENTICATION , PRIVATE_CHAT
 }

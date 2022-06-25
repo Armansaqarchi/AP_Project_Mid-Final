@@ -33,5 +33,4 @@ public enum MessageType
         return null;
     }
 
-
 }
