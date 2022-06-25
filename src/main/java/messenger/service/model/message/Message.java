@@ -24,9 +24,9 @@ public abstract class Message implements Transferable , Serializable
     private LocalDateTime date;
 
     //list of reactions to this message
-    private LinkedList<Reaction> reactions;
+    private LinkedList <MessageReaction> reactions;
 
-    public Message(UUID id, String senderId, String receiverId, MessageType type, LocalDateTime date, LinkedList<Reaction> reactions) {
+    public Message(UUID id, String senderId, String receiverId, MessageType type, LocalDateTime date, LinkedList<MessageReaction> reactions) {
         this.id = id;
         this.senderId = senderId;
         this.receiverId = receiverId;
@@ -83,11 +83,11 @@ public abstract class Message implements Transferable , Serializable
         this.date = date;
     }
 
-    public LinkedList<Reaction> getReactions() {
+    public LinkedList<MessageReaction> getReactions() {
         return reactions;
     }
 
-    public void setReactions(LinkedList<Reaction> reactions) {
+    public void setReactions(LinkedList<MessageReaction> reactions) {
         this.reactions = reactions;
     }
 

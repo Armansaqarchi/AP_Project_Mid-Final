@@ -10,7 +10,7 @@ public class TextMessage extends Message
     private String content;
 
 
-    public TextMessage(UUID id, String senderId, String receiverId, MessageType type, LocalDateTime date, LinkedList<Reaction> reactions, String content) {
+    public TextMessage(UUID id, String senderId, String receiverId, MessageType type, LocalDateTime date, LinkedList<MessageReaction> reactions, String content) {
         super(id, senderId, receiverId, type, date, reactions);
         this.content = content;
     }

@@ -84,10 +84,10 @@ public class MessageOp extends Op {
         st.executeUpdate();
     }
 
-    public  boolean updateReactions(UpdateType type, String id, Reaction reaction)
+    public  boolean updateReactions(UpdateType type, String id, MessageReaction reaction)
     throws IOException, ClassNotFoundException, SQLException{
 
-        LinkedList<Reaction> targetList = null;
+        LinkedList<MessageReaction> targetList = null;
 
         String query = "SELECT * FROM message WHERE message_id = ?";
 
@@ -101,7 +101,7 @@ public class MessageOp extends Op {
             o = byteConvertor(resultSet.getBytes("reactions"));
         }
         if(o instanceof LinkedList<?>){
-            targetList = (LinkedList<Reaction>) o;
+            targetList = (LinkedList<MessageReaction>) o;
         }
 
         targetList = updateByType(type, targetList, reaction);
@@ -136,12 +136,12 @@ public class MessageOp extends Op {
                 convertDateToLocalDatetime(resultSet.getDate("date"));
 
 
-        LinkedList<Reaction> reactions = null;
+        LinkedList<MessageReaction> reactions = null;
 
         Object o;
 
         if ((o = byteConvertor(resultSet.getBytes("reactions"))) instanceof LinkedList<?>) {
-            reactions = (LinkedList<Reaction>) o;
+            reactions = (LinkedList<MessageReaction>) o;
         }
 
 

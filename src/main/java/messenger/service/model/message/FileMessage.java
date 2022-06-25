@@ -13,7 +13,7 @@ public class FileMessage extends Message
         this.content = content;
     }
 
-    public FileMessage(UUID id, String senderId, String receiverId, MessageType type, LocalDateTime date, LinkedList<Reaction> reactions, byte[] content) {
+    public FileMessage(UUID id, String senderId, String receiverId, MessageType type, LocalDateTime date, LinkedList<MessageReaction> reactions, byte[] content) {
         super(id, senderId, receiverId, type, date, reactions);
         this.content = content;
     }
