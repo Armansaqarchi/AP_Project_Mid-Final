@@ -11,6 +11,22 @@ import java.util.UUID;
 
 public class AnswerFriendReq extends UserRequest
 {
-    private UUID friendRequest;
-    private boolean isAccepted;
+    private final UUID friendRequest;
+    private final boolean isAccepted;
+
+    public AnswerFriendReq(String senderId,
+                           UUID friendRequest, boolean isAccepted)
+    {
+        super(senderId, UserRequestType.ANSWER_FRIEND_REQ);
+        this.friendRequest = friendRequest;
+        this.isAccepted = isAccepted;
+    }
+
+    public UUID getFriendRequest() {
+        return friendRequest;
+    }
+
+    public boolean isAccepted() {
+        return isAccepted;
+    }
 }

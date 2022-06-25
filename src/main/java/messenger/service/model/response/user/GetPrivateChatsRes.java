@@ -7,5 +7,11 @@ import java.util.LinkedList;
 
 public class GetPrivateChatsRes extends GetInfoRes
 {
-    private LinkedList<String> privateChats;
+    private final LinkedList<String> privateChats;
+
+    public GetPrivateChatsRes(String receiverId, boolean isAccepted, String message,
+                              LinkedList<String> privateChats) {
+        super(receiverId, isAccepted, message);
+        this.privateChats = privateChats;
+    }
 }

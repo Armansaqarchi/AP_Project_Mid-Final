@@ -7,4 +7,7 @@ package messenger.service.model.request.user;
  */
 public class GetBlockedUsersReq extends UserRequest
 {
+    public GetBlockedUsersReq(String senderId) {
+        super(senderId, UserRequestType.GET_BLOCKED_USERS);
+    }
 }

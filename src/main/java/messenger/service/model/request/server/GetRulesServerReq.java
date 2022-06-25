@@ -5,4 +5,7 @@ package messenger.service.model.request.server;
  */
 public class GetRulesServerReq extends ServerReq
 {
+    public GetRulesServerReq(String senderId,  String serverId) {
+        super(senderId, ServerRequestType.GET_RULES, serverId);
+    }
 }

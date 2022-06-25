@@ -1,17 +1,14 @@
 package messenger.dataBaseOp;
 
-import messenger.service.model.message.*;
+
 import messenger.service.model.server.Channel;
 import messenger.service.model.server.ChannelType;
 import messenger.service.model.server.TextChannel;
 import messenger.service.model.server.VoiceChannel;
-import messenger.service.model.user.User;
+
 
 import java.io.IOException;
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.UUID;
 

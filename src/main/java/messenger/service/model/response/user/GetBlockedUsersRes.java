@@ -7,5 +7,10 @@ import java.util.LinkedList;
 public class GetBlockedUsersRes extends GetInfoRes
 {
     //id of blocked users
-    private LinkedList<String> blockedUsers;
+    private final LinkedList<String> blockedUsers;
+
+    public GetBlockedUsersRes(String receiverId, boolean isAccepted, String message, LinkedList<String> blockedUsers) {
+        super(receiverId, isAccepted, message);
+        this.blockedUsers = blockedUsers;
+    }
 }

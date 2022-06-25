@@ -8,4 +8,7 @@ package messenger.service.model.request.Channel;
 
 public class DeleteChannelReq extends ChannelReq
 {
+    public DeleteChannelReq(String senderId,  String serverId, String channelName) {
+        super(senderId, ChannelRequestType.DELETE_CHANNEL, serverId, channelName);
+    }
 }

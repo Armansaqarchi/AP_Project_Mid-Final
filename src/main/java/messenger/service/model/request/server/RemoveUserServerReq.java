@@ -8,5 +8,14 @@ package messenger.service.model.request.server;
 
 public class RemoveUserServerReq extends ServerReq
 {
-    private String userIds;
+    private final String userId;
+
+    public RemoveUserServerReq(String senderId,  String serverId, String userId) {
+        super(senderId, ServerRequestType.REMOVE_USER, serverId);
+        this.userId = userId;
+    }
+
+    public String getUserIds() {
+        return userId;
+    }
 }
