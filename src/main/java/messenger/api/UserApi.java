@@ -1,12 +1,12 @@
 package messenger.api;
 
+import messenger.service.model.exception.InvalidTypeException;
 import messenger.service.model.request.user.*;
 
 public class UserApi
 {
 
-    public void getRequest(UserRequest request)
-    {
+    public void getRequest(UserRequest request) throws InvalidTypeException {
         switch(request.subType())
         {
             case BLOCK_USER -> blockUser((BlockUserReq) request);
@@ -21,7 +21,7 @@ public class UserApi
             case GET_BLOCKED_USERS -> getBlockedUsers((GetBlockedUsersReq) request);
             case GET_PRIVATE_CHATS -> getPrivateChats((GetPrivateChatsReq) request);
             case REACTION_TO_MESSAGE -> reactionToMessage((ReactionToMessageReq) request);
-            //default -> trow invalid type exception
+            default -> throw new InvalidTypeException();
         }
     }
     private void answerFriendReq(AnswerFriendReq request)
