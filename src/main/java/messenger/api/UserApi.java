@@ -21,8 +21,14 @@ public class UserApi
             case GET_BLOCKED_USERS -> getBlockedUsers((GetBlockedUsersReq) request);
             case GET_PRIVATE_CHATS -> getPrivateChats((GetPrivateChatsReq) request);
             case REACTION_TO_MESSAGE -> reactionToMessage((ReactionToMessageReq) request);
+            case GET_FRIEND_REQ_LIST -> getFriendReqList((GetFriendReqList) request);
             default -> throw new InvalidTypeException();
         }
+    }
+
+    private void getFriendReqList(GetFriendReqList request)
+    {
+
     }
     private void answerFriendReq(AnswerFriendReq request)
     {
