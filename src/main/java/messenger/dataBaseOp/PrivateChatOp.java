@@ -87,7 +87,7 @@ public class PrivateChatOp extends Op{
 
         byte[] updatedList = objectConvertor(targetList);
 
-        String query2 = "UPDATE users SET " + columnName + " = ? WHERE user_id = ?";
+        String query2 = "UPDATE private_chats SET " + columnName + " = ? WHERE id = ?";
 
         PreparedStatement pst2 = connection.prepareStatement(query2);
 

@@ -98,6 +98,23 @@ public abstract class Op {
 
     }
 
+    protected void updateImage(byte[] image, String id)throws SQLException, ConfigNotFoundException
+    {
+        String query = "UPDATE users SET profile_image = ? where user_id = ?";
+        PreparedStatement st = connection.prepareStatement(query);
+
+
+        st.setBytes(1, image);
+        st.setString(2, id);
+
+        int res = st.executeUpdate();
+
+        if(res == 0){
+            throw new ConfigNotFoundException(id, "profile_image", "user");
+        }
+
+    }
+
 
 
     protected  <T> LinkedList<T> addToLists(LinkedList<T> list, T t){

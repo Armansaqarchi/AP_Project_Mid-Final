@@ -109,6 +109,7 @@ public class UserOp extends Op{
 
     }
 
+
     public <T> boolean updateList(UpdateType type, String columnName, String id, T t)
             throws SQLException, IOException, ClassNotFoundException, ConfigNotFoundException {
 
