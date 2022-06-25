@@ -1,5 +1,6 @@
 package messenger.dataBaseOp;
 
+import messenger.service.model.exception.ConfigNotFoundException;
 import messenger.service.model.message.Message;
 import messenger.service.model.message.Reaction;
 import org.springframework.util.SerializationUtils;
@@ -51,7 +52,8 @@ public abstract class Op {
         }
     }
 
-    protected boolean deleteById(String id, String tableName, String idColumnName) throws SQLException{
+    protected boolean deleteById(String id, String tableName, String idColumnName, String entity)
+            throws SQLException, ConfigNotFoundException{
 
         String query = "DELETE FROM " + tableName + " WHERE " + idColumnName + " = ?";
 
@@ -59,7 +61,7 @@ public abstract class Op {
         pst2.setString(1, id);
         int affectedRows = pst2.executeUpdate();
 
-        if(affectedRows == 0) return false;
+        if(affectedRows == 0) throw new ConfigNotFoundException(id, idColumnName, entity);
 
         return true;
     }

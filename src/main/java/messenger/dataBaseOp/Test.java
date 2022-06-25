@@ -1,6 +1,7 @@
 package messenger.dataBaseOp;
 
 import messenger.service.model.PrivateChat;
+import messenger.service.model.exception.ConfigNotFoundException;
 import messenger.service.model.message.Message;
 import messenger.service.model.message.MessageType;
 import messenger.service.model.message.Reaction;
@@ -43,9 +44,11 @@ public class Test {
             FriendRequestOp frOperator = new FriendRequestOp(connection);
             ServerOp serverOp = new ServerOp(connection);
 
+            System.out.println(userOperator.findById("4325"));
+
 
         }
-        catch(ClassNotFoundException | SQLException e){
+        catch(ClassNotFoundException | SQLException | IOException| ConfigNotFoundException e){
             e.printStackTrace();
         }
         finally{

@@ -1,6 +1,7 @@
 package messenger.dataBaseOp;
 
 import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer;
+import messenger.service.model.exception.ConfigNotFoundException;
 import messenger.service.model.message.*;
 import messenger.service.model.request.user.FriendReq;
 import messenger.service.model.request.user.UserRequestType;
@@ -72,6 +73,11 @@ public class FriendRequestOp extends Op{
 
 
         st.executeUpdate();
+
+    }
+
+    public boolean deleteFriendRequestById(String id) throws ConfigNotFoundException, SQLException {
+        return deleteById(id, "friend_requests", "id", "friendRequest");
 
     }
 

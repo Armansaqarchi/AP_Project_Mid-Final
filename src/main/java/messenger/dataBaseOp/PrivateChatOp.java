@@ -1,6 +1,7 @@
 package messenger.dataBaseOp;
 
 import messenger.service.model.PrivateChat;
+import messenger.service.model.exception.ConfigNotFoundException;
 import messenger.service.model.request.user.FriendReq;
 
 import java.io.IOException;
@@ -40,8 +41,8 @@ public class PrivateChatOp extends Op{
         System.out.println("data has been inserted successfully.");
     }
 
-    public boolean deletePrivateChatById(String id)throws SQLException{
-        return deleteById(id, "private_chats", "id");
+    public boolean deletePrivateChatById(String id)throws SQLException, ConfigNotFoundException {
+        return deleteById(id, "private_chats", "id", "privateChat");
     }
 
 

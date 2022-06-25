@@ -1,5 +1,6 @@
 package messenger.dataBaseOp;
 
+import messenger.service.model.exception.ConfigNotFoundException;
 import messenger.service.model.message.Message;
 import messenger.service.model.message.MessageType;
 import messenger.service.model.message.Reaction;
@@ -124,8 +125,8 @@ class ServerOp extends Op{
     }
 
 
-    public boolean deleteServerById(String id) throws SQLException{
-        return deleteById(id, "server", "server_id");
+    public boolean deleteServerById(String id) throws SQLException, ConfigNotFoundException {
+        return deleteById(id, "server", "server_id", "server");
     }
 
 

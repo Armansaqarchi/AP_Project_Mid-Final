@@ -1,9 +1,9 @@
 package messenger.dataBaseOp;
 
+import messenger.service.model.exception.ConfigNotFoundException;
 import messenger.service.model.user.ServerIDs;
 import messenger.service.model.user.User;
 import messenger.service.model.user.UserStatus;
-import org.springframework.util.SerializationUtils;
 
 import java.io.*;
 import java.sql.*;
@@ -23,24 +23,33 @@ public class UserOp extends Op{
 
 
     private User findByConfigUser(String config, String columnName)
-            throws SQLException, ClassNotFoundException, IOException{
-        return createUserFromData(findByConfig(config, columnName, "users"));
+            throws SQLException, ClassNotFoundException, IOException, ConfigNotFoundException{
+        ResultSet resultSet = findByConfig(config, columnName, "users");
+        if(resultSet == null){
+            throw new ConfigNotFoundException(config, columnName, "user");
+
+        }
+        return createUserFromData(resultSet);
     }
 
 
-    public User findById(String id) throws SQLException, IOException, ClassNotFoundException{
+    public User findById(String id) throws SQLException, IOException,
+            ClassNotFoundException, ConfigNotFoundException{
         return findByConfigUser(id, "user_id");
     }
 
-    public User findByName(String name) throws SQLException, ClassNotFoundException, IOException{
+    public User findByName(String name) throws SQLException, ClassNotFoundException,
+            ConfigNotFoundException, IOException{
         return findByConfigUser(name, "name");
     }
 
-    public User findByEmail(String email) throws SQLException, IOException, ClassNotFoundException{
+    public User findByEmail(String email) throws SQLException, IOException,
+            ConfigNotFoundException, ClassNotFoundException{
         return findByConfigUser(email, "email");
     }
 
-    public User findByPhoneNumber(String phoneNumber) throws SQLException, ClassNotFoundException, IOException{
+    public User findByPhoneNumber(String phoneNumber) throws SQLException, ClassNotFoundException,
+            ConfigNotFoundException, IOException{
         return findByConfigUser(phoneNumber, "phone_number");
     }
 
@@ -79,7 +88,8 @@ public class UserOp extends Op{
 
 
 
-    public void updateProfile(String id, String type, String newValue)throws SQLException{
+    public void updateProfile(String id, String type, String newValue)
+            throws SQLException, ConfigNotFoundException{
         String query = "UPDATE users SET " + type +" = ? where user_id = ?";
 
         PreparedStatement st = connection.prepareStatement(query);
@@ -88,12 +98,19 @@ public class UserOp extends Op{
         st.setString(2, id);
 
 
-        st.executeUpdate();
+        int res = st.executeUpdate();
+
+
+        if(res == 0){
+            throw new ConfigNotFoundException(id, type, "user");
+        }
+
+
 
     }
 
     public <T> boolean updateList(UpdateType type, String columnName, String id, T t)
-            throws SQLException, IOException, ClassNotFoundException {
+            throws SQLException, IOException, ClassNotFoundException, ConfigNotFoundException {
 
         LinkedList<T> targetList = null;
 
@@ -104,6 +121,11 @@ public class UserOp extends Op{
         ResultSet resultSet = pst.executeQuery();
 
         Object o = null;
+
+        if(resultSet == null){
+            throw new ConfigNotFoundException(id, columnName, "user");
+        }
+
         while (resultSet.next()) {
             o = byteConvertor(resultSet.getBytes(columnName));
         }
@@ -146,8 +168,8 @@ public class UserOp extends Op{
         return true;
     }
 
-    public boolean deleteUSerById(String id) throws SQLException{
-        return deleteById(id, "users", "user_id");
+    public boolean deleteUSerById(String id) throws SQLException, ConfigNotFoundException{
+        return deleteById(id, "users", "user_id", "user");
     }
 
 
@@ -176,9 +198,6 @@ public class UserOp extends Op{
     private User createUserFromData(ResultSet resultSet) throws SQLException, IOException,
             ClassNotFoundException {
 
-        if(resultSet == null){
-            return null;
-        }
 
         String id = resultSet.getString("user_id");
         String name = resultSet.getString("name");
