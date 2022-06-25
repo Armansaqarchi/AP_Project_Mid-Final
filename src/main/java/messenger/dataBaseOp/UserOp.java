@@ -146,6 +146,10 @@ public class UserOp extends Op{
         return true;
     }
 
+    public boolean deleteUSerById(String id) throws SQLException{
+        return deleteById(id, "users", "user_id");
+    }
+
 
     public HashMap<String, String> findByUserStatus(String status) throws SQLException{
         String query = "SELECT * FROM users WHERE user_status = ?";

@@ -51,6 +51,19 @@ public abstract class Op {
         }
     }
 
+    public boolean deleteById(String id, String tableName, String idColumnName) throws SQLException{
+
+        String query = "DELETE FROM " + tableName + " WHERE " + idColumnName + " = ?";
+
+        PreparedStatement pst2 = connection.prepareStatement(query);
+        pst2.setString(1, id);
+        int affectedRows = pst2.executeUpdate();
+
+        if(affectedRows == 0) return false;
+
+        return true;
+    }
+
     public Object byteConvertor(byte[] bytes) throws IOException, ClassNotFoundException{
 
         return SerializationUtils.deserialize(bytes);
@@ -97,32 +110,26 @@ public abstract class Op {
     }
 
     protected  <T> LinkedList<T> removeFromList(LinkedList<T> list, T t){
+
+        if(list == null){
+            return null;
+        }
+
         list.remove(t);
         return list;
     }
 
-    public boolean deleteById(String id, String tableName) throws SQLException{
 
-        String query = "DELETE FROM " + tableName + " WHERE user_id = ?";
-
-        PreparedStatement pst2 = connection.prepareStatement(query);
-        pst2.setString(1, id);
-        int affectedRows = pst2.executeUpdate();
-
-        if(affectedRows == 0) return false;
-
-        return true;
-    }
 
     protected ResultSet findByConfig(String config, String columnName, String tableName)
             throws IOException, SQLException, ClassNotFoundException{
 
-        String query = "SELECT * FROM " + tableName + " WHERE ? = ?";
+        String query = "SELECT * FROM " + tableName + " WHERE " + columnName + " = ?";
 
 
         PreparedStatement pStatement = connection.prepareStatement(query);
-        pStatement.setString(1, columnName);
-        pStatement.setString(2, config);
+
+        pStatement.setString(1, config);
         ResultSet resultSet = pStatement.executeQuery();
 
         if(resultSet.next()){
@@ -132,6 +139,9 @@ public abstract class Op {
 
         return null;
     }
+
+
+
 
 
 

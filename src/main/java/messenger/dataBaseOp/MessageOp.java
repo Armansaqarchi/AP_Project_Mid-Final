@@ -6,6 +6,7 @@ import messenger.service.model.message.*;
 import java.sql.*;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -44,7 +45,7 @@ public class MessageOp extends Op {
     throws SQLException, IOException{
 
         PreparedStatement pst = connection.prepareStatement(
-                "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                "INSERT INTO message VALUES (?, ?, ?, ?, ?, ?, ?)");
 
         pst.setString(1, messageId);
         pst.setString(2, senderId);
@@ -52,11 +53,8 @@ public class MessageOp extends Op {
         pst.setString(4, MessageType.getValueFromName(type));
         pst.setDate(5, new java.sql.Date(Date.from(date.atZone(ZoneId.systemDefault()).toInstant()).getTime()));
         pst.setNull(6, Types.BINARY);
-        if(type.name().equals("FILE_PRIVATE") || type.name().equals("FILE_SERVER")){
+        if(type.name().equals("CHANNEL") || type.name().equals("PRIVATE_CHAT")) {
             pst.setBytes(7, (byte[]) content);
-        }
-        else if(type.name().equals("TEXT_PRIVATE") || type.name().equals("TEXT_SERVER")){
-            pst.setBytes(7, objectConvertor(content));
         }
 
         pst.executeUpdate();
@@ -75,7 +73,7 @@ public class MessageOp extends Op {
     }
 
     public void updateMessage(String id, String type, String newValue)throws SQLException{
-        String query = "UPDATE message SET " + type +" = ? where user_id = ?";
+        String query = "UPDATE message SET " + type +" = ? where message_id = ?";
 
         PreparedStatement st = connection.prepareStatement(query);
 
@@ -86,12 +84,12 @@ public class MessageOp extends Op {
         st.executeUpdate();
     }
 
-    public  boolean updateReactions(UpdateType type ,String columnName, String id, Reaction reaction)
+    public  boolean updateReactions(UpdateType type, String id, Reaction reaction)
     throws IOException, ClassNotFoundException, SQLException{
 
         LinkedList<Reaction> targetList = null;
 
-        String query = "SELECT * FROM message WHERE user_id = ?";
+        String query = "SELECT * FROM message WHERE message_id = ?";
 
         PreparedStatement pst = connection.prepareStatement(query);
 
@@ -100,7 +98,7 @@ public class MessageOp extends Op {
 
         Object o = null;
         while(resultSet.next()) {
-            o = byteConvertor(resultSet.getBytes(columnName));
+            o = byteConvertor(resultSet.getBytes("reactions"));
         }
         if(o instanceof LinkedList<?>){
             targetList = (LinkedList<Reaction>) o;
@@ -110,7 +108,7 @@ public class MessageOp extends Op {
 
         byte[] updatedList = objectConvertor(targetList);
 
-        String query2 = "UPDATE message SET " + columnName +" = ? WHERE user_id = ?";
+        String query2 = "UPDATE message SET " + "reactions" +" = ? WHERE message_id = ?";
 
         PreparedStatement pst2 = connection.prepareStatement(query2);
 
@@ -123,8 +121,8 @@ public class MessageOp extends Op {
         return true;
     }
 
-    public void deleteMessageById(String id) throws SQLException{
-        deleteById(id, "message");
+    public boolean deleteById(String id) throws SQLException{
+        return deleteById(id, "messages", "message_id");
     }
 
     private Message createMessageFromData(ResultSet resultSet)
@@ -142,23 +140,24 @@ public class MessageOp extends Op {
 
         Object o;
 
-        if ((o = byteConvertor(resultSet.getBytes("reaction"))) instanceof LinkedList<?>) {
+        if ((o = byteConvertor(resultSet.getBytes("reactions"))) instanceof LinkedList<?>) {
             reactions = (LinkedList<Reaction>) o;
         }
 
 
 
-        if(type.equals("textPrivate") || type.equals("textServer")){
-            Object content = byteConvertor(resultSet.getBytes("content"));
-            if(content instanceof LinkedList<?>){
+
+
+        Object content = byteConvertor(resultSet.getBytes("content"));
+
+        if(content instanceof String){
                 return new TextMessage(UUID.fromString(messageId), senderId, receiverId,
                         MessageType.getNameFromValue(type), date, reactions, (String)content);
-            }
         }
-        else if (type.equals("filePrivate") || type.equals("fileServer")){
-            byte[] content = resultSet.getBytes("content");
+        else if (content instanceof byte[]){
+
             return new FileMessage(UUID.fromString(messageId), senderId, receiverId,
-                    MessageType.getNameFromValue(type), date, reactions, content);
+                    MessageType.getNameFromValue(type), date, reactions, (byte[])content);
         }
 
         return null;
@@ -167,11 +166,10 @@ public class MessageOp extends Op {
 
 
 
-    private LocalDateTime convertDateToLocalDatetime(Date date){
-        LocalDateTime localDateTime = date.toInstant().
-                atZone(ZoneId.systemDefault()).toLocalDateTime();
+    private LocalDateTime convertDateToLocalDatetime(java.sql.Date date){
+        return Instant.ofEpochMilli(date.getTime() )
+                .atZone( ZoneId.systemDefault() )
+                .toLocalDateTime();
 
-
-        return localDateTime;
     }
 }

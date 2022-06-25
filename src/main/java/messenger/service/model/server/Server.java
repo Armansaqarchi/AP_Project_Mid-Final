@@ -19,4 +19,79 @@ public class Server implements Serializable
     //list of channels (key is the name of channel)
     private HashMap<String , UUID> channels;
 
+
+    public Server(String id, String ownerId, String name) {
+        this.id = id;
+        this.ownerId = ownerId;
+        this.name = name;
+    }
+
+    public Server(byte[] image, String id, String ownerId, String name,
+                  LinkedList<String> users, HashMap<String, Rule> rules,
+                  HashMap<String, UUID> channels) {
+        this.image = image;
+        this.id = id;
+        this.ownerId = ownerId;
+        this.name = name;
+        this.users = users;
+        this.rules = rules;
+        this.channels = channels;
+    }
+
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LinkedList<String> getUsers() {
+        return users;
+    }
+
+    public void setUsers(LinkedList<String> users) {
+        this.users = users;
+    }
+
+    public HashMap<String, Rule> getRules() {
+        return rules;
+    }
+
+    public void setRules(HashMap<String, Rule> rules) {
+        this.rules = rules;
+    }
+
+    public HashMap<String, UUID> getChannels() {
+        return channels;
+    }
+
+    public void setChannels(HashMap<String, UUID> channels) {
+        this.channels = channels;
+    }
 }

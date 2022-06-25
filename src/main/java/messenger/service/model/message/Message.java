@@ -85,4 +85,16 @@ public abstract class Message
     }
 
     public abstract Object getContent();
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", senderId='" + senderId + '\'' +
+                ", receiverId='" + receiverId + '\'' +
+                ", type=" + type +
+                ", date=" + date +
+                ", reactions=" + reactions +
+                '}';
+    }
 }

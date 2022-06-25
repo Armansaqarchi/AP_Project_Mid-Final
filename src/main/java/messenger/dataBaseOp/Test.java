@@ -1,8 +1,11 @@
 package messenger.dataBaseOp;
 
+import messenger.service.model.message.Message;
 import messenger.service.model.message.MessageType;
+import messenger.service.model.message.Reaction;
 import messenger.service.model.message.TextMessage;
 import messenger.service.model.user.User;
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties;
 
 
 import java.io.IOException;
@@ -11,7 +14,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.UUID;
 
 public class Test {
 
@@ -29,14 +34,14 @@ public class Test {
                     "root", "Arman");
 
             UserOp userOperator = new UserOp(connection);
-            MessageOp messageOperator = new ("")
+            MessageOp messageOperator = new MessageOp(connection);
 
-            System.out.println(;);
+            messageOperator.updateReactions(UpdateType.ADD, "7", Reaction.LIKE);
 
-            System.out.println(MessageType.valueOf(MessageType.FILE_PRIVATE.name()));
+
 
         }
-        catch(ClassNotFoundException | SQLException e){
+        catch(ClassNotFoundException | SQLException| IOException e){
             e.printStackTrace();
         }
         finally{
