@@ -7,20 +7,28 @@ package messenger.service.model.request.user;
 
 import messenger.service.model.request.Request;
 
-import java.util.Objects;
+import java.io.Serializable;
 import java.util.UUID;
 
-public class FriendReq extends UserRequest
+public class FriendReq extends UserRequest implements Serializable
 {
-    private UUID id;
-    private String receiver;
+    private final UUID friendRequest;
+    private final String receiver;
 
-    @Override
-    public boolean equals(Object o)
+    public FriendReq(String senderId,
+                     UUID friendRequest, String receiver) {
+        super(senderId, UserRequestType.FRIEND_REQ);
+        this.friendRequest = friendRequest;
+        this.receiver = receiver;
+    }
+
+    public UUID getFriendRequest()
     {
-        if (this == o) return true;
-        if (!(o instanceof FriendReq)) return false;
-        FriendReq friendReq = (FriendReq) o;
-        return id.equals(friendReq.id);
+        return friendRequest;
+    }
+
+    public String getReceiver()
+    {
+        return receiver;
     }
 }

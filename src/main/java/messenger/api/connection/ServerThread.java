@@ -1,12 +1,10 @@
 package messenger.api.connection;
 
-import messenger.api.MessageReceiver;
-import messenger.api.RequestReceiver;
+
+import messenger.api.Receiver;
 import messenger.service.model.Transferable;
 import messenger.service.model.exception.InvalidObjectException;
 import messenger.service.model.exception.InvalidTypeException;
-import messenger.service.model.message.Message;
-import messenger.service.model.request.Request;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,8 +13,8 @@ import java.net.Socket;
 
 public class ServerThread implements Runnable
 {
-    private MessageReceiver messageReceiver;
-    private RequestReceiver requestReceiver;
+
+    private final Receiver receiver;
 
     private final Socket socket;
     private ObjectInputStream inputStream;
@@ -27,8 +25,7 @@ public class ServerThread implements Runnable
 
     public ServerThread(Socket socket)
     {
-        messageReceiver = MessageReceiver.getMessageReceiver();
-        requestReceiver = RequestReceiver.getRequestReceiver();
+        receiver = Receiver.getReceiver();
 
         this.socket =socket;
 
@@ -52,18 +49,7 @@ public class ServerThread implements Runnable
             {
                 Transferable input = (Transferable)inputStream.readObject();
 
-                if(input instanceof Message)
-                {
-                    messageReceiver.getMessage((Message) input);
-                }
-                else if (input instanceof Request)
-                {
-                    requestReceiver.getRequest((Request) input);
-                }
-                else
-                {
-                    throw new InvalidObjectException();
-                }
+                receiver.receive(input);
             }
             catch (IOException | ClassNotFoundException |
                    InvalidTypeException | InvalidObjectException e)
