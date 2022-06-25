@@ -22,4 +22,7 @@ public abstract class Message implements Transferable , Serializable
     //list of reactions to this message
     private LinkedList<MessageReaction> reactions;
 
+    public MessageType getType() {
+        return type;
+    }
 }
