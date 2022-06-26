@@ -41,12 +41,12 @@ public class UserOp extends Op{
     }
 
     public User findByEmail(String email) throws SQLException, IOException,
-            UserNotFoundException, ClassNotFoundException{
+            ConfigNotFoundException, ClassNotFoundException{
         return findByConfigUser(email, "email");
     }
 
     public User findByPhoneNumber(String phoneNumber) throws SQLException, ClassNotFoundException,
-            UserNotFoundException, IOException{
+            ConfigNotFoundException, IOException{
         return findByConfigUser(phoneNumber, "phone_number");
     }
 
