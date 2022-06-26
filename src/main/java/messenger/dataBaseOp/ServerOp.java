@@ -14,7 +14,7 @@ import java.util.LinkedList;
 import java.util.UUID;
 
 
-class ServerOp extends Op{
+public class ServerOp extends Op{
 
 
 
