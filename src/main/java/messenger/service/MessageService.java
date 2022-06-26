@@ -4,6 +4,7 @@ import messenger.dataBaseOp.Database;
 import messenger.dataBaseOp.UpdateType;
 import messenger.service.model.exception.ConfigNotFoundException;
 import messenger.service.model.message.Message;
+import messenger.service.model.response.Response;
 import messenger.service.model.user.User;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.util.UUID;
 
 public class MessageService
 {
-    private Database database;
+    private final Database database;
 
     public MessageService()
     {
@@ -117,5 +118,11 @@ public class MessageService
         }
 
         return messages;
+    }
+
+    private Response handleChannelMessage(Message message)
+    {
+
+        return null;
     }
 }
