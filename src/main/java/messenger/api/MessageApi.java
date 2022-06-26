@@ -4,6 +4,7 @@ import messenger.service.MessageService;
 import messenger.service.model.exception.InvalidTypeException;
 import messenger.service.model.exception.ServerThreadNotFoundException;
 import messenger.service.model.message.Message;
+import messenger.service.model.response.Response;
 
 import java.util.LinkedList;
 
@@ -57,11 +58,22 @@ public class MessageApi
 
     private void getChannelMessage(Message message)
     {
-
+        sendResponse(service.handleChannelMessage(message));
     }
 
     private void getPrivateChatMessage(Message message)
     {
+        sendResponse(service.handlePrivateMessage(message));
+    }
 
+    private void sendResponse(Response response)
+    {
+        try {
+            sender.sendResponse(response);
+        }
+        catch (ServerThreadNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 }

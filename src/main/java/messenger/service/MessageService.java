@@ -128,7 +128,7 @@ public class MessageService
         return messages;
     }
 
-    private Response handleChannelMessage(Message message)
+    public Response handleChannelMessage(Message message)
     {
         String[] ides = message.getReceiverId().split("-");
 
@@ -167,7 +167,7 @@ public class MessageService
         }
     }
 
-    private Response handlePrivateMessage(Message message)
+    public Response handlePrivateMessage(Message message)
     {
         String privateChatId;
 
