@@ -15,7 +15,7 @@ public class MessageApi
     public MessageApi()
     {
         sender = Sender.getSender();
-        service = new MessageService();
+        service = new MessageService(this);
     }
 
     /**
@@ -33,7 +33,7 @@ public class MessageApi
         }
     }
 
-    private void sendMessage(Message message , String id)
+    public void sendMessage(Message message , String id)
     {
         try
         {

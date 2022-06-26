@@ -1,10 +1,14 @@
 package messenger.service;
 
+import messenger.api.MessageApi;
 import messenger.dataBaseOp.Database;
 import messenger.dataBaseOp.UpdateType;
+import messenger.service.model.PrivateChat;
 import messenger.service.model.exception.ConfigNotFoundException;
 import messenger.service.model.message.Message;
 import messenger.service.model.response.Response;
+import messenger.service.model.server.Channel;
+import messenger.service.model.server.Server;
 import messenger.service.model.user.User;
 
 import java.io.IOException;
@@ -15,10 +19,12 @@ import java.util.UUID;
 public class MessageService
 {
     private final Database database;
+    private final MessageApi messageApi;
 
-    public MessageService()
+    public MessageService(MessageApi messageApi)
     {
         database = Database.getDatabase();
+        this.messageApi = messageApi;
     }
 
     /**
@@ -122,7 +128,83 @@ public class MessageService
 
     private Response handleChannelMessage(Message message)
     {
+        String[] ides = message.getReceiverId().split("-");
 
-        return null;
+        String serverId = ides[0];
+        String channelName = ides[1];
+
+        try
+        {
+            Server server = database.getServerOp().findByServerId(serverId);
+
+            UUID channelId = server.getChannels().get(channelName);
+
+            try
+            {
+                Channel channel =
+                        database.getChannelOp().findById(channelId.toString());
+
+                LinkedList<String> receivers = channel.getUsers();
+
+                for(String receiver : receivers)
+                {
+                    messageApi.sendMessage(message , receiver);
+                }
+
+                return new Response(message.getSenderId() ,
+                        true , "Message sent successfully.");
+            }
+            catch (ConfigNotFoundException e)
+            {
+                return new Response(message.getSenderId() ,
+                        false , e.getMessage());
+            }
+        }
+        catch (ConfigNotFoundException e)
+        {
+            return new Response(message.getSenderId() ,
+                    false , e.getMessage());
+        }
+        catch (IOException | ClassNotFoundException | SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Response handlePrivateMessage(Message message)
+    {
+        try
+        {
+            User user = database.getUserOp().findById(message.getReceiverId());
+
+            String privateChatId;
+
+            if(message.getSenderId().compareTo(message.getReceiverId()) < 0)
+            {
+                privateChatId = message.getSenderId() + '-' + message.getReceiverId();
+            }
+            else
+            {
+                privateChatId = message.getReceiverId() + '-' + message.getSenderId();
+            }
+
+            PrivateChat privateChat = database.getPrivateChatOp().
+                    findById(privateChatId);
+
+            database.getPrivateChatOp().insertPrivateMessage(message.getId());
+
+            messageApi.sendMessage(message , message.getReceiverId());
+
+            return new Response(message.getSenderId() , true ,
+                    "message sent successfully.");
+        }
+        catch (ConfigNotFoundException e)
+        {
+
+        }
+        catch (IOException | ClassNotFoundException | SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }
