@@ -1,14 +1,10 @@
 package messenger.dataBaseOp;
 
 import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.message.Reaction;
 import org.springframework.util.SerializationUtils;
 
-import javax.xml.transform.Result;
-import java.io.ByteArrayInputStream;
+
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.sql.*;
 import java.util.LinkedList;
 
