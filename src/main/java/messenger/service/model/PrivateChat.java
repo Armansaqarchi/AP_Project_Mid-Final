@@ -15,4 +15,8 @@ public class PrivateChat
         this.id = id;
         this.messages = messages;
     }
+
+    public String GetId() {
+        return id;
+    }
 }

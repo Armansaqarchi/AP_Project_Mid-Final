@@ -1,6 +1,7 @@
 package messenger.dataBaseOp;
 
 
+import messenger.service.model.exception.ConfigNotFoundException;
 import messenger.service.model.server.Channel;
 import messenger.service.model.server.ChannelType;
 import messenger.service.model.server.TextChannel;
@@ -124,9 +125,10 @@ public class ChannelOp extends Op{
         System.out.println("data has been inserted successfully.");
     }
 
-    public boolean deleteChannelById(String id) throws SQLException, ClassNotFoundException, IOException{
+    public boolean deleteChannelById(String id) throws SQLException, ClassNotFoundException,
+            IOException, ConfigNotFoundException {
 
-        return deleteById(id, "channel", "channel_id");
+        return deleteById(id, "channel", "channel_id", "Channel");
     }
 
 

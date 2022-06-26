@@ -1,6 +1,7 @@
 package messenger.dataBaseOp;
 
 
+import messenger.service.model.exception.ConfigNotFoundException;
 import messenger.service.model.message.*;
 
 import java.sql.*;
@@ -121,8 +122,8 @@ public class MessageOp extends Op {
         return true;
     }
 
-    public boolean deleteById(String id) throws SQLException{
-        return deleteById(id, "messages", "message_id");
+    public boolean deleteUserById(String id) throws SQLException, ConfigNotFoundException {
+        return deleteById(id, "messages", "message_id", "message");
     }
 
     private Message createMessageFromData(ResultSet resultSet)

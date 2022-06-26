@@ -19,7 +19,7 @@ public abstract class UserRequest extends Request
         this.subType = subType;
     }
 
-    public UserRequestType getSubType()
+    public UserRequestType subType()
     {
         return subType;
     }

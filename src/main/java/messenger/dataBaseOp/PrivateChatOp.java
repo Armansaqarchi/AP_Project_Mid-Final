@@ -1,6 +1,7 @@
 package messenger.dataBaseOp;
 
 import messenger.service.model.PrivateChat;
+import messenger.service.model.exception.ConfigNotFoundException;
 import messenger.service.model.request.user.FriendReq;
 
 import java.io.IOException;
@@ -29,7 +30,7 @@ public class PrivateChatOp extends Op{
             throws SQLException{
 
         PreparedStatement ps = connection.prepareStatement(
-                "INSERT INTO friend_requests VALUES (?, ?)");
+                "INSERT INTO private_chats VALUES (?, ?)");
 
         ps.setString(1, id.toString());
         ps.setNull(2, Types.BINARY);
@@ -38,6 +39,10 @@ public class PrivateChatOp extends Op{
         ps.close();
 
         System.out.println("data has been inserted successfully.");
+    }
+
+    public boolean deletePrivateChatById(String id)throws SQLException, ConfigNotFoundException {
+        return deleteById(id, "private_chats", "id", "privateChat");
     }
 
 
@@ -82,7 +87,7 @@ public class PrivateChatOp extends Op{
 
         byte[] updatedList = objectConvertor(targetList);
 
-        String query2 = "UPDATE users SET " + columnName + " = ? WHERE user_id = ?";
+        String query2 = "UPDATE private_chats SET " + columnName + " = ? WHERE id = ?";
 
         PreparedStatement pst2 = connection.prepareStatement(query2);
 
@@ -104,14 +109,16 @@ public class PrivateChatOp extends Op{
 
         String id = resultSet.getString("id");
 
+        LinkedList<UUID> listOfMessages = null;
+
         Object messages = byteConvertor(resultSet.getBytes("messages"));
 
         if(messages instanceof LinkedList<?>){
-            return new PrivateChat(id, (LinkedList<UUID>) messages);
+            listOfMessages = (LinkedList<UUID>) messages;
         }
 
+        return new PrivateChat(id, listOfMessages);
 
-        return null;
 
     }
 

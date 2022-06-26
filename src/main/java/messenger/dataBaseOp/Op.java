@@ -1,5 +1,6 @@
 package messenger.dataBaseOp;
 
+import messenger.service.model.exception.ConfigNotFoundException;
 import messenger.service.model.message.Message;
 import messenger.service.model.message.Reaction;
 import org.springframework.util.SerializationUtils;
@@ -51,7 +52,8 @@ public abstract class Op {
         }
     }
 
-    public boolean deleteById(String id, String tableName, String idColumnName) throws SQLException{
+    protected boolean deleteById(String id, String tableName, String idColumnName, String entity)
+            throws SQLException, ConfigNotFoundException{
 
         String query = "DELETE FROM " + tableName + " WHERE " + idColumnName + " = ?";
 
@@ -59,7 +61,7 @@ public abstract class Op {
         pst2.setString(1, id);
         int affectedRows = pst2.executeUpdate();
 
-        if(affectedRows == 0) return false;
+        if(affectedRows == 0) throw new ConfigNotFoundException(id, idColumnName, entity);
 
         return true;
     }
@@ -93,6 +95,23 @@ public abstract class Op {
         }
 
         return targetList;
+
+    }
+
+    protected void updateImage(byte[] image, String id)throws SQLException, ConfigNotFoundException
+    {
+        String query = "UPDATE users SET profile_image = ? where user_id = ?";
+        PreparedStatement st = connection.prepareStatement(query);
+
+
+        st.setBytes(1, image);
+        st.setString(2, id);
+
+        int res = st.executeUpdate();
+
+        if(res == 0){
+            throw new ConfigNotFoundException(id, "profile_image", "user");
+        }
 
     }
 
