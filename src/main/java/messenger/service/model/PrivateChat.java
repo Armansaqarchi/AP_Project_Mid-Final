@@ -9,4 +9,14 @@ public class PrivateChat
     private String id;
 
     private LinkedList<UUID> messages;
+
+
+    public PrivateChat(String id, LinkedList<UUID> messages) {
+        this.id = id;
+        this.messages = messages;
+    }
+
+    public String GetId() {
+        return id;
+    }
 }

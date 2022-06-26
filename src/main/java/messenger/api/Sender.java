@@ -22,7 +22,7 @@ public class Sender
 
         if(null != serverThread)
         {
-            serverThread.send(message);
+            //serverThread.send(message);
         }
         else
         {
