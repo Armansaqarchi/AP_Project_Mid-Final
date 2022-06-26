@@ -1,6 +1,7 @@
 package messenger.service;
 
 import messenger.dataBaseOp.Database;
+import messenger.dataBaseOp.UpdateType;
 import messenger.service.model.exception.ConfigNotFoundException;
 import messenger.service.model.message.Message;
 import messenger.service.model.user.User;
@@ -29,8 +30,7 @@ public class MessageService
         try
         {
             User user = database.getUserOp().findById(id);
-
-            return getMessages(user.getUnreadMessages());
+            return getMessages(user.getUnreadMessages() , id);
         }
 
         catch (ConfigNotFoundException e)
@@ -47,14 +47,51 @@ public class MessageService
     }
 
     /**
-     * if sending
-     * @param message
+     * this method adds message to unread messages list of user
+     * @param messageId id of the message
+     * @param id id of user
      */
-    public void addUnreadMessage(Message message , String id)
+    public void addUnreadMessage(String id , UUID messageId)
     {
-
+        try
+        {
+            database.getUserOp().updateList(UpdateType.ADD ,
+                    "unread_messages" , id , messageId);
+        }
+        catch (ConfigNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        catch (IOException | ClassNotFoundException | SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
-    private LinkedList<Message> getMessages(LinkedList<UUID> messageIds)
+
+    /**
+     * this method removes message from unread messages list of user
+     * @param messageId id of the message
+     * @param id id of user
+     */
+    private void removeUnreadMessage(String id , UUID messageId)
+    {
+        try
+        {
+            database.getUserOp().updateList(UpdateType.REMOVE ,
+                    "unread_messages" , id , messageId);
+        }
+        catch (ConfigNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        catch (IOException | ClassNotFoundException | SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+    private LinkedList<Message> getMessages(LinkedList<UUID> messageIds , String userId)
     {
         LinkedList<Message> messages = new LinkedList<>();
 
@@ -65,7 +102,12 @@ public class MessageService
                 Message message = database.getMessageOp().findById(id.toString());
 
                 if(null != message)
+                {
                     messages.add(message);
+
+                    //remove extracted message from unread messages list
+                    removeUnreadMessage(userId, message.getId());
+                }
 
             }
             catch (IOException | ClassNotFoundException | SQLException e)

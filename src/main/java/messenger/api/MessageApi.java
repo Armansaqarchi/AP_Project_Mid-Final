@@ -9,8 +9,8 @@ import java.util.LinkedList;
 
 public class MessageApi
 {
-    private MessageService service;
-    private Sender sender;
+    private final MessageService service;
+    private final Sender sender;
 
     public MessageApi()
     {
@@ -29,14 +29,20 @@ public class MessageApi
 
         for(Message message : unReadMessages)
         {
-            try
-            {
-                sender.sendMessage(message , id);
-            }
-            catch (ServerThreadNotFoundException e)
-            {
-                throw new RuntimeException(e);
-            }
+            sendMessage(message , id);
+        }
+    }
+
+    private void sendMessage(Message message , String id)
+    {
+        try
+        {
+            sender.sendMessage(message , id);
+        }
+        catch (ServerThreadNotFoundException e)
+        {
+            //add message to unread messages list of user, to send later
+            service.addUnreadMessage(id , message.getId());
         }
     }
 

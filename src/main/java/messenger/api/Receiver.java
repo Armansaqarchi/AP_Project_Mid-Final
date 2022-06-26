@@ -74,4 +74,13 @@ public class Receiver
     {
         messageApi.getMessage(message);
     }
+
+    /**
+     * when a client is verified it is used to get unread messages
+     * @param id the id of user
+     */
+    public void getUnreadMessages(String id)
+    {
+        messageApi.getUnreadMessages(id);
+    }
 }

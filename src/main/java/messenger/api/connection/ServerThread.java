@@ -83,7 +83,15 @@ public class ServerThread implements Runnable
         }
     }
 
-    public void setId(String id)
+    public void verified(String id)
+    {
+        //setting verified id
+        setId(id);
+
+        //look for messages of user
+        receiver.getUnreadMessages(id);
+    }
+    private void setId(String id)
     {
         this.id = id;
     }

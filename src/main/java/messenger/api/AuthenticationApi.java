@@ -62,7 +62,7 @@ public class AuthenticationApi
                     addConnection(request.getId() , request.getServerThread());
 
             //set serverThreads id
-            request.getServerThread().setId(request.getId());
+            request.getServerThread().verified(request.getId());
         }
 
         try {
