@@ -3,6 +3,7 @@ package messenger.dataBaseOp;
 import messenger.service.model.PrivateChat;
 import messenger.service.model.exception.ConfigNotFoundException;
 import messenger.service.model.request.user.FriendReq;
+import messenger.service.model.user.User;
 
 import java.io.IOException;
 import java.sql.*;
@@ -16,23 +17,23 @@ public class PrivateChatOp extends Op{
     }
 
     public PrivateChat findByConfigPrivateChat(String config, String columnName)
-            throws IOException, SQLException, ClassNotFoundException{
+            throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
         return createPrivateChatFromData(findByConfig(config, columnName, "private_chats"));
     }
 
     public  PrivateChat findById(String id)
-            throws IOException, SQLException, ClassNotFoundException{
+            throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
         return findByConfigPrivateChat(id, "id");
     }
 
 
-    public void insertPrivateMessage(UUID id)
+    public void insertPrivateMessage(String id)
             throws SQLException{
 
         PreparedStatement ps = connection.prepareStatement(
                 "INSERT INTO private_chats VALUES (?, ?)");
 
-        ps.setString(1, id.toString());
+        ps.setString(1, id);
         ps.setNull(2, Types.BINARY);
 
         ps.executeUpdate();
@@ -46,8 +47,8 @@ public class PrivateChatOp extends Op{
     }
 
 
-    public <T> boolean updateMessages(UpdateType type, String columnName, String id, T t)
-            throws SQLException, IOException, ClassNotFoundException {
+    public <T> boolean updatePrivateChat(UpdateType type, String columnName, String id, T t)
+            throws SQLException, IOException, ClassNotFoundException, ConfigNotFoundException {
 
         LinkedList<T> targetList = null;
 
@@ -56,6 +57,10 @@ public class PrivateChatOp extends Op{
 
         pst.setString(1, id);
         ResultSet resultSet = pst.executeQuery();
+
+        if(resultSet == null){
+            throw new ConfigNotFoundException(id, columnName, "private chat");
+        }
 
         Object o = null;
         while (resultSet.next()) {
@@ -122,5 +127,19 @@ public class PrivateChatOp extends Op{
 
     }
 
-
+    public boolean isExists(String id)
+    {
+        try
+        {
+            PrivateChat privateChat = findById(id);
+            return true;
+        }
+        catch (ConfigNotFoundException e)
+        {
+            return false;
+        }
+        catch (ClassNotFoundException | SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

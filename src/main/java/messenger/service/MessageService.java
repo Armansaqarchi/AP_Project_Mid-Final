@@ -5,6 +5,8 @@ import messenger.dataBaseOp.Database;
 import messenger.dataBaseOp.UpdateType;
 import messenger.service.model.PrivateChat;
 import messenger.service.model.exception.ConfigNotFoundException;
+import messenger.service.model.exception.InvalidObjectException;
+import messenger.service.model.exception.UserNotFoundException;
 import messenger.service.model.message.Message;
 import messenger.service.model.response.Response;
 import messenger.service.model.server.Channel;
@@ -108,13 +110,13 @@ public class MessageService
             {
                 Message message = database.getMessageOp().findById(id.toString());
 
-                if(null != message)
-                {
-                    messages.add(message);
+                messages.add(message);
+                //remove extracted message from unread messages list
+                removeUnreadMessage(userId, message.getId());
 
-                    //remove extracted message from unread messages list
-                    removeUnreadMessage(userId, message.getId());
-                }
+            }
+            catch (ConfigNotFoundException e)
+            {
 
             }
             catch (IOException | ClassNotFoundException | SQLException e)
@@ -139,26 +141,20 @@ public class MessageService
 
             UUID channelId = server.getChannels().get(channelName);
 
-            try
+
+            Channel channel =
+                    database.getChannelOp().findById(channelId.toString());
+
+            LinkedList<String> receivers = channel.getUsers();
+
+            for(String receiver : receivers)
             {
-                Channel channel =
-                        database.getChannelOp().findById(channelId.toString());
-
-                LinkedList<String> receivers = channel.getUsers();
-
-                for(String receiver : receivers)
-                {
-                    messageApi.sendMessage(message , receiver);
-                }
-
-                return new Response(message.getSenderId() ,
-                        true , "Message sent successfully.");
+                messageApi.sendMessage(message , receiver);
             }
-            catch (ConfigNotFoundException e)
-            {
-                return new Response(message.getSenderId() ,
-                        false , e.getMessage());
-            }
+
+            return new Response(message.getSenderId() ,
+                    true , "Message sent successfully.");
+
         }
         catch (ConfigNotFoundException e)
         {
@@ -173,25 +169,35 @@ public class MessageService
 
     private Response handlePrivateMessage(Message message)
     {
+        String privateChatId;
+
+        if(message.getSenderId().compareTo(message.getReceiverId()) < 0)
+        {
+            privateChatId = message.getSenderId() + '-' + message.getReceiverId();
+        }
+        else
+        {
+            privateChatId = message.getReceiverId() + '-' + message.getSenderId();
+        }
+
         try
         {
             User user = database.getUserOp().findById(message.getReceiverId());
 
-            String privateChatId;
-
-            if(message.getSenderId().compareTo(message.getReceiverId()) < 0)
+            if(user.getBlockedUsers().contains(message.getSenderId()))
             {
-                privateChatId = message.getSenderId() + '-' + message.getReceiverId();
-            }
-            else
-            {
-                privateChatId = message.getReceiverId() + '-' + message.getSenderId();
+                return new Response(message.getSenderId(), false ,
+                        "you are blocked by receiver.");
             }
 
-            PrivateChat privateChat = database.getPrivateChatOp().
-                    findById(privateChatId);
+            if(!database.getPrivateChatOp().isExists(privateChatId))
+            {
+                database.getPrivateChatOp().insertPrivateMessage(privateChatId);
+            }
 
-            database.getPrivateChatOp().insertPrivateMessage(message.getId());
+            //insert message in private chats list
+            database.getPrivateChatOp().updatePrivateChat(UpdateType.ADD ,
+                    "messages",privateChatId , message);
 
             messageApi.sendMessage(message , message.getReceiverId());
 
@@ -200,11 +206,12 @@ public class MessageService
         }
         catch (ConfigNotFoundException e)
         {
-
+            return new Response(message.getSenderId(), false ,
+                    e.getMessage());
         }
-        catch (IOException | ClassNotFoundException | SQLException e)
+        catch (SQLException | IOException | ClassNotFoundException e)
         {
-            throw new RuntimeException(e);
+            throw new RuntimeException();
         }
     }
 }
