@@ -94,7 +94,7 @@ public abstract class Op {
 
     }
 
-    protected void updateImage(byte[] image, String id)throws SQLException, ConfigNotFoundException
+    public void updateImage(byte[] image, String id)throws SQLException, ConfigNotFoundException
     {
         String query = "UPDATE users SET profile_image = ? where user_id = ?";
         PreparedStatement st = connection.prepareStatement(query);

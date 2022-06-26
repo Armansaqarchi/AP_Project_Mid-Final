@@ -40,32 +40,65 @@ public class AuthenticationService
         catch (ConfigNotFoundException  e )
         {
             return new Response("" , false ,
-                    "user with id : '" +request.getId() + "' not found!" );
+                    e.getMessage() );
         }
         catch (SQLException | IOException |
             ClassNotFoundException e)
         {
-            System.out.println();
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     public Response signup(SignupReq request)
     {
+        if(!userExists(request.getId()))
+        {
+            try {
+                database.getUserOp().insertUser(new User(request.getId(),
+                        request.getName(), request.getPassword(),
+                        request.getEmail(), request.getPhoneNumber()));
 
-        return null;
+                try
+                {
+                    if(null != request.getProfileImage())
+                    {
+                        database.getUserOp().updateImage(request.getProfileImage(), request.getId());
+                    }
+                }
+                catch (ConfigNotFoundException e)
+                {
+                    System.out.println(e.getMessage());
+                }
+
+                return new Response(request.getId(), true , "signed up successfully.");
+
+            }
+            catch (SQLException e)
+            {
+                throw new RuntimeException(e);
+            }
+
+        }
+        else
+        {
+            return new Response("" , false ,
+                    "This user id is used before!");
+        }
     }
 
-    private boolean checkPassword()
+    private boolean userExists(String id)
     {
-        //authentication failed exception
-        return false;
-    }
-
-    private boolean checkId()
-    {
-        //authentication failed exception
-        return false;
+        try
+        {
+            User user = database.getUserOp().findById(id);
+            return true;
+        }
+        catch (ConfigNotFoundException e)
+        {
+            return false;
+        }
+        catch (ClassNotFoundException | SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

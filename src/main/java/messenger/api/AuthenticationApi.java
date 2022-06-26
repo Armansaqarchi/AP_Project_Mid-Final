@@ -32,28 +32,22 @@ public class AuthenticationApi
 
     private void login(LoginReq request)
     {
-        Response response = service.login(request);
+        handleResponse(service.login(request) , request);
+    }
 
+    private void signup(SignupReq request)
+    {
+        handleResponse(service.signup(request) , request);
+    }
+
+    private void handleResponse(Response response , AuthenticationReq request)
+    {
         if(response.isAccepted())
         {
             //add new client to connections list
             ConnectionHandler.getConnectionHandler().
                     addConnection(request.getId() , request.getServerThread());
         }
-
-        try {
-            sender.sendResponse(response , request.getServerThread());
-        }
-        catch (ServerThreadNotFoundException e)
-        {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void signup(SignupReq request)
-    {
-
-        Response response = service.signup(request);
 
         try {
             sender.sendResponse(response , request.getServerThread());
