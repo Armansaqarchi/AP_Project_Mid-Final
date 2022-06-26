@@ -5,8 +5,8 @@ import messenger.service.model.request.Authentication.AuthenticationReq;
 
 public class LoginReq extends AuthenticationReq
 {
-    public LoginReq(String senderId, String id, String password, ServerThread serverThread)
-    {
-        super(senderId, AuthenticationReqType.LOGIN, id, password, serverThread);
+
+    public LoginReq(AuthenticationReqType type, String id, String password, ServerThread serverThread) {
+        super(type, id, password, serverThread);
     }
 }

@@ -40,6 +40,14 @@ public abstract class AuthenticationReq extends Request
         return serverThread;
     }
 
+    public AuthenticationReq(AuthenticationReqType type, String id,
+                             String password, ServerThread serverThread) {
+        this.type = type;
+        this.id = id;
+        this.password = password;
+        this.serverThread = serverThread;
+    }
+
     public AuthenticationReqType subType()
     {
         return subType;
