@@ -16,12 +16,12 @@ public class PrivateChatOp extends Op{
     }
 
     public PrivateChat findByConfigPrivateChat(String config, String columnName)
-            throws IOException, SQLException, ClassNotFoundException{
+            throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
         return createPrivateChatFromData(findByConfig(config, columnName, "private_chats"));
     }
 
     public  PrivateChat findById(String id)
-            throws IOException, SQLException, ClassNotFoundException{
+            throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
         return findByConfigPrivateChat(id, "id");
     }
 
@@ -46,8 +46,8 @@ public class PrivateChatOp extends Op{
     }
 
 
-    public <T> boolean updateMessages(UpdateType type, String columnName, String id, T t)
-            throws SQLException, IOException, ClassNotFoundException {
+    public <T> boolean updatePrivateChat(UpdateType type, String columnName, String id, T t)
+            throws SQLException, IOException, ClassNotFoundException, ConfigNotFoundException {
 
         LinkedList<T> targetList = null;
 
@@ -56,6 +56,10 @@ public class PrivateChatOp extends Op{
 
         pst.setString(1, id);
         ResultSet resultSet = pst.executeQuery();
+
+        if(resultSet == null){
+            throw new ConfigNotFoundException(id, columnName, "private chat");
+        }
 
         Object o = null;
         while (resultSet.next()) {

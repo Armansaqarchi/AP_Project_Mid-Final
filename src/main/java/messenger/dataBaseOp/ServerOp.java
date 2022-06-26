@@ -23,22 +23,26 @@ class ServerOp extends Op{
     }
 
     private Server findByConfigMessage(String config, String columnName)
-            throws IOException, SQLException, ClassNotFoundException{
+            throws IOException, SQLException,
+            ClassNotFoundException, ConfigNotFoundException{
         return createServerFromData(findByConfig(config, columnName, "server"));
     }
 
     public  Server findByServerId(String id)
-            throws IOException, SQLException, ClassNotFoundException{
+            throws IOException, SQLException,
+            ClassNotFoundException, ConfigNotFoundException{
         return findByConfigMessage(id, "server_id");
     }
 
     public  Server findByOwnerId(String ownerId)
-            throws IOException, ClassNotFoundException, SQLException{
+            throws IOException, ClassNotFoundException,
+            SQLException, ConfigNotFoundException{
         return findByConfigMessage(ownerId, "owner_id");
     }
 
     public  Server findByReceiverId(String name)
-            throws IOException, ClassNotFoundException, SQLException{
+            throws IOException, ClassNotFoundException,
+            SQLException, ConfigNotFoundException{
         return findByConfigMessage(name, "name");
     }
 
@@ -58,7 +62,8 @@ class ServerOp extends Op{
     }
 
 
-    public void updateServerConfig(String id, String type, String newValue) throws SQLException{
+    public void updateServerConfig(String id, String type, String newValue)
+            throws SQLException, ConfigNotFoundException{
         String query = "UPDATE server SET " + type +" = ? where server_id = ?";
 
         PreparedStatement st = connection.prepareStatement(query);
@@ -67,12 +72,14 @@ class ServerOp extends Op{
         st.setString(2, id);
 
 
-        st.executeUpdate();
+        if(st.executeUpdate() == 0){
+            throw new ConfigNotFoundException(id, type, "server");
+        }
     }
 
 
     public <T> boolean updateServerList(UpdateType type, String columnName, String id, T t)
-        throws SQLException, IOException, ClassNotFoundException {
+        throws SQLException, IOException, ClassNotFoundException, ConfigNotFoundException {
 
         LinkedList<T> targetList = null;
 
@@ -82,6 +89,10 @@ class ServerOp extends Op{
 
         pst.setString(1, id);
         ResultSet resultSet = pst.executeQuery();
+
+        if(resultSet == null){
+            throw new ConfigNotFoundException(id, columnName, "server");
+        }
 
         Object o = null;
         while (resultSet.next()) {
@@ -133,7 +144,7 @@ class ServerOp extends Op{
 
 
     public <T,U>boolean updateServerHashList(UpdateType type, String id, T key, U value)
-    throws SQLException, IOException, ClassNotFoundException{
+    throws SQLException, IOException, ClassNotFoundException, ConfigNotFoundException{
 
         HashMap<T, U> targetList = null;
 
@@ -143,6 +154,10 @@ class ServerOp extends Op{
 
         pst.setString(1, id);
         ResultSet resultSet = pst.executeQuery();
+
+        if(resultSet == null){
+            throw new ConfigNotFoundException(id, "server_id", "server");
+        }
 
         Object o = null;
         while (resultSet.next()) {
