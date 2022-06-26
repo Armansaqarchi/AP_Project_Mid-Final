@@ -257,5 +257,19 @@ public class UserOp extends Op{
     }
 
 
-
+    public boolean isExists(String id)
+    {
+        try
+        {
+            User user = findById(id);
+            return true;
+        }
+        catch (ConfigNotFoundException e)
+        {
+            return false;
+        }
+        catch (ClassNotFoundException | SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

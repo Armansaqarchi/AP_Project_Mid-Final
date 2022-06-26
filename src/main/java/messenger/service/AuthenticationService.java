@@ -72,7 +72,7 @@ public class AuthenticationService
     public Response signup(SignupReq request)
     {
         //checking validity of inputted id
-        if(!userExists(request.getId()))
+        if(!database.getUserOp().isExists(request.getId()))
         {
             try {
                 //insert new user to database
@@ -107,22 +107,6 @@ public class AuthenticationService
         {
             return new Response("" , false ,
                     "This user id is used before!");
-        }
-    }
-
-    private boolean userExists(String id)
-    {
-        try
-        {
-            User user = database.getUserOp().findById(id);
-            return true;
-        }
-        catch (ConfigNotFoundException e)
-        {
-            return false;
-        }
-        catch (ClassNotFoundException | SQLException | IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }
