@@ -31,7 +31,7 @@ public class MessageApi
         {
             try
             {
-                sender.sendMessage(message);
+                sender.sendMessage(message , id);
             }
             catch (ServerThreadNotFoundException e)
             {

@@ -46,6 +46,14 @@ public class MessageService
         }
     }
 
+    /**
+     * if sending
+     * @param message
+     */
+    public void addUnreadMessage(Message message , String id)
+    {
+
+    }
     private LinkedList<Message> getMessages(LinkedList<UUID> messageIds)
     {
         LinkedList<Message> messages = new LinkedList<>();
