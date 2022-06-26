@@ -9,18 +9,31 @@ import messenger.service.model.request.Authentication.LoginReq;
 import messenger.service.model.request.Authentication.SignupReq;
 import messenger.service.model.response.Response;
 
+/**
+ * it is used to get and handle requests related to authentication
+ */
 public class AuthenticationApi
 {
 
-    AuthenticationService service;
-    Sender sender;
+    private final AuthenticationService service;
 
+    //sender object to send responses to client
+    private final Sender sender;
+
+    /**
+     * the constructor of class that initializes fileds
+     */
     public AuthenticationApi()
     {
         service = new AuthenticationService();
         sender = Sender.getSender();
     }
 
+    /**
+     * gets and handles authentication requests
+     * @param request the authentication request
+     * @throws InvalidTypeException throws if inputted requests type was invalid
+     */
     public void getRequest(AuthenticationReq request) throws InvalidTypeException {
         switch(request.subType())
         {
