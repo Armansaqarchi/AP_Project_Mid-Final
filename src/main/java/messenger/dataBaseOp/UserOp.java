@@ -1,6 +1,7 @@
 package messenger.dataBaseOp;
 
 import messenger.service.model.exception.ConfigNotFoundException;
+import messenger.service.model.exception.UserNotFoundException;
 import messenger.service.model.user.ServerIDs;
 import messenger.service.model.user.User;
 import messenger.service.model.user.UserStatus;
@@ -25,10 +26,6 @@ public class UserOp extends Op{
     private User findByConfigUser(String config, String columnName)
             throws SQLException, ClassNotFoundException, IOException, ConfigNotFoundException{
         ResultSet resultSet = findByConfig(config, columnName, "users");
-        if(resultSet == null){
-            throw new ConfigNotFoundException(config, columnName, "user");
-
-        }
         return createUserFromData(resultSet);
     }
 
@@ -111,7 +108,7 @@ public class UserOp extends Op{
 
 
     public <T> boolean updateList(UpdateType type, String columnName, String id, T t)
-            throws SQLException, IOException, ClassNotFoundException, ConfigNotFoundException {
+            throws SQLException, IOException, ClassNotFoundException, UserNotFoundException {
 
         LinkedList<T> targetList = null;
 
@@ -124,7 +121,7 @@ public class UserOp extends Op{
         Object o = null;
 
         if(resultSet == null){
-            throw new ConfigNotFoundException(id, columnName, "user");
+            throw new UserNotFoundException(id, columnName);
         }
 
         while (resultSet.next()) {

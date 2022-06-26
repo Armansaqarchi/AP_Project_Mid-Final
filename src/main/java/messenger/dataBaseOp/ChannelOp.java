@@ -21,17 +21,17 @@ public class ChannelOp extends Op{
     }
 
     public Channel findByConfigChannel(String config, String columnName)
-            throws IOException, SQLException, ClassNotFoundException{
+            throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
         return createChannelFromData(findByConfig(config, columnName, "channel"));
     }
 
     public  Channel findById(String id)
-            throws IOException, SQLException, ClassNotFoundException{
+            throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
         return findByConfigChannel(id, "channel_id");
     }
 
     public Channel findByName(String name)
-            throws SQLException, ClassNotFoundException, IOException{
+            throws SQLException, ClassNotFoundException, IOException, ConfigNotFoundException{
         return findByConfigChannel(name, "name");
     }
 
@@ -49,7 +49,7 @@ public class ChannelOp extends Op{
     }
 
     public <T> boolean updateChannelList(UpdateType type, String columnName, String id, T t)
-            throws SQLException, IOException, ClassNotFoundException {
+            throws SQLException, IOException, ConfigNotFoundException, ClassNotFoundException {
 
         LinkedList<T> targetList = null;
 
@@ -59,6 +59,10 @@ public class ChannelOp extends Op{
 
         pst.setString(1, id);
         ResultSet resultSet = pst.executeQuery();
+
+        if(resultSet == null){
+            throw new ConfigNotFoundException(id, columnName, "channel");
+        }
 
         Object o = null;
         while (resultSet.next()) {

@@ -19,22 +19,25 @@ public class FriendRequestOp extends Op{
     }
 
     public FriendReq findByConfigFriendReq(String config, String columnName)
-            throws IOException, SQLException, ClassNotFoundException{
+            throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
         return createFriendReqFromData(findByConfig(config, columnName, "friend_requests"));
     }
 
     public  FriendReq findById(String id)
-            throws IOException, SQLException, ClassNotFoundException{
+            throws IOException, SQLException, ClassNotFoundException,
+            ConfigNotFoundException, ConfigNotFoundException{
         return findByConfigFriendReq(id, "id");
     }
 
     public  FriendReq findBySenderId(String senderId)
-            throws IOException, ClassNotFoundException, SQLException{
+            throws IOException, ClassNotFoundException,
+            SQLException, ConfigNotFoundException{
         return findByConfigFriendReq(senderId, "sender_id");
     }
 
     public  FriendReq findByReceiverId(String receiverId)
-            throws IOException, ClassNotFoundException, SQLException{
+            throws IOException, ClassNotFoundException,
+            SQLException, ConfigNotFoundException{
         return findByConfigFriendReq(receiverId, "receiver_id");
     }
 
@@ -63,7 +66,8 @@ public class FriendRequestOp extends Op{
                 friendReq.subType(), friendReq.getSenderId());
     }
 
-    public void updateProfile(String id, String type, String newValue)throws SQLException{
+    public void updateProfile(String id, String type, String newValue)throws SQLException,
+            ConfigNotFoundException{
         String query = "UPDATE friend_requests SET " + type +" = ? where id = ?";
 
         PreparedStatement st = connection.prepareStatement(query);
@@ -72,8 +76,11 @@ public class FriendRequestOp extends Op{
         st.setString(2, id);
 
 
-        st.executeUpdate();
+        int res = st.executeUpdate();
 
+        if(res == 0){
+            throw new ConfigNotFoundException(id, type, "friend request");
+        }
     }
 
     public boolean deleteFriendRequestById(String id) throws ConfigNotFoundException, SQLException {

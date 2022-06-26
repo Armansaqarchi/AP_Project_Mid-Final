@@ -1,6 +1,7 @@
 package messenger.dataBaseOp;
 
 import messenger.service.model.exception.ConfigNotFoundException;
+import messenger.service.model.exception.UserNotFoundException;
 import org.springframework.util.SerializationUtils;
 
 
@@ -137,7 +138,7 @@ public abstract class Op {
 
 
     protected ResultSet findByConfig(String config, String columnName, String tableName)
-            throws IOException, SQLException, ClassNotFoundException{
+            throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
 
         String query = "SELECT * FROM " + tableName + " WHERE " + columnName + " = ?";
 
@@ -151,8 +152,10 @@ public abstract class Op {
             return resultSet;
         }
 
-
-        return null;
+        if(tableName.equals("users")){
+            throw new UserNotFoundException(config, columnName);
+        }
+        throw new ConfigNotFoundException(config, columnName, tableName);
     }
 
 
