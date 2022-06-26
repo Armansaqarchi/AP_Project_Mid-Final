@@ -1,11 +1,11 @@
 package messenger.api;
 
+
 import messenger.service.model.exception.InvalidTypeException;
 import messenger.service.model.request.server.*;
 
 public class ServerApi
 {
-
     public void getRequest(ServerReq request) throws InvalidTypeException {
         switch (request.subType())
         {
@@ -22,6 +22,7 @@ public class ServerApi
             default -> throw new InvalidTypeException();
         }
     }
+
     private void addRule(AddRuleServerReq request)
     {
 

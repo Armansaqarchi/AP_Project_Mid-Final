@@ -3,11 +3,26 @@
 package messenger.api;
 
 
+import messenger.service.UserService;
 import messenger.service.model.exception.InvalidTypeException;
+import messenger.service.model.exception.ServerThreadNotFoundException;
+import messenger.service.model.message.Message;
 import messenger.service.model.request.user.*;
+
+import java.util.LinkedList;
 
 public class UserApi
 {
+    private final UserService service;
+
+    //sender object to send responses to client
+    private final Sender sender;
+
+    public UserApi()
+    {
+        service = new UserService();
+        sender = Sender.getSender();
+    }
 
     public void getRequest(UserRequest request) throws InvalidTypeException {
         switch(request.subType())

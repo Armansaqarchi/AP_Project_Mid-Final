@@ -6,8 +6,8 @@ import java.util.UUID;
 public class PrivateChat
 {
     //id of two users with a '-' between : id1-id2
+    //first id is less than second
     private String id;
-
     private LinkedList<UUID> messages;
 
 

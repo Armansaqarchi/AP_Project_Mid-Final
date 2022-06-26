@@ -25,4 +25,9 @@ public abstract class Channel implements Serializable
         this.name = name;
         this.type = type;
     }
+
+    public LinkedList<String> getUsers()
+    {
+        return users;
+    }
 }
