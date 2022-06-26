@@ -60,6 +60,9 @@ public class AuthenticationApi
             //add new client to connections list
             ConnectionHandler.getConnectionHandler().
                     addConnection(request.getId() , request.getServerThread());
+
+            //set serverThreads id
+            request.getServerThread().setId(request.getId());
         }
 
         try {

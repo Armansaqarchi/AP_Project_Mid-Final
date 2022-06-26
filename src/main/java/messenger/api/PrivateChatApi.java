@@ -19,32 +19,6 @@ public class PrivateChatApi
         }
     }
 
-    public void getMessage(Message message) throws InvalidObjectException {
-
-        if(message instanceof FileMessage)
-        {
-            getFileMessage((FileMessage) message);
-        }
-        else if(message instanceof TextMessage)
-        {
-            getTextMessage((TextMessage) message);
-        }
-        else
-        {
-            throw new InvalidObjectException();
-        }
-    }
-
-    private void getFileMessage(FileMessage message)
-    {
-
-    }
-
-    private void getTextMessage(TextMessage message)
-    {
-
-    }
-
     private void getChatHistory(GetPrivateChatHisReq request)
     {
 

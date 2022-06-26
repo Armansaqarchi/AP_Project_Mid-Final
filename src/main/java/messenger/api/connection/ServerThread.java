@@ -82,4 +82,9 @@ public class ServerThread implements Runnable
             e.printStackTrace();
         }
     }
+
+    public void setId(String id)
+    {
+        this.id = id;
+    }
 }

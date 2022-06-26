@@ -20,6 +20,8 @@ public class Receiver
     private final ChannelApi channelApi;
     private final ServerApi serverApi;
 
+    private MessageApi messageApi;
+
     private final PrivateChatApi privateChatApi;
     public static Receiver getReceiver()
     {
@@ -38,6 +40,7 @@ public class Receiver
         channelApi = new ChannelApi();
         serverApi = new ServerApi();
         privateChatApi = new PrivateChatApi();
+        messageApi = new MessageApi();
     }
 
     public void receive(Transferable transferable) throws InvalidTypeException, InvalidObjectException {
@@ -67,12 +70,8 @@ public class Receiver
         }
     }
 
-    private void getMessage(Message message) throws InvalidObjectException, InvalidTypeException {
-        switch (message.getType())
-        {
-            case CHANNEL -> channelApi.getMessage(message);
-            case PRIVATE_CHAT -> privateChatApi.getMessage(message);
-            default -> throw new InvalidTypeException();
-        }
+    private void getMessage(Message message) throws InvalidTypeException
+    {
+        messageApi.getMessage(message);
     }
 }

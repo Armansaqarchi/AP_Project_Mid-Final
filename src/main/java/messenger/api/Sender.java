@@ -34,10 +34,10 @@ public class Sender
     }
 
     //returns that message is sent or not (user is online or not)
-    public void sendMessage(String receiverId , Message message)
+    public void sendMessage(Message message)
             throws ServerThreadNotFoundException
     {
-        ServerThread serverThread = connectionHandler.getServerThread(receiverId);
+        ServerThread serverThread = connectionHandler.getServerThread(message.getReceiverId());
 
         if(null != serverThread)
         {
