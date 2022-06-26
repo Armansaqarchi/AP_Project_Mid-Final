@@ -13,4 +13,16 @@ public abstract class Channel implements Serializable
     //id of users
     private LinkedList<String> users;
 
+    public Channel(UUID id, String name, ChannelType type, LinkedList<String> users) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.users = users;
+    }
+
+    public Channel(UUID id, String name, ChannelType type) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+    }
 }
