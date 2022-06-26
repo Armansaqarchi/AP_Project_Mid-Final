@@ -5,6 +5,7 @@ import messenger.api.Receiver;
 import messenger.service.model.Transferable;
 import messenger.service.model.exception.InvalidObjectException;
 import messenger.service.model.exception.InvalidTypeException;
+import messenger.service.model.request.Authentication.AuthenticationReq;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -48,6 +49,13 @@ public class ServerThread implements Runnable
             try
             {
                 Transferable input = (Transferable)inputStream.readObject();
+
+                //server thread most be saved in authentication request
+                //because it does not added to connections before
+                if(input instanceof AuthenticationReq)
+                {
+                    ((AuthenticationReq) input).setServerThread(this);
+                }
 
                 receiver.receive(input);
             }
