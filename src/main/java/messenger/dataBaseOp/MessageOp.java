@@ -23,22 +23,22 @@ public class MessageOp extends Op {
 
 
     public Message findByConfigMessage(String config, String columnName)
-    throws IOException, SQLException, ClassNotFoundException{
+    throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
         return createMessageFromData(findByConfig(config, columnName, "message"));
     }
 
     public  Message findById(String id)
-    throws IOException, SQLException, ClassNotFoundException{
+    throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
         return findByConfigMessage(id, "message_id");
     }
 
     public  Message findBySenderId(String senderId)
-    throws IOException, ClassNotFoundException, SQLException{
+    throws IOException, ClassNotFoundException, SQLException, ConfigNotFoundException{
         return findByConfigMessage(senderId, "sender_id");
     }
 
     public  Message findByReceiverId(String receiverId)
-    throws IOException, ClassNotFoundException, SQLException{
+    throws IOException, ClassNotFoundException, SQLException, ConfigNotFoundException{
         return findByConfigMessage(receiverId, "receiver_id");
     }
 
@@ -73,7 +73,8 @@ public class MessageOp extends Op {
                 message.getDate(), message.getContent());
     }
 
-    public void updateMessage(String id, String type, String newValue)throws SQLException{
+    public void updateMessage(String id, String type, String newValue)throws SQLException,
+            ConfigNotFoundException{
         String query = "UPDATE message SET " + type +" = ? where message_id = ?";
 
         PreparedStatement st = connection.prepareStatement(query);
@@ -82,11 +83,15 @@ public class MessageOp extends Op {
         st.setString(2, id);
 
 
-        st.executeUpdate();
+        int ans = st.executeUpdate();
+
+        if(ans == 0){
+            throw new ConfigNotFoundException(id, type, newValue);
+        }
     }
 
     public  boolean updateReactions(UpdateType type, String id, MessageReaction reaction)
-    throws IOException, ClassNotFoundException, SQLException{
+    throws IOException, ClassNotFoundException, SQLException, ConfigNotFoundException{
 
         LinkedList<MessageReaction> targetList = null;
 
@@ -96,6 +101,10 @@ public class MessageOp extends Op {
 
         pst.setString(1, id);
         ResultSet resultSet = pst.executeQuery();
+
+        if(resultSet == null){
+            throw new ConfigNotFoundException(id, "message_id", "message");
+        }
 
         Object o = null;
         while(resultSet.next()) {
