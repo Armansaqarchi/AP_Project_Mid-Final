@@ -348,6 +348,25 @@ public class UserService
         }
     }
 
+    public Response getFriendReqList(GetFriendReqList request)
+    {
+        try
+        {
+            User user = database.getUserOp().findById(request.getSenderId());
+
+            return new GetFriendReqListRes(request.getSenderId() , true ,
+                    "friend request list sent." , user.getFriendRequests());
+        }
+        catch (ConfigNotFoundException e)
+        {
+            return new GetFriendReqListRes(request.getSenderId() , false , e.getMessage() , null);
+        }
+        catch (IOException | SQLException | ClassNotFoundException e)
+        {
+            throw new RuntimeException();
+        }
+    }
+
     private HashMap<String, UserStatus> getUsersStatus(LinkedList<String> userIdes)
     {
         HashMap<String , UserStatus> usersStatus = new HashMap<>();

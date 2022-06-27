@@ -49,42 +49,44 @@ public class UserApi
 
     private void getFriendReqList(GetFriendReqList request)
     {
-
+        sendResponse(service.getFriendReqList(request));
     }
     private void answerFriendReq(AnswerFriendReq request)
     {
-
+        sendResponse(service.answerFriendReq(request));
     }
 
     private void blockUser(BlockUserReq request)
     {
-
+        sendResponse(service.blockUser(request));
     }
 
     private void friendReq(FriendReq request)
     {
         //setting a random uuid for friend request
         request.setId(UUID.randomUUID());
+
+        sendResponse(service.friendReq(request));
     }
 
     private void getFriendListReq(GetFriendListReq request)
     {
-
+        sendResponse(service.getFriendListReq(request));
     }
 
     private void getMyProfile(GetMyProfileReq request)
     {
-
+        sendResponse(service.getMyProfile(request));
     }
 
     private void getUserProfile(GetUserProfileReq request)
     {
-
+        sendResponse(service.getUserProfile(request));
     }
 
     private void reactionToMessage(ReactionToMessageReq request)
     {
-
+        sendResponse(service.reactionToMessage(request));
     }
 
     private void setMyProfile(SetMyProfileReq request)
@@ -111,17 +113,17 @@ public class UserApi
 
     private void getBlockedUsers(GetBlockedUsersReq request)
     {
-
+        sendResponse(service.getBlockedUsers(request));
     }
 
     private void getServers(GetServersReq request)
     {
-
+        sendResponse(service.getServers(request));
     }
 
     private void getPrivateChats(GetPrivateChatsReq request)
     {
-
+        sendResponse(service.getPrivateChats(request));
     }
 
     private void sendResponse(Response response)
