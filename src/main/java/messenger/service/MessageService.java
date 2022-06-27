@@ -145,6 +145,9 @@ public class MessageService
             Channel channel =
                     database.getChannelOp().findById(channelId.toString());
 
+            database.getChannelOp().updateChannelList(UpdateType.ADD ,
+                    "messages" , channelId.toString() , message.toString());
+
             LinkedList<String> receivers = channel.getUsers();
 
             for(String receiver : receivers)
