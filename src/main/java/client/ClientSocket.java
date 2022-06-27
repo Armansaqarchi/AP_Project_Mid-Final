@@ -61,16 +61,8 @@ public class ClientSocket implements Runnable
         return id;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setId(String id) {
         this.id = id;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Receiver getReceiver() {

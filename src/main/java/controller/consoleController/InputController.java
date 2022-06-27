@@ -24,6 +24,9 @@ public abstract class InputController {
                 if(choice >= start && choice <= end) {
                     break;
                 }
+                else{
+                    System.err.println("choose between " + start + " and " + end);
+                }
             }
             catch(NumberFormatException e){
                 System.err.println("Invalid input");

@@ -43,7 +43,6 @@ public class SignInController extends InputController {
                 }
 
                 clientSocket.setId(id);
-                clientSocket.setPassword(password);
 
                 clientSocket.send(new LoginReq(AuthenticationReqType.LOGIN, id,
                         password, null));
