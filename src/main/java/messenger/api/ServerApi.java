@@ -10,7 +10,7 @@ public class ServerApi
         switch (request.subType())
         {
             case ADD_RULE -> addRule((AddRuleServerReq) request);
-            case GET_IMAGE -> getImage((GetServerImageReq) request);
+            case GET_INFO -> getInfo((GetServerInfoReq) request);
             case GET_RULES -> getRules((GetRulesServerReq) request);
             case ADD_USER -> addUser((AddUserServerReq) request);
             case SET_IMAGE -> setImage((SetServerImageReq) request);
@@ -67,7 +67,7 @@ public class ServerApi
 
     }
 
-    private void getImage(GetServerImageReq request)
+    private void getInfo(GetServerInfoReq request)
     {
 
     }
