@@ -50,6 +50,14 @@ public class UserOp extends Op{
         return findByConfigUser(phoneNumber, "phone_number");
     }
 
+
+    public void updateUserProfileImage(byte[] newImage ,String id)
+            throws ConfigNotFoundException, SQLException{
+
+        updateImage(newImage, id, "profile_image", "user",
+                "user_id", "users");
+    }
+
     public void insertUser(String id, String name, String password, String email, String phoneNumber)
     throws SQLException{
 
