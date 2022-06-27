@@ -4,4 +4,17 @@ public class MessageReaction
 {
     private String senderId;
     private Reaction reaction;
+
+    public MessageReaction(String senderId, Reaction reaction) {
+        this.senderId = senderId;
+        this.reaction = reaction;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public Reaction getReaction() {
+        return reaction;
+    }
 }

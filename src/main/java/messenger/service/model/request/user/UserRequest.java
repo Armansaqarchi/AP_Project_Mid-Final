@@ -24,7 +24,4 @@ public abstract class UserRequest extends Request
         return subType;
     }
 
-    public UserRequest(UserRequestType type) {
-        this.type = type;
-    }
 }

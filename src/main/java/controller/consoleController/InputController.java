@@ -7,7 +7,7 @@ import java.util.Scanner;
 public abstract class InputController {
 
     protected ClientSocket clientSocket;
-    private Scanner scanner;
+    protected Scanner scanner;
 
 
     public InputController(ClientSocket clientSocket){

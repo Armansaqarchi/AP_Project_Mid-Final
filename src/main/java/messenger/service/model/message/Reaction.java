@@ -2,7 +2,7 @@ package messenger.service.model.message;
 
 public enum Reaction
 {
-    LIKE("like") , DISLIKE("dislike") , LAUGH("laugh");
+    LIKE("likes") , DISLIKE("dislikes") , LAUGH("laughs");
 
     private final String value;
 

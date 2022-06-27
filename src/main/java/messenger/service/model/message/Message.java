@@ -25,4 +25,38 @@ public abstract class Message implements Transferable , Serializable
     public MessageType getType() {
         return type;
     }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public String getReceiverId() {
+        return receiverId;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public LinkedList<MessageReaction> getReactions() {
+        return reactions;
+    }
+
+    protected String showMessageReactions(){
+        String showReacts = "";
+        for(MessageReaction i : reactions){
+            showReacts += (i.getSenderId() + " : " + i.getReaction() + " ");
+        }
+
+        return showReacts;
+    }
+
+    public abstract String showMessage();
+
+
+
 }
