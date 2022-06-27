@@ -47,6 +47,13 @@ public class ServerOp extends Op{
         return findByConfigMessage(name, "name");
     }
 
+    public void updateServerProfileImage(byte[] newImage ,String id)
+            throws ConfigNotFoundException, SQLException{
+
+        updateImage(newImage, id, "image", "server",
+                "server_id", "server");
+    }
+
     public void insertServer(String id, String ownerId, String name) throws SQLException{
         PreparedStatement pst = connection.prepareStatement(
                 "INSERT INTO server VALUES (?, ?, ?)");
