@@ -9,4 +9,9 @@ public class BlockUserReq extends UserRequest
 {
     //user id of who is blocked
     private String userid;
+
+    public BlockUserReq(UserRequestType type, String userid) {
+        super(type);
+        this.userid = userid;
+    }
 }

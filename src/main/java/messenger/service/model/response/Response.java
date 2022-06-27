@@ -17,4 +17,12 @@ public class Response implements Transferable
     {
         return receiverId;
     }
+
+    public boolean isAccepted() {
+        return isAccepted;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }

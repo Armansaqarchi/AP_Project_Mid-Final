@@ -11,6 +11,8 @@ public class Receiver
     //the latest response that was arrived from server
     private Response response;
 
+
+
     public void getInput(Transferable transferable) throws InvalidObjectException {
 
         if(transferable instanceof Message)
@@ -32,7 +34,7 @@ public class Receiver
         this.response = response;
     }
 
-    private Response getResponse() throws ResponseNotFoundException
+    public Response getResponse() throws ResponseNotFoundException
     {
         for (int i = 0; i < 100; i++)
         {

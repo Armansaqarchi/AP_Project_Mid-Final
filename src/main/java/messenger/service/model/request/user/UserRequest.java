@@ -16,4 +16,8 @@ public abstract class UserRequest extends Request
     {
         return type;
     }
+
+    public UserRequest(UserRequestType type) {
+        this.type = type;
+    }
 }

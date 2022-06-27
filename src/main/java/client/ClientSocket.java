@@ -2,6 +2,8 @@ package client;
 
 import messenger.service.model.Transferable;
 import messenger.service.model.exception.InvalidObjectException;
+import messenger.service.model.exception.ResponseNotFoundException;
+import messenger.service.model.response.Response;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -71,4 +73,9 @@ public class ClientSocket implements Runnable
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Receiver getReceiver() {
+        return receiver;
+    }
+
 }

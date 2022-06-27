@@ -12,7 +12,7 @@ public class ChannelApi
             case REMOVE_USER -> removeUser((RemoveUserChannelReq) request);
             case ADD_USER -> addUser((AddUserChannelReq) request);
             case PIN_MESSAGE -> pinMessage((PinMessageReq) request);
-            case CREAT_CHANNEL -> creatChannel((CreatChannelReq) request);
+            case CREAT_CHANNEL -> creatChannel((CreateChannelReq) request);
             case DELETE_CHANNEL -> deleteChannel((DeleteChannelReq) request);
             case RENAME_CHANNEL -> renameChannel((RenameChannelReq) request);
             case GET_CHAT_HISTORY -> getChatHistory((GetChatHistoryReq) request);
@@ -24,7 +24,7 @@ public class ChannelApi
 
     }
 
-    private void creatChannel(CreatChannelReq request)
+    private void creatChannel(CreateChannelReq request)
     {
 
     }

@@ -1,15 +1,18 @@
 package controller.consoleController;
 
-import java.util.InputMismatchException;
+import client.ClientSocket;
+
 import java.util.Scanner;
 
-public abstract class InputHandler {
+public abstract class InputController {
 
-    Scanner scanner;
+    protected ClientSocket clientSocket;
+    private Scanner scanner;
 
 
-    public InputHandler(){
+    public InputController(ClientSocket clientSocket){
         scanner = new Scanner(System.in);
+        this.clientSocket = clientSocket;
     }
 
     public int getOptionalInput(int start, int end){
@@ -30,4 +33,7 @@ public abstract class InputHandler {
 
         return choice;
     }
+
+
+
 }

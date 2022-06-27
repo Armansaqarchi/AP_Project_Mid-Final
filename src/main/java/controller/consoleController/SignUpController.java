@@ -11,7 +11,7 @@ import messenger.service.model.request.Authentication.SignupReq;
 
 import java.util.Scanner;
 
-public class SignUpController extends InputHandler {
+public class SignUpController extends InputController {
 
     Scanner scanner;
 
@@ -24,7 +24,9 @@ public class SignUpController extends InputHandler {
 
 
 
-    public SignUpController(){
+    public SignUpController(ClientSocket clientSocket){
+        super(clientSocket);
+
         scanner = new Scanner(System.in);
         username = null;
         password = null;

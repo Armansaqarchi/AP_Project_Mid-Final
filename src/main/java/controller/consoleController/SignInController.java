@@ -6,12 +6,18 @@ import messenger.service.model.request.Authentication.LoginReq;
 
 import java.util.Scanner;
 
-public class SignInController extends InputHandler {
+public class SignInController extends InputController {
 
     private String id;
     private String password;
 
+    public SignInController(ClientSocket clientSocket, String id) {
+        super(clientSocket);
+    }
+
     public void getUserDetails(ClientSocket clientSocket){
+
+
 
         if(clientSocket.getId() != null && clientSocket.getPassword() != null){
             clientSocket.send(new LoginReq(AuthenticationReqType.LOGIN, clientSocket.getId(),

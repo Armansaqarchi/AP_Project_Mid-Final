@@ -12,4 +12,20 @@ public class GetUserProfileRes extends GetInfoRes
     private byte[] profileImage;
 
     private UserStatus userStatus;
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public byte[] getProfileImage() {
+        return profileImage;
+    }
+
+    public UserStatus getUserStatus() {
+        return userStatus;
+    }
 }
