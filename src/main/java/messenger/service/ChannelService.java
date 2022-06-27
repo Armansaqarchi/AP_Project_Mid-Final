@@ -3,12 +3,16 @@ package messenger.service;
 import messenger.dataBaseOp.Database;
 import messenger.dataBaseOp.UpdateType;
 import messenger.service.model.exception.ConfigNotFoundException;
+import messenger.service.model.exception.UserNotFoundException;
 import messenger.service.model.message.Message;
 import messenger.service.model.request.Channel.*;
+import messenger.service.model.request.Request;
 import messenger.service.model.response.Response;
 import messenger.service.model.response.channel.GetChatHistoryRes;
 import messenger.service.model.response.channel.GetPinnedMsgRes;
 import messenger.service.model.server.*;
+import messenger.service.model.user.ServerIDs;
+import messenger.service.model.user.User;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -32,6 +36,12 @@ public class ChannelService
 
             UUID channelId = server.getChannels().get(request.getChannelName());
 
+            if(!server.getUsers().contains(request.getUserId()))
+            {
+                return new Response(request.getSenderId() , false ,
+                        "user is not member of this server.");
+            }
+
             if(null == channelId)
             {
                 return new Response(request.getSenderId() , false ,
@@ -45,8 +55,12 @@ public class ChannelService
                         "you cant add user to this channel!");
             }
 
+            //add user to channel
             database.getChannelOp().updateChannelList(UpdateType.ADD , "users" ,
                     channelId.toString() , request.getUserId());
+
+            //add channel to users list
+            updateChannelsUser(request);
 
             return new Response(request.getSenderId() , true , "user added to channel successfully.");
         }
@@ -259,6 +273,12 @@ public class ChannelService
         {
             Server server  = database.getServerOp().findByServerId(request.getServerId());
 
+            if(!server.getUsers().contains(request.getUserId()))
+            {
+                return new Response(request.getSenderId() , false ,
+                        "user is not member of this server.");
+            }
+
             if(!server.getChannels().containsKey(request.getChannelName()))
             {
                 return new Response(request.getSenderId() , false ,
@@ -272,8 +292,12 @@ public class ChannelService
 
             UUID channelId = server.getChannels().get(request.getChannelName());
 
-            database.getChannelOp().updateChannelList(UpdateType.ADD , "users" ,
+            //remove user from channel
+            database.getChannelOp().updateChannelList(UpdateType.REMOVE , "users" ,
                     channelId.toString() , request.getUserId());
+
+            //remove channel from users list
+            updateChannelsUser(request);
 
             return new Response(request.getSenderId() , true ,
                     "user removed from channel successfully.");
@@ -368,5 +392,46 @@ public class ChannelService
         }
 
         return messages;
+    }
+
+    /**
+     * this is used to add channel in users channels list when it added
+     */
+    private void updateChannelsUser(AddUserChannelReq request) throws ConfigNotFoundException, SQLException, IOException, ClassNotFoundException {
+
+        User user = database.getUserOp().findById(request.getUserId());
+
+        ServerIDs serverId = new ServerIDs(request.getServerId(), new LinkedList<>());
+
+        LinkedList<ServerIDs> serverIDs = user.getServers();
+
+        serverId = serverIDs.get(serverIDs.indexOf(serverId));
+
+        if(null != serverId)
+        {
+            database.getUserOp().updateList(UpdateType.REMOVE , "servers" , request.getUserId(), serverId);
+            serverId.getChannels().add(request.getChannelName());
+            database.getUserOp().updateList(UpdateType.ADD , "servers" , request.getUserId(), serverId);
+        }
+    }
+
+    /**
+     * this is used to remove channel of users channel list when it removed
+     */
+    private void updateChannelsUser(RemoveUserChannelReq request) throws ConfigNotFoundException, SQLException, IOException, ClassNotFoundException {
+        User user = database.getUserOp().findById(request.getUserId());
+
+        ServerIDs serverId = new ServerIDs(request.getServerId(), new LinkedList<>());
+
+        LinkedList<ServerIDs> serverIDs = user.getServers();
+
+        serverId = serverIDs.get(serverIDs.indexOf(serverId));
+
+        if(null != serverId)
+        {
+            database.getUserOp().updateList(UpdateType.REMOVE , "servers" , request.getUserId(), serverId);
+            serverId.getChannels().remove(request.getChannelName());
+            database.getUserOp().updateList(UpdateType.ADD , "servers" , request.getUserId(), serverId);
+        }
     }
 }

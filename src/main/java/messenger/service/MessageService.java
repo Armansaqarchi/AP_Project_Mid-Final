@@ -196,6 +196,10 @@ public class MessageService
             if(!database.getPrivateChatOp().isExists(privateChatId))
             {
                 database.getPrivateChatOp().insertPrivateMessage(privateChatId);
+
+                database.getUserOp().updateList(UpdateType.ADD , "private_chats" , message.getReceiverId() , privateChatId);
+
+                database.getUserOp().updateList(UpdateType.ADD , "private_chats" , message.getSenderId() , privateChatId);
             }
 
             //insert message in private chats list

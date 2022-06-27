@@ -10,6 +10,7 @@ import messenger.service.model.response.server.GetServerInfoRes;
 import messenger.service.model.response.server.GetUserStatusRes;
 import messenger.service.model.server.RuleType;
 import messenger.service.model.server.Server;
+import messenger.service.model.user.ServerIDs;
 import messenger.service.model.user.User;
 import messenger.service.model.user.UserStatus;
 
@@ -81,6 +82,11 @@ public class ServerService
             {
                 //add user to server
                 database.getServerOp().updateServerList(UpdateType.ADD , server.getId(), "users" , request.getUserIds());
+
+                ServerIDs serverId = new ServerIDs(server.getId(), new LinkedList<>());
+
+                //add serverID to users servers
+                database.getUserOp().updateList(UpdateType.ADD , "servers" , request.getUserIds() , serverId);
 
                 return new Response(request.getSenderId(), true , "user added to server successfully.");
             }
@@ -191,6 +197,11 @@ public class ServerService
             {
                 //remove user from server
                 database.getServerOp().updateServerList(UpdateType.REMOVE , server.getId(), "users" , request.getUserIds());
+
+                ServerIDs serverId = new ServerIDs(server.getId(), new LinkedList<>());
+
+                //add serverID to users servers
+                database.getUserOp().updateList(UpdateType.REMOVE , "servers" , request.getUserIds() , serverId);
 
                 return new Response(request.getSenderId(), true , "'" + request.getUserIds() + "' removed from server successfully.");
             }

@@ -3,6 +3,7 @@ package messenger.service.model.user;
 //this class is only used to save servers id and
 // its channels ids in a user object
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class ServerIDs
 {
@@ -11,4 +12,27 @@ public class ServerIDs
 
     //name of channels that the user is a member of them
     LinkedList<String> channels;
+
+    public ServerIDs(String id, LinkedList<String> channels)
+    {
+        this.id = id;
+        this.channels = channels;
+    }
+
+    public String getId()
+    {
+        return id;
+    }
+
+    public LinkedList<String> getChannels() {
+        return channels;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ServerIDs)) return false;
+
+        return ((ServerIDs) o).getId().equals(id);
+    }
 }
