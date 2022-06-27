@@ -19,4 +19,9 @@ public class PrivateChat
     public String GetId() {
         return id;
     }
+
+    public LinkedList<UUID> getMessages()
+    {
+        return messages;
+    }
 }

@@ -128,7 +128,7 @@ public class MessageService
         return messages;
     }
 
-    private Response handleChannelMessage(Message message)
+    public Response handleChannelMessage(Message message)
     {
         String[] ides = message.getReceiverId().split("-");
 
@@ -144,6 +144,9 @@ public class MessageService
 
             Channel channel =
                     database.getChannelOp().findById(channelId.toString());
+
+            database.getChannelOp().updateChannelList(UpdateType.ADD ,
+                    "messages" , channelId.toString() , message.toString());
 
             LinkedList<String> receivers = channel.getUsers();
 
@@ -167,7 +170,7 @@ public class MessageService
         }
     }
 
-    private Response handlePrivateMessage(Message message)
+    public Response handlePrivateMessage(Message message)
     {
         String privateChatId;
 
@@ -193,6 +196,10 @@ public class MessageService
             if(!database.getPrivateChatOp().isExists(privateChatId))
             {
                 database.getPrivateChatOp().insertPrivateMessage(privateChatId);
+
+                database.getUserOp().updateList(UpdateType.ADD , "private_chats" , message.getReceiverId() , privateChatId);
+
+                database.getUserOp().updateList(UpdateType.ADD , "private_chats" , message.getSenderId() , privateChatId);
             }
 
             //insert message in private chats list
