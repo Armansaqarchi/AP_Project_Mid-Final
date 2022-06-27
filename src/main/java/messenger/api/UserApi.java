@@ -3,11 +3,14 @@
 package messenger.api;
 
 
+import messenger.api.connection.ConnectionHandler;
+import messenger.api.connection.ServerThread;
 import messenger.service.UserService;
 import messenger.service.model.exception.InvalidTypeException;
 import messenger.service.model.exception.ServerThreadNotFoundException;
 import messenger.service.model.message.Message;
 import messenger.service.model.request.user.*;
+import messenger.service.model.response.Response;
 
 import java.util.LinkedList;
 import java.util.UUID;
@@ -86,7 +89,24 @@ public class UserApi
 
     private void setMyProfile(SetMyProfileReq request)
     {
+        Response response = service.setMyProfile(request);
 
+        //if id is changed it most be change in controller class
+        if(response.isAccepted() && null != request.getId() && ! request.getSenderId().equals(request.getId()))
+        {
+            ServerThread serverThread = ConnectionHandler.getConnectionHandler().getServerThread(request.getSenderId());
+
+            //change id of server thread
+            if(null != serverThread)
+            {
+                serverThread.setId(request.getId());
+            }
+
+            //change id in connections list
+            ConnectionHandler.getConnectionHandler().addConnection(request.getId() , serverThread);
+        }
+
+        sendResponse(response);
     }
 
     private void getBlockedUsers(GetBlockedUsersReq request)
@@ -102,5 +122,17 @@ public class UserApi
     private void getPrivateChats(GetPrivateChatsReq request)
     {
 
+    }
+
+    private void sendResponse(Response response)
+    {
+        try
+        {
+            sender.sendResponse(response);
+        }
+        catch (ServerThreadNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 }
