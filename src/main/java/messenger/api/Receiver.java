@@ -11,6 +11,8 @@ import messenger.service.model.request.priavteChat.PrivateChatReq;
 import messenger.service.model.request.server.ServerReq;
 import messenger.service.model.request.user.UserRequest;
 
+import java.util.UUID;
+
 public class Receiver
 {
     private static Receiver requestReceiver;
@@ -20,7 +22,7 @@ public class Receiver
     private final ChannelApi channelApi;
     private final ServerApi serverApi;
 
-    private MessageApi messageApi;
+    private final MessageApi messageApi;
 
     private final PrivateChatApi privateChatApi;
     public static Receiver getReceiver()
@@ -51,6 +53,9 @@ public class Receiver
         }
         else if(transferable instanceof Message)
         {
+            //setting a uuid for message
+            ((Message) transferable).setId(UUID.randomUUID());
+
             getMessage((Message) transferable);
         }
         else

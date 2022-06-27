@@ -10,6 +10,7 @@ import messenger.service.model.message.Message;
 import messenger.service.model.request.user.*;
 
 import java.util.LinkedList;
+import java.util.UUID;
 
 public class UserApi
 {
@@ -60,7 +61,8 @@ public class UserApi
 
     private void friendReq(FriendReq request)
     {
-
+        //setting a random uuid for friend request
+        request.setId(UUID.randomUUID());
     }
 
     private void getFriendListReq(GetFriendListReq request)
