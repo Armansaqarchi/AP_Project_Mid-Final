@@ -1,12 +1,16 @@
 package messenger.api;
 
+import messenger.service.model.exception.InvalidObjectException;
+import messenger.service.model.exception.InvalidTypeException;
+import messenger.service.model.message.FileMessage;
+import messenger.service.model.message.Message;
+import messenger.service.model.message.TextMessage;
 import messenger.service.model.request.Channel.*;
 
 public class ChannelApi
 {
 
-    public void getRequest(ChannelReq request)
-    {
+    public void getRequest(ChannelReq request) throws InvalidTypeException {
         switch(request.subType())
         {
             case REMOVE_USER -> removeUser((RemoveUserChannelReq) request);
@@ -16,9 +20,38 @@ public class ChannelApi
             case DELETE_CHANNEL -> deleteChannel((DeleteChannelReq) request);
             case RENAME_CHANNEL -> renameChannel((RenameChannelReq) request);
             case GET_CHAT_HISTORY -> getChatHistory((GetChatHistoryReq) request);
-            //default -> trow invalid type exception
+            case GET_PINNED_MESSAGES -> getPinnedMessage((GetPinnedMsgReq) request);
+            default -> throw new InvalidTypeException();
         }
     }
+
+    public void getMessage(Message message) throws InvalidObjectException {
+
+        if(message instanceof FileMessage)
+        {
+            getFileMessage((FileMessage) message);
+        }
+        else if(message instanceof TextMessage)
+        {
+            getTextMessage((TextMessage) message);
+        }
+        else
+        {
+            throw new InvalidObjectException();
+        }
+    }
+
+    private void getFileMessage(FileMessage message)
+    {
+
+    }
+
+    private void getTextMessage(TextMessage message)
+    {
+
+    }
+
+
     private void addUser(AddUserChannelReq request)
     {
 

@@ -6,7 +6,7 @@ public enum Reaction
 
     private final String value;
 
-    private Reaction (String value)
+    private Reaction(String value)
     {
         this.value = value;
     }

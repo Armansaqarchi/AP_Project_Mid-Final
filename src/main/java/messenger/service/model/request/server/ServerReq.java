@@ -7,15 +7,25 @@
 package messenger.service.model.request.server;
 
 import messenger.service.model.request.Request;
+import messenger.service.model.request.RequestType;
 
 public abstract class ServerReq extends Request
 {
-    private ServerRequestType type;
+    private final ServerRequestType subType;
 
-    private String serverId;
+    private final String serverId;
 
-    public ServerRequestType subType()
-    {
-        return type;
+    public ServerReq(String senderId, ServerRequestType subType, String serverId) {
+        super(senderId, RequestType.SERVER);
+        this.subType = subType;
+        this.serverId = serverId;
+    }
+
+    public ServerRequestType subType() {
+        return subType;
+    }
+
+    public String getServerId() {
+        return serverId;
     }
 }

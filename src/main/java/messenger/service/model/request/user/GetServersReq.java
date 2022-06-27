@@ -7,4 +7,7 @@ package messenger.service.model.request.user;
  */
 public class GetServersReq extends UserRequest
 {
+    public GetServersReq(String senderId) {
+        super(senderId, UserRequestType.GET_SERVERS);
+    }
 }

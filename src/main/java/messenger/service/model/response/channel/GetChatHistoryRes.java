@@ -7,5 +7,16 @@ import java.util.LinkedList;
 
 public class GetChatHistoryRes extends GetInfoRes
 {
-    private LinkedList<Message> messages;
+    private final LinkedList<Message> messages;
+
+    public GetChatHistoryRes(String receiverId, boolean isAccepted,
+                             String message,
+                             LinkedList<Message> messages) {
+        super(receiverId, isAccepted, message);
+        this.messages = messages;
+    }
+
+    public LinkedList<Message> getMessages() {
+        return messages;
+    }
 }

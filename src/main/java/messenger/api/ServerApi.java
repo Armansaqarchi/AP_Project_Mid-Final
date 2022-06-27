@@ -1,16 +1,16 @@
 package messenger.api;
 
+import messenger.service.model.exception.InvalidTypeException;
 import messenger.service.model.request.server.*;
 
 public class ServerApi
 {
 
-    public void getRequest(ServerReq request)
-    {
+    public void getRequest(ServerReq request) throws InvalidTypeException {
         switch (request.subType())
         {
             case ADD_RULE -> addRule((AddRuleServerReq) request);
-            case GET_IMAGE -> getImage((GetServerImageReq) request);
+            case GET_INFO -> getInfo((GetServerInfoReq) request);
             case GET_RULES -> getRules((GetRulesServerReq) request);
             case ADD_USER -> addUser((AddUserServerReq) request);
             case SET_IMAGE -> setImage((SetServerImageReq) request);
@@ -19,7 +19,7 @@ public class ServerApi
             case RENAME_SERVER -> renameServer((RenameServerReq) request);
             case REMOVE_USER -> removeUser((RemoveUserServerReq) request);
             case GET_USERS_STATUS -> getUsersStatus((GetUsersStatusReq) request);
-            //default -> trow invalid type exception
+            default -> throw new InvalidTypeException();
         }
     }
     private void addRule(AddRuleServerReq request)
@@ -67,7 +67,7 @@ public class ServerApi
 
     }
 
-    private void getImage(GetServerImageReq request)
+    private void getInfo(GetServerInfoReq request)
     {
 
     }

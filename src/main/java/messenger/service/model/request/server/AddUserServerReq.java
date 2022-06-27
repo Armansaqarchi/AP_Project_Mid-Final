@@ -10,5 +10,14 @@ import java.util.LinkedList;
 
 public class AddUserServerReq extends ServerReq
 {
-    private String userIds;
+    private final String userIds;
+
+    public AddUserServerReq(String senderId,  String serverId, String userIds) {
+        super(senderId, ServerRequestType.ADD_USER, serverId);
+        this.userIds = userIds;
+    }
+
+    public String getUserIds() {
+        return userIds;
+    }
 }
