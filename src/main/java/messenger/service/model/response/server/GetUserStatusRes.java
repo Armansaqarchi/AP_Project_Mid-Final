@@ -7,15 +7,15 @@ import java.util.HashMap;
 
 public class GetUserStatusRes extends GetInfoRes
 {
-    private final HashMap<String , UserStatus> friendList;
+    private final HashMap<String , UserStatus> users;
 
     public GetUserStatusRes(String receiverId, boolean isAccepted,
-                            String message, HashMap<String, UserStatus> friendList) {
+                            String message, HashMap<String, UserStatus> users) {
         super(receiverId, isAccepted, message);
-        this.friendList = friendList;
+        this.users = users;
     }
 
-    public HashMap<String, UserStatus> getFriendList() {
-        return friendList;
+    public HashMap<String, UserStatus> getUsers() {
+        return users;
     }
 }

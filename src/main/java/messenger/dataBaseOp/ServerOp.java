@@ -5,6 +5,7 @@ import messenger.service.model.message.Message;
 import messenger.service.model.message.MessageType;
 import messenger.service.model.message.Reaction;
 import messenger.service.model.server.*;
+import messenger.service.model.user.User;
 
 import java.io.IOException;
 import java.sql.*;
@@ -238,7 +239,19 @@ public class ServerOp extends Op{
 
     }
 
-
-
-
+    public boolean isExists(String id)
+    {
+        try
+        {
+            Server server = findByServerId(id);
+            return true;
+        }
+        catch (ConfigNotFoundException e)
+        {
+            return false;
+        }
+        catch (ClassNotFoundException | SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

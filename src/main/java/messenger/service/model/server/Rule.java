@@ -6,4 +6,8 @@ public class Rule
 {
     private String id;
     private HashSet<RuleType> rules;
+
+    public HashSet<RuleType> getRules() {
+        return rules;
+    }
 }
