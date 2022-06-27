@@ -34,7 +34,6 @@ public class UserApi
             case SET_PROFILE -> setMyProfile((SetMyProfileReq) request);
             case GET_MY_PROFILE -> getMyProfile((GetMyProfileReq) request);
             case GET_FRIEND_LIST -> getFriendListReq((GetFriendListReq) request);
-            case GET_USER_STATUS -> getUserStatus((GetUserStatusReq) request);
             case GET_USER_PROFILE -> getUserProfile((GetUserProfileReq) request);
             case ANSWER_FRIEND_REQ -> answerFriendReq((AnswerFriendReq) request);
             case GET_BLOCKED_USERS -> getBlockedUsers((GetBlockedUsersReq) request);
@@ -76,11 +75,6 @@ public class UserApi
     }
 
     private void getUserProfile(GetUserProfileReq request)
-    {
-
-    }
-
-    private void getUserStatus(GetUserStatusReq request)
     {
 
     }

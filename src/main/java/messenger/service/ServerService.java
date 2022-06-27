@@ -97,7 +97,7 @@ public class ServerService
         }
     }
 
-    public Response creatServer(CreatServerReq request)
+    public Response creatServer(CreateServerReq request)
     {
         try
         {

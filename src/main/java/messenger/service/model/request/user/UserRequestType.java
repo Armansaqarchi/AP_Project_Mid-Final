@@ -13,7 +13,7 @@ public enum UserRequestType
 {
     ANSWER_FRIEND_REQ("answerFriendReq") , BLOCK_USER("blockUser") , FRIEND_REQ("friendReq") ,
     GET_FRIEND_LIST("getFriendList") , GET_MY_PROFILE("getMyProfile") , GET_USER_PROFILE("getUserProfile") ,
-    GET_USER_STATUS("getUserStatus") , REACTION_TO_MESSAGE("reactionToMessage") , SET_PROFILE("setProfile") ,
+    REACTION_TO_MESSAGE("reactionToMessage") , SET_PROFILE("setProfile") ,
     GET_BLOCKED_USERS("getBlockedUsers") , GET_SERVERS("getServers") , GET_PRIVATE_CHATS("getPrivateChats") ,
     GET_FRIEND_REQ_LIST("get FriendRequest list");
 
@@ -37,8 +37,6 @@ public enum UserRequestType
                 return UserRequestType.GET_MY_PROFILE;
             case "getUserProfile":
                 return UserRequestType.GET_USER_PROFILE;
-            case "getUserStatus":
-                return UserRequestType.GET_USER_STATUS;
             case "reactionToMessage":
                 return UserRequestType.REACTION_TO_MESSAGE;
             case "setProfile":
