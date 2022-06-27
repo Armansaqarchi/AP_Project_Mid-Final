@@ -110,7 +110,7 @@ public class ServerService
 
             if(null != request.getImage())
             {
-                database.getServerOp().updateImage(request.getImage(), request.getServerId());
+                database.getServerOp().updateServerProfileImage(request.getImage(), request.getServerId());
             }
 
             return new Response(request.getSenderId(), true , "server created successfully!");
@@ -232,7 +232,6 @@ public class ServerService
         }
     }
 
-    //incomplete
     public Response setImage(SetServerImageReq request)
     {
         try
@@ -241,7 +240,9 @@ public class ServerService
 
             if(checkRule(request.getSenderId() , server.getId() , RuleType.SET_IMAGE))
             {
-                //setting the image
+                //update profile image
+                database.getServerOp().updateServerProfileImage(request.getImage(), server.getId());
+
                 return new Response(request.getSenderId() , true , "Image set successfully.");
             }
 

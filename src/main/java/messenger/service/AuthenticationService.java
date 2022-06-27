@@ -85,7 +85,7 @@ public class AuthenticationService
                     //setting profile image
                     if(null != request.getProfileImage())
                     {
-                        database.getUserOp().updateImage(request.getProfileImage(), request.getId());
+                        database.getUserOp().updateUserProfileImage(request.getProfileImage(), request.getId());
                     }
                 }
                 catch (ConfigNotFoundException e)
