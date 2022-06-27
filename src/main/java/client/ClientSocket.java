@@ -15,7 +15,6 @@ public class ClientSocket implements Runnable
     Receiver receiver;
 
     private String id;
-    private String  password;
 
     private Socket socket;
     private ObjectInputStream inputStream;
@@ -24,7 +23,7 @@ public class ClientSocket implements Runnable
 
     public ClientSocket(){
         id = null;
-        password = null;
+
 
         //other assignments including inputSt and outputSt should be implemented here
     }

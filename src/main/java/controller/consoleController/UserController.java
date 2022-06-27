@@ -3,6 +3,8 @@ package controller.consoleController;
 import client.ClientSocket;
 import messenger.service.model.exception.ResponseNotFoundException;
 import messenger.service.model.message.Message;
+import messenger.service.model.message.MessageType;
+import messenger.service.model.message.TextMessage;
 import messenger.service.model.request.priavteChat.GetPrivateChatHisReq;
 import messenger.service.model.request.user.*;
 import messenger.service.model.response.Response;
@@ -12,6 +14,7 @@ import messenger.service.model.response.user.GetUserProfileRes;
 import messenger.service.model.user.UserStatus;
 
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.UUID;
@@ -134,13 +137,28 @@ public class UserController extends InputController {
 
 
 
-    public void chat(String id){
+    public void privateChat(String id){
         showPrivateChatHis(getPrivateChatHis(id));
 
         String content;
 
-        do{
-
+        try {
+            do {
+                content = scanner.nextLine();
+                if (content.equals("-1")) {
+                    //return to the previous menu
+                }
+                clientSocket.send(new TextMessage(null, clientSocket.getId(), id,
+                        LocalDateTime.now(), null, content));
+                Response response = clientSocket.getReceiver().getResponse();
+                if(!response.isAccepted()){
+                    System.out.println(response.getMessage());
+                }
+            }
+            while (true);
+        }
+        catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
         }
 
     }
@@ -176,7 +194,7 @@ public class UserController extends InputController {
             }
 
 
-            System.out.println("to be back, press '1'.");
+            System.out.println("to be back, press '-1'.");
         }
 
 

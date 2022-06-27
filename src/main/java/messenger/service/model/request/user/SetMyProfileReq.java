@@ -6,6 +6,8 @@
 
 package messenger.service.model.request.user;
 
+import messenger.service.model.user.UserStatus;
+
 public class SetMyProfileReq extends UserRequest
 {
     private final String id;
@@ -13,11 +15,12 @@ public class SetMyProfileReq extends UserRequest
     private final String password;
     private final String email;
     private final String phoneNumber;
+    private final UserStatus userStatus;
 
     private final byte[] profileImage;
 
     public SetMyProfileReq(String senderId, String id, String name, String password,
-                           String email, String phoneNumber, byte[] profileImage)
+                           String email, String phoneNumber, byte[] profileImage, UserStatus userStatus)
     {
         super(senderId, UserRequestType.SET_PROFILE);
         this.id = id;
@@ -26,6 +29,7 @@ public class SetMyProfileReq extends UserRequest
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.profileImage = profileImage;
+        this.userStatus = userStatus;
     }
 
     public String getId() {

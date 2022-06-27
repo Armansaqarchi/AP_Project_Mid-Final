@@ -22,6 +22,18 @@ public abstract class Message implements Transferable , Serializable
     //list of reactions to this message
     private LinkedList<MessageReaction> reactions;
 
+
+    public Message(UUID id, String senderId, String receiverId,
+                   MessageType type, LocalDateTime date,
+                   LinkedList<MessageReaction> reactions) {
+        this.id = id;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.type = type;
+        this.date = date;
+        this.reactions = reactions;
+    }
+
     public MessageType getType() {
         return type;
     }

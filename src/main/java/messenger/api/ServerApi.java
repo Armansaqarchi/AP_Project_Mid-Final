@@ -14,7 +14,7 @@ public class ServerApi
             case GET_RULES -> getRules((GetRulesServerReq) request);
             case ADD_USER -> addUser((AddUserServerReq) request);
             case SET_IMAGE -> setImage((SetServerImageReq) request);
-            case CREAT_SERVER -> creatServer((CreatServerReq) request);
+            case CREAT_SERVER -> creatServer((CreateServerReq) request);
             case DELETE_SERVER -> deleteServer((DeleteServerReq) request);
             case RENAME_SERVER -> renameServer((RenameServerReq) request);
             case REMOVE_USER -> removeUser((RemoveUserServerReq) request);
@@ -37,7 +37,7 @@ public class ServerApi
 
     }
 
-    private void creatServer(CreatServerReq request)
+    private void creatServer(CreateServerReq request)
     {
 
     }
