@@ -111,5 +111,14 @@ public class ChannelController extends InputController {
 
     public void ChannelChat(){
 
+        System.out.println("want to get private chats ? ");
+        System.out.println("[1] Yes");
+        System.out.println("[2] No");
+        int choice = getOptionalInput(1,2);
+
+        switch(choice){
+            case 1 :
+
+        }
     }
 }

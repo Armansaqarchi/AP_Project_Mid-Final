@@ -25,4 +25,10 @@ public class FileMessage extends Message
     public void setContent(byte[] content) {
         this.content = content;
     }
+
+    @Override
+    public String showMessage() {
+        return getSenderId() + " : \n" +
+                "File message" + "            Reactions : " + showReactions();
+    }
 }
