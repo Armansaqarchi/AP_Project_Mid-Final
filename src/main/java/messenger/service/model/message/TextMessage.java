@@ -27,4 +27,9 @@ public class TextMessage extends Message
     public void setContent(String content) {
         this.content = content;
     }
+
+    public String showMessage(){
+        return getSenderId() + " : \n" +
+                content + "            Reactions : " + showReactions();
+    }
 }

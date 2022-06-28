@@ -9,4 +9,11 @@ public class MessageReaction
         this.senderId = senderId;
         this.reaction = reaction;
     }
+
+
+
+    @Override
+    public String toString() {
+        return senderId + " " + reaction + ", ";
+    }
 }

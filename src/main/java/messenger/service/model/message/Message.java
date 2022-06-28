@@ -43,6 +43,18 @@ public abstract class Message implements Transferable , Serializable
         this.date = date;
     }
 
+    public abstract String showMessage();
+
+
+    public String showReactions(){
+        String reactionList = "";
+        for(MessageReaction mr : reactions){
+            reactionList += mr.toString();
+        }
+
+        return reactionList;
+    }
+
     public UUID getId() {
         return id;
     }
