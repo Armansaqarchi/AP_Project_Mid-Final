@@ -105,7 +105,6 @@ public class AuthenticationService
         }
         else
         {
-            System.out.println("res false");
             return new Response("" , false ,
                     "This user id is used before!");
         }
