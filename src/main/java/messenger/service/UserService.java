@@ -367,12 +367,45 @@ public class UserService
 
     public Response removeFriend(RemoveFriendReq request)
     {
-        return null;
+        try
+        {
+            database.getUserOp().updateList(UpdateType.REMOVE , "friend_list" ,
+                    request.getSenderId(), request.getUserId());
+
+            database.getUserOp().updateList(UpdateType.REMOVE , "friend_list" ,
+                    request.getUserId() , request.getSenderId());
+
+            return new Response(request.getSenderId() , true ,
+                    "user : " + request.getUserId() + " removed from your friends list.");
+        }
+        catch (ConfigNotFoundException e)
+        {
+            return new Response(request.getSenderId() , false , e.getMessage());
+        }
+        catch (IOException | SQLException | ClassNotFoundException e)
+        {
+            throw new RuntimeException();
+        }
     }
 
     public Response unBlockUser(UnBlockUserReq request)
     {
-        return null;
+        try
+        {
+            database.getUserOp().updateList(UpdateType.REMOVE , "blocked_users" ,
+                    request.getSenderId() , request.getUserId());
+
+            return new Response(request.getSenderId() , true ,
+                    "user : " + request.getUserId() + " removed from your blocked list.");
+        }
+        catch (ConfigNotFoundException e)
+        {
+            return new Response(request.getSenderId() , false , e.getMessage());
+        }
+        catch (IOException | SQLException | ClassNotFoundException e)
+        {
+            throw new RuntimeException();
+        }
     }
 
     private HashMap<String, UserStatus> getUsersStatus(LinkedList<String> userIdes)
