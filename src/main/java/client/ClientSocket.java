@@ -12,20 +12,29 @@ import java.net.Socket;
 
 public class ClientSocket implements Runnable
 {
-    Receiver receiver;
+    private final Receiver receiver;
 
     private String id;
 
-    private Socket socket;
-    private ObjectInputStream inputStream;
-    private ObjectOutputStream outputStream;
+    private final Socket socket;
+    private final ObjectInputStream inputStream;
+    private final ObjectOutputStream outputStream;
 
 
-    public ClientSocket(){
-        id = null;
+    public ClientSocket()
+    {
+        receiver = new Receiver();
 
+        try
+        {
+            socket = new Socket("127.0.0.1" , 8080);
 
-        //other assignments including inputSt and outputSt should be implemented here
+            outputStream = new ObjectOutputStream(socket.getOutputStream());
+            inputStream = new ObjectInputStream(socket.getInputStream());
+        }
+        catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
