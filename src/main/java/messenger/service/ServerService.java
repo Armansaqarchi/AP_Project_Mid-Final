@@ -8,6 +8,7 @@ import model.response.Response;
 import model.response.server.GetRulesServerRes;
 import model.response.server.GetServerInfoRes;
 import model.response.server.GetUserStatusRes;
+import model.server.Rule;
 import model.server.RuleType;
 import model.server.Server;
 import model.user.ServerIDs;
@@ -293,7 +294,49 @@ public class ServerService
 
     public Response RemoveRule(RemoveRuleReq request)
     {
-        return null;
+        try
+        {
+            Server server = database.getServerOp().findByServerId(request.getServerId());
+
+            if(server.getOwnerId().equals(request.getSenderId()))
+            {
+                //get rule of this user in server
+                Rule rule = server.getRules().get(request.getUserId());
+
+                if(null == rule)
+                {
+                    return new Response(request.getSenderId() , false ,
+                            "user : " + request.getUserId() + " has no rule in server!");
+                }
+
+                //remove rule
+                database.getServerOp().updateServerHashList(UpdateType.REMOVE , server.getId(), request.getSenderId() , rule);
+
+                //remove rule types that are sent in request
+                for(RuleType ruleType : request.getRules())
+                {
+                    rule.getRules().remove(ruleType);
+                }
+
+                //add new rule if it is not empty
+                if(! rule.getRules().isEmpty())
+                {
+                    database.getServerOp().updateServerHashList(UpdateType.ADD , server.getId(), request.getSenderId() , rule);
+                }
+
+                return new Response(request.getSenderId() , true , "rules removed successfully.");
+            }
+
+            return new Response(request.getSenderId() , false , "you can't remove rule of this server!");
+        }
+        catch (ConfigNotFoundException e)
+        {
+            return new Response(request.getSenderId() , false , e.getMessage());
+        }
+        catch (SQLException | IOException | ClassNotFoundException e)
+        {
+            throw new RuntimeException();
+        }
     }
 
     private HashMap<String, UserStatus> getUsersStatus(LinkedList<String> userIdes)
