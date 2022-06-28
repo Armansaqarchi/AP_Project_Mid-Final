@@ -12,6 +12,7 @@ import messenger.service.model.request.Authentication.SignupReq;
 import messenger.service.model.response.Response;
 import messenger.service.model.user.UserStatus;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -65,7 +66,7 @@ public class ServerThread implements Runnable
 
                 receiver.receive(input);
             }
-            catch (SocketException e)
+            catch (SocketException | EOFException e)
             {
                 ConnectionHandler.getConnectionHandler().removeConnection(id);
 
