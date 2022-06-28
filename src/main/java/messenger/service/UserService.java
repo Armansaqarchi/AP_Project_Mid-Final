@@ -391,4 +391,19 @@ public class UserService
 
         return usersStatus;
     }
+
+    public void turnUserToOffline(String id)
+    {
+        try {
+            database.getUserOp().updateProfile(id , "user_status" , UserStatus.OFFLINE.toString());
+        }
+        catch (ConfigNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -80,6 +80,11 @@ public class Receiver
         messageApi.getMessage(message);
     }
 
+    public void turnUserToOffline(String id)
+    {
+        userApi.turnUserToOffline(id);
+    }
+
     /**
      * when a client is verified it is used to get unread messages
      * @param id the id of user

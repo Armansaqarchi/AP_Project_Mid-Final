@@ -126,6 +126,11 @@ public class UserApi
         sendResponse(service.getPrivateChats(request));
     }
 
+    public void turnUserToOffline(String id)
+    {
+        service.turnUserToOffline(id);
+    }
+
     private void sendResponse(Response response)
     {
         try

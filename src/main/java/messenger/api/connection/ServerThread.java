@@ -69,6 +69,7 @@ public class ServerThread implements Runnable
         ConnectionHandler.getConnectionHandler().removeConnection(id);
 
         //user status must turn to offline in this line
+        receiver.turnUserToOffline(id);
     }
 
     public void send(Transferable transferable)
