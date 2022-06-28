@@ -32,5 +32,4 @@ public class Response implements Transferable
     {
         return receiverId;
     }
-
 }

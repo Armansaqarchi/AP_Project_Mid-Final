@@ -15,8 +15,4 @@ public class GetPrivateChatHisRes extends Response
         super(receiverId, isAccepted, message);
         this.messages = messages;
     }
-
-    public LinkedList<Message> getMessages() {
-        return messages;
-    }
 }

@@ -7,17 +7,10 @@ import java.util.HashMap;
 
 public class GetFriendListRes extends GetInfoRes
 {
-    private HashMap<String , UserStatus> friendList;
+    private final HashMap<String , UserStatus> friendList;
 
-    public GetFriendListRes(HashMap<String, UserStatus> friendList) {
-        this.friendList = friendList;
-    }
-
-    public HashMap<String, UserStatus> getFriendsList() {
-        return friendList;
-    }
-
-    public void setFriendList(HashMap<String, UserStatus> friendList) {
+    public GetFriendListRes(String receiverId, boolean isAccepted, String message, HashMap<String, UserStatus> friendList) {
+        super(receiverId, isAccepted, message);
         this.friendList = friendList;
     }
 }

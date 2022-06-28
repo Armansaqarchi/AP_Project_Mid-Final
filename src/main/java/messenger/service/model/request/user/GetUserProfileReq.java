@@ -8,10 +8,15 @@ package messenger.service.model.request.user;
 
 public class GetUserProfileReq extends UserRequest
 {
-    private String usersId;
+    private final String usersId;
 
-    public GetUserProfileReq(UserRequestType type, String usersId) {
-        super(type);
+    public GetUserProfileReq(String senderId, String usersId) {
+        super(senderId, UserRequestType.GET_USER_PROFILE);
         this.usersId = usersId;
+    }
+
+    public String getUsersId()
+    {
+        return usersId;
     }
 }
