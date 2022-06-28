@@ -314,24 +314,17 @@ public class ServerController extends InputController
                 System.out.println((i+1) + ". " + ruleTypes.get(i));
             }
 
-            String input = scanner.nextLine();
+            int input;
 
-            switch (input)
+            switch (input = getOptionalInput(0 , ruleTypes.size()))
             {
-                case "0" :
+                case 0 :
                 {
                     return rule;
                 }
                 default:
                 {
-                    try
-                    {
-                        rule.getRules().add(ruleTypes.get(Integer.parseInt(input)));
-                    }
-                    catch (IndexOutOfBoundsException | NumberFormatException e)
-                    {
-                        System.out.println("Invalid input!");
-                    }
+                    rule.getRules().add(ruleTypes.get(input));
                 }
             }
 

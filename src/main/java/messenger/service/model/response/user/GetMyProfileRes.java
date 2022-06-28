@@ -4,6 +4,8 @@ import messenger.service.model.response.GetInfoRes;
 import messenger.service.model.response.Response;
 import messenger.service.model.user.UserStatus;
 
+import java.util.Arrays;
+
 public class GetMyProfileRes extends GetInfoRes
 {
     private final String id;
@@ -56,5 +58,15 @@ public class GetMyProfileRes extends GetInfoRes
 
     public UserStatus getUserStatus() {
         return userStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "id : " + id +
+                "\nname : " + name +
+                "\npassword : " + password +
+                "\nemail : " + email +
+                "\nphoneNumber : " + phoneNumber +
+                "\nuserStatus : " + userStatus;
     }
 }
