@@ -47,21 +47,27 @@ public class Receiver
 
     public void receive(Transferable transferable) throws InvalidTypeException, InvalidObjectException {
 
-        if(transferable instanceof Request)
+        try
         {
             getRequest((Request) transferable);
-        }
-        else if(transferable instanceof Message)
-        {
-            //setting a uuid for message
-            ((Message) transferable).setId(UUID.randomUUID());
 
-            getMessage((Message) transferable);
         }
-        else
+        catch (ClassCastException e)
         {
-            throw new InvalidObjectException();
+            try
+            {
+                //setting a uuid for message
+                ((Message) transferable).setId(UUID.randomUUID());
+
+                getMessage((Message) transferable);
+            }
+            catch (ClassCastException ex)
+            {
+                throw new InvalidObjectException();
+            }
+
         }
+
     }
     private void getRequest(Request request) throws InvalidTypeException {
         switch (request.getType())
