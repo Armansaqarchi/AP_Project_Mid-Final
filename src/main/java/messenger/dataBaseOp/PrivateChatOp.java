@@ -26,7 +26,7 @@ public class PrivateChatOp extends Op{
     }
 
 
-    public void insertPrivateMessage(UUID id)
+    public void insertPrivateMessage(String id)
             throws SQLException, IOException{
 
         PreparedStatement ps = connection.prepareStatement(
