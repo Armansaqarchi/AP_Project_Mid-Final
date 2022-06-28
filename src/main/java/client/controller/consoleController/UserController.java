@@ -146,33 +146,23 @@ public class UserController extends InputController {
         showUserProfile(userId);
     }
 
-    public void showMyProfile()
-    {
-        try
-        {
+    public void showMyProfile() {
+        try {
             clientSocket.send(new GetMyProfileReq(clientSocket.getId()));
 
-            GetMyProfileRes response = (GetMyProfileRes)clientSocket.getReceiver().getResponse();
+            GetMyProfileRes response = (GetMyProfileRes) clientSocket.getReceiver().getResponse();
 
-            if(response.isAccepted())
-            {
+            if (response.isAccepted()) {
                 System.out.println(response.getMessage());
                 System.out.println(response);
 
-            }
-            else{
+            } else {
                 System.out.println(response.getMessage());
             }
-        }
-        catch(ResponseNotFoundException e){
+        } catch (ResponseNotFoundException e) {
             System.out.println(e.getMessage());
         }
-
-    public void showMyProfile(){
-        showUserProfile(clientSocket.getId());
     }
-
-
 
     public void privateChat(String id){
         showPrivateChatHis(getPrivateChatHis(id));
@@ -202,6 +192,35 @@ public class UserController extends InputController {
 
     public void answerFriendRequest()
     {
+        System.out.println("enter id of friendReq : ");
+        String friendReqId = scanner.nextLine();
+        System.out.println("Accept ? ");
+        System.out.println("[1] Yes");
+        System.out.println("[2] No");
+        int choice = getOptionalInput(1, 2);
+
+        boolean isAccepted = false;
+
+        if(choice == 1){
+            isAccepted = true;
+        }
+
+        try{
+            clientSocket.send(new AnswerFriendReq(clientSocket.getId(), UUID.fromString(friendReqId),
+                    isAccepted));
+            Response response = clientSocket.getReceiver().getResponse();
+            if(response.isAccepted()){
+                System.out.println("successfully done.");
+            }
+            else{
+                System.out.println("Access denied to modify changes");
+                System.out.println(response.getMessage());
+            }
+
+        }
+        catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
+        }
 
     }
 
