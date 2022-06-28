@@ -351,7 +351,37 @@ public class ChannelService
 
     public Response unPinMessage(UnpinMessageReq request)
     {
-        return null;
+        try
+        {
+            Server server  = database.getServerOp().findByServerId(request.getServerId());
+
+            if(!server.getChannels().containsKey(request.getChannelName()))
+            {
+                return new GetChatHistoryRes(request.getSenderId() , false ,
+                        "channel not found in server!" , null);
+            }
+
+            if(!checkRule(request.getSenderId(), server.getId() , RuleType.PIN_MESSAGE))
+            {
+                return new Response(request.getSenderId() ,false ,"you can't un pin message in this server");
+            }
+
+            UUID channelId = server.getChannels().get(request.getChannelName());
+
+            database.getChannelOp().updateChannelList(UpdateType.REMOVE , "pinned_messages" ,
+                    channelId.toString() , request.getMessageId());
+
+            return new Response(request.getSenderId() , true ,
+                    "message un pinned successfully.");
+        }
+        catch (ConfigNotFoundException e)
+        {
+            return new Response(request.getSenderId() , false , e.getMessage());
+        }
+        catch (SQLException | IOException | ClassNotFoundException e)
+        {
+            throw new RuntimeException();
+        }
     }
 
     private boolean checkRule(String userId , String serverId , RuleType ruleType)
