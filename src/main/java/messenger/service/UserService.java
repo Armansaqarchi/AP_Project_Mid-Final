@@ -392,10 +392,10 @@ public class UserService
         return usersStatus;
     }
 
-    public void turnUserToOffline(String id)
+    public void turnUserStatus(String id , UserStatus status)
     {
         try {
-            database.getUserOp().updateProfile(id , "user_status" , UserStatus.OFFLINE.toString());
+            database.getUserOp().updateProfile(id , "user_status" , status.toString());
         }
         catch (ConfigNotFoundException e)
         {

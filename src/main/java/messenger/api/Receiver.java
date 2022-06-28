@@ -10,6 +10,7 @@ import messenger.service.model.request.Request;
 import messenger.service.model.request.priavteChat.PrivateChatReq;
 import messenger.service.model.request.server.ServerReq;
 import messenger.service.model.request.user.UserRequest;
+import messenger.service.model.user.UserStatus;
 
 import java.util.UUID;
 
@@ -86,9 +87,9 @@ public class Receiver
         messageApi.getMessage(message);
     }
 
-    public void turnUserToOffline(String id)
+    public void turnUserStatus(String id , UserStatus status)
     {
-        userApi.turnUserToOffline(id);
+        userApi.turnUserStatus(id , status);
     }
 
     /**

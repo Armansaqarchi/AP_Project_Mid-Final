@@ -8,11 +8,10 @@ import messenger.api.connection.ServerThread;
 import messenger.service.UserService;
 import messenger.service.model.exception.InvalidTypeException;
 import messenger.service.model.exception.ServerThreadNotFoundException;
-import messenger.service.model.message.Message;
 import messenger.service.model.request.user.*;
 import messenger.service.model.response.Response;
+import messenger.service.model.user.UserStatus;
 
-import java.util.LinkedList;
 import java.util.UUID;
 
 public class UserApi
@@ -126,9 +125,9 @@ public class UserApi
         sendResponse(service.getPrivateChats(request));
     }
 
-    public void turnUserToOffline(String id)
+    public void turnUserStatus(String id , UserStatus status)
     {
-        service.turnUserToOffline(id);
+        service.turnUserStatus(id , status);
     }
 
     private void sendResponse(Response response)

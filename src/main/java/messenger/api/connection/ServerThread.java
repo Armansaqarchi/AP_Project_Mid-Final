@@ -9,6 +9,7 @@ import messenger.service.model.exception.InvalidTypeException;
 import messenger.service.model.request.Authentication.AuthenticationReq;
 import messenger.service.model.request.Authentication.LoginReq;
 import messenger.service.model.request.Authentication.SignupReq;
+import messenger.service.model.user.UserStatus;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -70,7 +71,7 @@ public class ServerThread implements Runnable
                 ConnectionHandler.getConnectionHandler().removeConnection(id);
 
                 //user status must turn to offline in this line
-                receiver.turnUserToOffline(id);
+                receiver.turnUserStatus(id , UserStatus.OFFLINE);
                 return;
             }
             catch (IOException | ClassNotFoundException |
@@ -84,7 +85,7 @@ public class ServerThread implements Runnable
         ConnectionHandler.getConnectionHandler().removeConnection(id);
 
         //user status must turn to offline in this line
-        receiver.turnUserToOffline(id);
+        receiver.turnUserStatus(id , UserStatus.OFFLINE);
     }
 
     public void send(Transferable transferable)
@@ -103,6 +104,9 @@ public class ServerThread implements Runnable
     {
         //setting verified id
         setId(id);
+
+        //turn user status to online
+        receiver.turnUserStatus(id , UserStatus.ONLINE);
 
         //look for messages of user
         receiver.getUnreadMessages(id);
