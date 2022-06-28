@@ -35,7 +35,7 @@ public class SignUpController extends InputController {
 
 
 
-    public void getUserInfo(ClientSocket clientSocket){
+    public void getUserInfo(){
 
 
 
@@ -102,7 +102,7 @@ public class SignUpController extends InputController {
 
         while(true){
             try {
-                System.out.println("enter username : ");
+                System.out.println("enter name : ");
                 System.out.println("enter '1' in order to be back");
                 username = scanner.nextLine();
                 if(username.equals("1")){
