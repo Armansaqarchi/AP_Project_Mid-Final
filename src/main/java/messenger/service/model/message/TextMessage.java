@@ -30,7 +30,7 @@ public class TextMessage extends Message
     }
 
     public String showMessage(){
-        return getSenderId() + " : \n" +
+        return "\n" + getSenderId() + " : \n" +
                 content + "            Reactions : " + showReactions();
     }
 }
