@@ -1,10 +1,8 @@
 package client;
 
-import client.controller.consoleController.SignInController;
-import client.controller.consoleController.SignUpController;
-import messenger.service.model.exception.ResponseNotFoundException;
-import messenger.service.model.request.Authentication.SignupReq;
-import messenger.service.model.response.Response;
+import model.exception.ResponseNotFoundException;
+import model.request.Authentication.SignupReq;
+import model.response.Response;
 
 import java.util.concurrent.Executors;
 
@@ -19,7 +17,7 @@ public class TestClient
 //        SignInController signInController = new SignInController(clientSocket);
 //
 //        signInController.getUserDetails();
-        clientSocket.send(new SignupReq("1788", "1", "1",
+        clientSocket.send(new SignupReq("1788", "1777", "1",
                 null, "1","1", "1", null));
 
 

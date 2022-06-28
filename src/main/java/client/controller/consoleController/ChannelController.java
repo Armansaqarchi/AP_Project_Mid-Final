@@ -1,13 +1,13 @@
 package client.controller.consoleController;
 
 import client.ClientSocket;
-import messenger.service.model.exception.ResponseNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.request.Channel.GetChatHistoryReq;
-import messenger.service.model.request.Channel.RemoveUserChannelReq;
-import messenger.service.model.request.Channel.RenameChannelReq;
-import messenger.service.model.response.Response;
-import messenger.service.model.response.channel.GetChatHistoryRes;
+import model.exception.ResponseNotFoundException;
+import model.message.Message;
+import model.request.Channel.GetChatHistoryReq;
+import model.request.Channel.RemoveUserChannelReq;
+import model.request.Channel.RenameChannelReq;
+import model.response.Response;
+import model.response.channel.GetChatHistoryRes;
 
 import java.util.LinkedList;
 

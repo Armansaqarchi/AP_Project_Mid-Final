@@ -1,13 +1,10 @@
 package client;
 
-import messenger.service.model.Transferable;
-import messenger.service.model.exception.InvalidObjectException;
-import messenger.service.model.exception.ResponseNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.request.Request;
-import messenger.service.model.response.Response;
-
-import java.util.UUID;
+import model.Transferable;
+import model.exception.InvalidObjectException;
+import model.exception.ResponseNotFoundException;
+import model.message.Message;
+import model.response.Response;
 
 public class Receiver
 {

@@ -2,20 +2,18 @@ package messenger.service;
 
 import messenger.dataBaseOp.Database;
 import messenger.dataBaseOp.UpdateType;
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.message.MessageReaction;
-import messenger.service.model.request.user.*;
-import messenger.service.model.response.Response;
-import messenger.service.model.response.user.*;
-import messenger.service.model.user.User;
-import messenger.service.model.user.UserStatus;
+import model.exception.ConfigNotFoundException;
+import model.message.MessageReaction;
+import model.request.user.*;
+import model.response.Response;
+import model.response.user.*;
+import model.user.User;
+import model.user.UserStatus;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.UUID;
 
 public class UserService
 {

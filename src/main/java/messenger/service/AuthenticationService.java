@@ -1,11 +1,11 @@
 package messenger.service;
 
 import messenger.dataBaseOp.Database;
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.request.Authentication.LoginReq;
-import messenger.service.model.request.Authentication.SignupReq;
-import messenger.service.model.response.Response;
-import messenger.service.model.user.User;
+import model.exception.ConfigNotFoundException;
+import model.request.Authentication.LoginReq;
+import model.request.Authentication.SignupReq;
+import model.response.Response;
+import model.user.User;
 
 import java.io.IOException;
 import java.sql.SQLException;

@@ -1,8 +1,8 @@
 package messenger.dataBaseOp;
 
 
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.message.*;
+import model.exception.ConfigNotFoundException;
+import model.message.*;
 
 import java.sql.*;
 

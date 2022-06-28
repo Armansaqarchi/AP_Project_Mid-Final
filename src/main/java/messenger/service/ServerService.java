@@ -2,17 +2,17 @@ package messenger.service;
 
 import messenger.dataBaseOp.Database;
 import messenger.dataBaseOp.UpdateType;
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.request.server.*;
-import messenger.service.model.response.Response;
-import messenger.service.model.response.server.GetRulesServerRes;
-import messenger.service.model.response.server.GetServerInfoRes;
-import messenger.service.model.response.server.GetUserStatusRes;
-import messenger.service.model.server.RuleType;
-import messenger.service.model.server.Server;
-import messenger.service.model.user.ServerIDs;
-import messenger.service.model.user.User;
-import messenger.service.model.user.UserStatus;
+import model.exception.ConfigNotFoundException;
+import model.request.server.*;
+import model.response.Response;
+import model.response.server.GetRulesServerRes;
+import model.response.server.GetServerInfoRes;
+import model.response.server.GetUserStatusRes;
+import model.server.RuleType;
+import model.server.Server;
+import model.user.ServerIDs;
+import model.user.User;
+import model.user.UserStatus;
 
 import java.io.IOException;
 import java.sql.SQLException;

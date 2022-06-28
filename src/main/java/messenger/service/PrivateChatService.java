@@ -1,11 +1,11 @@
 package messenger.service;
 
 import messenger.dataBaseOp.Database;
-import messenger.service.model.PrivateChat;
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.request.priavteChat.GetPrivateChatHisReq;
-import messenger.service.model.response.privateChat.GetPrivateChatHisRes;
+import model.PrivateChat;
+import model.exception.ConfigNotFoundException;
+import model.message.Message;
+import model.request.priavteChat.GetPrivateChatHisReq;
+import model.response.privateChat.GetPrivateChatHisRes;
 
 import java.io.IOException;
 import java.sql.SQLException;

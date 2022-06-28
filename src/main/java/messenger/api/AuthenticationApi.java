@@ -2,12 +2,12 @@ package messenger.api;
 
 import messenger.api.connection.ConnectionHandler;
 import messenger.service.AuthenticationService;
-import messenger.service.model.exception.InvalidTypeException;
-import messenger.service.model.exception.ServerThreadNotFoundException;
-import messenger.service.model.request.Authentication.AuthenticationReq;
-import messenger.service.model.request.Authentication.LoginReq;
-import messenger.service.model.request.Authentication.SignupReq;
-import messenger.service.model.response.Response;
+import model.exception.InvalidTypeException;
+import model.exception.ServerThreadNotFoundException;
+import model.request.Authentication.AuthenticationReq;
+import model.request.Authentication.LoginReq;
+import model.request.Authentication.SignupReq;
+import model.response.Response;
 
 /**
  * it is used to get and handle requests related to authentication

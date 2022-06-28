@@ -1,10 +1,10 @@
 package messenger.api;
 
 import messenger.service.MessageService;
-import messenger.service.model.exception.InvalidTypeException;
-import messenger.service.model.exception.ServerThreadNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.response.Response;
+import model.exception.InvalidTypeException;
+import model.exception.ServerThreadNotFoundException;
+import model.message.Message;
+import model.response.Response;
 
 import java.util.LinkedList;
 

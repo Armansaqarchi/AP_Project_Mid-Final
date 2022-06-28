@@ -1,21 +1,20 @@
 package client.controller.consoleController;
 
 import client.ClientSocket;
-import messenger.service.model.exception.ResponseNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.message.MessageType;
-import messenger.service.model.message.TextMessage;
-import messenger.service.model.request.priavteChat.GetPrivateChatHisReq;
-import messenger.service.model.request.server.RenameServerReq;
-import messenger.service.model.request.user.*;
-import messenger.service.model.response.Response;
-import messenger.service.model.response.privateChat.GetPrivateChatHisRes;
-import messenger.service.model.response.user.GetFriendListRes;
-import messenger.service.model.response.user.GetMyProfileRes;
-import messenger.service.model.response.user.GetServersRes;
-import messenger.service.model.response.user.GetUserProfileRes;
-import messenger.service.model.user.ServerIDs;
-import messenger.service.model.user.UserStatus;
+import model.exception.ResponseNotFoundException;
+import model.message.Message;
+import model.message.MessageType;
+import model.message.TextMessage;
+import model.request.priavteChat.GetPrivateChatHisReq;
+import model.request.user.*;
+import model.response.Response;
+import model.response.privateChat.GetPrivateChatHisRes;
+import model.response.user.GetFriendListRes;
+import model.response.user.GetMyProfileRes;
+import model.response.user.GetServersRes;
+import model.response.user.GetUserProfileRes;
+import model.user.ServerIDs;
+import model.user.UserStatus;
 
 
 import java.time.LocalDateTime;

@@ -1,16 +1,16 @@
 package messenger.api;
 
-import messenger.service.model.Transferable;
-import messenger.service.model.exception.InvalidObjectException;
-import messenger.service.model.exception.InvalidTypeException;
-import messenger.service.model.message.Message;
-import messenger.service.model.request.Authentication.AuthenticationReq;
-import messenger.service.model.request.Channel.ChannelReq;
-import messenger.service.model.request.Request;
-import messenger.service.model.request.priavteChat.PrivateChatReq;
-import messenger.service.model.request.server.ServerReq;
-import messenger.service.model.request.user.UserRequest;
-import messenger.service.model.user.UserStatus;
+import model.Transferable;
+import model.exception.InvalidObjectException;
+import model.exception.InvalidTypeException;
+import model.message.Message;
+import model.request.Authentication.AuthenticationReq;
+import model.request.Channel.ChannelReq;
+import model.request.Request;
+import model.request.priavteChat.PrivateChatReq;
+import model.request.server.ServerReq;
+import model.request.user.UserRequest;
+import model.user.UserStatus;
 
 import java.util.UUID;
 

@@ -1,9 +1,7 @@
 package messenger.dataBaseOp;
 
-import messenger.service.model.PrivateChat;
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.request.user.FriendReq;
-import messenger.service.model.user.User;
+import model.PrivateChat;
+import model.exception.ConfigNotFoundException;
 
 import java.io.IOException;
 import java.sql.*;

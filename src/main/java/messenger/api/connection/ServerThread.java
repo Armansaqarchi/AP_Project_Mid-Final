@@ -1,16 +1,14 @@
 package messenger.api.connection;
 
 
-import client.controller.consoleController.SignUpController;
 import messenger.api.Receiver;
-import messenger.service.model.Transferable;
-import messenger.service.model.exception.InvalidObjectException;
-import messenger.service.model.exception.InvalidTypeException;
-import messenger.service.model.request.Authentication.AuthenticationReq;
-import messenger.service.model.request.Authentication.LoginReq;
-import messenger.service.model.request.Authentication.SignupReq;
-import messenger.service.model.response.Response;
-import messenger.service.model.user.UserStatus;
+import model.Transferable;
+import model.exception.InvalidObjectException;
+import model.exception.InvalidTypeException;
+import model.request.Authentication.AuthenticationReq;
+import model.request.Authentication.LoginReq;
+import model.request.Authentication.SignupReq;
+import model.user.UserStatus;
 
 import java.io.EOFException;
 import java.io.IOException;

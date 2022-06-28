@@ -1,10 +1,10 @@
 package messenger.api;
 
 import messenger.service.ChannelService;
-import messenger.service.model.exception.InvalidTypeException;
-import messenger.service.model.exception.ServerThreadNotFoundException;
-import messenger.service.model.request.Channel.*;
-import messenger.service.model.response.Response;
+import model.exception.InvalidTypeException;
+import model.exception.ServerThreadNotFoundException;
+import model.request.Channel.*;
+import model.response.Response;
 
 public class ChannelApi
 {

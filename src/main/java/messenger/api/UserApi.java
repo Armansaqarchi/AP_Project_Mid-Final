@@ -6,11 +6,11 @@ package messenger.api;
 import messenger.api.connection.ConnectionHandler;
 import messenger.api.connection.ServerThread;
 import messenger.service.UserService;
-import messenger.service.model.exception.InvalidTypeException;
-import messenger.service.model.exception.ServerThreadNotFoundException;
-import messenger.service.model.request.user.*;
-import messenger.service.model.response.Response;
-import messenger.service.model.user.UserStatus;
+import model.exception.InvalidTypeException;
+import model.exception.ServerThreadNotFoundException;
+import model.request.user.*;
+import model.response.Response;
+import model.user.UserStatus;
 
 import java.util.UUID;
 

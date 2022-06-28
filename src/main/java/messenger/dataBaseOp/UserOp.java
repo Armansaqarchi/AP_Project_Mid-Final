@@ -1,10 +1,10 @@
 package messenger.dataBaseOp;
 
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.exception.UserNotFoundException;
-import messenger.service.model.user.ServerIDs;
-import messenger.service.model.user.User;
-import messenger.service.model.user.UserStatus;
+import model.exception.ConfigNotFoundException;
+import model.exception.UserNotFoundException;
+import model.user.ServerIDs;
+import model.user.User;
+import model.user.UserStatus;
 
 import java.io.*;
 import java.sql.*;

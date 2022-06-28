@@ -2,11 +2,11 @@ package client.controller.consoleController;
 
 import client.ClientSocket;
 import client.controller.InfoVerifier;
-import messenger.service.model.exception.InvalidEmailFormatException;
-import messenger.service.model.exception.InvalidPasswordException;
-import messenger.service.model.exception.InvalidPhoneNumberException;
-import messenger.service.model.exception.InvalidUsernameException;
-import messenger.service.model.user.UserStatus;
+import model.exception.InvalidEmailFormatException;
+import model.exception.InvalidPasswordException;
+import model.exception.InvalidPhoneNumberException;
+import model.exception.InvalidUsernameException;
+import model.user.UserStatus;
 
 public class ProfileController extends InputController {
 

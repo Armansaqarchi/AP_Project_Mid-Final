@@ -1,11 +1,11 @@
 package messenger.dataBaseOp;
 
 
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.server.Channel;
-import messenger.service.model.server.ChannelType;
-import messenger.service.model.server.TextChannel;
-import messenger.service.model.server.VoiceChannel;
+import model.exception.ConfigNotFoundException;
+import model.server.Channel;
+import model.server.ChannelType;
+import model.server.TextChannel;
+import model.server.VoiceChannel;
 
 
 import java.io.IOException;

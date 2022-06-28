@@ -1,9 +1,7 @@
 package client;
 
-import messenger.service.model.Transferable;
-import messenger.service.model.exception.InvalidObjectException;
-import messenger.service.model.exception.ResponseNotFoundException;
-import messenger.service.model.response.Response;
+import model.Transferable;
+import model.exception.InvalidObjectException;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

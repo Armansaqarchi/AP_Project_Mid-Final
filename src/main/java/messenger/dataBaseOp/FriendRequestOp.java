@@ -1,15 +1,11 @@
 package messenger.dataBaseOp;
 
-import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer;
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.message.*;
-import messenger.service.model.request.user.FriendReq;
-import messenger.service.model.request.user.UserRequestType;
+import model.exception.ConfigNotFoundException;
+import model.request.user.FriendReq;
+import model.request.user.UserRequestType;
 
 import java.io.IOException;
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.UUID;
 
 public class FriendRequestOp extends Op{

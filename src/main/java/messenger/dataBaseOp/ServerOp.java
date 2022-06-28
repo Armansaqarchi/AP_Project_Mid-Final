@@ -1,15 +1,11 @@
 package messenger.dataBaseOp;
 
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.message.MessageType;
-import messenger.service.model.message.Reaction;
-import messenger.service.model.server.*;
-import messenger.service.model.user.User;
+import model.exception.ConfigNotFoundException;
+import model.server.Rule;
+import model.server.Server;
 
 import java.io.IOException;
 import java.sql.*;
-import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.UUID;
