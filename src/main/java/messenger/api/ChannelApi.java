@@ -1,14 +1,24 @@
 package messenger.api;
 
-import messenger.service.model.exception.InvalidObjectException;
+import messenger.service.ChannelService;
 import messenger.service.model.exception.InvalidTypeException;
-import messenger.service.model.message.FileMessage;
-import messenger.service.model.message.Message;
-import messenger.service.model.message.TextMessage;
+import messenger.service.model.exception.ServerThreadNotFoundException;
 import messenger.service.model.request.Channel.*;
+import messenger.service.model.response.Response;
 
 public class ChannelApi
 {
+    private final ChannelService service;
+
+    //sender object to send responses to client
+    private final Sender sender;
+
+    public ChannelApi()
+    {
+        service = new ChannelService();
+        sender = Sender.getSender();
+    }
+
 
     public void getRequest(ChannelReq request) throws InvalidTypeException {
         switch(request.subType())
@@ -24,71 +34,55 @@ public class ChannelApi
             default -> throw new InvalidTypeException();
         }
     }
-
-    public void getMessage(Message message) throws InvalidObjectException {
-
-        if(message instanceof FileMessage)
-        {
-            getFileMessage((FileMessage) message);
-        }
-        else if(message instanceof TextMessage)
-        {
-            getTextMessage((TextMessage) message);
-        }
-        else
-        {
-            throw new InvalidObjectException();
-        }
-    }
-
-    private void getFileMessage(FileMessage message)
-    {
-
-    }
-
-    private void getTextMessage(TextMessage message)
-    {
-
-    }
-
-
     private void addUser(AddUserChannelReq request)
     {
-
+        sendResponse(service.addUser(request));
     }
 
     private void creatChannel(CreateChannelReq request)
     {
-
+        sendResponse(service.creatChannel(request));
     }
 
     private void deleteChannel(DeleteChannelReq request)
     {
-
+        sendResponse(service.deleteChannel(request));
     }
 
     private void getChatHistory(GetChatHistoryReq request)
     {
-
+        sendResponse(service.getChatHistory(request));
     }
 
     private void pinMessage(PinMessageReq request)
     {
-
+        sendResponse(service.pinMessage(request));
     }
 
     private void getPinnedMessage(GetPinnedMsgReq request)
     {
-
+        sendResponse(service.getPinnedMessage(request));
     }
 
     private void removeUser(RemoveUserChannelReq request)
     {
-
+        sendResponse(service.removeUser(request));
     }
 
     private void renameChannel(RenameChannelReq request)
     {
+        sendResponse(service.renameChannel(request));
+    }
 
+    private void sendResponse(Response response)
+    {
+        try
+        {
+            sender.sendResponse(response);
+        }
+        catch (ServerThreadNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+        }
     }
 }

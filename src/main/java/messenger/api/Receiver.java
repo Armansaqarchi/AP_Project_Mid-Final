@@ -11,6 +11,8 @@ import messenger.service.model.request.priavteChat.PrivateChatReq;
 import messenger.service.model.request.server.ServerReq;
 import messenger.service.model.request.user.UserRequest;
 
+import java.util.UUID;
+
 public class Receiver
 {
     private static Receiver requestReceiver;
@@ -19,6 +21,8 @@ public class Receiver
     private final AuthenticationApi authenticationApi;
     private final ChannelApi channelApi;
     private final ServerApi serverApi;
+
+    private final MessageApi messageApi;
 
     private final PrivateChatApi privateChatApi;
     public static Receiver getReceiver()
@@ -38,6 +42,7 @@ public class Receiver
         channelApi = new ChannelApi();
         serverApi = new ServerApi();
         privateChatApi = new PrivateChatApi();
+        messageApi = new MessageApi();
     }
 
     public void receive(Transferable transferable) throws InvalidTypeException, InvalidObjectException {
@@ -48,6 +53,9 @@ public class Receiver
         }
         else if(transferable instanceof Message)
         {
+            //setting a uuid for message
+            ((Message) transferable).setId(UUID.randomUUID());
+
             getMessage((Message) transferable);
         }
         else
@@ -67,12 +75,17 @@ public class Receiver
         }
     }
 
-    private void getMessage(Message message) throws InvalidObjectException, InvalidTypeException {
-        switch (message.getType())
-        {
-            case CHANNEL -> channelApi.getMessage(message);
-            case PRIVATE_CHAT -> privateChatApi.getMessage(message);
-            default -> throw new InvalidTypeException();
-        }
+    private void getMessage(Message message) throws InvalidTypeException
+    {
+        messageApi.getMessage(message);
+    }
+
+    /**
+     * when a client is verified it is used to get unread messages
+     * @param id the id of user
+     */
+    public void getUnreadMessages(String id)
+    {
+        messageApi.getUnreadMessages(id);
     }
 }

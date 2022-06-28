@@ -5,6 +5,7 @@ import messenger.api.Receiver;
 import messenger.service.model.Transferable;
 import messenger.service.model.exception.InvalidObjectException;
 import messenger.service.model.exception.InvalidTypeException;
+import messenger.service.model.request.Authentication.AuthenticationReq;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -49,6 +50,13 @@ public class ServerThread implements Runnable
             {
                 Transferable input = (Transferable)inputStream.readObject();
 
+                //server thread most be saved in authentication request
+                //because it does not added to connections before
+                if(input instanceof AuthenticationReq)
+                {
+                    ((AuthenticationReq) input).setServerThread(this);
+                }
+
                 receiver.receive(input);
             }
             catch (IOException | ClassNotFoundException |
@@ -73,5 +81,18 @@ public class ServerThread implements Runnable
         {
             e.printStackTrace();
         }
+    }
+
+    public void verified(String id)
+    {
+        //setting verified id
+        setId(id);
+
+        //look for messages of user
+        receiver.getUnreadMessages(id);
+    }
+    public void setId(String id)
+    {
+        this.id = id;
     }
 }

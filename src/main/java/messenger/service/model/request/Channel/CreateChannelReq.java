@@ -12,7 +12,7 @@ public class CreateChannelReq extends ChannelReq
     private final ChannelType channelType;
 
     public CreateChannelReq(String senderId, String serverId,
-                           String channelName, ChannelType channelType) {
+                            String channelName, ChannelType channelType) {
         super(senderId, ChannelRequestType.CREAT_CHANNEL, serverId, channelName);
         this.channelType = channelType;
     }

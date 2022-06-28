@@ -13,7 +13,7 @@ public abstract class AuthenticationReq extends Request
 
     //server thread that this request comes from
     //if the authentication be successful this serverThread being added to connections list
-    private final ServerThread serverThread;
+    private ServerThread serverThread;
 
     public AuthenticationReq(String senderId, AuthenticationReqType subType,
                              String id, String password, ServerThread serverThread) {
@@ -51,5 +51,9 @@ public abstract class AuthenticationReq extends Request
     public AuthenticationReqType subType()
     {
         return subType;
+    }
+
+    public void setServerThread(ServerThread serverThread) {
+        this.serverThread = serverThread;
     }
 }

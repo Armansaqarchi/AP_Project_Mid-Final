@@ -1,5 +1,7 @@
 package messenger.dataBaseOp;
 
+import messenger.service.model.exception.ConfigNotFoundException;
+import messenger.service.model.exception.UserNotFoundException;
 import messenger.service.model.user.ServerIDs;
 import messenger.service.model.user.User;
 import messenger.service.model.user.UserStatus;
@@ -20,74 +22,44 @@ public class UserOp extends Op{
 
     }
 
-    public User findById(String id) throws SQLException{
-        String query = "SELECT * WHERE user_id = " + id;
 
-        PreparedStatement pStatement = connection.prepareStatement(query);
-        ResultSet resultSet = pStatement.executeQuery(query);
-
-        if(resultSet.next()){
-            if(resultSet.getObject(0) instanceof User){
-                return (User)resultSet.getObject(0);
-            }
-        }
-
-
-        return null;
+    private User findByConfigUser(String config, String columnName)
+            throws SQLException, ClassNotFoundException, IOException, ConfigNotFoundException{
+        ResultSet resultSet = findByConfig(config, columnName, "users");
+        return createUserFromData(resultSet);
     }
 
-    public User findByName(String name) throws SQLException{
-        String query = "SELECT * FROM users WHERE name = 'arman'";
 
-        ResultSet resultSet = statement.executeQuery(query);
-
-        if(resultSet.next()){
-            System.out.println(resultSet.getString("password"));
-            try {
-                return (User)createUserFromData(resultSet);
-            }
-            catch(SQLException | ClassNotFoundException | IOException e){
-                e.printStackTrace();
-            }
-        }
-
-
-        return null;
+    public User findById(String id) throws SQLException, IOException,
+            ClassNotFoundException, ConfigNotFoundException{
+        return findByConfigUser(id, "user_id");
     }
 
-    public User findByEmail(String email) throws SQLException{
-        String query = "SELECT * WHERE user_id = " + email;
-
-        ResultSet resultSet = statement.executeQuery(query);
-
-        if(resultSet.next()){
-            if(resultSet.getObject(0) instanceof User){
-                return (User)resultSet.getObject(0);
-            }
-        }
-
-
-        return null;
+    public User findByName(String name) throws SQLException, ClassNotFoundException,
+            ConfigNotFoundException, IOException{
+        return findByConfigUser(name, "name");
     }
 
-    public User findByPhoneNumber(String phoneNumber) throws SQLException{
-        String query = "SELECT * WHERE user_id = " + phoneNumber;
+    public User findByEmail(String email) throws SQLException, IOException,
+            ConfigNotFoundException, ClassNotFoundException{
+        return findByConfigUser(email, "email");
+    }
 
-        ResultSet resultSet = statement.executeQuery(query);
-
-        if(resultSet.next()){
-            if(resultSet.getObject(0) instanceof User){
-                return (User)resultSet.getObject(0);
-            }
-        }
+    public User findByPhoneNumber(String phoneNumber) throws SQLException, ClassNotFoundException,
+            ConfigNotFoundException, IOException{
+        return findByConfigUser(phoneNumber, "phone_number");
+    }
 
 
-        return null;
+    public void updateUserProfileImage(byte[] newImage ,String id)
+            throws ConfigNotFoundException, SQLException{
+
+        updateImage(newImage, id, "profile_image", "user",
+                "user_id", "users");
     }
 
     public void insertUser(String id, String name, String password, String email, String phoneNumber)
     throws SQLException{
-        System.out.println(connection);
 
         PreparedStatement ps = connection.prepareStatement(
                 "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -97,7 +69,7 @@ public class UserOp extends Op{
         ps.setString(3, password);
         ps.setString(4, email);
         ps.setString(5, phoneNumber);
-        ps.setObject(6, Types.BINARY);
+        ps.setNull(6, Types.BINARY);
         ps.setString(7, "Online");
         ps.setNull(8, Types.BINARY);
         ps.setNull(9, Types.BINARY);
@@ -114,49 +86,105 @@ public class UserOp extends Op{
 
     }
 
-    private byte[] objectConvertor(Object o) throws IOException{
-
-        ByteArrayOutputStream bout = new ByteArrayOutputStream();
-        ObjectOutputStream out = new ObjectOutputStream(bout);
-
-        out.writeObject(o);
-
-        return bout.toByteArray();
+    public void insertUser(User user)throws SQLException{
+        insertUser(user.getId(), user.getName(), user.getPassword(),
+                user.getEmail(), user.getPhoneNumber());
     }
 
-    public void updateProfile(String id, String type, String newValue)throws SQLException{
-        String query = "UPDATE users SET ? = ? where id = ?";
+
+
+    public void updateProfile(String id, String type, String newValue)
+            throws SQLException, ConfigNotFoundException{
+        String query = "UPDATE users SET " + type +" = ? where user_id = ?";
 
         PreparedStatement st = connection.prepareStatement(query);
-        st.setString(1, type);
-        st.setString(2, newValue);
-        st.setString(3, id);
+
+        st.setString(1, newValue);
+        st.setString(2, id);
 
 
-        st.executeUpdate();
-
-    }
-
-    public <T> void updateLists(String columnName, String id, T t)throws SQLException{
-
-        String query = "SELECT * FROM users where id = ?";
-        PreparedStatement ps = connection.prepareStatement(query);
-
-        ps.setString(1, id);
-
-        ResultSet resultSet = ps.executeQuery();
-
-        
+        int res = st.executeUpdate();
 
 
-        //need an exception to handle if type of t matches type of elements of list.
+        if(res == 0){
+            throw new ConfigNotFoundException(id, type, "user");
+        }
+
+
 
     }
+
+
+    public <T> boolean updateList(UpdateType type, String columnName, String id, T t)
+            throws SQLException, IOException, ClassNotFoundException, UserNotFoundException {
+
+        LinkedList<T> targetList = null;
+
+        String query = "SELECT * FROM users WHERE user_id = ?";
+        PreparedStatement pst = connection.prepareStatement(query);
+
+        pst.setString(1, id);
+        ResultSet resultSet = pst.executeQuery();
+
+        Object o = null;
+
+        if(resultSet == null){
+            throw new UserNotFoundException(id, columnName);
+        }
+
+        while (resultSet.next()) {
+            o = byteConvertor(resultSet.getBytes(columnName));
+        }
+        if (o instanceof LinkedList<?>) {
+            targetList = (LinkedList<T>) o;
+        }
+
+
+        switch (type.showValue()) {
+
+
+            case "Add":
+                targetList = addToLists(targetList, t);
+                break;
+
+
+            case "Remove":
+                targetList = removeFromList(targetList, t);
+                break;
+
+            default:
+                return false;
+
+
+        }
+
+
+        byte[] updatedList = objectConvertor(targetList);
+
+        String query2 = "UPDATE users SET " + columnName + " = ? WHERE user_id = ?";
+
+        PreparedStatement pst2 = connection.prepareStatement(query2);
+
+        pst2.setBytes(1, updatedList);
+        pst2.setString(2, "3");
+
+
+        pst2.executeUpdate();
+
+        return true;
+    }
+
+    public boolean deleteUSerById(String id) throws SQLException, ConfigNotFoundException{
+        return deleteById(id, "users", "user_id", "user");
+    }
+
 
     public HashMap<String, String> findByUserStatus(String status) throws SQLException{
-        String query = "SELECT * FROM user WHERE user_status = " + status;
+        String query = "SELECT * FROM users WHERE user_status = ?";
 
-        ResultSet resultSet = statement.executeQuery(query);
+        PreparedStatement pst2 = connection.prepareStatement(query);
+        pst2.setString(1, status);
+        ResultSet resultSet = pst2.executeQuery();
          HashMap<String, String> users = new HashMap<>();
 
         while(resultSet.next()){
@@ -169,21 +197,13 @@ public class UserOp extends Op{
         return users;
     }
 
-    public boolean deleteUserById(String id) throws SQLException{
 
-        String query = "DELETE FROM users WHERE user_id = " + id;
-
-        int affectedRows = statement.executeUpdate(query);
-
-        if(affectedRows == 0) return false;
-
-        return true;
-    }
 
 
 
     private User createUserFromData(ResultSet resultSet) throws SQLException, IOException,
             ClassNotFoundException {
+
 
         String id = resultSet.getString("user_id");
         String name = resultSet.getString("name");
@@ -192,7 +212,7 @@ public class UserOp extends Op{
         String phoneNumber = resultSet.getString("phone_number");
 
         byte[] profileImage = resultSet.getBytes("profile_image");
-        UserStatus us = getNameFromValue(resultSet.getString("user_status"));
+        UserStatus us = UserStatus.getValueFromStatus(resultSet.getString("user_status"));
         LinkedList<String> friendList;
         LinkedList<String> blockedUsers;
         LinkedList<String> privateChats;
@@ -226,13 +246,13 @@ public class UserOp extends Op{
         else{
             servers = null;
         }
-        if((o = byteConvertor(resultSet.getBytes("friend_list"))) instanceof LinkedList<?>){
+        if((o = byteConvertor(resultSet.getBytes("unread_messages"))) instanceof LinkedList<?>){
             unreadMessages = (LinkedList<UUID>) o;
         }
         else{
             unreadMessages = null;
         }
-        if((o = byteConvertor(resultSet.getBytes("friend_list"))) instanceof LinkedList<?>){
+        if((o = byteConvertor(resultSet.getBytes("friend_requests"))) instanceof LinkedList<?>){
             friendRequests = (LinkedList<UUID>) o;
         }
         else{
@@ -245,34 +265,19 @@ public class UserOp extends Op{
     }
 
 
-    private UserStatus getNameFromValue(String value){
-        switch(value){
-            case "Online":
-                return UserStatus.ONLINE;
-
-            case "Offline":
-                return UserStatus.OFFLINE;
-
-            case "Idle":
-                return UserStatus.IDLE;
-
-            case "Do not disturb":
-                return UserStatus.DO_NOT_DISTURB;
-
-            case "Invisible":
-                return UserStatus.INVISIBLE;
-
+    public boolean isExists(String id)
+    {
+        try
+        {
+            User user = findById(id);
+            return true;
         }
-
-        return null;
+        catch (ConfigNotFoundException e)
+        {
+            return false;
+        }
+        catch (ClassNotFoundException | SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-
-
-
-
-
-
-
-
-
 }

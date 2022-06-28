@@ -9,11 +9,14 @@ public class TextMessage extends Message
 {
     private String content;
 
-    public TextMessage(UUID id, String senderId, String receiverId,
-                       LocalDateTime date, LinkedList<MessageReaction> reactions,
-                       String content) {
 
-        super(id, senderId, receiverId, MessageType.PRIVATE_CHAT , date, reactions);
+    public TextMessage(UUID id, String senderId, String receiverId, MessageType type, LocalDateTime date, LinkedList<MessageReaction> reactions, String content) {
+        super(id, senderId, receiverId, type, date, reactions);
+        this.content = content;
+    }
+
+    public TextMessage(UUID id, String senderId, String receiverId, MessageType type, LocalDateTime date, String content) {
+        super(id, senderId, receiverId, type, date);
         this.content = content;
     }
 
@@ -23,14 +26,5 @@ public class TextMessage extends Message
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-
-
-    @Override
-    public String showMessage(){
-        return "\n" + getSenderId() + " : \n" +
-                getContent() + "            " +
-                "Reactions : " + showMessageReactions() + "\n";
     }
 }

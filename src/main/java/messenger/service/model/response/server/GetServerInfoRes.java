@@ -11,8 +11,8 @@ public class GetServerInfoRes extends GetInfoRes
     private final String name;
 
     public GetServerInfoRes(String receiverId, boolean isAccepted,
-                            String message, byte[] image, String id,
-                            String ownerId, String name)
+                            String message, byte[] image,
+                            String id, String ownerId, String name)
     {
         super(receiverId, isAccepted, message);
         this.image = image;

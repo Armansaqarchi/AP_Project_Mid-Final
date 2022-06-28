@@ -5,6 +5,7 @@ import messenger.api.connection.ServerThread;
 import messenger.service.model.exception.ServerThreadNotFoundException;
 import messenger.service.model.message.Message;
 import messenger.service.model.response.Response;
+import messenger.service.model.server.Server;
 
 /**
  * this class is used to send message or responses to client
@@ -13,12 +14,30 @@ import messenger.service.model.response.Response;
  */
 public class Sender
 {
+
+    private ConnectionHandler connectionHandler;
+
+    private static Sender sender;
+
+    protected static Sender getSender()
+    {
+        if(null == sender)
+        {
+            sender = new Sender();
+        }
+
+        return sender;
+    }
+    private Sender()
+    {
+        connectionHandler =ConnectionHandler.getConnectionHandler();
+    }
+
     //returns that message is sent or not (user is online or not)
-    public void sendMessage(String receiverId , Message message)
+    public void sendMessage(Message message , String receiverId)
             throws ServerThreadNotFoundException
     {
-        ServerThread serverThread = ConnectionHandler.
-                getConnectionHandler().getServerThread(receiverId);
+        ServerThread serverThread = connectionHandler.getServerThread(receiverId);
 
         if(null != serverThread)
         {
@@ -26,15 +45,14 @@ public class Sender
         }
         else
         {
-            throw new ServerThreadNotFoundException();
+            throw new ServerThreadNotFoundException("failed to send message , server thread not found.");
         }
 
     }
 
     //it may return a value to determine that response is sent or not
     public void sendResponse(Response response) throws ServerThreadNotFoundException {
-        ServerThread serverThread = ConnectionHandler.
-                getConnectionHandler().getServerThread(response.getReceiverId());
+        ServerThread serverThread = connectionHandler.getServerThread(response.getReceiverId());
 
         if(null != serverThread)
         {
@@ -42,7 +60,18 @@ public class Sender
         }
         else
         {
-            throw new ServerThreadNotFoundException();
+            throw new ServerThreadNotFoundException("failed to send response , server thread not found.");
+        }
+    }
+
+    public void sendResponse(Response response , ServerThread serverThread) throws ServerThreadNotFoundException {
+        if(null != serverThread)
+        {
+            serverThread.send(response);
+        }
+        else
+        {
+            throw new ServerThreadNotFoundException("failed to send response , server thread not found.");
         }
     }
 }

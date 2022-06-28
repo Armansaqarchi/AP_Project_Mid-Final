@@ -1,12 +1,13 @@
 package messenger.dataBaseOp;
 
-import java.io.ByteArrayInputStream;
+import messenger.service.model.exception.ConfigNotFoundException;
+import messenger.service.model.exception.UserNotFoundException;
+import org.springframework.util.SerializationUtils;
+
+
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.LinkedList;
 
 public abstract class Op {
 
@@ -48,18 +49,118 @@ public abstract class Op {
         }
     }
 
-    protected Object byteConvertor(byte[] bytes) throws IOException, ClassNotFoundException{
+    protected boolean deleteById(String id, String tableName, String idColumnName, String entity)
+            throws SQLException, ConfigNotFoundException{
 
-        if(bytes == null){
+        String query = "DELETE FROM " + tableName + " WHERE " + idColumnName + " = ?";
+
+        PreparedStatement pst2 = connection.prepareStatement(query);
+        pst2.setString(1, id);
+        int affectedRows = pst2.executeUpdate();
+
+        if(affectedRows == 0) throw new ConfigNotFoundException(id, idColumnName, entity);
+
+        return true;
+    }
+
+    public Object byteConvertor(byte[] bytes) throws IOException, ClassNotFoundException{
+
+        return SerializationUtils.deserialize(bytes);
+    }
+
+    public byte[] objectConvertor(Object o) throws IOException{
+
+        return SerializationUtils.serialize(o);
+    }
+
+
+    protected <T> LinkedList<T> updateByType(UpdateType type, LinkedList<T> targetList, T t){
+
+        switch(type.showValue()){
+
+
+            case "Add" :
+                targetList =  addToLists(targetList, t);
+                break;
+
+
+            case "Remove" :
+                targetList = removeFromList(targetList, t);
+                break;
+
+
+        }
+
+        return targetList;
+
+    }
+
+    protected void updateImage(byte[] image, String id, String columnName,
+                               String entity, String idColumnName, String tableName)
+            throws SQLException, ConfigNotFoundException
+    {
+        String query = "UPDATE " + tableName + " SET " + columnName +
+                " = ? where " + idColumnName + " = ?";
+        PreparedStatement st = connection.prepareStatement(query);
+
+
+        st.setBytes(1, image);
+        st.setString(2, id);
+
+        int res = st.executeUpdate();
+
+        if(res == 0){
+            throw new ConfigNotFoundException(id, columnName, entity);
+        }
+
+    }
+
+
+
+    protected  <T> LinkedList<T> addToLists(LinkedList<T> list, T t){
+
+
+        if(list == null){
+            list = new LinkedList<>();
+        }
+
+        list.add(t);
+        return list;
+    }
+
+    protected  <T> LinkedList<T> removeFromList(LinkedList<T> list, T t){
+
+        if(list == null){
             return null;
         }
 
-        ByteArrayInputStream byteArray = new ByteArrayInputStream(bytes);
-        ObjectInputStream in = new ObjectInputStream(byteArray);
-
-
-        return in.readObject();
+        list.remove(t);
+        return list;
     }
+
+
+
+    protected ResultSet findByConfig(String config, String columnName, String tableName)
+            throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
+
+        String query = "SELECT * FROM " + tableName + " WHERE " + columnName + " = ?";
+
+
+        PreparedStatement pStatement = connection.prepareStatement(query);
+
+        pStatement.setString(1, config);
+        ResultSet resultSet = pStatement.executeQuery();
+
+        if(resultSet.next()){
+            return resultSet;
+        }
+
+        if(tableName.equals("users")){
+            throw new UserNotFoundException(config, columnName);
+        }
+        throw new ConfigNotFoundException(config, columnName, tableName);
+    }
+
 
 
 

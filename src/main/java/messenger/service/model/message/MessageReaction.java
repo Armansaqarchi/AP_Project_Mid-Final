@@ -9,12 +9,4 @@ public class MessageReaction
         this.senderId = senderId;
         this.reaction = reaction;
     }
-
-    public String getSenderId() {
-        return senderId;
-    }
-
-    public Reaction getReaction() {
-        return reaction;
-    }
 }

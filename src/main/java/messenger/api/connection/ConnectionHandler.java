@@ -34,6 +34,8 @@ public class ConnectionHandler
     {
         ExecutorService executorService = Executors.newCachedThreadPool();
 
+        System.out.println("server is running on port : 8080\n");
+
         try(ServerSocket socket = new ServerSocket(8080);)
         {
             while(true)
