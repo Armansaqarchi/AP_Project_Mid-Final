@@ -12,7 +12,8 @@ public enum UserRequestType
     GET_FRIEND_LIST("getFriendList") , GET_MY_PROFILE("getMyProfile") , GET_USER_PROFILE("getUserProfile") ,
     REACTION_TO_MESSAGE("reactionToMessage") , SET_PROFILE("setProfile") ,
     GET_BLOCKED_USERS("getBlockedUsers") , GET_SERVERS("getServers") , GET_PRIVATE_CHATS("getPrivateChats") ,
-    GET_FRIEND_REQ_LIST("get FriendRequest list");
+    GET_FRIEND_REQ_LIST("get FriendRequest list") , REMOVE_FRIEND("remove friend") ,
+    UN_BLOCK("un block");
 
     private final String value;
 
