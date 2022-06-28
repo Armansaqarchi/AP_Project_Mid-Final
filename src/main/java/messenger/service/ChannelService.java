@@ -5,6 +5,7 @@ import messenger.dataBaseOp.UpdateType;
 import model.exception.ConfigNotFoundException;
 import model.message.Message;
 import model.request.Channel.*;
+import model.request.server.RemoveRuleReq;
 import model.response.Response;
 import model.response.channel.GetChatHistoryRes;
 import model.response.channel.GetPinnedMsgRes;
@@ -346,6 +347,11 @@ public class ChannelService
         {
             throw new RuntimeException();
         }
+    }
+
+    public Response unPinMessage(UnpinMessageReq request)
+    {
+        return null;
     }
 
     private boolean checkRule(String userId , String serverId , RuleType ruleType)

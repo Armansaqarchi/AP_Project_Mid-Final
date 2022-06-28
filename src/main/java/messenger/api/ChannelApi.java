@@ -4,6 +4,7 @@ import messenger.service.ChannelService;
 import model.exception.InvalidTypeException;
 import model.exception.ServerThreadNotFoundException;
 import model.request.Channel.*;
+import model.request.server.RemoveRuleReq;
 import model.response.Response;
 
 public class ChannelApi
@@ -31,6 +32,7 @@ public class ChannelApi
             case RENAME_CHANNEL -> renameChannel((RenameChannelReq) request);
             case GET_CHAT_HISTORY -> getChatHistory((GetChatHistoryReq) request);
             case GET_PINNED_MESSAGES -> getPinnedMessage((GetPinnedMsgReq) request);
+            case UN_PIN_MESSAGE -> unPinMessage((UnpinMessageReq) request);
             default -> throw new InvalidTypeException();
         }
     }
@@ -57,6 +59,11 @@ public class ChannelApi
     private void pinMessage(PinMessageReq request)
     {
         sendResponse(service.pinMessage(request));
+    }
+
+    private void unPinMessage(UnpinMessageReq request)
+    {
+        sendResponse(service.unPinMessage(request));
     }
 
     private void getPinnedMessage(GetPinnedMsgReq request)

@@ -365,6 +365,16 @@ public class UserService
         }
     }
 
+    public Response removeFriend(RemoveFriendReq request)
+    {
+        return null;
+    }
+
+    public Response unBlockUser(UnBlockUserReq request)
+    {
+        return null;
+    }
+
     private HashMap<String, UserStatus> getUsersStatus(LinkedList<String> userIdes)
     {
         HashMap<String , UserStatus> usersStatus = new HashMap<>();

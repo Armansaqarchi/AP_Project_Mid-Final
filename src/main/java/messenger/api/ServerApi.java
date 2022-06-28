@@ -32,8 +32,14 @@ public class ServerApi
             case RENAME_SERVER -> renameServer((RenameServerReq) request);
             case REMOVE_USER -> removeUser((RemoveUserServerReq) request);
             case GET_USERS_STATUS -> getUsersStatus((GetUsersStatusReq) request);
+            case REMOVE_RULE -> removeRule((RemoveRuleReq) request);
             default -> throw new InvalidTypeException();
         }
+    }
+
+    private void removeRule(RemoveRuleReq request)
+    {
+        sendResponse(service.RemoveRule(request));
     }
 
     private void addRule(AddRuleServerReq request)

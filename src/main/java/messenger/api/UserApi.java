@@ -42,6 +42,8 @@ public class UserApi
             case GET_PRIVATE_CHATS -> getPrivateChats((GetPrivateChatsReq) request);
             case REACTION_TO_MESSAGE -> reactionToMessage((ReactionToMessageReq) request);
             case GET_FRIEND_REQ_LIST -> getFriendReqList((GetFriendReqList) request);
+            case UN_BLOCK -> unBlockUser((UnBlockUserReq) request);
+            case REMOVE_FRIEND -> removeFriend((RemoveFriendReq) request);
             default -> throw new InvalidTypeException();
         }
     }
@@ -129,7 +131,15 @@ public class UserApi
     {
         service.turnUserStatus(id , status);
     }
+    private void removeFriend(RemoveFriendReq request)
+    {
+        sendResponse(service.removeFriend(request));
+    }
 
+    private void unBlockUser(UnBlockUserReq request)
+    {
+        sendResponse(service.unBlockUser(request));
+    }
     private void sendResponse(Response response)
     {
         try
