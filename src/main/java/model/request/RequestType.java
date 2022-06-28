@@ -6,5 +6,5 @@ package model.request;
 
 public enum RequestType
 {
-    USER , SERVER , CHANNEL , AUTHENTICATION , PRIVATE_CHAT
+    USER , SERVER , CHANNEL , AUTHENTICATION , PRIVATE_CHAT , FILE_MESSAGE
 }

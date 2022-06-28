@@ -6,6 +6,7 @@ import model.exception.InvalidTypeException;
 import model.message.Message;
 import model.request.Authentication.AuthenticationReq;
 import model.request.Channel.ChannelReq;
+import model.request.GetFileMsgReq;
 import model.request.Request;
 import model.request.priavteChat.PrivateChatReq;
 import model.request.server.ServerReq;
@@ -78,6 +79,7 @@ public class Receiver
             case CHANNEL -> channelApi.getRequest((ChannelReq) request);
             case SERVER -> serverApi.getRequest((ServerReq) request);
             case PRIVATE_CHAT -> privateChatApi.getRequest((PrivateChatReq) request);
+            case FILE_MESSAGE -> messageApi.getFileMsg((GetFileMsgReq) request);
             default -> throw new InvalidTypeException();
         }
     }

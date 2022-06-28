@@ -13,14 +13,13 @@ public abstract class Request implements Transferable
 {
     //id of user who sent request
     protected String senderId;
+    private RequestType type;
 
     public Request(String senderId, RequestType type)
     {
         this.senderId = senderId;
         this.type = type;
     }
-
-    private RequestType type;
 
     public String getSenderId()
     {

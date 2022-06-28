@@ -7,6 +7,8 @@ import model.exception.ConfigNotFoundException;
 import model.message.FileMessage;
 import model.message.FileMsgNotification;
 import model.message.Message;
+import model.request.GetFileMsgReq;
+import model.response.GetFileMsgRes;
 import model.response.Response;
 import model.server.Channel;
 import model.server.Server;
@@ -250,5 +252,31 @@ public class MessageService
         }
 
         messageApi.sendMessage(message , receiver);
+    }
+
+    public Response getFileMsg(GetFileMsgReq request)
+    {
+        try
+        {
+            FileMessage message = (FileMessage) database.getMessageOp().
+                    findById(request.getMessageId().toString());
+
+            return new GetFileMsgRes(request.getSenderId(), true ,
+                    "file sent." , message.getContent());
+        }
+        catch (ConfigNotFoundException e)
+        {
+            return new GetFileMsgRes(request.getSenderId(), false ,
+                    e.getMessage() , null);
+        }
+        catch (ClassCastException e)
+        {
+            return new GetFileMsgRes(request.getSenderId(), false ,
+                    "this message is not file message!" , null);
+        }
+        catch (SQLException | IOException |ClassNotFoundException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }

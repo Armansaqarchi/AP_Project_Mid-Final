@@ -4,6 +4,7 @@ import messenger.service.MessageService;
 import model.exception.InvalidTypeException;
 import model.exception.ServerThreadNotFoundException;
 import model.message.Message;
+import model.request.GetFileMsgReq;
 import model.response.Response;
 
 import java.util.LinkedList;
@@ -56,6 +57,10 @@ public class MessageApi
         }
     }
 
+    public void getFileMsg(GetFileMsgReq request)
+    {
+        sendResponse(service.getFileMsg(request));
+    }
     private void getChannelMessage(Message message)
     {
         sendResponse(service.handleChannelMessage(message));
@@ -65,6 +70,7 @@ public class MessageApi
     {
         sendResponse(service.handlePrivateMessage(message));
     }
+
 
     private void sendResponse(Response response)
     {
