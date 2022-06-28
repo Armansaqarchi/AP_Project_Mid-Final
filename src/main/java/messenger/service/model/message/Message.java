@@ -41,6 +41,7 @@ public abstract class Message implements Transferable , Serializable
         this.receiverId = receiverId;
         this.type = type;
         this.date = date;
+        reactions = new LinkedList<>();
     }
 
     public abstract String showMessage();

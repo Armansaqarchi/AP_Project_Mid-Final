@@ -1,8 +1,7 @@
-package controller.consoleController;
+package client.controller.consoleController;
 
 import client.ClientSocket;
 import messenger.service.model.exception.ResponseNotFoundException;
-import messenger.service.model.request.Authentication.AuthenticationReqType;
 import messenger.service.model.request.Authentication.LoginReq;
 import messenger.service.model.response.Response;
 

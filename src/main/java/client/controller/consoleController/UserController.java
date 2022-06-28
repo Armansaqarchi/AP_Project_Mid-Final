@@ -1,4 +1,4 @@
-package controller.consoleController;
+package client.controller.consoleController;
 
 import client.ClientSocket;
 import messenger.service.model.exception.ResponseNotFoundException;
@@ -149,7 +149,7 @@ public class UserController extends InputController {
                     //return to the previous menu
                 }
                 clientSocket.send(new TextMessage(null, clientSocket.getId(), id,MessageType.PRIVATE_CHAT,
-                        LocalDateTime.now(), null, content));
+                        LocalDateTime.now(), content));
                 Response response = clientSocket.getReceiver().getResponse();
                 if(!response.isAccepted()){
                     System.out.println(response.getMessage());

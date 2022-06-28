@@ -1,5 +1,7 @@
 package messenger.service.model.server;
 
+import java.util.LinkedList;
+
 public enum RuleType
 {
     CREATE_CHANNEL("creat channel"), DELETE_CHANNEL("delete channel"),
@@ -14,5 +16,9 @@ public enum RuleType
     private RuleType(String value)
     {
         this.value = value;
+    }
+
+    public String getValue() {
+        return value;
     }
 }

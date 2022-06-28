@@ -1,4 +1,4 @@
-package controller;
+package client.controller;
 
 import messenger.service.model.exception.InvalidEmailFormatException;
 import messenger.service.model.exception.InvalidPasswordException;
