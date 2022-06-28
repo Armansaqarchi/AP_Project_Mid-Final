@@ -1,16 +1,20 @@
 package messenger.api.connection;
 
 
+import client.controller.consoleController.SignUpController;
 import messenger.api.Receiver;
 import messenger.service.model.Transferable;
 import messenger.service.model.exception.InvalidObjectException;
 import messenger.service.model.exception.InvalidTypeException;
 import messenger.service.model.request.Authentication.AuthenticationReq;
+import messenger.service.model.request.Authentication.LoginReq;
+import messenger.service.model.request.Authentication.SignupReq;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class ServerThread implements Runnable
 {
@@ -52,17 +56,28 @@ public class ServerThread implements Runnable
 
                 //server thread most be saved in authentication request
                 //because it does not added to connections before
-                if(input instanceof AuthenticationReq)
+                if(input instanceof SignupReq || input instanceof LoginReq)
                 {
                     ((AuthenticationReq) input).setServerThread(this);
+
+                    System.out.println("serverThread set.");
                 }
 
                 receiver.receive(input);
+            }
+            catch (SocketException e)
+            {
+                ConnectionHandler.getConnectionHandler().removeConnection(id);
+
+                //user status must turn to offline in this line
+                receiver.turnUserToOffline(id);
+                return;
             }
             catch (IOException | ClassNotFoundException |
                    InvalidTypeException | InvalidObjectException e)
             {
                 e.printStackTrace();
+                return;
             }
         }
 

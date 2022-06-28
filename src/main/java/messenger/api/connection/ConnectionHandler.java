@@ -17,7 +17,7 @@ public class ConnectionHandler
 
     private ConnectionHandler()
     {
-
+        connections = new HashMap<>();
     }
 
     public static ConnectionHandler getConnectionHandler()
@@ -60,10 +60,12 @@ public class ConnectionHandler
     public void addConnection(String id , ServerThread serverThread)
     {
         connections.put(id, serverThread);
+        System.out.println("connection with id :" + id + " added.");
     }
 
     public void removeConnection(String id)
     {
         connections.remove(id);
+        System.out.println("connection with id :" + id + " removed.");
     }
 }
