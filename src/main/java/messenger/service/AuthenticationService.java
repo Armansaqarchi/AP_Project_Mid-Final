@@ -97,7 +97,7 @@ public class AuthenticationService
                 return new Response(request.getId(), true , "signed up successfully.");
 
             }
-            catch (SQLException e)
+            catch (SQLException | IOException e)
             {
                 throw new RuntimeException(e);
             }
@@ -105,6 +105,7 @@ public class AuthenticationService
         }
         else
         {
+            System.out.println("res false");
             return new Response("" , false ,
                     "This user id is used before!");
         }

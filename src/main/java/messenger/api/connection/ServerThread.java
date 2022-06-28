@@ -9,6 +9,7 @@ import messenger.service.model.exception.InvalidTypeException;
 import messenger.service.model.request.Authentication.AuthenticationReq;
 import messenger.service.model.request.Authentication.LoginReq;
 import messenger.service.model.request.Authentication.SignupReq;
+import messenger.service.model.response.Response;
 import messenger.service.model.user.UserStatus;
 
 import java.io.IOException;
@@ -60,8 +61,6 @@ public class ServerThread implements Runnable
                 if(input instanceof SignupReq || input instanceof LoginReq)
                 {
                     ((AuthenticationReq) input).setServerThread(this);
-
-                    System.out.println("serverThread set.");
                 }
 
                 receiver.receive(input);
