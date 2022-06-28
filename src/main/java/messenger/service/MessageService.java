@@ -4,6 +4,8 @@ import messenger.api.MessageApi;
 import messenger.dataBaseOp.Database;
 import messenger.dataBaseOp.UpdateType;
 import model.exception.ConfigNotFoundException;
+import model.message.FileMessage;
+import model.message.FileMsgNotification;
 import model.message.Message;
 import model.response.Response;
 import model.server.Channel;
@@ -107,6 +109,13 @@ public class MessageService
             {
                 Message message = database.getMessageOp().findById(id.toString());
 
+                //if message was file message only a notification will be sent to receivers
+                // , not whole the file
+                if(message instanceof FileMessage)
+                {
+                    message = new FileMsgNotification((FileMessage) message);
+                }
+
                 messages.add(message);
                 //remove extracted message from unread messages list
                 removeUnreadMessage(userId, message.getId());
@@ -142,15 +151,11 @@ public class MessageService
             Channel channel =
                     database.getChannelOp().findById(channelId.toString());
 
+            //add message to channel's messages
             database.getChannelOp().updateChannelList(UpdateType.ADD ,
                     "messages" , channelId.toString() , message.toString());
 
-            LinkedList<String> receivers = channel.getUsers();
-
-            for(String receiver : receivers)
-            {
-                messageApi.sendMessage(message , receiver);
-            }
+            sendMessage(message , channel.getUsers());
 
             return new Response(message.getSenderId() ,
                     true , "Message sent successfully.");
@@ -203,7 +208,8 @@ public class MessageService
             database.getPrivateChatOp().updatePrivateChat(UpdateType.ADD ,
                     "messages",privateChatId , message);
 
-            messageApi.sendMessage(message , message.getReceiverId());
+            //sent message
+            sendMessage(message , message.getReceiverId());
 
             return new Response(message.getSenderId() , true ,
                     "message sent successfully.");
@@ -217,5 +223,32 @@ public class MessageService
         {
             throw new RuntimeException();
         }
+    }
+
+    private void sendMessage(Message message , LinkedList<String> receivers)
+    {
+        //if message was file message only a notification will be sent to receivers
+        // , not whole the file
+        if(message instanceof FileMessage)
+        {
+            message = new FileMsgNotification((FileMessage) message);
+        }
+
+        for(String receiver : receivers)
+        {
+            messageApi.sendMessage(message , receiver);
+        }
+    }
+
+    private void sendMessage(Message message , String receiver)
+    {
+        //if message was file message only a notification will be sent to receivers
+        // , not whole the file
+        if(message instanceof FileMessage)
+        {
+            message = new FileMsgNotification((FileMessage) message);
+        }
+
+        messageApi.sendMessage(message , receiver);
     }
 }
