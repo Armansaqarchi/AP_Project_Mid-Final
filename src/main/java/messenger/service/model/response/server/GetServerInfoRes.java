@@ -24,4 +24,11 @@ public class GetServerInfoRes extends GetInfoRes
     public byte[] getImage() {
         return image;
     }
+
+    @Override
+    public String toString()
+    {
+        return "server id : " + id + "\nname : " + name +
+                "\nowner : " + ownerId;
+    }
 }

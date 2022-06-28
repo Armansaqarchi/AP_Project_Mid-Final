@@ -1,4 +1,4 @@
-package controller.consoleController;
+package client.controller.consoleController;
 
 import client.ClientSocket;
 
