@@ -1,5 +1,6 @@
 package messenger.dataBaseOp;
 
+import messenger.service.model.exception.ConfigNotFoundException;
 import messenger.service.model.message.MessageType;
 import messenger.service.model.message.TextMessage;
 import messenger.service.model.user.User;
@@ -15,9 +16,17 @@ public class Test {
 
         Database database = Database.getDatabase();
 
+
         database.getUserOp().insertUser(new User("1" , "1" , "1" , "1" , "1"));
         database.getMessageOp().insertMessage(new TextMessage(UUID.randomUUID() , "1" , "2" ,
                 MessageType.PRIVATE_CHAT , LocalDateTime.now() , "ggg"));
+        try {
+            System.out.println(database.getUserOp().findById("14231231"));
+
+        }
+        catch(ClassNotFoundException | ConfigNotFoundException e){
+            System.out.println(e.getMessage());
+        }
 
     }
 }

@@ -27,13 +27,13 @@ public class PrivateChatOp extends Op{
 
 
     public void insertPrivateMessage(UUID id)
-            throws SQLException{
+            throws SQLException, IOException{
 
         PreparedStatement ps = connection.prepareStatement(
                 "INSERT INTO private_chats VALUES (?, ?)");
 
         ps.setString(1, id.toString());
-        ps.setNull(2, Types.BINARY);
+        ps.setBytes(2, objectConvertor(new LinkedList<UUID>()));
 
         ps.executeUpdate();
         ps.close();

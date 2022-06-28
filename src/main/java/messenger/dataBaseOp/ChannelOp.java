@@ -118,9 +118,9 @@ public class ChannelOp extends Op{
         pst.setString(1, id);
         pst.setString(2, name);
         pst.setString(3, ChannelType.getValueFromType(channelType));
-        pst.setNull(4, Types.BINARY);
-        pst.setNull(5,Types.BINARY);
-        pst.setNull(6, Types.BINARY);
+        pst.setBytes(4, objectConvertor(new LinkedList<String>()));
+        pst.setBytes(5, objectConvertor(new LinkedList<UUID>()));
+        pst.setBytes(6, objectConvertor(new LinkedList<UUID>()));
 
         pst.executeUpdate();
         pst.close();
