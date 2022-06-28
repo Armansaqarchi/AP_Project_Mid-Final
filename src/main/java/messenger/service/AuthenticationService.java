@@ -3,7 +3,6 @@ package messenger.service;
 import messenger.dataBaseOp.Database;
 import model.exception.ConfigNotFoundException;
 import model.request.Authentication.LoginReq;
-import model.request.Authentication.SignOutReq;
 import model.request.Authentication.SignupReq;
 import model.response.Response;
 import model.user.User;
@@ -109,10 +108,5 @@ public class AuthenticationService
             return new Response("" , false ,
                     "This user id is used before!");
         }
-    }
-
-    public Response signOut(SignOutReq request)
-    {
-        return null;
     }
 }

@@ -6,7 +6,6 @@ import model.exception.InvalidTypeException;
 import model.exception.ServerThreadNotFoundException;
 import model.request.Authentication.AuthenticationReq;
 import model.request.Authentication.LoginReq;
-import model.request.Authentication.SignOutReq;
 import model.request.Authentication.SignupReq;
 import model.response.Response;
 
@@ -40,7 +39,6 @@ public class AuthenticationApi
         {
             case LOGIN -> login((LoginReq) request);
             case SIGNUP -> signup((SignupReq) request);
-            case SIGN_OUT -> signOut((SignOutReq) request);
             default -> throw new InvalidTypeException();
         }
     }
@@ -74,9 +72,5 @@ public class AuthenticationApi
         {
             System.out.println(e.getMessage());
         }
-    }
-
-    public void signOut(SignOutReq request)
-    {
     }
 }

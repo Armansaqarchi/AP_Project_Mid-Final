@@ -8,5 +8,5 @@ package model.request.Authentication;
 
 public enum AuthenticationReqType
 {
-    LOGIN , SIGNUP , SIGN_OUT
+    LOGIN , SIGNUP
 }
