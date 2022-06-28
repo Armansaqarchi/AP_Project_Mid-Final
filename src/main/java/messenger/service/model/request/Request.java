@@ -9,6 +9,8 @@ package messenger.service.model.request;
 
 import messenger.service.model.Transferable;
 
+import java.io.Serializable;
+
 public abstract class Request implements Transferable
 {
     //id of user who sent request

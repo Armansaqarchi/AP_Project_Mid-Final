@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.UUID;
 
 
-public abstract class Message implements Transferable , Serializable
+public abstract class Message implements Transferable
 
 {
     private UUID id;
