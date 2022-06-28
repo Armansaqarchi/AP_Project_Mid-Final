@@ -15,4 +15,8 @@ public class GetServersRes extends GetInfoRes
         super(receiverId, isAccepted, message);
         this.servers = servers;
     }
+
+    public LinkedList<ServerIDs> getServers() {
+        return servers;
+    }
 }

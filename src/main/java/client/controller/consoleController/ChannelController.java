@@ -1,4 +1,4 @@
-package controller.consoleController;
+package client.controller.consoleController;
 
 import client.ClientSocket;
 import messenger.service.model.exception.ResponseNotFoundException;
@@ -101,12 +101,6 @@ public class ChannelController extends InputController {
     }
 
     private void showChat(GetChatHistoryRes GChatHisRes){
-
-        if(GChatHisRes == null){
-            System.err.println("response receiver from server is empty and has no body");
-            return;
-        }
-
         LinkedList<Message> messages = GChatHisRes.getMessages();
 
         for(Message message : messages){

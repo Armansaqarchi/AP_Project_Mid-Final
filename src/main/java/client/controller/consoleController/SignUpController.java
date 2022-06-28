@@ -1,12 +1,11 @@
-package controller.consoleController;
+package client.controller.consoleController;
 
 import client.ClientSocket;
-import controller.InfoVerifier;
+import client.controller.InfoVerifier;
 import messenger.service.model.exception.InvalidEmailFormatException;
 import messenger.service.model.exception.InvalidPasswordException;
 import messenger.service.model.exception.InvalidPhoneNumberException;
 import messenger.service.model.exception.InvalidUsernameException;
-import messenger.service.model.request.Authentication.AuthenticationReqType;
 import messenger.service.model.request.Authentication.SignupReq;
 
 import java.util.Scanner;

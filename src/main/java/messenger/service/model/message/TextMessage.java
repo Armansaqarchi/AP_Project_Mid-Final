@@ -17,6 +17,7 @@ public class TextMessage extends Message
 
     public TextMessage(UUID id, String senderId, String receiverId, MessageType type, LocalDateTime date, String content) {
         super(id, senderId, receiverId, type, date);
+
         this.content = content;
     }
 
