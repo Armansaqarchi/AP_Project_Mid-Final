@@ -44,7 +44,7 @@ public class SignInController extends InputController {
 
                 clientSocket.setId(id);
 
-                clientSocket.send(new LoginReq(AuthenticationReqType.LOGIN, id,
+                clientSocket.send(new LoginReq(clientSocket.getId(), id,
                         password, null));
                 Response response = clientSocket.getReceiver().getResponse();
 

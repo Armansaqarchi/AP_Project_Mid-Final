@@ -26,7 +26,7 @@ public class UserController extends InputController {
     }
 
     private GetFriendListRes getFriendList() {
-        clientSocket.send(new GetFriendListReq(UserRequestType.GET_FRIEND_LIST));
+        clientSocket.send(new GetFriendListReq(clientSocket.getId()));
 
        try {
            Response response = clientSocket.getReceiver().getResponse();
@@ -54,7 +54,7 @@ public class UserController extends InputController {
             System.err.println(response.getMessage());
         }
         else{
-            HashMap<String, UserStatus> list = response.getFriendsList();
+            HashMap<String, UserStatus> list = response.getFriendList();
 
             int counter = 1;
             for(String string : list.keySet()){
@@ -66,7 +66,7 @@ public class UserController extends InputController {
 
     public GetUserProfileRes getProfile(String id) {
         try {
-            clientSocket.send(new GetUserProfileReq(UserRequestType.GET_USER_PROFILE, id));
+            clientSocket.send(new GetUserProfileReq(clientSocket.getId(), id));
             return (GetUserProfileRes)clientSocket.getReceiver().getResponse();
         }
         catch(ResponseNotFoundException e){
@@ -99,7 +99,7 @@ public class UserController extends InputController {
 
     public void blockUser(String id){
         try {
-            clientSocket.send(new BlockUserReq(UserRequestType.BLOCK_USER, id));
+            clientSocket.send(new BlockUserReq(clientSocket.getId(), id));
             Response response = clientSocket.getReceiver().getResponse();
             if(!response.isAccepted()){
                 System.err.println(response.getMessage());
@@ -148,7 +148,7 @@ public class UserController extends InputController {
                 if (content.equals("-1")) {
                     //return to the previous menu
                 }
-                clientSocket.send(new TextMessage(null, clientSocket.getId(), id,
+                clientSocket.send(new TextMessage(null, clientSocket.getId(), id,MessageType.PRIVATE_CHAT,
                         LocalDateTime.now(), null, content));
                 Response response = clientSocket.getReceiver().getResponse();
                 if(!response.isAccepted()){

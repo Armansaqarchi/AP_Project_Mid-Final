@@ -13,4 +13,8 @@ public class GetFriendListRes extends GetInfoRes
         super(receiverId, isAccepted, message);
         this.friendList = friendList;
     }
+
+    public HashMap<String, UserStatus> getFriendList() {
+        return friendList;
+    }
 }

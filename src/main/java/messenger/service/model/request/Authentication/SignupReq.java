@@ -5,7 +5,7 @@ import messenger.service.model.request.Authentication.AuthenticationReq;
 
 public class SignupReq extends AuthenticationReq
 {
-    private final String confirmPassword;
+    private final String password;
 
     private final String name;
     private final String email;
@@ -14,19 +14,15 @@ public class SignupReq extends AuthenticationReq
     private final byte[] profileImage;
 
     public SignupReq(String senderId, String id, String password, ServerThread serverThread,
-                     String confirmPassword, String name, String email,
+                      String name, String email,
                      String phoneNumber, byte[] profileImage)
     {
         super(senderId, AuthenticationReqType.SIGNUP, id, password, serverThread);
-        this.confirmPassword = confirmPassword;
+        this.password = password;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.profileImage = profileImage;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
     }
 
     public String getName() {

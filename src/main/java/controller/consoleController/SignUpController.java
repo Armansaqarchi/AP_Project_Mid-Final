@@ -76,7 +76,7 @@ public class SignUpController extends InputController {
                 break;
         }
 
-        clientSocket.send(new SignupReq(AuthenticationReqType.SIGNUP, id, password,
+        clientSocket.send(new SignupReq(clientSocket.getId(), id, password,
                 null, username, email, phoneNUmber, null));
 
 
