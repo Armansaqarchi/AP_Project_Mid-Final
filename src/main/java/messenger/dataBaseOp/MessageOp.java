@@ -53,7 +53,7 @@ public class MessageOp extends Op {
         pst.setString(3, receiverId);
         pst.setString(4, MessageType.getValueFromName(type));
         pst.setDate(5, new java.sql.Date(Date.from(date.atZone(ZoneId.systemDefault()).toInstant()).getTime()));
-        pst.setNull(6, Types.BINARY);
+        pst.setBytes(6, objectConvertor(new LinkedList<MessageReaction>()));
         if(type.name().equals("CHANNEL") || type.name().equals("PRIVATE_CHAT")) {
             pst.setBytes(7, (byte[]) objectConvertor(content));
         }
