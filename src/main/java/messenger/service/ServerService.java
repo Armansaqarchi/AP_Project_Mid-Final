@@ -104,7 +104,7 @@ public class ServerService
         }
     }
 
-    public Response creatServer(CreateServerReq request)
+    public synchronized Response creatServer(CreateServerReq request)
     {
         try
         {

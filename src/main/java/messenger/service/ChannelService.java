@@ -5,7 +5,6 @@ import messenger.dataBaseOp.UpdateType;
 import model.exception.ConfigNotFoundException;
 import model.message.Message;
 import model.request.Channel.*;
-import model.request.server.RemoveRuleReq;
 import model.response.Response;
 import model.response.channel.GetChatHistoryRes;
 import model.response.channel.GetPinnedMsgRes;
@@ -76,7 +75,7 @@ public class ChannelService
         }
     }
 
-    public Response creatChannel(CreateChannelReq request)
+    public synchronized Response creatChannel(CreateChannelReq request)
     {
         try
         {
