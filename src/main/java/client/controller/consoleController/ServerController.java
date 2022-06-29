@@ -251,6 +251,28 @@ public class ServerController extends InputController
         }
     }
 
+    private void removeUser(){
+        System.out.println("to be back, enter  '-0'");
+        System.out.println("enter user id : ");
+
+        userId = scanner.nextLine();
+        if(userId.equals("-0")) return;
+
+        System.out.println("enter server id :");
+        serverId = scanner.nextLine();
+
+        clientSocket.send(new RemoveUserServerReq(clientSocket.getId(), serverId, userId));
+
+        try{
+            Response response = clientSocket.getReceiver().getResponse();
+            System.out.println(response.getMessage());
+        }
+        catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     private void printRules(HashMap<String , Rule> rules)
     {
         ArrayList<String> keys = new ArrayList<>(rules.keySet());
