@@ -1,5 +1,6 @@
 package menus;
 
+import ch.qos.logback.core.net.server.Client;
 import client.ClientSocket;
 import client.controller.consoleController.Controllers;
 import client.controller.consoleController.InputController;
@@ -11,6 +12,14 @@ public class TerminalMenu {
 
     private TerminalMenu(ClientSocket clientSocket) {
         controllers = Controllers.getControllers(clientSocket);
+    }
+
+    public static TerminalMenu getTerminalMenu(ClientSocket clientSocket){
+        if(terminalMenu == null){
+            return new TerminalMenu(clientSocket);
+        }
+
+        return terminalMenu;
     }
 
     public void mainMenu(){
@@ -130,11 +139,10 @@ public class TerminalMenu {
             case 3 -> controllers.getServerController().deleteServer();
             case 4 -> controllers.getServerController().renameServer();
             case 5 -> controllers.getServerController().addUser();
-            case 6 -> controllers.getServerController().
-            case 7 ->
-            case 8 ->
-            case 9 ->
-            case 10 ->
+            case 6 -> controllers.getServerController().removeUser();
+            case 7 -> controllers.getServerController().addRule();
+            case 8 -> controllers.getServerController().showUsersStatus();
+            case 9 -> controllers.getServerController().setServerImage();
         }
     }
 

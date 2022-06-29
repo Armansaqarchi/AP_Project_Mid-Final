@@ -7,10 +7,12 @@ import model.request.user.GetServersReq;
 import model.response.Response;
 import model.response.server.GetRulesServerRes;
 import model.response.server.GetServerInfoRes;
+import model.response.server.GetUserStatusRes;
 import model.response.user.GetServersRes;
 import model.server.Rule;
 import model.server.RuleType;
 import model.user.ServerIDs;
+import model.user.UserStatus;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -251,7 +253,46 @@ public class ServerController extends InputController
         }
     }
 
-    private void removeUser(){
+    private GetUserStatusRes getUserStatus(){
+        System.out.println("to be back, enter '-0'");
+        System.out.println("enter server id :");
+        serverId = scanner.nextLine();
+
+        if(serverId.equals("-0")) return null;
+
+        clientSocket.send(new GetUsersStatusReq(clientSocket.getId(), serverId));
+        try{
+            Response response = clientSocket.getReceiver().getResponse();
+            if(response.isAccepted() && response instanceof GetUserStatusRes){
+                return (GetUserStatusRes) response;
+            }
+            else{
+                System.out.println(response.getMessage());
+            }
+        }
+        catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+
+
+    }
+
+    public void showUsersStatus(){
+        GetUserStatusRes getUserStatusRes = getUserStatus();
+
+        if(getUserStatusRes == null){
+            return;
+        }
+        HashMap<String, UserStatus> users = getUserStatusRes.getUsers();
+
+        for(String i : users.keySet()){
+            System.out.println("" + i + "Status : " + users.get(i));
+        }
+    }
+
+
+    public void removeUser(){
         System.out.println("to be back, enter  '-0'");
         System.out.println("enter user id : ");
 
