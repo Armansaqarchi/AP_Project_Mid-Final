@@ -29,11 +29,13 @@ public class FileMsgNotification extends Message
 
            return "file message from : "+ getSenderId() +
                    "\nserverId : " + id[0] + " channel name : " + id[1] +
+                   "\nfile name : " + fileName +
                    "\nsize : " + fileSize + " bytes.";
        }
        else
        {
            return "file message from : "+ getSenderId() +
+                   "\nfile name : " + fileName +
                    "\nsize : " + fileSize + " bytes.";
        }
     }
