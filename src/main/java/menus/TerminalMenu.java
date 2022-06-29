@@ -1,5 +1,7 @@
 package menus;
 
+import client.controller.consoleController.InputController;
+/*
 public class TerminalMenu {
 
     public void mainMenu(){
@@ -7,6 +9,19 @@ public class TerminalMenu {
         System.out.println("[2]-Servers");
         System.out.println("[3]-Profile");
         System.out.println("[4]-Back");
+        int choice = InputController.getOptionalInput(1, 4);
+
+        switch(choice){
+            case 1 :
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+        }
+
     }
 
     private void FriendsMenu(){
@@ -18,18 +33,44 @@ public class TerminalMenu {
         System.out.println("[6]-Friend Request");
         System.out.println("[7]-Answer Friend Request");
         System.out.println("[8]-Back");
+
+        int choice = InputController.getOptionalInput(1, 8);
+        switch(choice){
+            case 1 ->
+            case 2 ->
+            case 3 ->
+            case 4 ->
+            case 5 ->
+            case 6 ->
+            case 7 ->
+            case 8 ->
+        }
     }
 
     private void serversMenu(){
         System.out.println("[1]-Channels");
         System.out.println("[2]-Edit Server");
         System.out.println("[3]-Back");
+
+        int choice = InputController.getOptionalInput(1, 3);
+        switch(choice){
+            case 1 ->
+            case 2 ->
+            case 3 ->
+        }
     }
 
     private void ProfileMenu(){
         System.out.println("[1]-Show Profile");
         System.out.println("[2]-Change Profile");
         System.out.println("[3]-Back");
+
+        int choice = InputController.getOptionalInput(1, 3);
+        switch(choice){
+            case 1 ->
+            case 2 ->
+            case 3 ->
+        }
     }
 
     private void chatMenu(){
@@ -39,6 +80,18 @@ public class TerminalMenu {
         System.out.println("[4]-Friend Requests list");
         System.out.println("[5]-Blocked Users");
         System.out.println("[6]-Back");
+
+        int choice = InputController.getOptionalInput(1, 6);
+        switch(choice){
+            case 1 ->
+            case 2 ->
+            case 3 ->
+            case 4 ->
+            case 5 ->
+            case 6 ->
+            case 7 ->
+            case 8 ->
+        }
     }
 
     private void channelMenu(){
@@ -50,6 +103,18 @@ public class TerminalMenu {
         System.out.println("[6]-Add User");
         System.out.println("[7]-Remove User");
         System.out.println("[8]-Back");
+
+        int choice = InputController.getOptionalInput(1, 8);
+        switch(choice){
+            case 1 ->
+            case 2 ->
+            case 3 ->
+            case 4 ->
+            case 5 ->
+            case 6 ->
+            case 7 ->
+            case 8 ->
+        }
 
     }
 
@@ -64,6 +129,19 @@ public class TerminalMenu {
         System.out.println("[8]-Users Status");
         System.out.println("[9]-Set Server Image");
         System.out.println("[10]-Back");
+        int choice = InputController.getOptionalInput(1, 8);
+        switch(choice){
+            case 1 ->
+            case 2 ->
+            case 3 ->
+            case 4 ->
+            case 5 ->
+            case 6 ->
+            case 7 ->
+            case 8 ->
+            case 9 ->
+            case 10 ->
+        }
     }
 
-}
+}*/

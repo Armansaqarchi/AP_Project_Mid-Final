@@ -7,7 +7,7 @@ import java.util.Scanner;
 public abstract class InputController {
 
     protected ClientSocket clientSocket;
-    protected Scanner scanner;
+    protected static Scanner scanner;
 
 
     public InputController(ClientSocket clientSocket){
@@ -15,7 +15,7 @@ public abstract class InputController {
         this.clientSocket = clientSocket;
     }
 
-    public int getOptionalInput(int start, int end){
+    public static int getOptionalInput(int start, int end){
         int choice;
 
         while(true){
