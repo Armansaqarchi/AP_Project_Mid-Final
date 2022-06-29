@@ -15,9 +15,7 @@ public class TestClient
 
         Executors.newCachedThreadPool().execute(clientSocket);
 
-
         TerminalMenu terminalMenu = TerminalMenu.getTerminalMenu(clientSocket);
-
 
         terminalMenu.mainMenu();
     }
