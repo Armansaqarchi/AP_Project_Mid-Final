@@ -268,17 +268,17 @@ public class MessageService
                     findById(request.getMessageId().toString());
 
             return new GetFileMsgRes(request.getSenderId(), true ,
-                    "file sent." , message.getContent());
+                    "file sent." , message.getFileName() , message.getContent());
         }
         catch (ConfigNotFoundException e)
         {
             return new GetFileMsgRes(request.getSenderId(), false ,
-                    e.getMessage() , null);
+                    e.getMessage(), null , null);
         }
         catch (ClassCastException e)
         {
             return new GetFileMsgRes(request.getSenderId(), false ,
-                    "this message is not file message!" , null);
+                    "this message is not file message!" , null  ,  null);
         }
         catch (SQLException | IOException |ClassNotFoundException e)
         {
