@@ -15,4 +15,8 @@ public class GetFriendReqListRes extends Response
         super(receiverId, isAccepted, message);
         this.friendRequests = friendRequests;
     }
+
+    public LinkedList<UUID> getFriendRequests() {
+        return friendRequests;
+    }
 }
