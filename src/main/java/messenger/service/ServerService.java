@@ -126,7 +126,7 @@ public class ServerService
         {
             return new Response(request.getSenderId() , false , e.getMessage());
         }
-        catch (SQLException e)
+        catch (SQLException | IOException e)
         {
             throw new RuntimeException();
         }
