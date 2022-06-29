@@ -1,15 +1,15 @@
 package client.controller.consoleController;
 
 import client.ClientSocket;
-import messenger.service.model.exception.ResponseNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.message.MessageType;
-import messenger.service.model.message.TextMessage;
-import messenger.service.model.request.Channel.*;
-import messenger.service.model.response.Response;
-import messenger.service.model.response.channel.GetChatHistoryRes;
-import messenger.service.model.response.channel.GetPinnedMsgRes;
-import messenger.service.model.server.Channel;
+import model.exception.ResponseNotFoundException;
+import model.message.Message;
+import model.message.MessageType;
+import model.message.TextMessage;
+import model.request.Channel.*;
+import model.response.Response;
+import model.response.channel.GetChatHistoryRes;
+import model.response.channel.GetPinnedMsgRes;
+import model.server.Channel;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
