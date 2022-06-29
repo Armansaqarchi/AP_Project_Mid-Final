@@ -26,7 +26,7 @@ public class FileHandler
         new File(fileUrl).mkdirs();
     }
 
-    private void addMessage(Message message)
+    private void saveMessage(Message message)
     {
         try
         {
@@ -88,7 +88,7 @@ public class FileHandler
         }
     }
 
-    private void addMessage(LinkedList<Message> messages)
+    private void saveMessage(LinkedList<Message> messages)
     {
         //if list was empty it will not be written in file
         if(messages.isEmpty())
@@ -135,7 +135,7 @@ public class FileHandler
         }
     }
 
-    private void addFile(GetFileMsgRes response)
+    private void saveFile(GetFileMsgRes response)
     {
         String url = fileUrl + '/' + response.getFileName();
 
