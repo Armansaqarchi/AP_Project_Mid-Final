@@ -14,7 +14,7 @@ public class PrivateChatApi
     private final Sender sender;
 
     /**
-     * the constructor of class that initializes fileds
+     * the constructor of class that initializes fields
      */
     public PrivateChatApi()
     {
