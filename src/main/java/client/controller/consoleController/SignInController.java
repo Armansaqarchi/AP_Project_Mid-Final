@@ -48,7 +48,7 @@ public class SignInController extends InputController {
                 Response response = clientSocket.getReceiver().getResponse();
 
                 if(response.isAccepted()){
-                    //go to the main menu in discord
+                    return;
                 }
                 else{
                     System.out.println(response.getMessage());

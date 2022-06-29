@@ -5,6 +5,8 @@ package model.message;
  */
 public class FileMsgNotification extends Message
 {
+    private final String fileName;
+
     //file's length in bytes
     private final long fileSize;
 
@@ -13,6 +15,7 @@ public class FileMsgNotification extends Message
     {
         super(message.getId() , message.getSenderId() , message.getReceiverId() ,
                 message.getType() , message.getDate());
+        fileName = message.getFileName();
         fileSize = message.getContent().length;
     }
 
@@ -26,11 +29,13 @@ public class FileMsgNotification extends Message
 
            return "file message from : "+ getSenderId() +
                    "\nserverId : " + id[0] + " channel name : " + id[1] +
+                   "\nfile name : " + fileName +
                    "\nsize : " + fileSize + " bytes.";
        }
        else
        {
            return "file message from : "+ getSenderId() +
+                   "\nfile name : " + fileName +
                    "\nsize : " + fileSize + " bytes.";
        }
     }

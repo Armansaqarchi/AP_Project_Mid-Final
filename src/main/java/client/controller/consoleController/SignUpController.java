@@ -16,7 +16,7 @@ public class SignUpController extends InputController {
 
 
     private String id;
-    private String username;
+    private String name;
     private String password;
     private String email;
     private String phoneNUmber;
@@ -27,7 +27,7 @@ public class SignUpController extends InputController {
         super(clientSocket);
 
         scanner = new Scanner(System.in);
-        username = null;
+        name = null;
         password = null;
         email = null;
         phoneNUmber = null;
@@ -47,8 +47,8 @@ public class SignUpController extends InputController {
         }
 
 
-        username = getUserName();
-        if(username.equals("1")){
+        name = getUserName();
+        if(name.equals("1")){
             // return ro the main menu
         }
 
@@ -76,20 +76,16 @@ public class SignUpController extends InputController {
         }
 
         clientSocket.send(new SignupReq(clientSocket.getId(), id, password,
-                null, username, email, phoneNUmber, null));
+                null, name, email, phoneNUmber, null));
 
 
     }
 
     private String getId(){
-        String id = "";
 
         System.out.println("enter id : ");
         System.out.println("enter '1' in order to be back");
-        username = scanner.nextLine();
-        if(username.equals("1")){
-            return "1";
-        }
+        id = scanner.nextLine();
 
         return id;
     }

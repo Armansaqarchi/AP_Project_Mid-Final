@@ -104,7 +104,7 @@ public class ServerService
         }
     }
 
-    public Response creatServer(CreateServerReq request)
+    public synchronized Response creatServer(CreateServerReq request)
     {
         try
         {
@@ -126,7 +126,7 @@ public class ServerService
         {
             return new Response(request.getSenderId() , false , e.getMessage());
         }
-        catch (SQLException e)
+        catch (SQLException | IOException e)
         {
             throw new RuntimeException();
         }
