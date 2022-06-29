@@ -3,17 +3,21 @@ package client.controller.consoleController;
 import client.ClientSocket;
 import model.exception.ResponseNotFoundException;
 import model.request.server.*;
+import model.request.user.GetServersReq;
 import model.response.Response;
 import model.response.server.GetRulesServerRes;
 import model.response.server.GetServerInfoRes;
+import model.response.user.GetServersRes;
 import model.server.Rule;
 import model.server.RuleType;
+import model.user.ServerIDs;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ServerController extends InputController
@@ -328,6 +332,45 @@ public class ServerController extends InputController
                 }
             }
 
+        }
+    }
+
+    private void showServers(LinkedList<ServerIDs> serverIDs)
+    {
+        for(ServerIDs serverId : serverIDs)
+        {
+            System.out.println("server :" + serverId.getId() + " channels : ");
+
+            for(String channelName : serverId.getChannels())
+            {
+                System.out.println(channelName + " \n");
+            }
+        }
+
+        System.out.println();
+    }
+
+    private void getServers()
+    {
+        try{
+            clientSocket.send(new GetServersReq(clientSocket.getId()));
+
+            GetServersRes response = (GetServersRes)clientSocket.getReceiver().getResponse();
+
+            if(response.isAccepted())
+            {
+                System.out.println(response.getMessage());
+
+                //print servers
+                showServers(response.getServers());
+            }
+            else
+            {
+                System.out.println(response.getMessage());
+            }
+        }
+        catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
         }
     }
 }

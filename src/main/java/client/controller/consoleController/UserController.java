@@ -1,6 +1,7 @@
 package client.controller.consoleController;
 
 import client.ClientSocket;
+import model.PrivateChat;
 import model.exception.ResponseNotFoundException;
 import model.message.Message;
 import model.message.MessageType;
@@ -9,10 +10,7 @@ import model.request.priavteChat.GetPrivateChatHisReq;
 import model.request.user.*;
 import model.response.Response;
 import model.response.privateChat.GetPrivateChatHisRes;
-import model.response.user.GetFriendListRes;
-import model.response.user.GetMyProfileRes;
-import model.response.user.GetServersRes;
-import model.response.user.GetUserProfileRes;
+import model.response.user.*;
 import model.user.ServerIDs;
 import model.user.UserStatus;
 
@@ -163,42 +161,15 @@ public class UserController extends InputController {
         showUserProfile(userId);
     }
 
-    public void showMyProfile()
-    {
-        try
-        {
-            clientSocket.send(new GetMyProfileReq(clientSocket.getId()));
-
-            GetMyProfileRes response = (GetMyProfileRes)clientSocket.getReceiver().getResponse();
-
-            if(response.isAccepted())
-            {
-                System.out.println(response.getMessage());
-                System.out.println(response);
-
-            }
-            else{
-                System.out.println(response.getMessage());
-            }
-        }
-        catch(ResponseNotFoundException e){
-            System.out.println(e.getMessage());
-        }
-
-    }
-
 
     public void privateChat(){
 
-        System.out.println("enter friend id : ");
-        System.out.println("to be back, enter '-0'");
-        userId = scanner.nextLine();
-        if(userId.equals("-0")){
-            return;
-        }
 
+        showPrivateChatHis();
 
-        showPrivateChatHis(getPrivateChatHis(userId));
+        if(userId.equals("-0")) return;
+
+        System.out.println("to be back, press '-1'.");
 
         String content;
 
@@ -212,6 +183,9 @@ public class UserController extends InputController {
                         LocalDateTime.now(), content));
                 Response response = clientSocket.getReceiver().getResponse();
                 if(!response.isAccepted()){
+                    System.out.println(response.getMessage());
+                }
+                else{
                     System.out.println(response.getMessage());
                 }
             }
@@ -228,33 +202,86 @@ public class UserController extends InputController {
 
     }
 
-    private void getServers()
-    {
-        try{
-            clientSocket.send(new GetServersReq(clientSocket.getId()));
+    private GetFriendReqListRes getFriendReqList(){
+        clientSocket.send(new GetFriendReqList(clientSocket.getId()));
+        try {
+            Response response = clientSocket.getReceiver().getResponse();
 
-            GetServersRes response = (GetServersRes)clientSocket.getReceiver().getResponse();
-
-            if(response.isAccepted())
-            {
+            if(response.isAccepted()){
                 System.out.println(response.getMessage());
-
-                //print servers
-                showServers(response.getServers());
+                if(response instanceof GetFriendReqListRes){
+                    return (GetFriendReqListRes) response;
+                }
             }
-            else
-            {
+            else{
                 System.out.println(response.getMessage());
             }
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
         }
+
+        return null;
     }
 
-    private GetPrivateChatHisRes getPrivateChatHis(String id){
+    public void showFriendReqList(){
+        GetFriendReqListRes getFriendReqList = getFriendReqList();
+
+        if(getFriendReqList == null){
+            return;
+        }
+
+        for(UUID i : getFriendReqList.getFriendRequests()){
+            System.out.println(i);
+        }
+
+    }
+
+    private GetBlockedUsersRes getBlockedUsers(){
+        clientSocket.send(new GetBlockedUsersReq(clientSocket.getId()));
         try{
-            clientSocket.send(new GetPrivateChatHisReq(clientSocket.getId(), id));
+            Response response = clientSocket.getReceiver().getResponse();
+            if(response.isAccepted()){
+                System.out.println(response.getMessage());
+                if(response instanceof GetBlockedUsersRes){
+                    return (GetBlockedUsersRes) response;
+                }
+            }
+            else{
+                System.out.println(response.getMessage());
+            }
+        }
+        catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    public void showBlockedUsers(){
+        GetBlockedUsersRes getBlockedUsersRes = getBlockedUsers();
+
+        if(getBlockedUsersRes == null){
+            return;
+        }
+
+        for(String i : getBlockedUsersRes.getBlockedUsers()){
+            System.out.println(i);
+        }
+    }
+
+
+    public GetPrivateChatHisRes getPrivateChatHis(){
+
+        System.out.println("enter friend id : ");
+        System.out.println("to be back, enter '-0'");
+        userId = scanner.nextLine();
+        if(userId.equals("-0")){
+            return null;
+        }
+
+        try{
+            clientSocket.send(new GetPrivateChatHisReq(clientSocket.getId(), userId));
             Response response = clientSocket.getReceiver().getResponse();
             if(response instanceof GetPrivateChatHisRes){
                 return (GetPrivateChatHisRes) response;
@@ -267,8 +294,38 @@ public class UserController extends InputController {
         return null;
     }
 
+    public GetPrivateChatsRes getChats(){
+        clientSocket.send(new GetPrivateChatsReq(clientSocket.getId()));
+        try{
+            Response response = clientSocket.getReceiver().getResponse();
+            if(response.isAccepted()){
+                System.out.println(response.getMessage());
+                if(response instanceof GetPrivateChatsRes){
+                    return (GetPrivateChatsRes) response;
+                }
+            }
+        }catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
+        }
 
-    private void showPrivateChatHis(GetPrivateChatHisRes PChatHisRes){
+        return null;
+    }
+
+
+    private void showChats(){
+
+        GetPrivateChatsRes getPrivateChatsRes = getChats();
+
+        for(String i : getPrivateChatsRes.getPrivateChats()){
+            System.out.println(i);
+        }
+    }
+
+
+    private void showPrivateChatHis(){
+
+        GetPrivateChatHisRes PChatHisRes = getPrivateChatHis();
+
         if(PChatHisRes == null){
             System.err.println("No Valid response was received from server");
         }
@@ -283,24 +340,10 @@ public class UserController extends InputController {
             }
 
 
-            System.out.println("to be back, press '-1'.");
+
         }
 
 
     }
 
-    private void showServers(LinkedList<ServerIDs> serverIDs)
-    {
-        for(ServerIDs serverId : serverIDs)
-        {
-            System.out.println("server :" + serverId.getId() + " channels : ");
-
-            for(String channelName : serverId.getChannels())
-            {
-                System.out.println(channelName + " \n");
-            }
-        }
-
-        System.out.println();
-    }
 }
