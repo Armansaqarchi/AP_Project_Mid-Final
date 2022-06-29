@@ -32,7 +32,20 @@ public class FileHandler
         {
             LinkedList<Message> messages = null;
 
-            File file = new File(messageUrl + '/' + message.getSenderId());
+            String fileName;
+
+            //for channel messages
+            if(MessageType.CHANNEL == message.getType())
+            {
+                fileName = message.getReceiverId();
+            }
+            //for private chat messages
+            else
+            {
+                fileName = message.getSenderId();
+            }
+
+            File file = new File(messageUrl + '/' + fileName);
 
             //checking that file is exists or not
             if(file.createNewFile())
@@ -95,7 +108,7 @@ public class FileHandler
         //for private chat messages
         else
         {
-            fileName = sample.getSenderId() + '-' + sample.getReceiverId();
+            fileName = sample.getSenderId();
         }
 
         File file = new File(messageUrl + '/' + fileName);
