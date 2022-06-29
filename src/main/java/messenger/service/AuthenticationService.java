@@ -69,7 +69,7 @@ public class AuthenticationService
      * @param request the signup request
      * @return response related to request
      */
-    public Response signup(SignupReq request)
+    public synchronized Response signup(SignupReq request)
     {
         //checking validity of inputted id
         if(!database.getUserOp().isExists(request.getId()))

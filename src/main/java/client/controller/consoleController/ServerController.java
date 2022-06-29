@@ -93,7 +93,12 @@ public class ServerController extends InputController
         
         name = scanner.nextLine();
 
-        image = getImage();
+        System.out.println("Enter 1 in order to set image : (enter another key otherwise)");
+
+        if(scanner.nextLine().equals("1"))
+        {
+            image = getImage();
+        }
 
         try{
             clientSocket.send(new CreateServerReq(clientSocket.getId() , serverId , name , image));

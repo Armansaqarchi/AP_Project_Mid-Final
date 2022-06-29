@@ -50,13 +50,17 @@ public class ServerOp extends Op{
                 "server_id", "server");
     }
 
-    public void insertServer(String id, String ownerId, String name) throws SQLException{
+    public void insertServer(String id, String ownerId, String name) throws SQLException,
+            IOException{
         PreparedStatement pst = connection.prepareStatement(
-                "INSERT INTO server VALUES (?, ?, ?)");
+                "INSERT INTO server VALUES (?, ?, ?, ?, ?, ?)");
 
         pst.setString(1, id);
         pst.setString(2, ownerId);
         pst.setString(3, name);
+        pst.setBytes(4, objectConvertor(new LinkedList<String>()));
+        pst.setBytes(5, objectConvertor(new HashMap<String, Rule>()));
+        pst.setBytes(6, objectConvertor(new HashMap<String, UUID>()));
 
         pst.executeUpdate();
         pst.close();

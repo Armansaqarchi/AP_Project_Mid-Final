@@ -68,6 +68,13 @@ public class MessageOp extends Op {
 
 
     public void insertMessage(Message message) throws SQLException, IOException{
+
+        //store file name in sender id
+        if(message instanceof FileMessage)
+        {
+            message.setSenderId(message.getSenderId() + '-' + ((FileMessage) message).getFileName());
+        }
+
         insertMessage(message.getId().toString(),
                 message.getSenderId(), message.getReceiverId(),message.getType(),
                 message.getDate(), message.getContent());
@@ -166,8 +173,13 @@ public class MessageOp extends Op {
         }
         else if (content instanceof byte[]){
 
-            return new FileMessage(UUID.fromString(messageId), senderId, receiverId,
-                    MessageType.getNameFromValue(type), date, reactions, (byte[])content);
+            //extract file name from sender id
+            String[] strings = senderId.split("-");
+            senderId = strings[0];
+            String fileName = strings[1];
+
+            return new FileMessage(UUID.fromString(messageId), senderId , receiverId,
+                    MessageType.getNameFromValue(type), date, reactions ,fileName , (byte[])content);
         }
 
         return null;

@@ -3,9 +3,10 @@ package messenger.service;
 import messenger.dataBaseOp.Database;
 import messenger.dataBaseOp.UpdateType;
 import model.exception.ConfigNotFoundException;
+import model.message.FileMessage;
+import model.message.FileMsgNotification;
 import model.message.Message;
 import model.request.Channel.*;
-import model.request.server.RemoveRuleReq;
 import model.response.Response;
 import model.response.channel.GetChatHistoryRes;
 import model.response.channel.GetPinnedMsgRes;
@@ -76,7 +77,7 @@ public class ChannelService
         }
     }
 
-    public Response creatChannel(CreateChannelReq request)
+    public synchronized Response creatChannel(CreateChannelReq request)
     {
         try
         {
@@ -415,7 +416,16 @@ public class ChannelService
         {
             try
             {
-                messages.add(database.getMessageOp().findById(id.toString()));
+                Message message = database.getMessageOp().findById(id.toString());
+
+                //if message was file message only a notification will be sent to receivers
+                // , not whole the file
+                if(message instanceof FileMessage)
+                {
+                    message = new FileMsgNotification((FileMessage) message);
+                }
+
+                messages.add(message);
 
             }
             catch (ConfigNotFoundException e)
