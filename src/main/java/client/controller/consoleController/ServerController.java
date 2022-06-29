@@ -1,13 +1,13 @@
 package client.controller.consoleController;
 
 import client.ClientSocket;
-import messenger.service.model.exception.ResponseNotFoundException;
-import messenger.service.model.request.server.*;
-import messenger.service.model.response.Response;
-import messenger.service.model.response.server.GetRulesServerRes;
-import messenger.service.model.response.server.GetServerInfoRes;
-import messenger.service.model.server.Rule;
-import messenger.service.model.server.RuleType;
+import model.exception.ResponseNotFoundException;
+import model.request.server.*;
+import model.response.Response;
+import model.response.server.GetRulesServerRes;
+import model.response.server.GetServerInfoRes;
+import model.server.Rule;
+import model.server.RuleType;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

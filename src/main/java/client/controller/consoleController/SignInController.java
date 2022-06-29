@@ -1,9 +1,9 @@
 package client.controller.consoleController;
 
 import client.ClientSocket;
-import messenger.service.model.exception.ResponseNotFoundException;
-import messenger.service.model.request.Authentication.LoginReq;
-import messenger.service.model.response.Response;
+import model.exception.ResponseNotFoundException;
+import model.request.Authentication.LoginReq;
+import model.response.Response;
 
 import java.util.Scanner;
 
@@ -12,11 +12,11 @@ public class SignInController extends InputController {
     private String id;
     private String password;
 
-    public SignInController(ClientSocket clientSocket, String id) {
+    public SignInController(ClientSocket clientSocket) {
         super(clientSocket);
     }
 
-    public void getUserDetails(ClientSocket clientSocket){
+    public void getUserDetails(){
 
         id = null;
         password = null;

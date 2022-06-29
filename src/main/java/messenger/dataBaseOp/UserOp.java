@@ -1,10 +1,10 @@
 package messenger.dataBaseOp;
 
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.exception.UserNotFoundException;
-import messenger.service.model.user.ServerIDs;
-import messenger.service.model.user.User;
-import messenger.service.model.user.UserStatus;
+import model.exception.ConfigNotFoundException;
+import model.exception.UserNotFoundException;
+import model.user.ServerIDs;
+import model.user.User;
+import model.user.UserStatus;
 
 import java.io.*;
 import java.sql.*;
@@ -59,7 +59,7 @@ public class UserOp extends Op{
     }
 
     public void insertUser(String id, String name, String password, String email, String phoneNumber)
-    throws SQLException{
+    throws SQLException, IOException{
 
         PreparedStatement ps = connection.prepareStatement(
                 "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -71,12 +71,12 @@ public class UserOp extends Op{
         ps.setString(5, phoneNumber);
         ps.setNull(6, Types.BINARY);
         ps.setString(7, "Online");
-        ps.setNull(8, Types.BINARY);
-        ps.setNull(9, Types.BINARY);
-        ps.setNull(10, Types.BINARY);
-        ps.setNull(11, Types.BINARY);
-        ps.setNull(12, Types.BINARY);
-        ps.setNull(13, Types.BINARY);;
+        ps.setBytes(8, objectConvertor(new LinkedList<String>()));
+        ps.setBytes(9, objectConvertor(new LinkedList<String>()));
+        ps.setBytes(10, objectConvertor(new LinkedList<ServerIDs>()));
+        ps.setBytes(11, objectConvertor(new LinkedList<UUID>()));
+        ps.setBytes(12, objectConvertor(new LinkedList<UUID>()));
+        ps.setBytes(13, objectConvertor(new LinkedList<String>()));;
 
 
         ps.executeUpdate();
@@ -86,7 +86,7 @@ public class UserOp extends Op{
 
     }
 
-    public void insertUser(User user)throws SQLException{
+    public void insertUser(User user)throws SQLException, IOException{
         insertUser(user.getId(), user.getName(), user.getPassword(),
                 user.getEmail(), user.getPhoneNumber());
     }

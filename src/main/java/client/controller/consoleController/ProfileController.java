@@ -2,11 +2,12 @@ package client.controller.consoleController;
 
 import client.ClientSocket;
 import client.controller.InfoVerifier;
-import messenger.service.model.exception.InvalidEmailFormatException;
-import messenger.service.model.exception.InvalidPasswordException;
-import messenger.service.model.exception.InvalidPhoneNumberException;
-import messenger.service.model.exception.InvalidUsernameException;
-import messenger.service.model.user.UserStatus;
+import model.exception.InvalidEmailFormatException;
+import model.exception.InvalidPasswordException;
+import model.exception.InvalidPhoneNumberException;
+import model.exception.InvalidUsernameException;
+import model.request.user.GetMyProfileReq;
+import model.user.UserStatus;
 
 public class ProfileController extends InputController {
 
@@ -159,6 +160,11 @@ public class ProfileController extends InputController {
         catch(InvalidPhoneNumberException e){
             System.out.println(e.getMessage());
         }
+    }
+
+
+    public void showProfile(){
+        clientSocket.send(new GetMyProfileReq(id));
     }
 
 }

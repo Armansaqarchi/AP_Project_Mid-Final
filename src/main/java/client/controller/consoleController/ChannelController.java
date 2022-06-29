@@ -79,7 +79,10 @@ public class ChannelController extends InputController {
     }
 
     private GetChatHistoryRes getChatHis(){
-
+        System.out.println("enter serverId : ");
+        serverId = scanner.nextLine();
+        System.out.println("enter channel name : ");
+        channelName = scanner.nextLine();
 
         try{
             clientSocket.send(new GetChatHistoryReq(clientSocket.getId(), serverId, channelName));

@@ -1,21 +1,20 @@
 package client.controller.consoleController;
 
 import client.ClientSocket;
-import messenger.service.model.exception.ResponseNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.message.MessageType;
-import messenger.service.model.message.TextMessage;
-import messenger.service.model.request.priavteChat.GetPrivateChatHisReq;
-import messenger.service.model.request.server.RenameServerReq;
-import messenger.service.model.request.user.*;
-import messenger.service.model.response.Response;
-import messenger.service.model.response.privateChat.GetPrivateChatHisRes;
-import messenger.service.model.response.user.GetFriendListRes;
-import messenger.service.model.response.user.GetMyProfileRes;
-import messenger.service.model.response.user.GetServersRes;
-import messenger.service.model.response.user.GetUserProfileRes;
-import messenger.service.model.user.ServerIDs;
-import messenger.service.model.user.UserStatus;
+import model.exception.ResponseNotFoundException;
+import model.message.Message;
+import model.message.MessageType;
+import model.message.TextMessage;
+import model.request.priavteChat.GetPrivateChatHisReq;
+import model.request.user.*;
+import model.response.Response;
+import model.response.privateChat.GetPrivateChatHisRes;
+import model.response.user.GetFriendListRes;
+import model.response.user.GetMyProfileRes;
+import model.response.user.GetServersRes;
+import model.response.user.GetUserProfileRes;
+import model.user.ServerIDs;
+import model.user.UserStatus;
 
 
 import java.time.LocalDateTime;
@@ -103,9 +102,17 @@ public class UserController extends InputController {
         }
     }
 
-    public void blockUser(String id){
+    public void blockUser(){
+
+        System.out.println("enter id of user whom you want to block");
+        System.out.println("to back, enter '-0'");
+        userId = scanner.nextLine();
+        if(userId.equals("-0")){
+            return;
+        }
+
         try {
-            clientSocket.send(new BlockUserReq(clientSocket.getId(), id));
+            clientSocket.send(new BlockUserReq(clientSocket.getId(), userId));
             Response response = clientSocket.getReceiver().getResponse();
             if(!response.isAccepted()){
                 System.err.println(response.getMessage());
@@ -120,9 +127,17 @@ public class UserController extends InputController {
 
     }
 
-    public void addFriend(String id) {
+    public void addFriend() {
+
+        System.out.println("enter id of user whom you want to add");
+        System.out.println("to be back, press '-0'");
+        userId = scanner.nextLine();
+        if(userId.equals("-0")){
+            return;
+        }
+
         try {
-            clientSocket.send(new FriendReq(clientSocket.getId(), UUID.randomUUID(), id));
+            clientSocket.send(new FriendReq(clientSocket.getId(), UUID.randomUUID(), userId));
             Response response = clientSocket.getReceiver().getResponse();
 
             if(!response.isAccepted()){
@@ -140,32 +155,50 @@ public class UserController extends InputController {
     public void showUserProfile()
     {
         System.out.println("Enter user's id :");
-
+        System.out.println("to be back, enter '-0'");
         userId = scanner.nextLine();
+
+        if(userId.equals("-0")) return;
 
         showUserProfile(userId);
     }
 
-    public void showMyProfile() {
-        try {
+    public void showMyProfile()
+    {
+        try
+        {
             clientSocket.send(new GetMyProfileReq(clientSocket.getId()));
 
-            GetMyProfileRes response = (GetMyProfileRes) clientSocket.getReceiver().getResponse();
+            GetMyProfileRes response = (GetMyProfileRes)clientSocket.getReceiver().getResponse();
 
-            if (response.isAccepted()) {
+            if(response.isAccepted())
+            {
                 System.out.println(response.getMessage());
                 System.out.println(response);
 
-            } else {
+            }
+            else{
                 System.out.println(response.getMessage());
             }
-        } catch (ResponseNotFoundException e) {
+        }
+        catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
         }
+
     }
 
-    public void privateChat(String id){
-        showPrivateChatHis(getPrivateChatHis(id));
+
+    public void privateChat(){
+
+        System.out.println("enter friend id : ");
+        System.out.println("to be back, enter '-0'");
+        userId = scanner.nextLine();
+        if(userId.equals("-0")){
+            return;
+        }
+
+
+        showPrivateChatHis(getPrivateChatHis(userId));
 
         String content;
 
@@ -175,7 +208,7 @@ public class UserController extends InputController {
                 if (content.equals("-1")) {
                     //return to the previous menu
                 }
-                clientSocket.send(new TextMessage(null, clientSocket.getId(), id,MessageType.PRIVATE_CHAT,
+                clientSocket.send(new TextMessage(null, clientSocket.getId(), userId,MessageType.PRIVATE_CHAT,
                         LocalDateTime.now(), content));
                 Response response = clientSocket.getReceiver().getResponse();
                 if(!response.isAccepted()){
@@ -192,35 +225,6 @@ public class UserController extends InputController {
 
     public void answerFriendRequest()
     {
-        System.out.println("enter id of friendReq : ");
-        String friendReqId = scanner.nextLine();
-        System.out.println("Accept ? ");
-        System.out.println("[1] Yes");
-        System.out.println("[2] No");
-        int choice = getOptionalInput(1, 2);
-
-        boolean isAccepted = false;
-
-        if(choice == 1){
-            isAccepted = true;
-        }
-
-        try{
-            clientSocket.send(new AnswerFriendReq(clientSocket.getId(), UUID.fromString(friendReqId),
-                    isAccepted));
-            Response response = clientSocket.getReceiver().getResponse();
-            if(response.isAccepted()){
-                System.out.println("successfully done.");
-            }
-            else{
-                System.out.println("Access denied to modify changes");
-                System.out.println(response.getMessage());
-            }
-
-        }
-        catch(ResponseNotFoundException e){
-            System.out.println(e.getMessage());
-        }
 
     }
 
@@ -299,6 +303,4 @@ public class UserController extends InputController {
 
         System.out.println();
     }
-
-
 }

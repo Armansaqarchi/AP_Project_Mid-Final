@@ -2,10 +2,9 @@ package messenger.api;
 
 import messenger.api.connection.ConnectionHandler;
 import messenger.api.connection.ServerThread;
-import messenger.service.model.exception.ServerThreadNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.response.Response;
-import messenger.service.model.server.Server;
+import model.exception.ServerThreadNotFoundException;
+import model.message.Message;
+import model.response.Response;
 
 /**
  * this class is used to send message or responses to client

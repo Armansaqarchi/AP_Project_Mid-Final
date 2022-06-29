@@ -1,15 +1,17 @@
 package messenger.api;
 
-import messenger.service.model.Transferable;
-import messenger.service.model.exception.InvalidObjectException;
-import messenger.service.model.exception.InvalidTypeException;
-import messenger.service.model.message.Message;
-import messenger.service.model.request.Authentication.AuthenticationReq;
-import messenger.service.model.request.Channel.ChannelReq;
-import messenger.service.model.request.Request;
-import messenger.service.model.request.priavteChat.PrivateChatReq;
-import messenger.service.model.request.server.ServerReq;
-import messenger.service.model.request.user.UserRequest;
+import model.Transferable;
+import model.exception.InvalidObjectException;
+import model.exception.InvalidTypeException;
+import model.message.Message;
+import model.request.Authentication.AuthenticationReq;
+import model.request.Channel.ChannelReq;
+import model.request.GetFileMsgReq;
+import model.request.Request;
+import model.request.priavteChat.PrivateChatReq;
+import model.request.server.ServerReq;
+import model.request.user.UserRequest;
+import model.user.UserStatus;
 
 import java.util.UUID;
 
@@ -77,6 +79,7 @@ public class Receiver
             case CHANNEL -> channelApi.getRequest((ChannelReq) request);
             case SERVER -> serverApi.getRequest((ServerReq) request);
             case PRIVATE_CHAT -> privateChatApi.getRequest((PrivateChatReq) request);
+            case FILE_MESSAGE -> messageApi.getFileMsg((GetFileMsgReq) request);
             default -> throw new InvalidTypeException();
         }
     }
@@ -86,9 +89,9 @@ public class Receiver
         messageApi.getMessage(message);
     }
 
-    public void turnUserToOffline(String id)
+    public void turnUserStatus(String id , UserStatus status)
     {
-        userApi.turnUserToOffline(id);
+        userApi.turnUserStatus(id , status);
     }
 
     /**

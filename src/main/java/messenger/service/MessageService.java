@@ -3,15 +3,16 @@ package messenger.service;
 import messenger.api.MessageApi;
 import messenger.dataBaseOp.Database;
 import messenger.dataBaseOp.UpdateType;
-import messenger.service.model.PrivateChat;
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.exception.InvalidObjectException;
-import messenger.service.model.exception.UserNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.response.Response;
-import messenger.service.model.server.Channel;
-import messenger.service.model.server.Server;
-import messenger.service.model.user.User;
+import model.exception.ConfigNotFoundException;
+import model.message.FileMessage;
+import model.message.FileMsgNotification;
+import model.message.Message;
+import model.request.GetFileMsgReq;
+import model.response.GetFileMsgRes;
+import model.response.Response;
+import model.server.Channel;
+import model.server.Server;
+import model.user.User;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -110,6 +111,13 @@ public class MessageService
             {
                 Message message = database.getMessageOp().findById(id.toString());
 
+                //if message was file message only a notification will be sent to receivers
+                // , not whole the file
+                if(message instanceof FileMessage)
+                {
+                    message = new FileMsgNotification((FileMessage) message);
+                }
+
                 messages.add(message);
                 //remove extracted message from unread messages list
                 removeUnreadMessage(userId, message.getId());
@@ -145,15 +153,11 @@ public class MessageService
             Channel channel =
                     database.getChannelOp().findById(channelId.toString());
 
+            //add message to channel's messages
             database.getChannelOp().updateChannelList(UpdateType.ADD ,
                     "messages" , channelId.toString() , message.toString());
 
-            LinkedList<String> receivers = channel.getUsers();
-
-            for(String receiver : receivers)
-            {
-                messageApi.sendMessage(message , receiver);
-            }
+            sendMessage(message , channel.getUsers());
 
             return new Response(message.getSenderId() ,
                     true , "Message sent successfully.");
@@ -206,7 +210,8 @@ public class MessageService
             database.getPrivateChatOp().updatePrivateChat(UpdateType.ADD ,
                     "messages",privateChatId , message);
 
-            messageApi.sendMessage(message , message.getReceiverId());
+            //sent message
+            sendMessage(message , message.getReceiverId());
 
             return new Response(message.getSenderId() , true ,
                     "message sent successfully.");
@@ -219,6 +224,59 @@ public class MessageService
         catch (SQLException | IOException | ClassNotFoundException e)
         {
             throw new RuntimeException();
+        }
+    }
+
+    private void sendMessage(Message message , LinkedList<String> receivers)
+    {
+        //if message was file message only a notification will be sent to receivers
+        // , not whole the file
+        if(message instanceof FileMessage)
+        {
+            message = new FileMsgNotification((FileMessage) message);
+        }
+
+        for(String receiver : receivers)
+        {
+            messageApi.sendMessage(message , receiver);
+        }
+    }
+
+    private void sendMessage(Message message , String receiver)
+    {
+        //if message was file message only a notification will be sent to receivers
+        // , not whole the file
+        if(message instanceof FileMessage)
+        {
+            message = new FileMsgNotification((FileMessage) message);
+        }
+
+        messageApi.sendMessage(message , receiver);
+    }
+
+    public Response getFileMsg(GetFileMsgReq request)
+    {
+        try
+        {
+            FileMessage message = (FileMessage) database.getMessageOp().
+                    findById(request.getMessageId().toString());
+
+            return new GetFileMsgRes(request.getSenderId(), true ,
+                    "file sent." , message.getContent());
+        }
+        catch (ConfigNotFoundException e)
+        {
+            return new GetFileMsgRes(request.getSenderId(), false ,
+                    e.getMessage() , null);
+        }
+        catch (ClassCastException e)
+        {
+            return new GetFileMsgRes(request.getSenderId(), false ,
+                    "this message is not file message!" , null);
+        }
+        catch (SQLException | IOException |ClassNotFoundException e)
+        {
+            throw new RuntimeException(e);
         }
     }
 }

@@ -1,9 +1,7 @@
 package messenger.dataBaseOp;
 
-import messenger.service.model.PrivateChat;
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.request.user.FriendReq;
-import messenger.service.model.user.User;
+import model.PrivateChat;
+import model.exception.ConfigNotFoundException;
 
 import java.io.IOException;
 import java.sql.*;
@@ -28,13 +26,13 @@ public class PrivateChatOp extends Op{
 
 
     public void insertPrivateMessage(String id)
-            throws SQLException{
+            throws SQLException, IOException{
 
         PreparedStatement ps = connection.prepareStatement(
                 "INSERT INTO private_chats VALUES (?, ?)");
 
-        ps.setString(1, id);
-        ps.setNull(2, Types.BINARY);
+        ps.setString(1, id.toString());
+        ps.setBytes(2, objectConvertor(new LinkedList<UUID>()));
 
         ps.executeUpdate();
         ps.close();

@@ -6,13 +6,12 @@ package messenger.api;
 import messenger.api.connection.ConnectionHandler;
 import messenger.api.connection.ServerThread;
 import messenger.service.UserService;
-import messenger.service.model.exception.InvalidTypeException;
-import messenger.service.model.exception.ServerThreadNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.request.user.*;
-import messenger.service.model.response.Response;
+import model.exception.InvalidTypeException;
+import model.exception.ServerThreadNotFoundException;
+import model.request.user.*;
+import model.response.Response;
+import model.user.UserStatus;
 
-import java.util.LinkedList;
 import java.util.UUID;
 
 public class UserApi
@@ -43,6 +42,8 @@ public class UserApi
             case GET_PRIVATE_CHATS -> getPrivateChats((GetPrivateChatsReq) request);
             case REACTION_TO_MESSAGE -> reactionToMessage((ReactionToMessageReq) request);
             case GET_FRIEND_REQ_LIST -> getFriendReqList((GetFriendReqList) request);
+            case UN_BLOCK -> unBlockUser((UnBlockUserReq) request);
+            case REMOVE_FRIEND -> removeFriend((RemoveFriendReq) request);
             default -> throw new InvalidTypeException();
         }
     }
@@ -126,11 +127,19 @@ public class UserApi
         sendResponse(service.getPrivateChats(request));
     }
 
-    public void turnUserToOffline(String id)
+    public void turnUserStatus(String id , UserStatus status)
     {
-        service.turnUserToOffline(id);
+        service.turnUserStatus(id , status);
+    }
+    private void removeFriend(RemoveFriendReq request)
+    {
+        sendResponse(service.removeFriend(request));
     }
 
+    private void unBlockUser(UnBlockUserReq request)
+    {
+        sendResponse(service.unBlockUser(request));
+    }
     private void sendResponse(Response response)
     {
         try

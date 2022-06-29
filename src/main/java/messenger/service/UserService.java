@@ -2,20 +2,18 @@ package messenger.service;
 
 import messenger.dataBaseOp.Database;
 import messenger.dataBaseOp.UpdateType;
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.message.MessageReaction;
-import messenger.service.model.request.user.*;
-import messenger.service.model.response.Response;
-import messenger.service.model.response.user.*;
-import messenger.service.model.user.User;
-import messenger.service.model.user.UserStatus;
+import model.exception.ConfigNotFoundException;
+import model.message.MessageReaction;
+import model.request.user.*;
+import model.response.Response;
+import model.response.user.*;
+import model.user.User;
+import model.user.UserStatus;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.UUID;
 
 public class UserService
 {
@@ -367,6 +365,49 @@ public class UserService
         }
     }
 
+    public Response removeFriend(RemoveFriendReq request)
+    {
+        try
+        {
+            database.getUserOp().updateList(UpdateType.REMOVE , "friend_list" ,
+                    request.getSenderId(), request.getUserId());
+
+            database.getUserOp().updateList(UpdateType.REMOVE , "friend_list" ,
+                    request.getUserId() , request.getSenderId());
+
+            return new Response(request.getSenderId() , true ,
+                    "user : " + request.getUserId() + " removed from your friends list.");
+        }
+        catch (ConfigNotFoundException e)
+        {
+            return new Response(request.getSenderId() , false , e.getMessage());
+        }
+        catch (IOException | SQLException | ClassNotFoundException e)
+        {
+            throw new RuntimeException();
+        }
+    }
+
+    public Response unBlockUser(UnBlockUserReq request)
+    {
+        try
+        {
+            database.getUserOp().updateList(UpdateType.REMOVE , "blocked_users" ,
+                    request.getSenderId() , request.getUserId());
+
+            return new Response(request.getSenderId() , true ,
+                    "user : " + request.getUserId() + " removed from your blocked list.");
+        }
+        catch (ConfigNotFoundException e)
+        {
+            return new Response(request.getSenderId() , false , e.getMessage());
+        }
+        catch (IOException | SQLException | ClassNotFoundException e)
+        {
+            throw new RuntimeException();
+        }
+    }
+
     private HashMap<String, UserStatus> getUsersStatus(LinkedList<String> userIdes)
     {
         HashMap<String , UserStatus> usersStatus = new HashMap<>();
@@ -392,10 +433,10 @@ public class UserService
         return usersStatus;
     }
 
-    public void turnUserToOffline(String id)
+    public void turnUserStatus(String id , UserStatus status)
     {
         try {
-            database.getUserOp().updateProfile(id , "user_status" , UserStatus.OFFLINE.toString());
+            database.getUserOp().updateProfile(id , "user_status" , status.toString());
         }
         catch (ConfigNotFoundException e)
         {

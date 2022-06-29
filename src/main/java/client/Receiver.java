@@ -1,10 +1,10 @@
 package client;
 
-import messenger.service.model.Transferable;
-import messenger.service.model.exception.InvalidObjectException;
-import messenger.service.model.exception.ResponseNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.response.Response;
+import model.Transferable;
+import model.exception.InvalidObjectException;
+import model.exception.ResponseNotFoundException;
+import model.message.Message;
+import model.response.Response;
 
 public class Receiver
 {
@@ -15,17 +15,26 @@ public class Receiver
 
     public void getInput(Transferable transferable) throws InvalidObjectException {
 
-        if(transferable instanceof Message)
-        {
-            //incomplete
-        }
-        else if(transferable instanceof Response)
+        try
         {
             setResponse((Response) transferable);
+
         }
-        else
+        catch (ClassCastException e)
         {
-            throw new InvalidObjectException();
+            try
+            {
+
+                Message message = (Message) transferable;
+
+                //incomplete
+
+            }
+            catch (ClassCastException ex)
+            {
+                throw new InvalidObjectException();
+            }
+
         }
     }
 

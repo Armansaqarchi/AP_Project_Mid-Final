@@ -1,9 +1,9 @@
 package client.controller;
 
-import messenger.service.model.exception.InvalidEmailFormatException;
-import messenger.service.model.exception.InvalidPasswordException;
-import messenger.service.model.exception.InvalidPhoneNumberException;
-import messenger.service.model.exception.InvalidUsernameException;
+import model.exception.InvalidEmailFormatException;
+import model.exception.InvalidPasswordException;
+import model.exception.InvalidPhoneNumberException;
+import model.exception.InvalidUsernameException;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

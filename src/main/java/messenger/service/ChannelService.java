@@ -2,17 +2,19 @@ package messenger.service;
 
 import messenger.dataBaseOp.Database;
 import messenger.dataBaseOp.UpdateType;
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.exception.UserNotFoundException;
-import messenger.service.model.message.Message;
-import messenger.service.model.request.Channel.*;
-import messenger.service.model.request.Request;
-import messenger.service.model.response.Response;
-import messenger.service.model.response.channel.GetChatHistoryRes;
-import messenger.service.model.response.channel.GetPinnedMsgRes;
-import messenger.service.model.server.*;
-import messenger.service.model.user.ServerIDs;
-import messenger.service.model.user.User;
+import model.exception.ConfigNotFoundException;
+import model.message.Message;
+import model.request.Channel.*;
+import model.request.server.RemoveRuleReq;
+import model.response.Response;
+import model.response.channel.GetChatHistoryRes;
+import model.response.channel.GetPinnedMsgRes;
+import model.server.ChannelType;
+import model.server.RuleType;
+import model.server.Server;
+import model.server.TextChannel;
+import model.user.ServerIDs;
+import model.user.User;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -336,6 +338,41 @@ public class ChannelService
 
             return new Response(request.getSenderId() , true ,
                     "user renamed successfully.");
+        }
+        catch (ConfigNotFoundException e)
+        {
+            return new Response(request.getSenderId() , false , e.getMessage());
+        }
+        catch (SQLException | IOException | ClassNotFoundException e)
+        {
+            throw new RuntimeException();
+        }
+    }
+
+    public Response unPinMessage(UnpinMessageReq request)
+    {
+        try
+        {
+            Server server  = database.getServerOp().findByServerId(request.getServerId());
+
+            if(!server.getChannels().containsKey(request.getChannelName()))
+            {
+                return new GetChatHistoryRes(request.getSenderId() , false ,
+                        "channel not found in server!" , null);
+            }
+
+            if(!checkRule(request.getSenderId(), server.getId() , RuleType.PIN_MESSAGE))
+            {
+                return new Response(request.getSenderId() ,false ,"you can't un pin message in this server");
+            }
+
+            UUID channelId = server.getChannels().get(request.getChannelName());
+
+            database.getChannelOp().updateChannelList(UpdateType.REMOVE , "pinned_messages" ,
+                    channelId.toString() , request.getMessageId());
+
+            return new Response(request.getSenderId() , true ,
+                    "message un pinned successfully.");
         }
         catch (ConfigNotFoundException e)
         {

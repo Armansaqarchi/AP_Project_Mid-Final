@@ -1,11 +1,11 @@
 package messenger.dataBaseOp;
 
 
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.server.Channel;
-import messenger.service.model.server.ChannelType;
-import messenger.service.model.server.TextChannel;
-import messenger.service.model.server.VoiceChannel;
+import model.exception.ConfigNotFoundException;
+import model.server.Channel;
+import model.server.ChannelType;
+import model.server.TextChannel;
+import model.server.VoiceChannel;
 
 
 import java.io.IOException;
@@ -118,9 +118,9 @@ public class ChannelOp extends Op{
         pst.setString(1, id);
         pst.setString(2, name);
         pst.setString(3, ChannelType.getValueFromType(channelType));
-        pst.setNull(4, Types.BINARY);
-        pst.setNull(5,Types.BINARY);
-        pst.setNull(6, Types.BINARY);
+        pst.setBytes(4, objectConvertor(new LinkedList<String>()));
+        pst.setBytes(5, objectConvertor(new LinkedList<UUID>()));
+        pst.setBytes(6, objectConvertor(new LinkedList<UUID>()));
 
         pst.executeUpdate();
         pst.close();

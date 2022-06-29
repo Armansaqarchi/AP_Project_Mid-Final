@@ -1,7 +1,7 @@
 package messenger.dataBaseOp;
 
-import messenger.service.model.exception.ConfigNotFoundException;
-import messenger.service.model.exception.UserNotFoundException;
+import model.exception.ConfigNotFoundException;
+import model.exception.UserNotFoundException;
 import org.springframework.util.SerializationUtils;
 
 

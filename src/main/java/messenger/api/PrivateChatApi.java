@@ -1,15 +1,10 @@
 package messenger.api;
 
-import messenger.service.AuthenticationService;
 import messenger.service.PrivateChatService;
-import messenger.service.model.exception.InvalidObjectException;
-import messenger.service.model.exception.InvalidTypeException;
-import messenger.service.model.exception.ServerThreadNotFoundException;
-import messenger.service.model.message.FileMessage;
-import messenger.service.model.message.Message;
-import messenger.service.model.message.TextMessage;
-import messenger.service.model.request.priavteChat.GetPrivateChatHisReq;
-import messenger.service.model.request.priavteChat.PrivateChatReq;
+import model.exception.InvalidTypeException;
+import model.exception.ServerThreadNotFoundException;
+import model.request.priavteChat.GetPrivateChatHisReq;
+import model.request.priavteChat.PrivateChatReq;
 
 public class PrivateChatApi
 {

@@ -2,10 +2,10 @@ package messenger.api;
 
 
 import messenger.service.ServerService;
-import messenger.service.model.exception.InvalidTypeException;
-import messenger.service.model.exception.ServerThreadNotFoundException;
-import messenger.service.model.request.server.*;
-import messenger.service.model.response.Response;
+import model.exception.InvalidTypeException;
+import model.exception.ServerThreadNotFoundException;
+import model.request.server.*;
+import model.response.Response;
 
 public class ServerApi
 {
@@ -32,8 +32,14 @@ public class ServerApi
             case RENAME_SERVER -> renameServer((RenameServerReq) request);
             case REMOVE_USER -> removeUser((RemoveUserServerReq) request);
             case GET_USERS_STATUS -> getUsersStatus((GetUsersStatusReq) request);
+            case REMOVE_RULE -> removeRule((RemoveRuleReq) request);
             default -> throw new InvalidTypeException();
         }
+    }
+
+    private void removeRule(RemoveRuleReq request)
+    {
+        sendResponse(service.RemoveRule(request));
     }
 
     private void addRule(AddRuleServerReq request)
