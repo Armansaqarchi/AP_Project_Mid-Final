@@ -1,49 +1,51 @@
 package menus;
 
+import client.ClientSocket;
+import client.controller.consoleController.Controllers;
 import client.controller.consoleController.InputController;
-/*
+
 public class TerminalMenu {
 
-    public void mainMenu(){
-        System.out.println("[1]-Friends");
-        System.out.println("[2]-Servers");
-        System.out.println("[3]-Profile");
-        System.out.println("[4]-Back");
-        int choice = InputController.getOptionalInput(1, 4);
+    private static TerminalMenu terminalMenu;
+    private Controllers controllers;
 
-        switch(choice){
-            case 1 :
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-        }
+    private TerminalMenu(ClientSocket clientSocket) {
+        controllers = Controllers.getControllers(clientSocket);
+    }
+
+    public void mainMenu(){
+            System.out.println("[1]-Friends");
+            System.out.println("[2]-Servers");
+            System.out.println("[3]-Profile");
+            System.out.println("[4]-Back");
+            int choice = InputController.getOptionalInput(1, 4);
+
+            switch (choice) {
+                case 1 -> friendsMenu();
+                case 2 -> serversMenu();
+                case 3 -> profileMenu();
+            }
+
 
     }
 
-    private void FriendsMenu(){
+    private void friendsMenu(){
         System.out.println("[1]-Chat");
         System.out.println("[2]-Friends List");
         System.out.println("[3]-Add Friend");
         System.out.println("[4]-Search User");
         System.out.println("[5]-Block user");
-        System.out.println("[6]-Friend Request");
-        System.out.println("[7]-Answer Friend Request");
-        System.out.println("[8]-Back");
+        System.out.println("[6]-Answer Friend Request");
+        System.out.println("[7]-Back");
 
         int choice = InputController.getOptionalInput(1, 8);
         switch(choice){
-            case 1 ->
-            case 2 ->
-            case 3 ->
-            case 4 ->
-            case 5 ->
-            case 6 ->
-            case 7 ->
-            case 8 ->
+            case 1 -> controllers.getUserController().privateChat();
+            case 2 -> controllers.getUserController().showFriendList();
+            case 3 -> controllers.getUserController().addFriend();
+            case 4 -> controllers.getUserController().showUserProfile();
+            case 5 -> controllers.getUserController().blockUser();
+            case 6 -> controllers.getUserController().answerFriendRequest();
         }
     }
 
@@ -54,20 +56,19 @@ public class TerminalMenu {
 
         int choice = InputController.getOptionalInput(1, 3);
         switch(choice){
-            case 1 ->
-            case 2 ->
-            case 3 ->
+            case 1 -> channelMenu();
+            case 2 -> editServerMenu();
         }
     }
 
-    private void ProfileMenu(){
+    private void profileMenu(){
         System.out.println("[1]-Show Profile");
         System.out.println("[2]-Change Profile");
         System.out.println("[3]-Back");
 
         int choice = InputController.getOptionalInput(1, 3);
         switch(choice){
-            case 1 ->
+            case 1 -> controllers.getProfileController().
             case 2 ->
             case 3 ->
         }
@@ -144,4 +145,4 @@ public class TerminalMenu {
         }
     }
 
-}*/
+}

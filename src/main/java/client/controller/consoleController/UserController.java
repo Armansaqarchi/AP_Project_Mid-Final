@@ -102,9 +102,17 @@ public class UserController extends InputController {
         }
     }
 
-    public void blockUser(String id){
+    public void blockUser(){
+
+        System.out.println("enter id of user whom you want to block");
+        System.out.println("to back, enter '-0'");
+        userId = scanner.nextLine();
+        if(userId.equals("-0")){
+            return;
+        }
+
         try {
-            clientSocket.send(new BlockUserReq(clientSocket.getId(), id));
+            clientSocket.send(new BlockUserReq(clientSocket.getId(), userId));
             Response response = clientSocket.getReceiver().getResponse();
             if(!response.isAccepted()){
                 System.err.println(response.getMessage());
@@ -119,9 +127,17 @@ public class UserController extends InputController {
 
     }
 
-    public void addFriend(String id) {
+    public void addFriend() {
+
+        System.out.println("enter id of user whom you want to add");
+        System.out.println("to be back, press '-0'");
+        userId = scanner.nextLine();
+        if(userId.equals("-0")){
+            return;
+        }
+
         try {
-            clientSocket.send(new FriendReq(clientSocket.getId(), UUID.randomUUID(), id));
+            clientSocket.send(new FriendReq(clientSocket.getId(), UUID.randomUUID(), userId));
             Response response = clientSocket.getReceiver().getResponse();
 
             if(!response.isAccepted()){
@@ -139,8 +155,10 @@ public class UserController extends InputController {
     public void showUserProfile()
     {
         System.out.println("Enter user's id :");
-
+        System.out.println("to be back, enter '-0'");
         userId = scanner.nextLine();
+
+        if(userId.equals("-0")) return;
 
         showUserProfile(userId);
     }
@@ -170,8 +188,17 @@ public class UserController extends InputController {
     }
 
 
-    public void privateChat(String id){
-        showPrivateChatHis(getPrivateChatHis(id));
+    public void privateChat(){
+
+        System.out.println("enter friend id : ");
+        System.out.println("to be back, enter '-0'");
+        userId = scanner.nextLine();
+        if(userId.equals("-0")){
+            return;
+        }
+
+
+        showPrivateChatHis(getPrivateChatHis(userId));
 
         String content;
 
@@ -181,7 +208,7 @@ public class UserController extends InputController {
                 if (content.equals("-1")) {
                     //return to the previous menu
                 }
-                clientSocket.send(new TextMessage(null, clientSocket.getId(), id,MessageType.PRIVATE_CHAT,
+                clientSocket.send(new TextMessage(null, clientSocket.getId(), userId,MessageType.PRIVATE_CHAT,
                         LocalDateTime.now(), content));
                 Response response = clientSocket.getReceiver().getResponse();
                 if(!response.isAccepted()){

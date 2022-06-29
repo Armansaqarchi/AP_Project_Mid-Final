@@ -6,6 +6,7 @@ import model.exception.InvalidEmailFormatException;
 import model.exception.InvalidPasswordException;
 import model.exception.InvalidPhoneNumberException;
 import model.exception.InvalidUsernameException;
+import model.request.user.GetMyProfileReq;
 import model.user.UserStatus;
 
 public class ProfileController extends InputController {
@@ -159,6 +160,11 @@ public class ProfileController extends InputController {
         catch(InvalidPhoneNumberException e){
             System.out.println(e.getMessage());
         }
+    }
+
+
+    public void showProfile(){
+        clientSocket.send(new GetMyProfileReq(id));
     }
 
 }
