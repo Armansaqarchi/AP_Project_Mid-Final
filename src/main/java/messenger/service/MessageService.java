@@ -155,7 +155,10 @@ public class MessageService
 
             //add message to channel's messages
             database.getChannelOp().updateChannelList(UpdateType.ADD ,
-                    "messages" , channelId.toString() , message.toString());
+                    "messages" , channelId.toString() , message.getId().toString());
+
+            //insert message in database
+            database.getMessageOp().insertMessage(message);
 
             sendMessage(message , channel.getUsers());
 
@@ -208,7 +211,10 @@ public class MessageService
 
             //insert message in private chats list
             database.getPrivateChatOp().updatePrivateChat(UpdateType.ADD ,
-                    "messages",privateChatId , message);
+                    "messages",privateChatId , message.getId().toString());
+
+            //insert message in database
+            database.getMessageOp().insertMessage(message);
 
             //sent message
             sendMessage(message , message.getReceiverId());
