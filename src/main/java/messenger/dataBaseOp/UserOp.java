@@ -107,7 +107,7 @@ public class UserOp extends Op{
 
 
         if(res == 0){
-            throw new ConfigNotFoundException(id, type, "user");
+            throw new ConfigNotFoundException(id, "id", "user");
         }
 
 
