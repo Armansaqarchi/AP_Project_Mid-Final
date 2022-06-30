@@ -142,7 +142,7 @@ public class TerminalMenu {
             switch (choice) {
                 case 1 -> controllers.getUserController().privateChat();
                 case 2 -> controllers.getUserController().showPrivateChatHis();
-                case 3 -> controllers.getUserController().getChats();
+                case 3 -> controllers.getUserController().showChats();
                 case 4 -> controllers.getUserController().showFriendReqList();
                 case 5 -> controllers.getUserController().showBlockedUsers();
                 case 6 -> isRunning = false;

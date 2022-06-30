@@ -291,7 +291,7 @@ public class UserController extends InputController {
         return null;
     }
 
-    public GetPrivateChatsRes getChats(){
+    private GetPrivateChatsRes getChats(){
         clientSocket.send(new GetPrivateChatsReq(clientSocket.getId()));
         try{
             Response response = clientSocket.getReceiver().getResponse();
@@ -309,7 +309,7 @@ public class UserController extends InputController {
     }
 
 
-    private void showChats(){
+    public void showChats(){
 
         GetPrivateChatsRes getPrivateChatsRes = getChats();
 

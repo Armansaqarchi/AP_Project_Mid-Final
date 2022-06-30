@@ -19,7 +19,7 @@ public class PrivateChatOp extends Op{
         return createPrivateChatFromData(findByConfig(config, columnName, "private_chats"));
     }
 
-    public  PrivateChat findById(String id)
+    public PrivateChat findById(String id)
             throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
         return findByConfigPrivateChat(id, "id");
     }
@@ -31,7 +31,7 @@ public class PrivateChatOp extends Op{
         PreparedStatement ps = connection.prepareStatement(
                 "INSERT INTO private_chats VALUES (?, ?)");
 
-        ps.setString(1, id.toString());
+        ps.setString(1, id);
         ps.setBytes(2, objectConvertor(new LinkedList<UUID>()));
 
         ps.executeUpdate();
