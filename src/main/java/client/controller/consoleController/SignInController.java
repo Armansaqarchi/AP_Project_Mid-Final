@@ -44,10 +44,10 @@ public class SignInController extends InputController {
                     password, null));
             Response response = clientSocket.getReceiver().getResponse();
             System.err.println(response.getMessage());
-            Thread.sleep(300);
+
             if(response.isAccepted()) return true;
         }
-        catch(ResponseNotFoundException | InterruptedException e){
+        catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
         }
 
