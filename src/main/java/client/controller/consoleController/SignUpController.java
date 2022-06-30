@@ -154,38 +154,42 @@ public class SignUpController extends InputController {
     private void getEmail(){
 
 
-        try{
-            System.out.println("enter email : ");
-            System.out.println("enter '1' in order to be back");
-            email = scanner.nextLine();
-            if(email.equals("1")){
-                email = null;
+        while(true) {
+            try {
+                System.out.println("enter email : ");
+                System.out.println("enter '1' in order to be back");
+                email = scanner.nextLine();
+                if (email.equals("1")) {
+                    email = null;
+                    return;
+                }
+                InfoVerifier.checkEmailValidity(email);
                 return;
-            }
-            InfoVerifier.checkEmailValidity(email);
 
-        }
-        catch(InvalidEmailFormatException e){
-            System.err.println(e.getMessage());
+            } catch (InvalidEmailFormatException e) {
+                System.err.println(e.getMessage());
+            }
         }
 
 
     }
 
-    private void getPhoneNumber(){
+    private void getPhoneNumber() {
 
-        try{
-            System.out.println("enter phone number :");
-            System.out.println("do not want to enter it yet? enter '-0' ");
-            phoneNumber = scanner.nextLine();
-            if(phoneNumber.equals("-0")){
-                phoneNumber = null;
+        while (true) {
+            try {
+                System.out.println("enter phone number :");
+                System.out.println("do not want to enter it yet? enter '-0' ");
+                phoneNumber = scanner.nextLine();
+                if (phoneNumber.equals("-0")) {
+                    phoneNumber = null;
+                    return;
+                }
+                InfoVerifier.checkPhoneNumberValidity(phoneNumber);
                 return;
+            } catch (InvalidPhoneNumberException e) {
+                System.err.println(e.getMessage());
             }
-            InfoVerifier.checkPhoneNumberValidity(phoneNumber);
-            }
-        catch(InvalidPhoneNumberException e){
-            System.err.println(e.getMessage());
         }
     }
 }
