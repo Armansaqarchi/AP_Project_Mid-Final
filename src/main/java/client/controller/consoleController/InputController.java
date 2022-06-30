@@ -1,6 +1,7 @@
 package client.controller.consoleController;
 
 import client.ClientSocket;
+import menus.TerminalMenu;
 
 import java.util.Scanner;
 
