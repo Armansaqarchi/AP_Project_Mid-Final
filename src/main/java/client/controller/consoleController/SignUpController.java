@@ -115,10 +115,11 @@ public class SignUpController extends InputController {
         return username;
     }
 
-    private String getPassword(){
-        String password = "";
+    private String getPassword()
+    {
 
-        while(true){
+        while(true)
+        {
             try{
                 System.out.println("enter password : ");
                 System.out.println("enter '1' in order to be back");
