@@ -16,10 +16,8 @@ public class SignInController extends InputController {
         super(clientSocket);
     }
 
-    public void getUserDetails(){
-
-        id = null;
-        password = null;
+    public void getUserDetails()
+    {
 
         while(true) {
             try {
