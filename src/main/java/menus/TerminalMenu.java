@@ -23,11 +23,10 @@ public class TerminalMenu {
     }
 
     public void connectionMenu(){
-        boolean isRunning = true;
 
-        while(isRunning){
+        while(true){
             System.out.println("[1]-Sign In");
-            System.out.println("[2]-Sign Out");
+            System.out.println("[2]-Sign Up");
             System.out.println("[3]-Exit");
             int choice = InputController.getOptionalInput(1, 3);
 
@@ -36,7 +35,7 @@ public class TerminalMenu {
             switch(choice){
                 case 1 -> entryAccepted = controllers.getSignInController().getUserDetails();
                 case 2 -> entryAccepted = controllers.getSignUpController().getUserInfo();
-                case 3 -> isRunning = false;
+                case 3 -> System.exit(0);
             }
 
             if(entryAccepted) mainMenu();
@@ -80,7 +79,7 @@ public class TerminalMenu {
 
             int choice = InputController.getOptionalInput(1, 7);
             switch (choice) {
-                case 1 -> controllers.getUserController().privateChat();
+                case 1 -> chatMenu();
                 case 2 -> controllers.getUserController().showFriendList();
                 case 3 -> controllers.getUserController().addFriend();
                 case 4 -> controllers.getUserController().showUserProfile();
@@ -142,7 +141,7 @@ public class TerminalMenu {
             int choice = InputController.getOptionalInput(1, 6);
             switch (choice) {
                 case 1 -> controllers.getUserController().privateChat();
-                case 2 -> controllers.getUserController().getPrivateChatHis();
+                case 2 -> controllers.getUserController().showPrivateChatHis();
                 case 3 -> controllers.getUserController().getChats();
                 case 4 -> controllers.getUserController().showFriendReqList();
                 case 5 -> controllers.getUserController().showBlockedUsers();
