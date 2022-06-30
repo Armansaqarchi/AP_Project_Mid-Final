@@ -2,11 +2,10 @@ package client.controller.consoleController;
 
 import client.ClientSocket;
 import client.controller.InfoVerifier;
-import model.exception.InvalidEmailFormatException;
-import model.exception.InvalidPasswordException;
-import model.exception.InvalidPhoneNumberException;
-import model.exception.InvalidUsernameException;
+import model.exception.*;
 import model.request.user.GetMyProfileReq;
+import model.response.Response;
+import model.response.user.GetMyProfileRes;
 import model.user.UserStatus;
 
 public class ProfileController extends InputController {
@@ -24,7 +23,7 @@ public class ProfileController extends InputController {
         super(clientSocket);
     }
 
-    public void UpdateProfile(){
+    public void updateProfile(){
 
         id = null;
         name = null;
@@ -77,6 +76,32 @@ public class ProfileController extends InputController {
 
         }
     }
+
+
+    public void showMyProfile()
+    {
+        try
+        {
+            clientSocket.send(new GetMyProfileReq(clientSocket.getId()));
+
+            GetMyProfileRes response = (GetMyProfileRes)clientSocket.getReceiver().getResponse();
+
+            if(response.isAccepted())
+            {
+                System.out.println(response.getMessage());
+                System.out.println(response);
+
+            }
+            else{
+                System.out.println(response.getMessage());
+            }
+        }
+        catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
 
 
     private void changeId(){
@@ -163,8 +188,24 @@ public class ProfileController extends InputController {
     }
 
 
-    public void showProfile(){
-        clientSocket.send(new GetMyProfileReq(id));
+    private void showProfile(){
+        System.out.println("enter your id : ");
+        System.out.println("to be back, enter '-0'");
+        id = scanner.nextLine();
+
+        if(id.equals("-0")) return;
+
+        try {
+            clientSocket.send(new GetMyProfileReq(id));
+            Response response = clientSocket.getReceiver().getResponse();
+
+            if(response.isAccepted()){
+                //show Profile
+            }
+        }
+        catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package menus;
 
+import ch.qos.logback.core.net.server.Client;
 import client.ClientSocket;
 import client.controller.consoleController.Controllers;
 import client.controller.consoleController.InputController;
@@ -11,6 +12,14 @@ public class TerminalMenu {
 
     private TerminalMenu(ClientSocket clientSocket) {
         controllers = Controllers.getControllers(clientSocket);
+    }
+
+    public static TerminalMenu getTerminalMenu(ClientSocket clientSocket){
+        if(terminalMenu == null){
+            return new TerminalMenu(clientSocket);
+        }
+
+        return terminalMenu;
     }
 
     public void mainMenu(){
@@ -68,9 +77,8 @@ public class TerminalMenu {
 
         int choice = InputController.getOptionalInput(1, 3);
         switch(choice){
-            case 1 -> controllers.getProfileController().
-            case 2 ->
-            case 3 ->
+            case 1 -> controllers.getProfileController().showMyProfile();
+            case 2 -> controllers.getProfileController().updateProfile();
         }
     }
 
@@ -84,37 +92,31 @@ public class TerminalMenu {
 
         int choice = InputController.getOptionalInput(1, 6);
         switch(choice){
-            case 1 ->
-            case 2 ->
-            case 3 ->
-            case 4 ->
-            case 5 ->
-            case 6 ->
-            case 7 ->
-            case 8 ->
+            case 1 -> controllers.getUserController().privateChat();
+            case 2 -> controllers.getUserController().getPrivateChatHis();
+            case 3 -> controllers.getUserController().getChats();
+            case 4 -> controllers.getUserController().showFriendReqList();
+            case 5 -> controllers.getUserController().showBlockedUsers();
         }
     }
 
     private void channelMenu(){
         System.out.println("[1]-Chat");
-        System.out.println("[2]-Chats History");
-        System.out.println("[3]-Create Channel");
-        System.out.println("[4]-Delete Channel");
-        System.out.println("[5]-Rename Channel");
-        System.out.println("[6]-Add User");
-        System.out.println("[7]-Remove User");
-        System.out.println("[8]-Back");
+        System.out.println("[2]-Create Channel");
+        System.out.println("[3]-Delete Channel");
+        System.out.println("[4]-Rename Channel");
+        System.out.println("[5]-Add User");
+        System.out.println("[6]-Remove User");
+        System.out.println("[7]-Back");
 
         int choice = InputController.getOptionalInput(1, 8);
         switch(choice){
-            case 1 ->
-            case 2 ->
-            case 3 ->
-            case 4 ->
-            case 5 ->
-            case 6 ->
-            case 7 ->
-            case 8 ->
+            case 1 -> controllers.getChannelController().ChannelChat();
+            case 2 -> controllers.getChannelController().createChannel();
+            case 3 -> controllers.getChannelController().deleteChannel();
+            case 4 -> controllers.getChannelController().renameChannel();
+            case 5 -> controllers.getChannelController().addUserChannel();
+            case 6 -> controllers.getChannelController().removeUser();
         }
 
     }
@@ -132,16 +134,15 @@ public class TerminalMenu {
         System.out.println("[10]-Back");
         int choice = InputController.getOptionalInput(1, 8);
         switch(choice){
-            case 1 ->
-            case 2 ->
-            case 3 ->
-            case 4 ->
-            case 5 ->
-            case 6 ->
-            case 7 ->
-            case 8 ->
-            case 9 ->
-            case 10 ->
+            case 1 -> controllers.getServerController().getServerInfo();
+            case 2 -> controllers.getServerController().creatServer();
+            case 3 -> controllers.getServerController().deleteServer();
+            case 4 -> controllers.getServerController().renameServer();
+            case 5 -> controllers.getServerController().addUser();
+            case 6 -> controllers.getServerController().removeUser();
+            case 7 -> controllers.getServerController().addRule();
+            case 8 -> controllers.getServerController().showUsersStatus();
+            case 9 -> controllers.getServerController().setServerImage();
         }
     }
 

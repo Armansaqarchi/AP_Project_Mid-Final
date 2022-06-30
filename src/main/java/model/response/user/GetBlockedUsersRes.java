@@ -13,4 +13,8 @@ public class GetBlockedUsersRes extends GetInfoRes
         super(receiverId, isAccepted, message);
         this.blockedUsers = blockedUsers;
     }
+
+    public LinkedList<String> getBlockedUsers() {
+        return blockedUsers;
+    }
 }

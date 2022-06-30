@@ -2,8 +2,8 @@ package model.request.user;
 
 public class GetFriendReqList extends UserRequest
 {
-    public GetFriendReqList(String senderId, UserRequestType subType)
+    public GetFriendReqList(String senderId)
     {
-        super(senderId, subType);
+        super(senderId, UserRequestType.GET_FRIEND_REQ_LIST);
     }
 }
