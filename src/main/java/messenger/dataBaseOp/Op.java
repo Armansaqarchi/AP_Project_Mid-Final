@@ -145,7 +145,6 @@ public abstract class Op {
 
         String query = "SELECT * FROM " + tableName + " WHERE " + columnName + " = ?";
 
-
         PreparedStatement pStatement = connection.prepareStatement(query);
 
         pStatement.setString(1, config);
@@ -153,6 +152,9 @@ public abstract class Op {
 
         if(resultSet.next()){
             return resultSet;
+        }
+        else{
+            System.out.println("it is null");
         }
 
         if(tableName.equals("users")){

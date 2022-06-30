@@ -70,8 +70,6 @@ public class PrivateChatOp extends Op{
 
 
         switch (type.showValue()) {
-
-
             case "Add":
                 targetList = addToLists(targetList, t);
                 break;
@@ -87,6 +85,7 @@ public class PrivateChatOp extends Op{
 
         }
 
+        System.out.println(targetList);
 
         byte[] updatedList = objectConvertor(targetList);
 
@@ -95,7 +94,7 @@ public class PrivateChatOp extends Op{
         PreparedStatement pst2 = connection.prepareStatement(query2);
 
         pst2.setBytes(1, updatedList);
-        pst2.setString(2, "3");
+        pst2.setString(2, id);
 
 
         pst2.executeUpdate();

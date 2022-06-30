@@ -313,6 +313,10 @@ public class UserController extends InputController {
 
         GetPrivateChatsRes getPrivateChatsRes = getChats();
 
+        if(getPrivateChatsRes == null){
+            return;
+        }
+
         for(String i : getPrivateChatsRes.getPrivateChats()){
             System.out.println(i);
         }
@@ -331,6 +335,7 @@ public class UserController extends InputController {
             System.err.println(PChatHisRes.getMessage());
         }
         else{
+            System.out.println(PChatHisRes.getMessages());
             LinkedList<Message> chatMessages = PChatHisRes.getMessages();
 
             System.out.println(chatMessages.size());

@@ -191,7 +191,7 @@ public class TerminalMenu {
             System.out.println("[8]-Users Status");
             System.out.println("[9]-Set Server Image");
             System.out.println("[10]-Back");
-            int choice = InputController.getOptionalInput(1, 8);
+            int choice = InputController.getOptionalInput(1, 10);
             switch (choice) {
                 case 1 -> controllers.getServerController().getServerInfo();
                 case 2 -> controllers.getServerController().creatServer();

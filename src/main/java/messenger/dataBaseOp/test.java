@@ -15,11 +15,14 @@ public class test {
     public static void main(String[] args){
         Database database = Database.getDatabase();
         try {
-            database.getUserOp().updateList(UpdateType.ADD, "private_chats",
-                    "Arman", new TextMessage(UUID.randomUUID(), "shahin", "Arman",
+
+
+            database.getPrivateChatOp().updatePrivateChat(UpdateType.ADD, "messages",
+                    "Arman-shahin", new TextMessage(UUID.randomUUID(), "shahin", "Arman",
                             MessageType.PRIVATE_CHAT, LocalDateTime.now(), "testing"));
 
-            System.out.println(database.getUserOp().findById("Arman").getPrivateChats().toString());
+            System.out.println(database.getPrivateChatOp().findById("Arman-shahin").getMessages());
+
         }
         catch(SQLException | IOException | ClassNotFoundException | ConfigNotFoundException e){
             e.printStackTrace();
