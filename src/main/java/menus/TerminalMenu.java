@@ -8,7 +8,7 @@ import client.controller.consoleController.InputController;
 public class TerminalMenu {
 
     private static TerminalMenu terminalMenu;
-    private Controllers controllers;
+    private final Controllers controllers;
 
     private TerminalMenu(ClientSocket clientSocket) {
         controllers = Controllers.getControllers(clientSocket);
@@ -22,7 +22,28 @@ public class TerminalMenu {
         return terminalMenu;
     }
 
-    public void mainMenu(){
+    public void connectionMenu(){
+        boolean isRunning = true;
+
+        while(isRunning){
+            System.out.println("[1]-Sign In");
+            System.out.println("[2]-Sign Out");
+            System.out.println("[3]-Exit");
+            int choice = InputController.getOptionalInput(1, 3);
+
+            boolean entryAccepted = false;
+
+            switch(choice){
+                case 1 -> entryAccepted = controllers.getSignInController().getUserDetails();
+                case 2 -> entryAccepted = controllers.getSignUpController().getUserInfo();
+                case 3 -> isRunning = false;
+            }
+
+            if(entryAccepted) mainMenu();
+        }
+    }
+
+    private void mainMenu(){
 
         boolean isRunning = true;
 

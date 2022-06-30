@@ -17,7 +17,7 @@ public class InfoVerifier {
 
         Matcher matcher = Pattern.compile("[a-zA-Z0-9]+!*$").matcher(username);
         if(!matcher.find()){
-            throw new InvalidUsernameException("username must have only" +
+            throw new InvalidUsernameException("name must have only" +
                     " english characters and numbers");
         }
 

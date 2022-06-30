@@ -21,6 +21,6 @@ public class TestClient
 
         TerminalMenu terminalMenu = TerminalMenu.getTerminalMenu(clientSocket);
 
-        terminalMenu.mainMenu();
+        terminalMenu.connectionMenu();
     }
 }

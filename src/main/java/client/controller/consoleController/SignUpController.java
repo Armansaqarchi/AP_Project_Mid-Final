@@ -33,30 +33,30 @@ public class SignUpController extends InputController {
 
 
 
-    public void getUserInfo(){
+    public boolean getUserInfo(){
 
 
         System.out.println("Please enter info's needed to register : ");
         getId();
         if(id == null){
-            return;
+            return false;
         }
 
 
         getUserName();
         if(name == null){
-            return;
+            return false;
         }
 
         getPassword();
         if(password == null){
-            return;
+            return false;
         }
 
 
         getEmail();
         if(email == null){
-            return;
+            return false;
         }
 
 
@@ -78,12 +78,13 @@ public class SignUpController extends InputController {
         try {
             Response response = clientSocket.getReceiver().getResponse();
             System.out.println(response.getMessage());
+            if(response.isAccepted()) return true;
         }
         catch(ResponseNotFoundException e){
             System.err.println(e.getMessage());
         }
 
-
+        return false;
     }
 
     private void getId(){
@@ -101,43 +102,52 @@ public class SignUpController extends InputController {
 
     private void getUserName(){
 
-
-        try {
-            System.out.println("enter name : ");
-            System.out.println("enter '-0' in order to be back");
-            name = scanner.nextLine();
-            if(name.equals("-0")){
-                password = null;
+        while(true) {
+            try {
+                System.out.println("enter name : ");
+                System.out.println("enter '-0' in order to be back");
+                name = scanner.nextLine();
+                if (name.equals("-0")) {
+                    password = null;
+                    return;
+                }
+                InfoVerifier.checkUserValidity(name);
                 return;
-            }
-            InfoVerifier.checkUserValidity(name);
 
-        }
-        catch(InvalidUsernameException e){
-            System.err.println(e.getMessage());
+            } catch (InvalidUsernameException e) {
+                System.err.println(e.getMessage());
+            }
         }
 
     }
 
     private void getPassword(){
-        try{
-            System.out.println("enter password : ");
-            System.out.println("enter '-0' in order to be back");
-            password = scanner.nextLine();
+        while(true) {
+            try {
+                System.out.println("enter password : ");
+                System.out.println("enter '-0' in order to be back");
+                password = scanner.nextLine();
 
-            if(password.equals("-0")){
-                password = null;
-                return;
-            }
-            System.out.print("confirm password : ");
-            String confirmPassword = scanner.nextLine();
+                if (password.equals("-0")) {
+                    password = null;
+                    return;
+                }
+                System.out.print("confirm password : ");
+                String confirmPassword = scanner.nextLine();
+                if (confirmPassword.equals("-0")) {
+                    password = null;
+                    return;
+                }
 
-            if(password.equals(confirmPassword)) {
-                InfoVerifier.checkPasswordValidity(password);
+                if (password.equals(confirmPassword)) {
+                    InfoVerifier.checkPasswordValidity(password);
+                    return;
+                } else {
+                    System.err.println("confirm password doesnt match password, try again");
+                }
+            } catch (InvalidPasswordException e) {
+                System.err.println(e.getMessage());
             }
-        }
-        catch(InvalidPasswordException e){
-            System.err.println(e.getMessage());
         }
     }
 
