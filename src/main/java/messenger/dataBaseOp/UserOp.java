@@ -135,6 +135,7 @@ public class UserOp extends Op{
         while (resultSet.next()) {
             o = byteConvertor(resultSet.getBytes(columnName));
         }
+
         if (o instanceof LinkedList<?>) {
             targetList = (LinkedList<T>) o;
         }
@@ -166,7 +167,7 @@ public class UserOp extends Op{
         PreparedStatement pst2 = connection.prepareStatement(query2);
 
         pst2.setBytes(1, updatedList);
-        pst2.setString(2, "3");
+        pst2.setString(2, id);
 
 
         pst2.executeUpdate();

@@ -2,15 +2,24 @@ package model.response;
 
 public class GetFileMsgRes extends GetInfoRes
 {
-    private final byte[] file;
 
-    public GetFileMsgRes(String receiverId, boolean isAccepted, String message, byte[] file) {
+    private final String fileName;
+    private final byte[] content;
+
+    public GetFileMsgRes(String receiverId, boolean isAccepted, String message,
+                         String fileName , byte[] file)
+    {
         super(receiverId, isAccepted, message);
-        this.file = file;
+        this.fileName = fileName;
+        this.content = file;
     }
 
-    public byte[] getFile()
+    public byte[] getContent()
     {
-        return file;
+        return content;
+    }
+
+    public String getFileName() {
+        return fileName;
     }
 }

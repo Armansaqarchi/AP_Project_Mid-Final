@@ -6,6 +6,7 @@ import model.Transferable;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -117,4 +118,11 @@ public abstract class Message implements Transferable
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Message)) return false;
+        Message message = (Message) o;
+        return getId().equals(message.getId());
+    }
 }
