@@ -3,17 +3,23 @@ package client.controller.consoleController;
 import client.ClientSocket;
 import model.exception.ResponseNotFoundException;
 import model.request.server.*;
+import model.request.user.GetServersReq;
 import model.response.Response;
 import model.response.server.GetRulesServerRes;
 import model.response.server.GetServerInfoRes;
+import model.response.server.GetUserStatusRes;
+import model.response.user.GetServersRes;
 import model.server.Rule;
 import model.server.RuleType;
+import model.user.ServerIDs;
+import model.user.UserStatus;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ServerController extends InputController
@@ -252,6 +258,67 @@ public class ServerController extends InputController
         }
     }
 
+    private GetUserStatusRes getUserStatus(){
+        System.out.println("to be back, enter '-0'");
+        System.out.println("enter server id :");
+        serverId = scanner.nextLine();
+
+        if(serverId.equals("-0")) return null;
+
+        clientSocket.send(new GetUsersStatusReq(clientSocket.getId(), serverId));
+        try{
+            Response response = clientSocket.getReceiver().getResponse();
+            if(response.isAccepted() && response instanceof GetUserStatusRes){
+                return (GetUserStatusRes) response;
+            }
+            else{
+                System.out.println(response.getMessage());
+            }
+        }
+        catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+
+
+    }
+
+    public void showUsersStatus(){
+        GetUserStatusRes getUserStatusRes = getUserStatus();
+
+        if(getUserStatusRes == null){
+            return;
+        }
+        HashMap<String, UserStatus> users = getUserStatusRes.getUsers();
+
+        for(String i : users.keySet()){
+            System.out.println("" + i + "Status : " + users.get(i));
+        }
+    }
+
+
+    public void removeUser(){
+        System.out.println("to be back, enter  '-0'");
+        System.out.println("enter user id : ");
+
+        userId = scanner.nextLine();
+        if(userId.equals("-0")) return;
+
+        System.out.println("enter server id :");
+        serverId = scanner.nextLine();
+
+        clientSocket.send(new RemoveUserServerReq(clientSocket.getId(), serverId, userId));
+
+        try{
+            Response response = clientSocket.getReceiver().getResponse();
+            System.out.println(response.getMessage());
+        }
+        catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+
+    }
+
     private void printRules(HashMap<String , Rule> rules)
     {
         ArrayList<String> keys = new ArrayList<>(rules.keySet());
@@ -333,6 +400,45 @@ public class ServerController extends InputController
                 }
             }
 
+        }
+    }
+
+    private void showServers(LinkedList<ServerIDs> serverIDs)
+    {
+        for(ServerIDs serverId : serverIDs)
+        {
+            System.out.println("server :" + serverId.getId() + " channels : ");
+
+            for(String channelName : serverId.getChannels())
+            {
+                System.out.println(channelName + " \n");
+            }
+        }
+
+        System.out.println();
+    }
+
+    private void getServers()
+    {
+        try{
+            clientSocket.send(new GetServersReq(clientSocket.getId()));
+
+            GetServersRes response = (GetServersRes)clientSocket.getReceiver().getResponse();
+
+            if(response.isAccepted())
+            {
+                System.out.println(response.getMessage());
+
+                //print servers
+                showServers(response.getServers());
+            }
+            else
+            {
+                System.out.println(response.getMessage());
+            }
+        }
+        catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -18,4 +18,6 @@ public class GetUserStatusRes extends GetInfoRes
     public HashMap<String, UserStatus> getUsers() {
         return users;
     }
+
+
 }

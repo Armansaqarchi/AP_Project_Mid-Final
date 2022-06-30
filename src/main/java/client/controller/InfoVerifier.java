@@ -14,7 +14,6 @@ public class InfoVerifier {
 
     public static void checkUserValidity(String username) throws InvalidUsernameException {
         int size = username.length();
-        boolean isOnlyEnglish = false;
 
         Matcher matcher = Pattern.compile("[a-zA-Z0-9]+!*$").matcher(username);
         if(!matcher.find()){
@@ -22,7 +21,7 @@ public class InfoVerifier {
                     " english characters and numbers");
         }
 
-        if(size >= 6){
+        if(size < 6){
             throw new InvalidUsernameException("username must have at least 6 characters");
         }
 
@@ -31,15 +30,15 @@ public class InfoVerifier {
 
     public static void checkPasswordValidity(String password) throws InvalidPasswordException {
         int size = password.length();
-        boolean hasLowerUpper = false;
 
         Matcher matcher = Pattern.compile("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])").matcher(password);
 
         if(!matcher.find()){
-            throw new InvalidPasswordException("password must have at least a uppercase and lowercase ");
+            throw new InvalidPasswordException("password must have at least an " +
+                    "uppercase and a lowercase and a number ");
         }
 
-        if(size >= 6){
+        if(size < 8){
             throw new InvalidPasswordException("password must have at least 8 characters");
         }
 

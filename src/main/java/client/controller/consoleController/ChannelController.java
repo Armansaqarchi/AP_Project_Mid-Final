@@ -10,6 +10,7 @@ import model.response.Response;
 import model.response.channel.GetChatHistoryRes;
 import model.response.channel.GetPinnedMsgRes;
 import model.server.Channel;
+import model.server.ChannelType;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -103,7 +104,13 @@ public class ChannelController extends InputController {
         return null;
     }
 
-    private void showChat(GetChatHistoryRes GChatHisRes){
+    private void showChat(){
+
+        GetChatHistoryRes GChatHisRes = getChatHis();
+
+        if(GChatHisRes == null){
+            return;
+        }
         LinkedList<Message> messages = GChatHisRes.getMessages();
 
         for(Message message : messages){
@@ -125,7 +132,7 @@ public class ChannelController extends InputController {
         channelName = scanner.nextLine();
         switch(choice){
             case 1 :
-                showChat(getChatHis());
+                showChat();
                 break;
             case 2:
                 break;
@@ -136,7 +143,6 @@ public class ChannelController extends InputController {
         //return to the previous menu
 
     }
-
 
     private void messageSender(){
         do{
@@ -202,6 +208,67 @@ public class ChannelController extends InputController {
             i.showMessage();
         }
         System.out.println("\n");
+    }
+
+    public void createChannel(){
+        System.out.println("to be back, enter '-0'");
+        System.out.println("enter channel name :");
+        channelName = scanner.nextLine();
+        if(channelName.equals("-0")) return;
+        System.out.println("enter server id : ");
+        serverId = scanner.nextLine();
+
+        System.out.println("type : \n");
+        System.out.println("[1]-Text");
+        System.out.println("[2]-Voice");
+
+        ChannelType channelType;
+
+        int choice = getOptionalInput(1, 2);
+
+        if(choice == 1){
+            channelType = ChannelType.TEXT;
+        }
+        else{
+            channelType = ChannelType.VOICE;
+        }
+
+        if(serverId.equals("-0")) return;
+
+        clientSocket.send(new CreateChannelReq(clientSocket.getId(), serverId,
+                channelName, channelType));
+
+        try {
+            Response response = clientSocket.getReceiver().getResponse();
+            System.out.println(response.getMessage());
+
+        }
+        catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void deleteChannel(){
+        System.out.println("to be back, enter '-0'");
+        System.out.println("enter channel name : ");
+        channelName = scanner.nextLine();
+
+        if(channelName.equals("-0")) return;
+
+
+        System.out.println("enter server id : ");
+        serverId = scanner.nextLine();
+        if(serverId.equals("-0")) return;
+
+        clientSocket.send(new DeleteChannelReq(clientSocket.getId(), serverId, channelName));
+        try {
+            Response response = clientSocket.getReceiver().getResponse();
+            System.out.println(response.getMessage());
+        }
+        catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void addUserChannel(){

@@ -18,47 +18,34 @@ public class SignInController extends InputController {
 
     public void getUserDetails(){
 
-        id = null;
-        password = null;
+        try {
+            Scanner scanner = new Scanner(System.in);
 
-        while(true) {
-            try {
-                Scanner scanner = new Scanner(System.in);
+            System.out.println("in order to be back, press '1' ");
+            System.out.println("Please enter id and password: ");
+            System.out.print("[1] id : ");
+            this.id = scanner.nextLine();
 
-                System.out.println("in order to be back, press '1' ");
-                System.out.println("Please enter id and password: ");
-                System.out.print("[1] id : ");
-                this.id = scanner.nextLine();
-
-                if (this.id.equals("1")) {
-                    //exit the method and return to the main menu
-                }
-
-                System.out.print("[2] password : ");
-                this.password = scanner.nextLine();
-
-                if (this.password.equals("1")) {
-                    //do the same thing
-                }
-
-                clientSocket.setId(id);
-
-                clientSocket.send(new LoginReq(clientSocket.getId(), id,
-                        password, null));
-                Response response = clientSocket.getReceiver().getResponse();
-
-                if(response.isAccepted()){
-                    return;
-                }
-                else{
-                    System.out.println(response.getMessage());
-                }
-
-            }
-            catch(ResponseNotFoundException e){
-                System.out.println(e.getMessage());
+            if (this.id.equals("1")) {
+                //exit the method and return to the main menu
             }
 
+            System.out.print("[2] password : ");
+            this.password = scanner.nextLine();
+
+            if (this.password.equals("1")) {
+                //do the same thing
+            }
+
+            clientSocket.setId(id);
+
+            clientSocket.send(new LoginReq(clientSocket.getId(), id,
+                    password, null));
+            Response response = clientSocket.getReceiver().getResponse();
+            System.out.println(response.getMessage());
+            }
+        catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
         }
 
     }

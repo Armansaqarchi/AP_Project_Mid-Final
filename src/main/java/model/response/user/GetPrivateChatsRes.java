@@ -13,4 +13,8 @@ public class GetPrivateChatsRes extends GetInfoRes
         super(receiverId, isAccepted, message);
         this.privateChats = privateChats;
     }
+
+    public LinkedList<String> getPrivateChats() {
+        return privateChats;
+    }
 }
