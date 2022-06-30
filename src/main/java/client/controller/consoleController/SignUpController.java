@@ -11,15 +11,11 @@ import model.request.Authentication.SignupReq;
 import java.util.Scanner;
 
 public class SignUpController extends InputController {
-
-    Scanner scanner;
-
-
     private String id;
     private String name;
     private String password;
     private String email;
-    private String phoneNUmber;
+    private String phoneNumber;
 
 
 
@@ -30,14 +26,12 @@ public class SignUpController extends InputController {
         name = null;
         password = null;
         email = null;
-        phoneNUmber = null;
+        phoneNumber = null;
     }
 
 
 
     public void getUserInfo(){
-
-
 
         System.out.println("Please enter info's needed to register : ");
 
@@ -47,7 +41,7 @@ public class SignUpController extends InputController {
         }
 
 
-        name = getUserName();
+        name = getName();
         if(name.equals("1")){
             // return ro the main menu
         }
@@ -69,14 +63,14 @@ public class SignUpController extends InputController {
 
         switch(choice){
             case 1:
-                phoneNUmber = getPhoneNumber();
+                phoneNumber = getPhoneNumber();
                 break;
             case 2:
                 break;
         }
 
         clientSocket.send(new SignupReq(clientSocket.getId(), id, password,
-                null, name, email, phoneNUmber, null));
+                null, name, email, phoneNumber, null));
 
 
     }
@@ -93,18 +87,17 @@ public class SignUpController extends InputController {
 
 
 
-    private String getUserName(){
-        String username = "";
+    private String getName(){
 
         while(true){
             try {
                 System.out.println("enter name : ");
                 System.out.println("enter '1' in order to be back");
-                username = scanner.nextLine();
-                if(username.equals("1")){
+                name = scanner.nextLine();
+                if(name.equals("1")){
                     return "1";
                 }
-                InfoVerifier.checkUserValidity(username);
+                InfoVerifier.checkUserValidity(name);
                 break;
             }
             catch(InvalidUsernameException e){
@@ -112,7 +105,7 @@ public class SignUpController extends InputController {
             }
         }
 
-        return username;
+        return name;
     }
 
     private String getPassword()
@@ -146,7 +139,6 @@ public class SignUpController extends InputController {
     }
 
     private String getEmail(){
-        String email;
 
         while(true){
             try{
@@ -168,7 +160,6 @@ public class SignUpController extends InputController {
     }
 
     private String getPhoneNumber(){
-        String phoneNumber;
 
         while(true){
             try{
