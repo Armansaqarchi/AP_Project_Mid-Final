@@ -211,7 +211,7 @@ public class MessageService
 
             //insert message in private chats list
             database.getPrivateChatOp().updatePrivateChat(UpdateType.ADD ,
-                    "messages",privateChatId , message.getId().toString());
+                    "messages",privateChatId , message.getId());
 
             //insert message in database
             database.getMessageOp().insertMessage(message);
