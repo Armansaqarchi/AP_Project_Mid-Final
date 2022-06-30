@@ -4,6 +4,7 @@ import client.ClientSocket;
 import client.controller.InfoVerifier;
 import model.exception.*;
 import model.request.user.GetMyProfileReq;
+import model.request.user.SetMyProfileReq;
 import model.response.Response;
 import model.response.user.GetMyProfileRes;
 import model.user.UserStatus;
@@ -33,9 +34,9 @@ public class ProfileController extends InputController {
         profileImage = null;
         userStatus = null;
 
+        boolean isRunning = true;
 
-
-        while(true){
+        while(isRunning){
 
             System.out.println("[1] change id" + "            current : " + id);
             System.out.println("[2] change name" + "          current : " + name);
@@ -44,36 +45,37 @@ public class ProfileController extends InputController {
             System.out.println("[5] change phone number" + "  current : " + phoneNumber);
             System.out.println("[6] change user status" + "   current : " + userStatus);
             System.out.println("[7] submit");
-            System.out.println("[8] back");
 
 
             switch(getOptionalInput(1, 8)){
-                case 1:
-                    changeId();
-                    break;
-                case 2:
-                    changeName();
-                    break;
-                case 3:
-                    changeEmail();
-                    break;
-                case 4:
-                    changePassword();
-                    break;
-                case 5:
-                    changePhoneNumber();
-                    break;
-                case 6:
-                    changeUserStatus();
-                    break;
-                case 7:
-                    //go to the next menu, remember changing the id in client socket when the id changes.
-                    break;
-                case 8:
-                    //back to the previous menu
-                    break;
+                case 1 -> changeId();
+                case 2 -> changeName();
+                case 3 -> changeEmail();
+                case 4 -> changePassword();
+                case 5 -> changePhoneNumber();
+                case 6 -> changeUserStatus();
+                case 7 -> isRunning = false;
             }
 
+            newProfileSender();
+
+        }
+
+    }
+
+    private void newProfileSender(){
+        clientSocket.send(new SetMyProfileReq(clientSocket.getId(), id, name,
+                password, email, phoneNumber, profileImage, userStatus));
+        try {
+            Response response = clientSocket.getReceiver().getResponse();
+            System.out.println(response.getMessage());
+            if(response.isAccepted()){
+                clientSocket.setId(id);
+            }
+
+        }
+        catch(ResponseNotFoundException e){
+            System.out.println(e.getMessage());
         }
     }
 
@@ -106,9 +108,7 @@ public class ProfileController extends InputController {
 
     private void changeId(){
         System.out.println("enter new id : ");
-        String newId = scanner.nextLine();
-
-        this.id = id;
+        id = scanner.nextLine();
     }
 
     private void changeName(){

@@ -162,38 +162,35 @@ public class UserController extends InputController {
     }
 
 
-    public void privateChat(){
+    public void privateChat() {
 
 
         showPrivateChatHis();
 
-        if(userId.equals("-0")) return;
+        if (userId.equals("-0")) return;
 
-        System.out.println("to be back, press '-1'.");
+        System.out.println("to be back, press '-0'.");
 
         String content;
 
-        try {
-            do {
+
+        do {
+            try {
                 content = scanner.nextLine();
-                if (content.equals("-1")) {
-                    //return to the previous menu
+                if (content.equals("-0")) {
+                    return;
                 }
-                clientSocket.send(new TextMessage(null, clientSocket.getId(), userId,MessageType.PRIVATE_CHAT,
+                clientSocket.send(new TextMessage(null, clientSocket.getId(), userId, MessageType.PRIVATE_CHAT,
                         LocalDateTime.now(), content));
                 Response response = clientSocket.getReceiver().getResponse();
-                if(!response.isAccepted()){
+                if (!response.isAccepted()) {
                     System.out.println(response.getMessage());
                 }
-                else{
-                    System.out.println(response.getMessage());
-                }
+            } catch (ResponseNotFoundException e) {
+                System.out.println(e.getMessage());
             }
-            while (true);
         }
-        catch(ResponseNotFoundException e){
-            System.out.println(e.getMessage());
-        }
+        while(true);
 
     }
 
@@ -271,7 +268,7 @@ public class UserController extends InputController {
     }
 
 
-    public GetPrivateChatHisRes getPrivateChatHis(){
+    private GetPrivateChatHisRes getPrivateChatHis(){
 
         System.out.println("enter friend id : ");
         System.out.println("to be back, enter '-0'");
@@ -322,28 +319,25 @@ public class UserController extends InputController {
     }
 
 
-    private void showPrivateChatHis(){
+    public void showPrivateChatHis(){
 
         GetPrivateChatHisRes PChatHisRes = getPrivateChatHis();
 
         if(PChatHisRes == null){
-            System.err.println("No Valid response was received from server");
+            return;
         }
-        else if(!PChatHisRes.isAccepted()){
+
+        if(!PChatHisRes.isAccepted()){
             System.err.println(PChatHisRes.getMessage());
         }
         else{
             LinkedList<Message> chatMessages = PChatHisRes.getMessages();
 
+            System.out.println(chatMessages.size());
             for(Message i : chatMessages){
-                i.showMessage();
+                System.out.println(i.showMessage());
             }
 
-
-
         }
-
-
     }
-
 }
