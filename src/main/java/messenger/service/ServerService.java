@@ -115,6 +115,7 @@ public class ServerService
 
             database.getServerOp().insertServer(request.getServerId() , request.getSenderId() , request.getName());
 
+            database.getServerOp().updateServerList(UpdateType.ADD , "users" , request.getServerId(), request.getSenderId());
             if(null != request.getImage())
             {
                 database.getServerOp().updateServerProfileImage(request.getImage(), request.getServerId());
@@ -126,7 +127,7 @@ public class ServerService
         {
             return new Response(request.getSenderId() , false , e.getMessage());
         }
-        catch (SQLException | IOException e)
+        catch (SQLException | IOException | ClassNotFoundException e)
         {
             throw new RuntimeException();
         }
