@@ -382,7 +382,7 @@ public class ServerService
 
             return false;
         }
-        catch (ConfigNotFoundException e)
+        catch (ConfigNotFoundException | NullPointerException e)
         {
             return false;
         }
