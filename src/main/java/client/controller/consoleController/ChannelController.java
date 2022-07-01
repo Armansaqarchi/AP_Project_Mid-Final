@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.UUID;
 
 public class ChannelController extends InputController {
 
@@ -264,6 +265,62 @@ public class ChannelController extends InputController {
         }
         return null;
 
+    }
+
+    public void pinMessage()
+    {
+        System.out.println("enter server id");
+        serverId = scanner.nextLine();
+        System.out.println("enter channel name");
+        channelName = scanner.nextLine();
+
+        System.out.println();
+        System.out.println("Enter messages id : ");
+        String id = scanner.nextLine();
+
+        try
+        {
+            clientSocket.send(new PinMessageReq(clientSocket.getId() , serverId , channelName , UUID.fromString(id)));
+
+            Response response = clientSocket.getReceiver().getResponse();
+
+            System.out.println(response.getMessage());
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("\033[0;31mInvalid message id!\033[0m");
+        } catch (ResponseNotFoundException e)
+        {
+            System.out.println("\033[0;31m" + e.getMessage() + "\033[0m");
+        }
+    }
+
+    public void unPinMessage()
+    {
+        System.out.println("enter server id");
+        serverId = scanner.nextLine();
+        System.out.println("enter channel name");
+        channelName = scanner.nextLine();
+
+        System.out.println();
+        System.out.println("Enter messages id : ");
+        String id = scanner.nextLine();
+
+        try
+        {
+            clientSocket.send(new UnpinMessageReq(clientSocket.getId() , serverId , channelName , UUID.fromString(id)));
+
+            Response response = clientSocket.getReceiver().getResponse();
+
+            System.out.println(response.getMessage());
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("\033[0;31mInvalid message id!\033[0m");
+        } catch (ResponseNotFoundException e)
+        {
+            System.out.println("\033[0;31m" + e.getMessage() + "\033[0m");
+        }
     }
 
     /**
