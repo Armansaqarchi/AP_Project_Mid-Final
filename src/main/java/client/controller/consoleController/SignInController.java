@@ -43,7 +43,7 @@ public class SignInController extends InputController {
             clientSocket.send(new LoginReq(clientSocket.getId(), id,
                     password, null));
             Response response = clientSocket.getReceiver().getResponse();
-            System.err.println(response.getMessage());
+            System.out.println(response.getMessage());
 
             if(response.isAccepted()) return true;
         }
