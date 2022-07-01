@@ -3,6 +3,7 @@ package client.controller.consoleController;
 import client.ClientSocket;
 import client.FileHandler;
 import model.exception.ResponseNotFoundException;
+import model.message.FileMessage;
 import model.message.Message;
 import model.message.MessageType;
 import model.message.TextMessage;
@@ -16,6 +17,9 @@ import model.response.user.*;
 import model.user.UserStatus;
 
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -167,24 +171,36 @@ public class UserController extends InputController {
         if (userId.equals("-0")) return;
 
         System.out.println("to be back, press '-0'.");
+        System.out.println("Enter 'FILE_MSG' to send file message :");
 
         String content;
 
 
         do {
-            try {
-                content = scanner.nextLine();
-                if (content.equals("-0")) {
-                    return;
-                }
+
+            content = scanner.nextLine();
+
+            if (content.equals("-0")) {
+                return;
+            }
+
+            if(content.equals("FILE_MSG"))
+            {
+                sendFileMessage();
+            }
+            else
+            {
                 clientSocket.send(new TextMessage(null, clientSocket.getId(), userId, MessageType.PRIVATE_CHAT,
                         LocalDateTime.now(), content));
-                Response response = clientSocket.getReceiver().getResponse();
+
+                try {
+                    Response response = clientSocket.getReceiver().getResponse();
 
                     System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
 
-            } catch (ResponseNotFoundException e) {
-                System.out.println(e.getMessage());
+                } catch (ResponseNotFoundException e) {
+                    System.out.println(e.getMessage());
+                }
             }
         }
         while(true);
@@ -367,6 +383,36 @@ public class UserController extends InputController {
         } catch (ResponseNotFoundException e)
         {
             System.out.println("\033[0;31m" + e.getMessage() + "\033[0m");
+        }
+    }
+
+    private void sendFileMessage()
+    {
+        System.out.println("enter files path :");
+
+        String url = scanner.nextLine();
+
+        //write content into file
+        try
+        {
+            byte[] file = Files.readAllBytes(Path.of(url));
+
+            clientSocket.send(new FileMessage(null , clientSocket.getId() , userId ,
+                    MessageType.PRIVATE_CHAT, LocalDateTime.now() , url.substring(url.lastIndexOf('/')) , file));
+
+            try {
+                Response response = clientSocket.getReceiver().getResponse();
+
+                System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
+
+            } catch (ResponseNotFoundException e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+        catch (IOException e)
+        {
+            System.out.println("\033[0;31mfailed to open the file.\033[0m");
         }
     }
 }
