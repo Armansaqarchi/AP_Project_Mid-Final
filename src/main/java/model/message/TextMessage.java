@@ -31,6 +31,7 @@ public class TextMessage extends Message
     public String toString()
     {
         return "\033[0;34m\n" + getSenderId() + " : \n" +
-                content + "\nReactions : " + showReactions() + "\033[0m";
+                content + "\nReactions : " + showReactions() +
+                "id : " + getId() +"\033[0m";
     }
 }

@@ -79,11 +79,5 @@ public class Receiver
 
         //store messages in client side
         FileHandler.getFileHandler().saveMessage(message);
-
-        if(message instanceof FileMsgNotification)
-        {
-            System.out.println("\033[0;34mto get file you need id of this message.");
-            System.out.println("message's id : " + message.getId() + "\033[0m");
-        }
     }
 }
