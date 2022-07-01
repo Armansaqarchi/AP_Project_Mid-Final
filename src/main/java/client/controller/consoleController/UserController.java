@@ -207,16 +207,52 @@ public class UserController extends InputController {
 
     }
 
-    public void answerFriendRequest()
+    public void answerFriendReq()
     {
+        boolean isAccepted;
 
+        System.out.println("enter '-0' in order to exit");
+        System.out.println("Enter messages id : ");
+        String id = scanner.nextLine();
+        if(id.equals("-0")){
+            return;
+        }
+
+        System.out.println("[1]-Accept");
+        System.out.println("[2]-Ignore");
+
+        int choice = getOptionalInput(1, 2);
+
+        if(choice == 1){
+            isAccepted = true;
+        }
+        else{
+            isAccepted = false;
+        }
+
+        try
+        {
+            clientSocket.send(new AnswerFriendReq(clientSocket.getId(), UUID.fromString(id), isAccepted));
+
+            Response response = clientSocket.getReceiver().getResponse();
+
+            System.out.println(response.getMessage());
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("\033[0;31mInvalid message id!\033[0m");
+        } catch (ResponseNotFoundException e)
+        {
+            System.out.println("\033[0;31m" + e.getMessage() + "\033[0m");
+        }
     }
 
     private GetFriendReqListRes getFriendReqList(){
         clientSocket.send(new GetFriendReqList(clientSocket.getId()));
         try {
+            System.out.println("32");
             Response response = clientSocket.getReceiver().getResponse();
-
+            System.out.println("41");
             System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
 
             if(response.isAccepted()){
@@ -289,11 +325,12 @@ public class UserController extends InputController {
         }
 
         try{
-
+            System.out.println("1");
             clientSocket.send(new GetPrivateChatHisReq(clientSocket.getId(), userId));
 
+            System.out.println("2");
             Response response = clientSocket.getReceiver().getResponse();
-
+            System.out.println("3");
             if(response instanceof GetPrivateChatHisRes){
                 return (GetPrivateChatHisRes) response;
             }
