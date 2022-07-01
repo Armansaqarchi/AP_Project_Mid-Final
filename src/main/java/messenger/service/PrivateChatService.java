@@ -25,6 +25,12 @@ public class PrivateChatService
 
     public GetPrivateChatHisRes getChatHistory(GetPrivateChatHisReq request)
     {
+        if(database.getUserOp().isExists(request.getUserId()))
+        {
+            return new GetPrivateChatHisRes(request.getSenderId() , false ,
+                    "user with id : '" + request.getUserId() + "' is not exists." ,
+                    new LinkedList<>());
+        }
         String privateChatId;
 
         if(request.getSenderId().compareTo(request.getUserId()) < 0)
