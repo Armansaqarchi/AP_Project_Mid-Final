@@ -303,7 +303,7 @@ public class UserController extends InputController {
         }
         catch (IllegalArgumentException e)
         {
-            System.out.println("\033[0;31mInvalid message id!\033[0m");
+            System.out.println("\033[0;31mInvalid friend request id!\033[0m");
         } catch (ResponseNotFoundException e)
         {
             System.out.println("\033[0;31m" + e.getMessage() + "\033[0m");
