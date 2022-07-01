@@ -6,8 +6,10 @@ import model.exception.ResponseNotFoundException;
 import model.message.Message;
 import model.message.MessageType;
 import model.message.TextMessage;
+import model.request.GetFileMsgReq;
 import model.request.priavteChat.GetPrivateChatHisReq;
 import model.request.user.*;
+import model.response.GetFileMsgRes;
 import model.response.Response;
 import model.response.privateChat.GetPrivateChatHisRes;
 import model.response.user.*;
@@ -341,6 +343,30 @@ public class UserController extends InputController {
 
             //saving chat history in file
             FileHandler.getFileHandler().saveMessage(chatMessages);
+        }
+    }
+
+    public void getFileMsg()
+    {
+        System.out.println("Enter messages id : ");
+        String id = scanner.nextLine();
+
+        try
+        {
+            clientSocket.send(new GetFileMsgReq(clientSocket.getId() , UUID.fromString(id)));
+
+            GetFileMsgRes response = (GetFileMsgRes) clientSocket.getReceiver().getResponse();
+
+            System.out.println(response.getMessage());
+
+            FileHandler.getFileHandler().saveFile(response);
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("\033[0;31mInvalid message id!\033[0m");
+        } catch (ResponseNotFoundException e)
+        {
+            System.out.println("\033[0;31m" + e.getMessage() + "\033[0m");
         }
     }
 }
