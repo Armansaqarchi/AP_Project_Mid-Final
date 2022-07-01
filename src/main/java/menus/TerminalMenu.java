@@ -95,15 +95,17 @@ public class TerminalMenu {
         boolean isRunning = true;
 
         while(isRunning) {
-            System.out.println("[1]-Channels");
+            System.out.println("[1]-Servers");
             System.out.println("[2]-Edit Server");
-            System.out.println("[3]-Back");
+            System.out.println("[3]-Edit Channel");
+            System.out.println("[4]-Back");
 
-            int choice = InputController.getOptionalInput(1, 3);
+            int choice = InputController.getOptionalInput(1, 4);
             switch (choice) {
-                case 1 -> channelMenu();
+                case 1 -> controllers.getServerController().getServers();
                 case 2 -> editServerMenu();
-                case 3 -> isRunning = false;
+                case 3 -> channelMenu();
+                case 4 -> isRunning = false;
             }
         }
     }
@@ -180,7 +182,7 @@ public class TerminalMenu {
     private void editServerMenu() {
         boolean isRunning = true;
 
-        while (true) {
+        while (isRunning) {
             System.out.println("[1]-Server Info");
             System.out.println("[2]-Create Server");
             System.out.println("[3]-Delete Server");

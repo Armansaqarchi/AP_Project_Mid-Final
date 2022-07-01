@@ -418,7 +418,7 @@ public class ServerController extends InputController
         System.out.println();
     }
 
-    private void getServers()
+    public void getServers()
     {
         try{
             clientSocket.send(new GetServersReq(clientSocket.getId()));
