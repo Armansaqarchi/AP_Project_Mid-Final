@@ -109,6 +109,15 @@ public class ChannelService
                 for(String userId : server.getUsers())
                 {
                     database.getChannelOp().updateChannelList(UpdateType.ADD , "users" , channel.getId().toString() , userId);
+
+                    User user = database.getUserOp().findById(userId);
+
+                    ServerIDs serverIDs = user.getServers().get(user.getServers().indexOf(new ServerIDs(server.getId() , null)));
+                    serverIDs.getChannels().add(channel.getName());
+
+                    database.getServerOp().updateServerList(UpdateType.REMOVE , "servers" , userId , serverIDs);
+                    database.getServerOp().updateServerList(UpdateType.ADD , "servers" , userId , serverIDs);
+
                 }
 
                 return new Response(request.getSenderId(), true , "channel added successfully.");
