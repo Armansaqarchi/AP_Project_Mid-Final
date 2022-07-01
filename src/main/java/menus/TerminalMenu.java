@@ -180,7 +180,7 @@ public class TerminalMenu {
     private void editServerMenu() {
         boolean isRunning = true;
 
-        while (true) {
+        while (isRunning) {
             System.out.println("\033[1;32m[1]-Server Info");
             System.out.println("[2]-Create Server");
             System.out.println("[3]-Delete Server");

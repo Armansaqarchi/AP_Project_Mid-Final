@@ -282,7 +282,7 @@ public class ServerController extends InputController
         HashMap<String, UserStatus> users = getUserStatusRes.getUsers();
 
         for(String i : users.keySet()){
-            System.out.println("" + i + "Status : " + users.get(i));
+            System.out.println("" + i + "  ,Status : " + users.get(i));
         }
     }
 
