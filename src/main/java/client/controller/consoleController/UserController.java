@@ -343,7 +343,7 @@ public class UserController extends InputController {
 
             System.out.println(chatMessages.size());
             for(Message i : chatMessages){
-                System.out.println(i.showMessage());
+                System.out.println(i);
             }
 
         }

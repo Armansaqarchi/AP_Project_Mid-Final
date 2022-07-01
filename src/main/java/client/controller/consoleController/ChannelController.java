@@ -114,7 +114,7 @@ public class ChannelController extends InputController {
         LinkedList<Message> messages = GChatHisRes.getMessages();
 
         for(Message message : messages){
-            System.out.println(message.showMessage());
+            System.out.println(message);
         }
     }
 
@@ -205,7 +205,7 @@ public class ChannelController extends InputController {
 
         System.out.println("Pinned messages : ");
         for(Message i : PMessages){
-            i.showMessage();
+            System.out.println(i);
         }
         System.out.println("\n");
     }

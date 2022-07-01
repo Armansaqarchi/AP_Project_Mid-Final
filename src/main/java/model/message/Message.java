@@ -44,9 +44,6 @@ public abstract class Message implements Transferable
         reactions = new LinkedList<>();
     }
 
-    public abstract String showMessage();
-
-
     public String showReactions(){
         String reactionList = "";
         for(MessageReaction mr : reactions){
@@ -105,18 +102,6 @@ public abstract class Message implements Transferable
     }
 
     public abstract Object getContent();
-
-    @Override
-    public String toString() {
-        return "Message{" +
-                "id=" + id +
-                ", senderId='" + senderId + '\'' +
-                ", receiverId='" + receiverId + '\'' +
-                ", type=" + type +
-                ", date=" + date +
-                ", reactions=" + reactions +
-                '}';
-    }
 
     @Override
     public boolean equals(Object o) {

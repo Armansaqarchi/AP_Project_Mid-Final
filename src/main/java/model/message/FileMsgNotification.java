@@ -20,7 +20,7 @@ public class FileMsgNotification extends Message
     }
 
     @Override
-    public String showMessage()
+    public String toString()
     {
 
        if(MessageType.CHANNEL == getType())
