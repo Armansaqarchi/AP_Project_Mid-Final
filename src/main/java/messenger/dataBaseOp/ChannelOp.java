@@ -37,7 +37,7 @@ public class ChannelOp extends Op{
 
     public void updateChannelConfig(String id, String type, String newValue)
     throws SQLException, IOException, ClassNotFoundException{
-        String query = "UPDATE channel SET " + type +" = ? where channel_id = ?";
+        String query = "UPDATE channel SET " + type +" = ? where id = ?";
 
         PreparedStatement st = connection.prepareStatement(query);
 
@@ -53,7 +53,7 @@ public class ChannelOp extends Op{
 
         LinkedList<T> targetList = null;
 
-        String query = "SELECT * FROM channel WHERE channel_id = ?";
+        String query = "SELECT * FROM channel WHERE id = ?";
 
         PreparedStatement pst = connection.prepareStatement(query);
 
@@ -94,7 +94,7 @@ public class ChannelOp extends Op{
 
         byte[] updatedList = objectConvertor(targetList);
 
-        String query2 = "UPDATE channel SET " + columnName + " = ? WHERE channel_id = ?";
+        String query2 = "UPDATE channel SET " + columnName + " = ? WHERE id = ?";
 
         PreparedStatement pst2 = connection.prepareStatement(query2);
 
