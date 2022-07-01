@@ -39,7 +39,7 @@ public class UserController extends InputController {
            }
        }
        catch(ResponseNotFoundException e){
-           System.err.println(e.getMessage());
+           System.out.println(e.getMessage());
        }
 
         return null;
@@ -51,10 +51,11 @@ public class UserController extends InputController {
         GetFriendListRes response = getFriendList();
 
         if(response == null){
-            System.err.println("No valid response was received");
+            System.out.println("\033[0;31mNo valid response was received\033[0m");
+
         }
         else if(!response.isAccepted()){
-            System.err.println(response.getMessage());
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
         }
         else{
             HashMap<String, UserStatus> list = response.getFriendList();
@@ -73,7 +74,7 @@ public class UserController extends InputController {
             return (GetUserProfileRes)clientSocket.getReceiver().getResponse();
         }
         catch(ResponseNotFoundException e){
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         return null;
@@ -84,17 +85,18 @@ public class UserController extends InputController {
         GetUserProfileRes response = getProfile(id);
 
         if(response == null){
-            System.err.println("No valid response was received");
+            System.out.println("\033[0;31mNo valid response was received\033[0m");
+
         }
         else if(!response.isAccepted()){
-            System.err.println(response.getMessage());
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
         }
         else {
             System.out.println("Id : " +  response.getId());
             System.out.println("Name : " + response.getName());
             System.out.println("Status : " +  response.getUserStatus());
 
-            String profileImage = ((GetUserProfileRes) response).getProfileImage()
+            String profileImage = response.getProfileImage()
                     != null ? "has profile" : "does not have profile";
             System.out.println("Profile image : " + profileImage);
         }
@@ -112,15 +114,12 @@ public class UserController extends InputController {
         try {
             clientSocket.send(new BlockUserReq(clientSocket.getId(), userId));
             Response response = clientSocket.getReceiver().getResponse();
-            if(!response.isAccepted()){
-                System.err.println(response.getMessage());
-            }
-            else{
-                System.out.println("User successfully blocked");
-            }
+
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
+
         }
         catch(ResponseNotFoundException e){
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
     }
@@ -138,12 +137,9 @@ public class UserController extends InputController {
             clientSocket.send(new FriendReq(clientSocket.getId(), UUID.randomUUID(), userId));
             Response response = clientSocket.getReceiver().getResponse();
 
-            if(!response.isAccepted()){
-                System.err.println(response.getMessage());
-            }
-            else{
-                System.out.println("User successfully added");
-            }
+
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
+
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
@@ -204,14 +200,12 @@ public class UserController extends InputController {
         try {
             Response response = clientSocket.getReceiver().getResponse();
 
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
+
             if(response.isAccepted()){
-                System.out.println(response.getMessage());
                 if(response instanceof GetFriendReqListRes){
                     return (GetFriendReqListRes) response;
                 }
-            }
-            else{
-                System.out.println(response.getMessage());
             }
         }
         catch(ResponseNotFoundException e){
@@ -238,14 +232,13 @@ public class UserController extends InputController {
         clientSocket.send(new GetBlockedUsersReq(clientSocket.getId()));
         try{
             Response response = clientSocket.getReceiver().getResponse();
+
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
+
             if(response.isAccepted()){
-                System.out.println(response.getMessage());
                 if(response instanceof GetBlockedUsersRes){
                     return (GetBlockedUsersRes) response;
                 }
-            }
-            else{
-                System.out.println(response.getMessage());
             }
         }
         catch(ResponseNotFoundException e){
@@ -288,7 +281,7 @@ public class UserController extends InputController {
             }
         }
         catch(ResponseNotFoundException e){
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         return null;
@@ -298,8 +291,10 @@ public class UserController extends InputController {
         clientSocket.send(new GetPrivateChatsReq(clientSocket.getId()));
         try{
             Response response = clientSocket.getReceiver().getResponse();
+
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
+
             if(response.isAccepted()){
-                System.out.println(response.getMessage());
                 if(response instanceof GetPrivateChatsRes){
                     return (GetPrivateChatsRes) response;
                 }
@@ -334,11 +329,10 @@ public class UserController extends InputController {
             return;
         }
 
-        if(!PChatHisRes.isAccepted()){
-            System.err.println(PChatHisRes.getMessage());
-        }
-        else{
-            System.out.println(PChatHisRes.getMessages());
+        System.out.println("\033[0;31m" + PChatHisRes.getMessage() + "\033[0m");
+
+        if(PChatHisRes.isAccepted())
+        {
             LinkedList<Message> chatMessages = PChatHisRes.getMessages();
 
             System.out.println(chatMessages.size());

@@ -77,11 +77,11 @@ public class SignUpController extends InputController {
                 null, name, email, phoneNumber, null));
         try {
             Response response = clientSocket.getReceiver().getResponse();
-            System.out.println(response.getMessage());
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
             if(response.isAccepted()) return true;
         }
         catch(ResponseNotFoundException e){
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         return false;
@@ -115,7 +115,7 @@ public class SignUpController extends InputController {
                 return;
 
             } catch (InvalidUsernameException e) {
-                System.err.println(e.getMessage());
+                System.out.println("\033[0;31m" + e.getMessage() + "\033[0m");
             }
         }
 
@@ -143,10 +143,10 @@ public class SignUpController extends InputController {
                     InfoVerifier.checkPasswordValidity(password);
                     return;
                 } else {
-                    System.err.println("confirm password doesnt match password, try again");
+                    System.out.println("\033[0;31mconfirm password doesnt match password, try again.\033[0m");
                 }
             } catch (InvalidPasswordException e) {
-                System.err.println(e.getMessage());
+                System.out.println("\033[0;31m" + e.getMessage() + "\033[0m");
             }
         }
     }
@@ -167,7 +167,7 @@ public class SignUpController extends InputController {
                 return;
 
             } catch (InvalidEmailFormatException e) {
-                System.err.println(e.getMessage());
+                System.out.println("\033[0;31m" + e.getMessage() + "\033[0m");
             }
         }
 
@@ -189,7 +189,7 @@ public class SignUpController extends InputController {
                 return;
             } catch (InvalidPhoneNumberException e) {
                 phoneNumber = null;
-                System.err.println(e.getMessage());
+                System.out.println("\033[0;31m" + e.getMessage() + "\033[0m");
             }
         }
     }
