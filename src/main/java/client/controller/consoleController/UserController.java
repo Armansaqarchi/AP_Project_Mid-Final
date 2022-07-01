@@ -1,20 +1,25 @@
 package client.controller.consoleController;
 
 import client.ClientSocket;
-import model.PrivateChat;
+import client.FileHandler;
 import model.exception.ResponseNotFoundException;
+import model.message.FileMessage;
 import model.message.Message;
 import model.message.MessageType;
 import model.message.TextMessage;
+import model.request.GetFileMsgReq;
 import model.request.priavteChat.GetPrivateChatHisReq;
 import model.request.user.*;
+import model.response.GetFileMsgRes;
 import model.response.Response;
 import model.response.privateChat.GetPrivateChatHisRes;
 import model.response.user.*;
-import model.user.ServerIDs;
 import model.user.UserStatus;
 
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -39,7 +44,7 @@ public class UserController extends InputController {
            }
        }
        catch(ResponseNotFoundException e){
-           System.err.println(e.getMessage());
+           System.out.println(e.getMessage());
        }
 
         return null;
@@ -51,10 +56,11 @@ public class UserController extends InputController {
         GetFriendListRes response = getFriendList();
 
         if(response == null){
-            System.err.println("No valid response was received");
+            System.out.println("\033[0;31mNo valid response was received\033[0m");
+
         }
         else if(!response.isAccepted()){
-            System.err.println(response.getMessage());
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
         }
         else{
             HashMap<String, UserStatus> list = response.getFriendList();
@@ -73,7 +79,7 @@ public class UserController extends InputController {
             return (GetUserProfileRes)clientSocket.getReceiver().getResponse();
         }
         catch(ResponseNotFoundException e){
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         return null;
@@ -84,17 +90,18 @@ public class UserController extends InputController {
         GetUserProfileRes response = getProfile(id);
 
         if(response == null){
-            System.err.println("No valid response was received");
+            System.out.println("\033[0;31mNo valid response was received\033[0m");
+
         }
         else if(!response.isAccepted()){
-            System.err.println(response.getMessage());
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
         }
         else {
             System.out.println("Id : " +  response.getId());
             System.out.println("Name : " + response.getName());
             System.out.println("Status : " +  response.getUserStatus());
 
-            String profileImage = ((GetUserProfileRes) response).getProfileImage()
+            String profileImage = response.getProfileImage()
                     != null ? "has profile" : "does not have profile";
             System.out.println("Profile image : " + profileImage);
         }
@@ -112,15 +119,12 @@ public class UserController extends InputController {
         try {
             clientSocket.send(new BlockUserReq(clientSocket.getId(), userId));
             Response response = clientSocket.getReceiver().getResponse();
-            if(!response.isAccepted()){
-                System.err.println(response.getMessage());
-            }
-            else{
-                System.out.println("User successfully blocked");
-            }
+
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
+
         }
         catch(ResponseNotFoundException e){
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
     }
@@ -138,7 +142,9 @@ public class UserController extends InputController {
             clientSocket.send(new FriendReq(clientSocket.getId(), UUID.randomUUID(), userId));
             Response response = clientSocket.getReceiver().getResponse();
 
-            System.out.println(response.getMessage());
+
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
+
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
@@ -165,24 +171,36 @@ public class UserController extends InputController {
         if (userId.equals("-0")) return;
 
         System.out.println("to be back, press '-0'.");
+        System.out.println("Enter 'FILE_MSG' to send file message :");
 
         String content;
 
 
         do {
-            try {
-                content = scanner.nextLine();
-                if (content.equals("-0")) {
-                    return;
-                }
+
+            content = scanner.nextLine();
+
+            if (content.equals("-0")) {
+                return;
+            }
+
+            if(content.equals("FILE_MSG"))
+            {
+                sendFileMessage();
+            }
+            else
+            {
                 clientSocket.send(new TextMessage(null, clientSocket.getId(), userId, MessageType.PRIVATE_CHAT,
                         LocalDateTime.now(), content));
-                Response response = clientSocket.getReceiver().getResponse();
-                if (!response.isAccepted()) {
-                    System.out.println(response.getMessage());
+
+                try {
+                    Response response = clientSocket.getReceiver().getResponse();
+
+                    System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
+
+                } catch (ResponseNotFoundException e) {
+                    System.out.println(e.getMessage());
                 }
-            } catch (ResponseNotFoundException e) {
-                System.out.println(e.getMessage());
             }
         }
         while(true);
@@ -199,14 +217,12 @@ public class UserController extends InputController {
         try {
             Response response = clientSocket.getReceiver().getResponse();
 
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
+
             if(response.isAccepted()){
-                System.out.println(response.getMessage());
                 if(response instanceof GetFriendReqListRes){
                     return (GetFriendReqListRes) response;
                 }
-            }
-            else{
-                System.out.println(response.getMessage());
             }
         }
         catch(ResponseNotFoundException e){
@@ -223,8 +239,9 @@ public class UserController extends InputController {
             return;
         }
 
-        for(UUID i : getFriendReqList.getFriendRequests()){
-            System.out.println(i);
+        for(UUID i : getFriendReqList.getFriendRequests().keySet()){
+            System.out.println("sender id : " + getFriendReqList.getFriendRequests().get(i)
+                    + "uuid : " + i);
         }
 
     }
@@ -233,14 +250,13 @@ public class UserController extends InputController {
         clientSocket.send(new GetBlockedUsersReq(clientSocket.getId()));
         try{
             Response response = clientSocket.getReceiver().getResponse();
+
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
+
             if(response.isAccepted()){
-                System.out.println(response.getMessage());
                 if(response instanceof GetBlockedUsersRes){
                     return (GetBlockedUsersRes) response;
                 }
-            }
-            else{
-                System.out.println(response.getMessage());
             }
         }
         catch(ResponseNotFoundException e){
@@ -283,7 +299,7 @@ public class UserController extends InputController {
             }
         }
         catch(ResponseNotFoundException e){
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         return null;
@@ -293,8 +309,10 @@ public class UserController extends InputController {
         clientSocket.send(new GetPrivateChatsReq(clientSocket.getId()));
         try{
             Response response = clientSocket.getReceiver().getResponse();
+
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
+
             if(response.isAccepted()){
-                System.out.println(response.getMessage());
                 if(response instanceof GetPrivateChatsRes){
                     return (GetPrivateChatsRes) response;
                 }
@@ -329,11 +347,10 @@ public class UserController extends InputController {
             return;
         }
 
-        if(!PChatHisRes.isAccepted()){
-            System.err.println(PChatHisRes.getMessage());
-        }
-        else{
-            System.out.println(PChatHisRes.getMessages());
+        System.out.println("\033[0;31m" + PChatHisRes.getMessage() + "\033[0m");
+
+        if(PChatHisRes.isAccepted())
+        {
             LinkedList<Message> chatMessages = PChatHisRes.getMessages();
 
             System.out.println(chatMessages.size());
@@ -341,6 +358,62 @@ public class UserController extends InputController {
                 System.out.println(i);
             }
 
+            //saving chat history in file
+            FileHandler.getFileHandler().saveMessage(chatMessages);
+        }
+    }
+
+    public void getFileMsg()
+    {
+        System.out.println("Enter messages id : ");
+        String id = scanner.nextLine();
+
+        try
+        {
+            clientSocket.send(new GetFileMsgReq(clientSocket.getId() , UUID.fromString(id)));
+
+            GetFileMsgRes response = (GetFileMsgRes) clientSocket.getReceiver().getResponse();
+
+            System.out.println(response.getMessage());
+
+            FileHandler.getFileHandler().saveFile(response);
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("\033[0;31mInvalid message id!\033[0m");
+        } catch (ResponseNotFoundException e)
+        {
+            System.out.println("\033[0;31m" + e.getMessage() + "\033[0m");
+        }
+    }
+
+    private void sendFileMessage()
+    {
+        System.out.println("enter files path :");
+
+        String url = scanner.nextLine();
+
+        //write content into file
+        try
+        {
+            byte[] file = Files.readAllBytes(Path.of(url));
+
+            clientSocket.send(new FileMessage(null , clientSocket.getId() , userId ,
+                    MessageType.PRIVATE_CHAT, LocalDateTime.now() , url.substring(url.lastIndexOf('/')) , file));
+
+            try {
+                Response response = clientSocket.getReceiver().getResponse();
+
+                System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
+
+            } catch (ResponseNotFoundException e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+        catch (IOException e)
+        {
+            System.out.println("\033[0;31mfailed to open the file.\033[0m");
         }
     }
 }

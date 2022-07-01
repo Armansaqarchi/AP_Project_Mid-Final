@@ -1,19 +1,27 @@
 package client.controller.consoleController;
 
 import client.ClientSocket;
+import client.FileHandler;
 import model.exception.ResponseNotFoundException;
+import model.message.FileMessage;
 import model.message.Message;
 import model.message.MessageType;
 import model.message.TextMessage;
 import model.request.Channel.*;
+import model.request.GetFileMsgReq;
+import model.response.GetFileMsgRes;
 import model.response.Response;
 import model.response.channel.GetChatHistoryRes;
 import model.response.channel.GetPinnedMsgRes;
 import model.server.Channel;
 import model.server.ChannelType;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.UUID;
 
 public class ChannelController extends InputController {
 
@@ -114,6 +122,9 @@ public class ChannelController extends InputController {
         for(Message message : messages){
             System.out.println(message);
         }
+
+        //saving history of channel in file
+        FileHandler.getFileHandler().saveMessage(messages);
     }
 
 
@@ -136,6 +147,7 @@ public class ChannelController extends InputController {
                 break;
         }
         System.out.println("to stop chatting, enter the word '-0'. ");
+        System.out.println("Enter 'FILE_MSG' to send file message :");
         messageSender();
 
         //return to the previous menu
@@ -148,18 +160,26 @@ public class ChannelController extends InputController {
             if(content.equals("-0")){
                 return;
             }
-            clientSocket.send(new TextMessage(null, clientSocket.getId(),serverId + "-" + channelName,
-                    MessageType.CHANNEL, LocalDateTime.now(), content));
-            try {
-                Response response = clientSocket.getReceiver().getResponse();
-                if (!response.isAccepted()) {
-                    System.err.println("\033[0;31mAccess denied to send the message");
-                }
 
-                System.err.println(response.getMessage() + "\033[0m");
+            if(content.equals("FILE_MSG"))
+            {
+                sendFileMessage();
             }
-            catch(ResponseNotFoundException e){
-                System.out.println(e.getMessage());
+            else
+            {
+                clientSocket.send(new TextMessage(null, clientSocket.getId(),serverId + "-" + channelName,
+                        MessageType.CHANNEL, LocalDateTime.now(), content));
+                try {
+                    Response response = clientSocket.getReceiver().getResponse();
+                    if (!response.isAccepted()) {
+                        System.out.println("\033[0;31mAccess denied to send the message");
+                    }
+
+                    System.out.println(response.getMessage() + "\033[0m");
+                }
+                catch(ResponseNotFoundException e){
+                    System.out.println(e.getMessage());
+                }
             }
         }
         while(true);
@@ -175,12 +195,16 @@ public class ChannelController extends InputController {
             clientSocket.send(new GetPinnedMsgReq(clientSocket.getId(), serverId, channelName));
             GetPinnedMsgRes response = (GetPinnedMsgRes)clientSocket.getReceiver().getResponse();
 
-                if(response.isAccepted()){
+            if(response.isAccepted()){
 
-                    //show pinned message
-                }
+                showPinnedMessages(response);
 
             }
+            else
+            {
+                System.out.println("\033[0;31m" +response.getMessage() + "\033[0m");
+            }
+        }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
         }
@@ -188,6 +212,61 @@ public class ChannelController extends InputController {
 
     }
 
+    public void pinMessage()
+    {
+        System.out.println("enter server id");
+        serverId = scanner.nextLine();
+        System.out.println("enter channel name");
+        channelName = scanner.nextLine();
+
+        System.out.println();
+        System.out.println("Enter messages id : ");
+        String id = scanner.nextLine();
+
+        try
+        {
+            clientSocket.send(new PinMessageReq(clientSocket.getId() , serverId , channelName , UUID.fromString(id)));
+
+            Response response = clientSocket.getReceiver().getResponse();
+
+            System.out.println(response.getMessage());
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("\033[0;31mInvalid message id!\033[0m");
+        } catch (ResponseNotFoundException e)
+        {
+            System.out.println("\033[0;31m" + e.getMessage() + "\033[0m");
+        }
+    }
+
+    public void unPinMessage()
+    {
+        System.out.println("enter server id");
+        serverId = scanner.nextLine();
+        System.out.println("enter channel name");
+        channelName = scanner.nextLine();
+
+        System.out.println();
+        System.out.println("Enter messages id : ");
+        String id = scanner.nextLine();
+
+        try
+        {
+            clientSocket.send(new UnpinMessageReq(clientSocket.getId() , serverId , channelName , UUID.fromString(id)));
+
+            Response response = clientSocket.getReceiver().getResponse();
+
+            System.out.println(response.getMessage());
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("\033[0;31mInvalid message id!\033[0m");
+        } catch (ResponseNotFoundException e)
+        {
+            System.out.println("\033[0;31m" + e.getMessage() + "\033[0m");
+        }
+    }
 
     private void showPinnedMessages(GetPinnedMsgRes getPinnedMsgRes){
         LinkedList<Message> PMessages = getPinnedMsgRes.getPinnedMessages();
@@ -229,7 +308,7 @@ public class ChannelController extends InputController {
 
         try {
             Response response = clientSocket.getReceiver().getResponse();
-            System.out.println(response.getMessage());
+            System.out.println("\033[0;31m" +response.getMessage() + "\033[0m");
 
         }
         catch(ResponseNotFoundException e){
@@ -252,7 +331,7 @@ public class ChannelController extends InputController {
         clientSocket.send(new DeleteChannelReq(clientSocket.getId(), serverId, channelName));
         try {
             Response response = clientSocket.getReceiver().getResponse();
-            System.out.println(response.getMessage());
+            System.out.println("\033[0;31m" +response.getMessage() + "\033[0m");
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
@@ -272,16 +351,41 @@ public class ChannelController extends InputController {
             clientSocket.send(new AddUserChannelReq(clientSocket.getId(), serverId,
                     channelName, userId));
             Response response = clientSocket.getReceiver().getResponse();
-            if(response.isAccepted()){
-                System.out.println("user added successfully.");
-            }
-            else{
-                System.err.println("Access denied to add to user to the channel");
-                System.err.println(response.getMessage());
-            }
+
+            System.out.println("\033[0;31m" +response.getMessage() + "\033[0m");
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void sendFileMessage()
+    {
+        System.out.println("enter files path :");
+
+        String url = scanner.nextLine();
+
+        //write content into file
+        try
+        {
+            byte[] file = Files.readAllBytes(Path.of(url));
+
+            clientSocket.send(new FileMessage(null , clientSocket.getId() , serverId + "-" + channelName ,
+                    MessageType.CHANNEL, LocalDateTime.now() , url.substring(url.lastIndexOf('/')) , file));
+
+            try {
+                Response response = clientSocket.getReceiver().getResponse();
+
+                System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
+
+            } catch (ResponseNotFoundException e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+        catch (IOException e)
+        {
+            System.out.println("\033[0;31mfailed to open the file.\033[0m");
         }
     }
 

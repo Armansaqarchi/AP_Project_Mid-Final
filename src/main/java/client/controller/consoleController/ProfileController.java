@@ -68,7 +68,7 @@ public class ProfileController extends InputController {
                 password, email, phoneNumber, profileImage, userStatus));
         try {
             Response response = clientSocket.getReceiver().getResponse();
-            System.out.println(response.getMessage());
+            System.out.println("\033[0;31m" +response.getMessage() + "\033[0m");
             if(response.isAccepted()){
                 clientSocket.setId(id);
             }
@@ -88,14 +88,12 @@ public class ProfileController extends InputController {
 
             GetMyProfileRes response = (GetMyProfileRes)clientSocket.getReceiver().getResponse();
 
+            System.out.println("\033[0;31m" +response.getMessage() + "\033[0m");
+
             if(response.isAccepted())
             {
-                System.out.println(response.getMessage());
                 System.out.println(response);
 
-            }
-            else{
-                System.out.println(response.getMessage());
             }
         }
         catch(ResponseNotFoundException e){
@@ -116,7 +114,7 @@ public class ProfileController extends InputController {
         String newName = scanner.nextLine();
         try{
             InfoVerifier.checkUserValidity(newName);
-            this.name = name;
+            this.name = newName;
         }
         catch(InvalidUsernameException e){
             System.out.println(e.getMessage());
@@ -133,13 +131,13 @@ public class ProfileController extends InputController {
         if(newPass.equals(conNewPass)) {
             try {
                 InfoVerifier.checkPasswordValidity(password);
-                this.password = password;
+                this.password = newPass;
             } catch (InvalidPasswordException e) {
                 System.out.println(e.getMessage());
             }
         }
         else{
-            System.err.println("there is mismatch between password and confirm password, try again.");
+            System.out.println("\033[0;31mthere is mismatch between password and confirm password, try again.\033[0m");
         }
     }
 

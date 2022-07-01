@@ -3,8 +3,11 @@ package client;
 import model.Transferable;
 import model.exception.InvalidObjectException;
 import model.exception.ResponseNotFoundException;
+import model.message.FileMsgNotification;
 import model.message.Message;
 import model.response.Response;
+
+import java.util.Scanner;
 
 public class Receiver
 {
@@ -25,9 +28,7 @@ public class Receiver
             try
             {
 
-                Message message = (Message) transferable;
-
-                System.out.println(message);
+                receiveMessage((Message) transferable);
 
             }
             catch (ClassCastException ex)
@@ -70,5 +71,13 @@ public class Receiver
         }
 
         throw new ResponseNotFoundException();
+    }
+
+    private void receiveMessage(Message message)
+    {
+        System.out.println(message);
+
+        //store messages in client side
+        FileHandler.getFileHandler().saveMessage(message);
     }
 }

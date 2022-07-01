@@ -27,16 +27,20 @@ public class FileMsgNotification extends Message
        {
            String[] id = getReceiverId().split("-");
 
-           return "file message from : "+ getSenderId() +
+           return "\033[0;34mfile message from : "+ getSenderId() +
                    "\nserverId : " + id[0] + " channel name : " + id[1] +
                    "\nfile name : " + fileName +
-                   "\nsize : " + fileSize + " bytes.";
+                   "\nsize : " + fileSize + " bytes." +
+                   "\nReactions : " + showReactions() +
+                    "id : " + getId() +"\033[0m";
        }
        else
        {
-           return "file message from : "+ getSenderId() +
+           return "\033[0;34mfile message from : "+ getSenderId() +
                    "\nfile name : " + fileName +
-                   "\nsize : " + fileSize + " bytes.";
+                   "\nsize : " + fileSize + " bytes." +
+                   "\nReactions : " + showReactions() +
+                   "id : " + getId() +"\033[0m";
        }
     }
 
