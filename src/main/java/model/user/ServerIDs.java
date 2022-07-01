@@ -2,9 +2,10 @@ package model.user;
 
 //this class is only used to save servers id and
 // its channels ids in a user object
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class ServerIDs
+public class ServerIDs implements Serializable
 {
     //the servers id
     private String id;
