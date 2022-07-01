@@ -78,6 +78,11 @@ public class MessageOp extends Op {
         insertMessage(message.getId().toString(),
                 message.getSenderId(), message.getReceiverId(),message.getType(),
                 message.getDate(), message.getContent());
+
+        if(message instanceof FileMessage)
+        {
+            message.setSenderId(message.getSenderId().substring(0 , message.getSenderId().indexOf('-')));
+        }
     }
 
     public void updateMessage(String id, String type, String newValue)throws SQLException,

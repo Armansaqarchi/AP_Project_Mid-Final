@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.UUID;
 
 public class UserService
 {
@@ -353,7 +354,7 @@ public class UserService
             User user = database.getUserOp().findById(request.getSenderId());
 
             return new GetFriendReqListRes(request.getSenderId() , true ,
-                    "friend request list sent." , user.getFriendRequests());
+                    "friend request list sent." , getFriendRequest(user.getFriendRequests()));
         }
         catch (ConfigNotFoundException e)
         {
@@ -431,6 +432,31 @@ public class UserService
         }
 
         return usersStatus;
+    }
+
+    private HashMap<UUID , String> getFriendRequest(LinkedList<UUID> requests)
+    {
+        HashMap<UUID , String> friendRequests = new HashMap<>();
+
+        for(UUID uuid : requests)
+        {
+            try
+            {
+                FriendReq friendReq = Database.getDatabase().getFriendRequestOp().findById(uuid.toString());
+                friendRequests.put(friendReq.getId() , friendReq.getSenderId());
+            }
+            catch (ConfigNotFoundException e)
+            {
+
+            }
+            catch (IOException | SQLException | ClassNotFoundException e)
+            {
+                throw new RuntimeException(e);
+            }
+
+        }
+
+        return friendRequests;
     }
 
     public void turnUserStatus(String id , UserStatus status)

@@ -15,18 +15,28 @@ import java.util.LinkedList;
 
 public class FileHandler
 {
+    private static FileHandler fileHandler;
     private final String messageUrl;
     private final String fileUrl;
 
-    public FileHandler(String id)
+    public static FileHandler getFileHandler()
     {
-        fileUrl = "client/" + id + "/message";
-        messageUrl = "client/" + id + "/file";
+        if(null == fileHandler)
+        {
+            fileHandler = new FileHandler();
+        }
+
+        return fileHandler;
+    }
+    private FileHandler()
+    {
+        messageUrl = "client/message";
+        fileUrl = "client/file";
         new File(messageUrl).mkdirs();
         new File(fileUrl).mkdirs();
     }
 
-    private void saveMessage(Message message)
+    public void saveMessage(Message message)
     {
         try
         {
@@ -88,7 +98,7 @@ public class FileHandler
         }
     }
 
-    private void saveMessage(LinkedList<Message> messages)
+    public void saveMessage(LinkedList<Message> messages)
     {
         //if list was empty it will not be written in file
         if(messages.isEmpty())
@@ -135,7 +145,7 @@ public class FileHandler
         }
     }
 
-    private void saveFile(GetFileMsgRes response)
+    public void saveFile(GetFileMsgRes response)
     {
         String url = fileUrl + '/' + response.getFileName();
 
