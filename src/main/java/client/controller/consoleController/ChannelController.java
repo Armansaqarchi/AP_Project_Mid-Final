@@ -43,10 +43,8 @@ public class ChannelController extends InputController {
             clientSocket.send(new RemoveUserChannelReq(clientSocket.getId(), serverId,
                     channelName, userId));
             Response response = clientSocket.getReceiver().getResponse();
-            if(!response.isAccepted()){
-                System.err.println("Access denied to remove from channel.");
-                System.err.println(response.getMessage());
-            }
+
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
@@ -67,11 +65,11 @@ public class ChannelController extends InputController {
                     channelName, newName));
             Response response = clientSocket.getReceiver().getResponse();
             if(response.isAccepted()){
-                System.out.println("channelName was successfully renamed to " + newName);
+                System.out.println("\033[0;31mchannelName was successfully renamed to " + newName + "\033[0m");
             }
             else{
-                System.out.println("Access denied to change the channel's name.");
-                System.out.println(response.getMessage());
+                System.out.println("\033[0;31mAccess denied to change the channel's name.");
+                System.out.println(response.getMessage() + "\033[0m");
             }
         }
         catch(ResponseNotFoundException e){
@@ -93,8 +91,8 @@ public class ChannelController extends InputController {
                 return response instanceof GetChatHistoryRes ? (GetChatHistoryRes) response : null;
             }
             else{
-                System.out.println("Access denied to get history chat.");
-                System.out.println(response.getMessage());
+                System.out.println("\033[0;31mAccess denied to get history chat.");
+                System.out.println(response.getMessage() + "\033[0m");
             }
         }
         catch(ResponseNotFoundException e){
@@ -155,9 +153,10 @@ public class ChannelController extends InputController {
             try {
                 Response response = clientSocket.getReceiver().getResponse();
                 if (!response.isAccepted()) {
-                    System.err.println("Access denied to send the message");
-                    System.err.println(response.getMessage());
+                    System.err.println("\033[0;31mAccess denied to send the message");
                 }
+
+                System.err.println(response.getMessage() + "\033[0m");
             }
             catch(ResponseNotFoundException e){
                 System.out.println(e.getMessage());
@@ -174,24 +173,14 @@ public class ChannelController extends InputController {
 
         try {
             clientSocket.send(new GetPinnedMsgReq(clientSocket.getId(), serverId, channelName));
-            Response response = clientSocket.getReceiver().getResponse();
-            if(response == null){
-                System.err.println("No valid response was receiver from server");
-                return null;
-            }
-            else if(response instanceof GetPinnedMsgRes){
+            GetPinnedMsgRes response = (GetPinnedMsgRes)clientSocket.getReceiver().getResponse();
+
                 if(response.isAccepted()){
 
                     //show pinned message
                 }
-                else{
-                    System.err.println("asking for getting pinned messages was rejected by server");
-                    System.err.println(response.getMessage());
-                    return null;
-                }
-            }
 
-        }
+            }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
         }
