@@ -27,7 +27,7 @@ public class Receiver
 
                 Message message = (Message) transferable;
 
-                //incomplete
+                System.out.println(message);
 
             }
             catch (ClassCastException ex)
@@ -45,7 +45,7 @@ public class Receiver
 
     public Response getResponse() throws ResponseNotFoundException
     {
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 1000; i++)
         {
             if (this.response != null)
             {
@@ -60,7 +60,7 @@ public class Receiver
             {
                 try
                 {
-                    Thread.sleep(1000);
+                    Thread.sleep(50);
                 }
                 catch (InterruptedException e)
                 {

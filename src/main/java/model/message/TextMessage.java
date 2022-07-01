@@ -28,7 +28,8 @@ public class TextMessage extends Message
         this.content = content;
     }
 
-    public String showMessage(){
+    public String toString()
+    {
         return "\n" + getSenderId() + " : \n" +
                 content + "            Reactions : " + showReactions();
     }

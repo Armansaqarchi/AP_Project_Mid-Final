@@ -138,12 +138,7 @@ public class UserController extends InputController {
             clientSocket.send(new FriendReq(clientSocket.getId(), UUID.randomUUID(), userId));
             Response response = clientSocket.getReceiver().getResponse();
 
-            if(!response.isAccepted()){
-                System.err.println(response.getMessage());
-            }
-            else{
-                System.out.println("User successfully added");
-            }
+            System.out.println(response.getMessage());
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
@@ -343,7 +338,7 @@ public class UserController extends InputController {
 
             System.out.println(chatMessages.size());
             for(Message i : chatMessages){
-                System.out.println(i.showMessage());
+                System.out.println(i);
             }
 
         }

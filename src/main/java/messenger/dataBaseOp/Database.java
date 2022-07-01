@@ -22,7 +22,7 @@ public class Database {
 
             Connection connection = DriverManager.getConnection(
                     "jdbc:postgresql://127.0.0.1:5432/Discord" ,
-                    "root" , "postgres");
+                    "postgres" , "postgres");
 
             channelOp = new ChannelOp(connection);
             friendRequestOp = new FriendRequestOp(connection);
