@@ -8,6 +8,7 @@ import model.request.Authentication.AuthenticationReq;
 import model.request.Channel.ChannelReq;
 import model.request.GetFileMsgReq;
 import model.request.Request;
+import model.request.priavteChat.GetPrivateChatHisReq;
 import model.request.priavteChat.PrivateChatReq;
 import model.request.server.ServerReq;
 import model.request.user.UserRequest;
@@ -51,7 +52,9 @@ public class Receiver
 
         try
         {
+
             getRequest((Request) transferable);
+            System.out.println("dsafas");
         }
         catch (ClassCastException e)
         {

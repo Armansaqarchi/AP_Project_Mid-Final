@@ -16,6 +16,12 @@ public abstract class InputController {
         this.clientSocket = clientSocket;
     }
 
+    /**
+     * takes an optional input from client, useful for menu handlers class and controllers class
+     * @param start
+     * @param end
+     * @return
+     */
     public static int getOptionalInput(int start, int end){
         int choice;
 

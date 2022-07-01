@@ -5,7 +5,12 @@ import model.user.User;
 
 public class Controllers {
 
+    //this class is go-between class
+    //between controller's class and menu class
+
+    //singleton design pattern
     private static Controllers controllers;
+
     private final ProfileController profileController;
     private final ServerController serverController;
     private final SignInController signInController;

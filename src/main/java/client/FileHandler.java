@@ -57,7 +57,7 @@ public class FileHandler
 
             File file = new File(messageUrl + '/' + fileName);
 
-            //checking that file is exists or not
+            //checking that file exists or not
             if(file.createNewFile())
             {
                 messages = new LinkedList<>();

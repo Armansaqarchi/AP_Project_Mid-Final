@@ -84,7 +84,7 @@ public class TerminalMenu {
                 case 3 -> controllers.getUserController().addFriend();
                 case 4 -> controllers.getUserController().showUserProfile();
                 case 5 -> controllers.getUserController().blockUser();
-                case 6 -> controllers.getUserController().answerFriendRequest();
+                case 6 -> controllers.getUserController().answerFriendReq();
                 case 7 -> isRunning = false;
             }
         }
