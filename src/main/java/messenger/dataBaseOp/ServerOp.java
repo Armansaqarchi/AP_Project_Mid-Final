@@ -151,7 +151,7 @@ public class ServerOp extends Op{
     }
 
 
-    public <T,U>boolean updateServerHashList(UpdateType type, String id, T key, U value)
+    public <T,U>boolean updateServerHashList(UpdateType type, String columnName, String id, T key, U value)
     throws SQLException, IOException, ClassNotFoundException, ConfigNotFoundException{
 
         HashMap<T, U> targetList = null;
@@ -198,7 +198,7 @@ public class ServerOp extends Op{
 
         byte[] updatedList = objectConvertor(targetList);
 
-        String query2 = "UPDATE server SET rules = ? WHERE server_id = ?";
+        String query2 = "UPDATE server SET " + columnName +  " = ? WHERE server_id = ?";
 
         PreparedStatement pst2 = connection.prepareStatement(query2);
         pst2.setBytes(1, updatedList);
