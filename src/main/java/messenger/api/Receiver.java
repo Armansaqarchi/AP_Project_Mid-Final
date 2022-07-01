@@ -52,7 +52,6 @@ public class Receiver
         try
         {
             getRequest((Request) transferable);
-
         }
         catch (ClassCastException e)
         {
