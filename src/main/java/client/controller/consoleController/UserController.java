@@ -1,7 +1,7 @@
 package client.controller.consoleController;
 
 import client.ClientSocket;
-import model.PrivateChat;
+import client.FileHandler;
 import model.exception.ResponseNotFoundException;
 import model.message.Message;
 import model.message.MessageType;
@@ -11,7 +11,6 @@ import model.request.user.*;
 import model.response.Response;
 import model.response.privateChat.GetPrivateChatHisRes;
 import model.response.user.*;
-import model.user.ServerIDs;
 import model.user.UserStatus;
 
 
@@ -340,6 +339,8 @@ public class UserController extends InputController {
                 System.out.println(i);
             }
 
+            //saving chat history in file
+            FileHandler.getFileHandler().saveMessage(chatMessages);
         }
     }
 }

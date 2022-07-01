@@ -1,6 +1,7 @@
 package client.controller.consoleController;
 
 import client.ClientSocket;
+import client.FileHandler;
 import model.exception.ResponseNotFoundException;
 import model.message.Message;
 import model.message.MessageType;
@@ -114,6 +115,9 @@ public class ChannelController extends InputController {
         for(Message message : messages){
             System.out.println(message);
         }
+
+        //saving history of channel in file
+        FileHandler.getFileHandler().saveMessage(messages);
     }
 
 
