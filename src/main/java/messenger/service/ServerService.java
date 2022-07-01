@@ -82,7 +82,7 @@ public class ServerService
             if(server.getUsers().contains(request.getSenderId()))
             {
                 //add user to server
-                database.getServerOp().updateServerList(UpdateType.ADD , server.getId(), "users" , request.getUserIds());
+                database.getServerOp().updateServerList(UpdateType.ADD , "users", server.getId(), request.getUserIds());
 
                 ServerIDs serverId = new ServerIDs(server.getId(), new LinkedList<>());
 
@@ -204,7 +204,7 @@ public class ServerService
             if(checkRule(request.getSenderId() , request.getServerId(), RuleType.REMOVE_MEMBER))
             {
                 //remove user from server
-                database.getServerOp().updateServerList(UpdateType.REMOVE , server.getId(), "users" , request.getUserIds());
+                database.getServerOp().updateServerList(UpdateType.REMOVE , "users" , server.getId() , request.getUserIds());
 
                 ServerIDs serverId = new ServerIDs(server.getId(), new LinkedList<>());
 
