@@ -105,6 +105,7 @@ public class ChannelService
             {
                 TextChannel channel = new TextChannel(UUID.randomUUID() , request.getChannelName() , ChannelType.TEXT);
 
+                database.getServerOp().updateServerList(UpdateType.ADD , "channels" , request.getServerId(), request.getChannelName());
                 //adding users of server into channel
                 for(String userId : server.getUsers())
                 {
@@ -156,6 +157,20 @@ public class ChannelService
 
             //delete channel
             database.getChannelOp().deleteChannelById(channelId.toString());
+
+            database.getServerOp().updateServerList(UpdateType.REMOVE, "channels" , request.getServerId(), request.getChannelName());
+            //adding users of server into channel
+            for(String userId : server.getUsers())
+            {
+                User user = database.getUserOp().findById(userId);
+
+                ServerIDs serverIDs = user.getServers().get(user.getServers().indexOf(new ServerIDs(server.getId() , null)));
+                serverIDs.getChannels().remove(request.getChannelName());
+
+                database.getServerOp().updateServerList(UpdateType.REMOVE , "servers" , userId , serverIDs);
+                database.getServerOp().updateServerList(UpdateType.ADD , "servers" , userId , serverIDs);
+
+            }
 
             return new Response(request.getSenderId() , true ,
                     "channel deleted successfully.");
