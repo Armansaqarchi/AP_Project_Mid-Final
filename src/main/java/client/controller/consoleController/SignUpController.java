@@ -188,6 +188,7 @@ public class SignUpController extends InputController {
                 InfoVerifier.checkPhoneNumberValidity(phoneNumber);
                 return;
             } catch (InvalidPhoneNumberException e) {
+                phoneNumber = null;
                 System.err.println(e.getMessage());
             }
         }

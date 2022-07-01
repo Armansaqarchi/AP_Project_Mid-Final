@@ -278,8 +278,11 @@ public class UserController extends InputController {
         }
 
         try{
+            System.out.println("1");
             clientSocket.send(new GetPrivateChatHisReq(clientSocket.getId(), userId));
+            System.out.println("2");
             Response response = clientSocket.getReceiver().getResponse();
+            System.out.println("3");
             if(response instanceof GetPrivateChatHisRes){
                 return (GetPrivateChatHisRes) response;
             }
@@ -313,6 +316,10 @@ public class UserController extends InputController {
 
         GetPrivateChatsRes getPrivateChatsRes = getChats();
 
+        if(getPrivateChatsRes == null){
+            return;
+        }
+
         for(String i : getPrivateChatsRes.getPrivateChats()){
             System.out.println(i);
         }
@@ -331,6 +338,7 @@ public class UserController extends InputController {
             System.err.println(PChatHisRes.getMessage());
         }
         else{
+            System.out.println(PChatHisRes.getMessages());
             LinkedList<Message> chatMessages = PChatHisRes.getMessages();
 
             System.out.println(chatMessages.size());
