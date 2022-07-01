@@ -18,9 +18,11 @@ public abstract class InputController {
 
     /**
      * takes an optional input from client, useful for menu handlers class and controllers class
-     * @param start
-     * @param end
-     * @return
+     *
+     * @param start, specifies start point of period of inputting
+     * @param end, specifies end point of period of inputting
+     * @return an int number which is clients selected option
+     * @author Arman sagharchi
      */
     public static int getOptionalInput(int start, int end){
         int choice;
