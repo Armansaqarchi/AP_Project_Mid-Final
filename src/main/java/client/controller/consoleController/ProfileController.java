@@ -187,25 +187,4 @@ public class ProfileController extends InputController {
         }
     }
 
-
-    private void showProfile(){
-        System.out.println("enter your id : ");
-        System.out.println("to be back, enter '-0'");
-        id = scanner.nextLine();
-
-        if(id.equals("-0")) return;
-
-        try {
-            clientSocket.send(new GetMyProfileReq(id));
-            Response response = clientSocket.getReceiver().getResponse();
-
-            if(response.isAccepted()){
-                //show Profile
-            }
-        }
-        catch(ResponseNotFoundException e){
-            System.out.println(e.getMessage());
-        }
-    }
-
 }
