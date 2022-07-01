@@ -55,6 +55,14 @@ public class AuthenticationApi
 
     private void handleResponse(Response response , AuthenticationReq request)
     {
+        try {
+            sender.sendResponse(response , request.getServerThread());
+        }
+        catch (ServerThreadNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+        }
+
         if(response.isAccepted())
         {
             //add new client to connections list
@@ -63,14 +71,6 @@ public class AuthenticationApi
 
             //set serverThreads id
             request.getServerThread().verified(request.getId());
-        }
-
-        try {
-            sender.sendResponse(response , request.getServerThread());
-        }
-        catch (ServerThreadNotFoundException e)
-        {
-            System.out.println(e.getMessage());
         }
     }
 }

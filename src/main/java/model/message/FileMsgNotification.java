@@ -14,13 +14,13 @@ public class FileMsgNotification extends Message
     public FileMsgNotification(FileMessage message)
     {
         super(message.getId() , message.getSenderId() , message.getReceiverId() ,
-                message.getType() , message.getDate());
+                message.getType() , message.getDate() , message.getReactions());
         fileName = message.getFileName();
         fileSize = message.getContent().length;
     }
 
     @Override
-    public String showMessage()
+    public String toString()
     {
 
        if(MessageType.CHANNEL == getType())
