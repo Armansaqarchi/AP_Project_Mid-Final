@@ -239,8 +239,9 @@ public class UserController extends InputController {
             return;
         }
 
-        for(UUID i : getFriendReqList.getFriendRequests()){
-            System.out.println(i);
+        for(UUID i : getFriendReqList.getFriendRequests().keySet()){
+            System.out.println("sender id : " + getFriendReqList.getFriendRequests().get(i)
+                    + "uuid : " + i);
         }
 
     }
