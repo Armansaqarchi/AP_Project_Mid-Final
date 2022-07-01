@@ -37,7 +37,7 @@ public class FileMessage extends Message
 
     @Override
     public String toString() {
-        return "\n" + getSenderId() + " : \n" +
-                "File message" + "            Reactions : " + showReactions();
+        return "\033[0;34m\n" + getSenderId() + " : \n" +
+                "File message" + "\nReactions : " + showReactions() + "\033[0m";
     }
 }

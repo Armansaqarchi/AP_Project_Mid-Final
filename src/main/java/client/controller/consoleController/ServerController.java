@@ -47,14 +47,13 @@ public class ServerController extends InputController
             clientSocket.send(new AddRuleServerReq(clientSocket.getId() , serverId , rule));
 
             Response response = clientSocket.getReceiver().getResponse();
-            if(response.isAccepted()){
+            if(!response.isAccepted())
+            {
+                System.out.println("\033[0;31mAccess denied to add rule.\033[0m");
                 System.out.println(response.getMessage());
             }
-            else{
-                System.out.println("Access denied to add rule.");
 
-                System.out.println(response.getMessage());
-            }
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
@@ -75,14 +74,12 @@ public class ServerController extends InputController
             clientSocket.send(new AddUserServerReq(clientSocket.getId() , serverId , userId));
 
             Response response = clientSocket.getReceiver().getResponse();
-            if(response.isAccepted()){
-                System.out.println(response.getMessage());
-            }
-            else{
-                System.out.println("Access denied to add user.");
 
-                System.out.println(response.getMessage());
+            if(!response.isAccepted()){
+                System.out.println("\033[0;31mAccess denied to add user.\033[0m");
             }
+
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
@@ -110,13 +107,11 @@ public class ServerController extends InputController
             clientSocket.send(new CreateServerReq(clientSocket.getId() , serverId , name , image));
 
             Response response = clientSocket.getReceiver().getResponse();
-            if(response.isAccepted()){
-                System.out.println(response.getMessage());
+            if(!response.isAccepted()){
+                System.out.println("\033[0;31mFailed to creat the server.\033[0m");
             }
-            else{
-                System.out.println("Failed to creat the server.");
-                System.out.println(response.getMessage());
-            }
+
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
@@ -133,13 +128,12 @@ public class ServerController extends InputController
             clientSocket.send(new DeleteServerReq(clientSocket.getId() , serverId));
 
             Response response = clientSocket.getReceiver().getResponse();
-            if(response.isAccepted()){
-                System.out.println("server was successfully deleted.");
+
+            if(!response.isAccepted()){
+                System.out.println("\033[0;31mAccess denied to delete the server.\033[0m");
             }
-            else{
-                System.out.println("Access denied to delete the server.");
-                System.out.println(response.getMessage());
-            }
+
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
@@ -158,14 +152,14 @@ public class ServerController extends InputController
             GetRulesServerRes response = (GetRulesServerRes) clientSocket.getReceiver().getResponse();
             if(response.isAccepted())
             {
-                System.out.println(response.getMessage());
+                System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
 
                 printRules(response.getRules());
 
             }
             else{
-                System.out.println("Access denied to get the server's rules.");
-                System.out.println(response.getMessage());
+                System.out.println("\033[0;31mAccess denied to get the server's rules.");
+                System.out.println(response.getMessage() + "\033[0m");
             }
         }
         catch(ResponseNotFoundException e){
@@ -185,12 +179,12 @@ public class ServerController extends InputController
             GetServerInfoRes response = (GetServerInfoRes) clientSocket.getReceiver().getResponse();
             if(response.isAccepted())
             {
-                System.out.println(response.getMessage());
+                System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
                 System.out.println(response);
             }
             else{
-                System.out.println("Access denied to get server's information.");
-                System.out.println(response.getMessage());
+                System.out.println("\033[0;31mAccess denied to get server's information.");
+                System.out.println(response.getMessage() + "\033[0m");
             }
         }
         catch(ResponseNotFoundException e){
@@ -216,14 +210,11 @@ public class ServerController extends InputController
 
             Response response = clientSocket.getReceiver().getResponse();
 
-            if(response.isAccepted()){
-                System.out.println("server image was successfully changed.");
+            if(!response.isAccepted()){
+                System.out.println("\033[0;31mAccess denied to change the server's image.\033[0m");
             }
-            else
-            {
-                System.out.println("Access denied to change the server's image.");
-                System.out.println(response.getMessage());
-            }
+
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
@@ -245,13 +236,12 @@ public class ServerController extends InputController
             clientSocket.send(new RenameServerReq(clientSocket.getId() , serverId , name));
 
             Response response = clientSocket.getReceiver().getResponse();
-            if(response.isAccepted()){
-                System.out.println("serverName was successfully renamed to " + name);
+
+            if(!response.isAccepted()){
+                System.out.println("\033[0;31mAccess denied to change the server's name.\033[0m");
             }
-            else{
-                System.out.println("Access denied to change the server's name.");
-                System.out.println(response.getMessage());
-            }
+
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
@@ -272,7 +262,7 @@ public class ServerController extends InputController
                 return (GetUserStatusRes) response;
             }
             else{
-                System.out.println(response.getMessage());
+                System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
             }
         }
         catch(ResponseNotFoundException e){
@@ -311,7 +301,7 @@ public class ServerController extends InputController
 
         try{
             Response response = clientSocket.getReceiver().getResponse();
-            System.out.println(response.getMessage());
+            System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());

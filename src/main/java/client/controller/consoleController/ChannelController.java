@@ -153,10 +153,10 @@ public class ChannelController extends InputController {
             try {
                 Response response = clientSocket.getReceiver().getResponse();
                 if (!response.isAccepted()) {
-                    System.err.println("\033[0;31mAccess denied to send the message");
+                    System.out.println("\033[0;31mAccess denied to send the message");
                 }
 
-                System.err.println(response.getMessage() + "\033[0m");
+                System.out.println(response.getMessage() + "\033[0m");
             }
             catch(ResponseNotFoundException e){
                 System.out.println(e.getMessage());
@@ -175,12 +175,16 @@ public class ChannelController extends InputController {
             clientSocket.send(new GetPinnedMsgReq(clientSocket.getId(), serverId, channelName));
             GetPinnedMsgRes response = (GetPinnedMsgRes)clientSocket.getReceiver().getResponse();
 
-                if(response.isAccepted()){
+            if(response.isAccepted()){
 
-                    //show pinned message
-                }
+                showPinnedMessages(response);
 
             }
+            else
+            {
+                System.out.println("\033[0;31m" +response.getMessage() + "\033[0m");
+            }
+        }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
         }
@@ -229,7 +233,7 @@ public class ChannelController extends InputController {
 
         try {
             Response response = clientSocket.getReceiver().getResponse();
-            System.out.println(response.getMessage());
+            System.out.println("\033[0;31m" +response.getMessage() + "\033[0m");
 
         }
         catch(ResponseNotFoundException e){
@@ -252,7 +256,7 @@ public class ChannelController extends InputController {
         clientSocket.send(new DeleteChannelReq(clientSocket.getId(), serverId, channelName));
         try {
             Response response = clientSocket.getReceiver().getResponse();
-            System.out.println(response.getMessage());
+            System.out.println("\033[0;31m" +response.getMessage() + "\033[0m");
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
@@ -272,13 +276,8 @@ public class ChannelController extends InputController {
             clientSocket.send(new AddUserChannelReq(clientSocket.getId(), serverId,
                     channelName, userId));
             Response response = clientSocket.getReceiver().getResponse();
-            if(response.isAccepted()){
-                System.out.println("user added successfully.");
-            }
-            else{
-                System.err.println("Access denied to add to user to the channel");
-                System.err.println(response.getMessage());
-            }
+
+            System.out.println("\033[0;31m" +response.getMessage() + "\033[0m");
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
