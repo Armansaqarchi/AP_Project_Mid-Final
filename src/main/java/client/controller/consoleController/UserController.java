@@ -212,7 +212,7 @@ public class UserController extends InputController {
         boolean isAccepted;
 
         System.out.println("enter '-0' in order to exit");
-        System.out.println("Enter messages id : ");
+        System.out.println("Enter requests id : ");
         String id = scanner.nextLine();
         if(id.equals("-0")){
             return;
