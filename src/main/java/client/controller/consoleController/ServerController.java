@@ -417,14 +417,14 @@ public class ServerController extends InputController
 
             if(response.isAccepted())
             {
-                System.out.println(response.getMessage());
+                System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
 
                 //print servers
                 showServers(response.getServers());
             }
             else
             {
-                System.out.println(response.getMessage());
+                System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
             }
         }
         catch(ResponseNotFoundException e){
