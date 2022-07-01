@@ -30,8 +30,8 @@ public class FileHandler
     }
     private FileHandler()
     {
-        fileUrl = "client/message";
-        messageUrl = "client/file";
+        messageUrl = "client/message";
+        fileUrl = "client/file";
         new File(messageUrl).mkdirs();
         new File(fileUrl).mkdirs();
     }
