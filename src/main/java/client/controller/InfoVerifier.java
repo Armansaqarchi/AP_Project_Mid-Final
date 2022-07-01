@@ -77,6 +77,11 @@ public class InfoVerifier {
 
     }
 
+    /**
+     * checks the phone number validity
+     * @param phoneNumber, client phone number
+     * @throws InvalidPhoneNumberException, if phone number has invalid format
+     */
     public static void checkPhoneNumberValidity(String phoneNumber)
             throws InvalidPhoneNumberException {
         int size = phoneNumber.length();

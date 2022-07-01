@@ -10,10 +10,13 @@ import java.net.Socket;
 
 public class ClientSocket implements Runnable
 {
+    //has a receiver which receives responses from server
     private final Receiver receiver;
 
+    //client id
     private String id;
 
+    //socket between client and server
     private final Socket socket;
     private final ObjectInputStream inputStream;
     private final ObjectOutputStream outputStream;
@@ -21,6 +24,7 @@ public class ClientSocket implements Runnable
 
     public ClientSocket()
     {
+        //setting primary configs for client
         receiver = new Receiver();
 
         try
@@ -35,9 +39,15 @@ public class ClientSocket implements Runnable
         }
     }
 
+    /**
+     * this method is overRide method of runnable interface
+     * this is used to take messages and requests coming from the server
+     */
     @Override
     public void run()
     {
+        //beside the main thread, client has a second thread
+        // which checks the responses coming from server
         while(socket.isConnected())
         {
             try
@@ -52,6 +62,11 @@ public class ClientSocket implements Runnable
         }
     }
 
+    /**
+     * takes a transferable and sends it to the server
+     * @param transferable, the req
+     * @author mahdi kalhor
+     */
     public void send(Transferable transferable)
     {
         try
