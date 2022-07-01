@@ -105,12 +105,15 @@ public class ChannelService
             {
                 TextChannel channel = new TextChannel(UUID.randomUUID() , request.getChannelName() , ChannelType.TEXT);
 
-                database.getServerOp().updateServerList(UpdateType.ADD , "channels" , request.getServerId(), request.getChannelName());
+                System.out.println("1");
+                database.getServerOp().updateServerHashList(UpdateType.ADD , request.getServerId(), request.getChannelName() , channel.getId());
+                System.out.println("2");
                 //adding users of server into channel
                 for(String userId : server.getUsers())
                 {
                     database.getChannelOp().updateChannelList(UpdateType.ADD , "users" , channel.getId().toString() , userId);
 
+                    System.out.println("3");
                     User user = database.getUserOp().findById(userId);
 
                     ServerIDs serverIDs = user.getServers().get(user.getServers().indexOf(new ServerIDs(server.getId() , null)));
@@ -158,7 +161,7 @@ public class ChannelService
             //delete channel
             database.getChannelOp().deleteChannelById(channelId.toString());
 
-            database.getServerOp().updateServerList(UpdateType.REMOVE, "channels" , request.getServerId(), request.getChannelName());
+            database.getServerOp().updateServerHashList(UpdateType.REMOVE , request.getServerId(), request.getChannelName() , channelId);
             //adding users of server into channel
             for(String userId : server.getUsers())
             {
