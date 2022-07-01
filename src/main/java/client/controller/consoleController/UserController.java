@@ -183,9 +183,9 @@ public class UserController extends InputController {
                 clientSocket.send(new TextMessage(null, clientSocket.getId(), userId, MessageType.PRIVATE_CHAT,
                         LocalDateTime.now(), content));
                 Response response = clientSocket.getReceiver().getResponse();
-                if (!response.isAccepted()) {
-                    System.out.println(response.getMessage());
-                }
+
+                    System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
+
             } catch (ResponseNotFoundException e) {
                 System.out.println(e.getMessage());
             }
