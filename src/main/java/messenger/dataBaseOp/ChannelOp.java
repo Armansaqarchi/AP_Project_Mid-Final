@@ -27,7 +27,7 @@ public class ChannelOp extends Op{
 
     public  Channel findById(String id)
             throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
-        return findByConfigChannel(id, "channel_id");
+        return findByConfigChannel(id, "id");
     }
 
     public Channel findByName(String name)
@@ -132,7 +132,7 @@ public class ChannelOp extends Op{
     public boolean deleteChannelById(String id) throws SQLException, ClassNotFoundException,
             IOException, ConfigNotFoundException {
 
-        return deleteById(id, "channel", "channel_id", "Channel");
+        return deleteById(id, "channel", "id", "Channel");
     }
 
 
@@ -144,7 +144,7 @@ public class ChannelOp extends Op{
             return null;
         }
 
-        String channelId = resultSet.getString("channel_id");
+        String channelId = resultSet.getString("id");
         String name = resultSet.getString("name");
         LinkedList<String> users = null;
         LinkedList<UUID> messages = null;
