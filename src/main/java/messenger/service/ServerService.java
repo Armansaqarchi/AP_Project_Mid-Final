@@ -116,6 +116,12 @@ public class ServerService
             database.getServerOp().insertServer(request.getServerId() , request.getSenderId() , request.getName());
 
             database.getServerOp().updateServerList(UpdateType.ADD , "users" , request.getServerId(), request.getSenderId());
+
+            ServerIDs serverId = new ServerIDs(request.getServerId(), new LinkedList<>());
+
+            //add serverID to owners servers
+            database.getUserOp().updateList(UpdateType.ADD , "servers" , request.getSenderId() , serverId);
+
             if(null != request.getImage())
             {
                 database.getServerOp().updateServerProfileImage(request.getImage(), request.getServerId());
