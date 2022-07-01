@@ -370,6 +370,11 @@ public class ServerService
         {
             Server server = database.getServerOp().findByServerId(serverId);
 
+            if(server.getOwnerId().equals(userId))
+            {
+                return true;
+            }
+
             if(server.getRules().get(userId).getRules().contains(ruleType))
             {
                 return true;
