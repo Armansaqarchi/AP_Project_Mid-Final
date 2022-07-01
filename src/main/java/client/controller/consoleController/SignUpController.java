@@ -12,7 +12,7 @@ public class SignUpController extends InputController {
 
     Scanner scanner;
 
-
+    //essential fields to sign up
     private String id;
     private String name;
     private String password;
@@ -32,34 +32,42 @@ public class SignUpController extends InputController {
     }
 
 
-
+    /**
+     * this method takes all the user details and sends the signUp request to the server
+     * @return true if the registering was successful
+     * @author Arman sagharchi
+     */
     public boolean getUserInfo(){
 
 
+
+        //takes the id
         System.out.println("Please enter info's needed to register : ");
         getId();
         if(id == null){
             return false;
         }
 
-
+        //takes the name
         getUserName();
         if(name == null){
             return false;
         }
 
+        //takes the password
         getPassword();
         if(password == null){
             return false;
         }
 
-
+        //takes the email
         getEmail();
         if(email == null){
             return false;
         }
 
 
+        //takes the phone number
         System.out.println("do you want to enter phone number ? ");
         System.out.println("[1] Yes");
         System.out.println("[2] No");
@@ -73,9 +81,11 @@ public class SignUpController extends InputController {
         }
 
 
+        //sends the related req to the server
         clientSocket.send(new SignupReq(clientSocket.getId(), id, password,
                 null, name, email, phoneNumber, null));
         try {
+            //takes the response from server about whether it was successful
             Response response = clientSocket.getReceiver().getResponse();
             System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
             if(response.isAccepted()) return true;
@@ -87,43 +97,59 @@ public class SignUpController extends InputController {
         return false;
     }
 
+
+    /**
+     * takes the id from user to sign up
+     * @author Arman sagharchi
+     */
     private void getId(){
 
-        System.out.println("enter id : ");
-        System.out.println("enter '-0' in order to be back");
-        id = scanner.nextLine();
-        if(id.equals("-0")){
-            id = null;
+        try {
+            System.out.println("enter id : ");
+            System.out.println("enter '-0' in order to be back");
+            id = scanner.nextLine();
+            if (id.equals("-0")) {
+                id = null;
+                return;
+            }
+            InfoVerifier.checkUserValidity(id);
+
+        }
+        catch(InvalidUsernameException e){
+            System.out.println(e.getMessage());
         }
     }
 
-
-
-
+    /**
+     * takes the name from client
+     * @author Arman sagharchi
+     */
     private void getUserName(){
 
-        while(true) {
-            try {
-                System.out.println("enter name : ");
-                System.out.println("enter '-0' in order to be back");
-                name = scanner.nextLine();
-                if (name.equals("-0")) {
-                    password = null;
-                    return;
-                }
-                InfoVerifier.checkUserValidity(name);
-                return;
+        //stuck in a loop till the client wants to be back or
+        //enters the info
 
-            } catch (InvalidUsernameException e) {
-                System.out.println("\033[0;31m" + e.getMessage() + "\033[0m");
-            }
+
+        System.out.println("enter name : ");
+        System.out.println("enter '-0' in order to be back");
+        name = scanner.nextLine();
+        if (name.equals("-0")) {
+            name = null;
         }
+
 
     }
 
+    /**
+     * takes the password from client
+     * and also checks the format of password
+     * it must have an upper case and a lower case and also a number
+     * @author Arman sagharchi
+     */
     private void getPassword(){
         while(true) {
             try {
+                //takes the password
                 System.out.println("enter password : ");
                 System.out.println("enter '-0' in order to be back");
                 password = scanner.nextLine();
@@ -132,6 +158,8 @@ public class SignUpController extends InputController {
                     password = null;
                     return;
                 }
+                //takes the password again for preventing any mismatch and incorrect inputting
+                //from client
                 System.out.print("confirm password : ");
                 String confirmPassword = scanner.nextLine();
                 if (confirmPassword.equals("-0")) {
@@ -140,6 +168,7 @@ public class SignUpController extends InputController {
                 }
 
                 if (password.equals(confirmPassword)) {
+                    //checks the validity
                     InfoVerifier.checkPasswordValidity(password);
                     return;
                 } else {
@@ -151,11 +180,18 @@ public class SignUpController extends InputController {
         }
     }
 
+    /**
+     * takes the email from client
+     * and checks the validity of email
+     * it should have a valid domain like @gmail.com
+     * @author Arman sagharchi
+     */
     private void getEmail(){
 
 
         while(true) {
             try {
+                //takes the needs from client
                 System.out.println("enter email : ");
                 System.out.println("enter '1' in order to be back");
                 email = scanner.nextLine();
@@ -163,6 +199,7 @@ public class SignUpController extends InputController {
                     email = null;
                     return;
                 }
+                //checks the validity of email
                 InfoVerifier.checkEmailValidity(email);
                 return;
 
@@ -174,6 +211,11 @@ public class SignUpController extends InputController {
 
     }
 
+    /**
+     * takes the phone number and also checks the format of phone number
+     * it should start with 09... and exactly has 11 numbers
+     * @author Arman sagharchi
+     */
     private void getPhoneNumber() {
 
         while (true) {

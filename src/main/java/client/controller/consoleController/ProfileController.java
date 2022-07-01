@@ -11,6 +11,7 @@ import model.user.UserStatus;
 
 public class ProfileController extends InputController {
 
+    //has essential info s about profile
     private String id;
     private String name;
     private String password;
@@ -20,12 +21,21 @@ public class ProfileController extends InputController {
 
     private byte[] profileImage;
 
+    /**
+     * @param clientSocket, to interact with server, a client socket is needed
+     * @author Arman sagharchi
+     */
     public ProfileController(ClientSocket clientSocket) {
         super(clientSocket);
     }
 
+    /**
+     * this method updates the user profile
+     * @author Arman sagharchi
+     */
     public void updateProfile(){
 
+        //at first has its field all assigned to null
         id = null;
         name = null;
         password = null;
@@ -34,10 +44,12 @@ public class ProfileController extends InputController {
         profileImage = null;
         userStatus = null;
 
+        //the boolean which decides where to exist this section
         boolean isRunning = true;
 
         while(isRunning){
 
+            //menu
             System.out.println("[1] change id" + "            current : " + id);
             System.out.println("[2] change name" + "          current : " + name);
             System.out.println("[3] change email" + "         current : " + email);
@@ -46,7 +58,7 @@ public class ProfileController extends InputController {
             System.out.println("[6] change user status" + "   current : " + userStatus);
             System.out.println("[7] submit");
 
-
+            //gets an input from user and invokes the following methods based by selected option
             switch(getOptionalInput(1, 8)){
                 case 1 -> changeId();
                 case 2 -> changeName();
@@ -57,16 +69,23 @@ public class ProfileController extends InputController {
                 case 7 -> isRunning = false;
             }
 
+            //invokes the method which sends the related request
             newProfileSender();
 
         }
 
     }
 
+    /**
+     * sends a new profile request and gets the response from server
+     * @author Arman sagharchi
+     */
     private void newProfileSender(){
+        //sends the request
         clientSocket.send(new SetMyProfileReq(clientSocket.getId(), id, name,
                 password, email, phoneNumber, profileImage, userStatus));
         try {
+            //takes the request
             Response response = clientSocket.getReceiver().getResponse();
             System.out.println("\033[0;31m" +response.getMessage() + "\033[0m");
             if(response.isAccepted()){
@@ -79,7 +98,10 @@ public class ProfileController extends InputController {
         }
     }
 
-
+    /**
+     * sends the showMyProf req and get its related response which has the profile needs
+     * @author Arman sagharchi
+     */
     public void showMyProfile()
     {
         try
@@ -102,8 +124,10 @@ public class ProfileController extends InputController {
 
     }
 
-
-
+    /**
+     * simply changes the id
+     * @author Arman sagharchi
+     */
     private void changeId(){
         System.out.println("enter new id : ");
         id = scanner.nextLine();
@@ -141,6 +165,10 @@ public class ProfileController extends InputController {
         }
     }
 
+    /**
+     * simply changes the email
+     * @author Arman sagharchi
+     */
     private void changeEmail(){
         System.out.println("enter new email : ");
         String newEmail = scanner.nextLine();
@@ -153,8 +181,14 @@ public class ProfileController extends InputController {
         }
     }
 
+    /**
+     * shows all the possible statuses to change
+     * takes the selected option from client and sets the new status
+     * @author Arman sagharchi
+     */
     private void changeUserStatus(){
 
+        //options possible to set the status to
         System.out.println("[1] Online");
         System.out.println("[2] Idle");
         System.out.println("[3] Do not disturb");
@@ -173,7 +207,13 @@ public class ProfileController extends InputController {
         }
     }
 
+    /**
+     * simply changes the phone number
+     * also checks the validity of phone number
+     * @author Arman sagharchi
+     */
     private void changePhoneNumber(){
+        //takes new phone number
         System.out.println("enter new phone number : ");
         String newPhoneNumber = scanner.nextLine();
         try{

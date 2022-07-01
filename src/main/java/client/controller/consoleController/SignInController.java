@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 public class SignInController extends InputController {
 
+    //essential fields to sign in
     private String id;
     private String password;
 
@@ -17,16 +18,23 @@ public class SignInController extends InputController {
         super(clientSocket);
     }
 
+    /**
+     * get user details and sends the sign in request to the server
+     * @return true if it was successful.
+     * @author Arman sagharchi
+     */
     public boolean getUserDetails(){
 
         try {
             Scanner scanner = new Scanner(System.in);
 
+            //takes the needs to send the sign in req
             System.out.println("in order to be back, press '-0' ");
             System.out.println("Please enter id and password: ");
             System.out.print("[1] id : ");
             this.id = scanner.nextLine();
 
+            //if user wants to be back
             if (this.id.equals("-0")) {
                 return false;
             }
@@ -38,8 +46,10 @@ public class SignInController extends InputController {
                 return false;
             }
 
+            //sets the new id for client
             clientSocket.setId(id);
 
+            //sends the req
             clientSocket.send(new LoginReq(clientSocket.getId(), id,
                     password, null));
             Response response = clientSocket.getReceiver().getResponse();

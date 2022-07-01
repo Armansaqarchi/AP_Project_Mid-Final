@@ -24,6 +24,7 @@ import java.util.List;
 
 public class ServerController extends InputController
 {
+    //info s needed about a server and a client who is working on the server
     private String serverId;
     private String userId;
     private String name;
@@ -35,17 +36,25 @@ public class ServerController extends InputController
         super(clientSocket);
     }
 
+    /**
+     * adds a rule for a user
+     * first takes server id in which user is
+     * @author mahdi kalhor
+     */
     public void addRule()
     {
         System.out.println("Enter servers Id :");
 
         serverId = scanner.nextLine();
 
+        //gets the target rule from client
         Rule rule = getRule();
 
         try{
+            //sends the related req
             clientSocket.send(new AddRuleServerReq(clientSocket.getId() , serverId , rule));
 
+            //takes the response
             Response response = clientSocket.getReceiver().getResponse();
             if(!response.isAccepted())
             {
@@ -60,8 +69,14 @@ public class ServerController extends InputController
         }
     }
 
+    /**
+     * adds a user to the server
+     * first takes the server id and user id and then sends the related req
+     * @author mahdi kalhor
+     */
     public void addUser()
     {
+        //takes essential needs
         System.out.println("Enter servers Id :");
 
         serverId = scanner.nextLine();
@@ -86,8 +101,14 @@ public class ServerController extends InputController
         }
     }
 
+    /**
+     * takes server id and name of server and then creates the server
+     * it will be created if response message takes the right to client
+     * @author mahdi kalhor
+     */
     public void creatServer()
     {
+        //takes essential needs
         System.out.println("Enter servers Id :");
 
         serverId = scanner.nextLine();
@@ -104,8 +125,10 @@ public class ServerController extends InputController
         }
 
         try{
+            //sends the related req
             clientSocket.send(new CreateServerReq(clientSocket.getId() , serverId , name , image));
 
+            //takes the response
             Response response = clientSocket.getReceiver().getResponse();
             if(!response.isAccepted()){
                 System.out.println("\033[0;31mFailed to creat the server.\033[0m");
@@ -118,6 +141,10 @@ public class ServerController extends InputController
         }
     }
 
+    /**
+     * takes server and deletes the server if client is the creator of server
+     * @author mahdo kalhor
+     */
     public void deleteServer()
     {
         System.out.println("Enter servers Id:");
@@ -140,6 +167,10 @@ public class ServerController extends InputController
         }
     }
 
+    /**
+     * takes server id and prints all the elders who have at least one rule
+     * @author mahdi kalhor
+     */
     public void getRules()
     {
         System.out.println("Enter servers Id:");
@@ -147,11 +178,13 @@ public class ServerController extends InputController
         serverId = scanner.nextLine();
 
         try{
+            //sends the related req
             clientSocket.send(new GetServerInfoReq(clientSocket.getId() , serverId));
 
             GetRulesServerRes response = (GetRulesServerRes) clientSocket.getReceiver().getResponse();
             if(response.isAccepted())
             {
+                //takes the response and prints the rules
                 System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
 
                 printRules(response.getRules());
@@ -167,6 +200,10 @@ public class ServerController extends InputController
         }
     }
 
+    /**
+     * takes the server id and prints all the info s about a server
+     * @author mahdi kalhor
+     */
     public void getServerInfo()
     {
         System.out.println("Enter servers Id:");
@@ -174,11 +211,14 @@ public class ServerController extends InputController
         serverId = scanner.nextLine();
 
         try{
+            //sends the related req
             clientSocket.send(new GetServerInfoReq(clientSocket.getId() , serverId));
 
+            //takes the response
             GetServerInfoRes response = (GetServerInfoRes) clientSocket.getReceiver().getResponse();
             if(response.isAccepted())
             {
+                //if req is accepted by server, info s will be printed
                 System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
                 System.out.println(response);
             }
@@ -192,6 +232,10 @@ public class ServerController extends InputController
         }
     }
 
+    /**
+     * takes a file name from client to set image
+     * @author mahdi kalhor
+     */
     public void setServerImage()
     {
         System.out.println("Enter servers Id:");
@@ -206,6 +250,7 @@ public class ServerController extends InputController
         }
 
         try{
+            //sends the related req
             clientSocket.send(new SetServerImageReq(clientSocket.getId() , serverId , image));
 
             Response response = clientSocket.getReceiver().getResponse();
@@ -222,8 +267,15 @@ public class ServerController extends InputController
 
     }
 
+    /**
+     * renames the server by taking id and new name
+     * this is possible if the client has the right to rename it(has the rule)
+     *
+     * @author mahdi kalhor
+     */
     public void renameServer()
     {
+        //takes the needs about a server in order to specify
         System.out.println("Enter servers Id:");
 
         serverId = scanner.nextLine();
@@ -233,6 +285,7 @@ public class ServerController extends InputController
         name = scanner.nextLine();
 
         try{
+            //sends the related req
             clientSocket.send(new RenameServerReq(clientSocket.getId() , serverId , name));
 
             Response response = clientSocket.getReceiver().getResponse();
@@ -248,15 +301,23 @@ public class ServerController extends InputController
         }
     }
 
+    /**
+     * takes server id
+     * @return al the users with theirs status
+     * @author mahdi kalhor
+     */
     private GetUserStatusRes getUserStatus(){
+        //takes the needs
         System.out.println("to be back, enter '-0'");
         System.out.println("enter server id :");
         serverId = scanner.nextLine();
 
         if(serverId.equals("-0")) return null;
 
+        //sends the req
         clientSocket.send(new GetUsersStatusReq(clientSocket.getId(), serverId));
         try{
+            //takes the req and returns a response containing users status
             Response response = clientSocket.getReceiver().getResponse();
             if(response.isAccepted() && response instanceof GetUserStatusRes){
                 return (GetUserStatusRes) response;
@@ -273,21 +334,35 @@ public class ServerController extends InputController
 
     }
 
+    /**
+     * gets user status response and then, takes the linked list in it,
+     * then prints all the users with their status
+     * @author mahdi kalhor
+     */
     public void showUsersStatus(){
         GetUserStatusRes getUserStatusRes = getUserStatus();
 
+        //if response is null, then something is wrong
         if(getUserStatusRes == null){
             return;
         }
         HashMap<String, UserStatus> users = getUserStatusRes.getUsers();
 
+        //iterates and prints all the statuses
         for(String i : users.keySet()){
             System.out.println("" + i + "  ,Status : " + users.get(i));
         }
     }
 
 
+    /**
+     * takes user id and server id and removes the user from server
+     * its possible if user exists and the client ahs the rule to remove the user
+     * @author mahdi kalhor
+     */
     public void removeUser(){
+
+        //to take needs to remove a user from server
         System.out.println("to be back, enter  '-0'");
         System.out.println("enter user id : ");
 
@@ -309,6 +384,11 @@ public class ServerController extends InputController
 
     }
 
+    /**
+     * prints all the rules
+     * @param rules, which has the rules in it
+     * @author mahdi kalhor
+     */
     private void printRules(HashMap<String , Rule> rules)
     {
         ArrayList<String> keys = new ArrayList<>(rules.keySet());
@@ -322,8 +402,14 @@ public class ServerController extends InputController
         System.out.println();
     }
 
+    /**
+     * gets the server image
+     * @return array bytes which contains the image
+     * @author mahdi kalhor
+     */
     private byte[] getImage()
     {
+        //takes the file name
         System.out.println("Enter files name:");
 
         fileName = scanner.nextLine();
@@ -335,10 +421,12 @@ public class ServerController extends InputController
         try
 
         {
+
             stream = new FileInputStream(fileName);
 
             image = new byte[(int) fileName.length()];
 
+            //reads all the bytes from the file specified and writes it to image
             stream.read(image);
 
             stream.close();
@@ -357,6 +445,11 @@ public class ServerController extends InputController
         return null;
     }
 
+    /**
+     * takes user id and returns its rules
+     * @return a Rule contains hashset rules of user
+     * @author mahdi kalhor
+     */
     private Rule getRule()
     {
         System.out.println("Enter user's id :");
@@ -393,8 +486,14 @@ public class ServerController extends InputController
         }
     }
 
+    /**
+     * shows all the servers a user has
+     * @param serverIDs, which takes it from next method and prints the servers with their info
+     * @author mahdi kalhor
+     */
     private void showServers(LinkedList<ServerIDs> serverIDs)
     {
+        //iterates on the server id s and prints the info s about them
         for(ServerIDs serverId : serverIDs)
         {
             System.out.println("server :" + serverId.getId() + " channels : ");
@@ -408,6 +507,10 @@ public class ServerController extends InputController
         System.out.println();
     }
 
+    /**
+     * sends a show servers req to the server and gets the response from them
+     * and then passes the linked list containing all the server ids to the previous method
+     */
     public void getServers()
     {
         try{
