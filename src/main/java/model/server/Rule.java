@@ -1,8 +1,9 @@
 package model.server;
 
+import java.io.Serializable;
 import java.util.HashSet;
 
-public class Rule
+public class Rule implements Serializable
 {
     private String id;
     private HashSet<RuleType> rules;

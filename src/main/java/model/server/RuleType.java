@@ -1,8 +1,9 @@
 package model.server;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public enum RuleType
+public enum RuleType implements Serializable
 {
     CREATE_CHANNEL("creat channel"), DELETE_CHANNEL("delete channel"),
     REMOVE_MEMBER("Remove member"), RENAME_CHANNEL("rename channel"),

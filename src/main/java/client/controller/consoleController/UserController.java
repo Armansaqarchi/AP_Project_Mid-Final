@@ -278,11 +278,11 @@ public class UserController extends InputController {
         }
 
         try{
-            System.out.println("1");
+
             clientSocket.send(new GetPrivateChatHisReq(clientSocket.getId(), userId));
-            System.out.println("2");
+
             Response response = clientSocket.getReceiver().getResponse();
-            System.out.println("3");
+
             if(response instanceof GetPrivateChatHisRes){
                 return (GetPrivateChatHisRes) response;
             }
