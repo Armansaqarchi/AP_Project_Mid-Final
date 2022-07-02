@@ -21,7 +21,7 @@ public class Database {
             Class.forName("org.postgresql.Driver");
 
             Connection connection = DriverManager.getConnection(
-                    "jdbc:postgresql://127.0.0.1:5432/Discord" ,
+                    "jdbc:postgresql://127.0.0.1:5432/postgres" ,
                     "postgres" , "postgres");
 
             channelOp = new ChannelOp(connection);
