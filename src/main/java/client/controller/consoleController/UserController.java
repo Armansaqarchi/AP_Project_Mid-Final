@@ -3,10 +3,7 @@ package client.controller.consoleController;
 import client.ClientSocket;
 import client.FileHandler;
 import model.exception.ResponseNotFoundException;
-import model.message.FileMessage;
-import model.message.Message;
-import model.message.MessageType;
-import model.message.TextMessage;
+import model.message.*;
 import model.request.GetFileMsgReq;
 import model.request.priavteChat.GetPrivateChatHisReq;
 import model.request.user.*;
@@ -531,6 +528,44 @@ public class UserController extends InputController {
 
             //saves it to the path specified by the client
             FileHandler.getFileHandler().saveFile(response);
+        }
+        catch (IllegalArgumentException e)
+        {
+            System.out.println("\033[0;31mInvalid message id!\033[0m");
+        } catch (ResponseNotFoundException e)
+        {
+            System.out.println("\033[0;31m" + e.getMessage() + "\033[0m");
+        }
+    }
+
+    public void reactionToMessage()
+    {
+        System.out.println("Enter messages id : ");
+        String id = scanner.nextLine();
+
+        System.out.println("enter your reaction :");
+        System.out.println("[1]. like");
+        System.out.println("[2]. dislike");
+        System.out.println("[3]. laugh");
+        int input = getOptionalInput(1 , 3);
+
+        Reaction reaction = null;
+
+        switch(input)
+        {
+            case 1-> reaction = Reaction.LIKE;
+            case 2 -> reaction = Reaction.DISLIKE;
+            case 3 -> reaction = Reaction.LAUGH;
+        }
+
+        try
+        {
+            //sends the req
+            clientSocket.send(new ReactionToMessageReq(clientSocket.getId() , UUID.fromString(id) , reaction));
+
+            Response response = clientSocket.getReceiver().getResponse();
+
+            System.out.println(response.getMessage());
         }
         catch (IllegalArgumentException e)
         {
