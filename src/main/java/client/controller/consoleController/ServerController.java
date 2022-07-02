@@ -471,9 +471,9 @@ public class ServerController extends InputController
 
             int input;
 
-            switch (input = getOptionalInput(0 , ruleTypes.size()))
+            switch (input = getOptionalInput(0 , ruleTypes.size()) - 1)
             {
-                case 0 :
+                case -1 :
                 {
                     return rule;
                 }
