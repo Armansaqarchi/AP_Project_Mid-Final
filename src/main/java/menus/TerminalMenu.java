@@ -172,7 +172,7 @@ public class TerminalMenu {
             System.out.println("[8]-Remove User");
             System.out.println("[9]-Back\033[0m");
 
-            int choice = InputController.getOptionalInput(1, 8);
+            int choice = InputController.getOptionalInput(1, 99);
             switch (choice) {
                 case 1 -> controllers.getChannelController().ChannelChat();
                 case 2 -> controllers.getChannelController().pinMessage();
