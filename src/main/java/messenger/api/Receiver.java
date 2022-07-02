@@ -16,6 +16,9 @@ import model.user.UserStatus;
 
 import java.util.UUID;
 
+/**
+ * receives requests or messages and sends it to their related apis
+ */
 public class Receiver
 {
     private static Receiver requestReceiver;
@@ -28,6 +31,11 @@ public class Receiver
     private final MessageApi messageApi;
 
     private final PrivateChatApi privateChatApi;
+
+    /**
+     * returns the receiver object
+     * @return the receiver object
+     */
     public static Receiver getReceiver()
     {
         if(null == requestReceiver)
@@ -48,6 +56,12 @@ public class Receiver
         messageApi = new MessageApi();
     }
 
+    /**
+     * receives and handles a request or message
+     * @param transferable the transferable object that got from client
+     * @throws InvalidTypeException throw's if the objects type was invalid
+     * @throws InvalidObjectException throw's if the inputted object was invalid
+     */
     public void receive(Transferable transferable) throws InvalidTypeException, InvalidObjectException {
 
         try
@@ -90,6 +104,11 @@ public class Receiver
         messageApi.getMessage(message);
     }
 
+    /**
+     * turns user status to offline or online when its connected or disconnected
+     * @param id the users id
+     * @param status users status
+     */
     public void turnUserStatus(String id , UserStatus status)
     {
         userApi.turnUserStatus(id , status);

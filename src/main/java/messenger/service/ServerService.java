@@ -20,15 +20,26 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+/**
+ * handles requests related to service
+ */
 public class ServerService
 {
     private final Database database;
 
+    /**
+     * the constructor of class
+     */
     public ServerService()
     {
         database = Database.getDatabase();
     }
 
+    /**
+     * handles add rule request
+     * @param request the add rule request
+     * @return response of request
+     */
     public Response addRule(AddRuleServerReq request)
     {
         try
@@ -55,6 +66,11 @@ public class ServerService
 
     }
 
+    /**
+     * handles get rule request
+     * @param request the get rule request
+     * @return response of request
+     */
     public Response getRules(GetRulesServerReq request)
     {
         try
@@ -73,6 +89,11 @@ public class ServerService
         }
     }
 
+    /**
+     * handles add user request
+     * @param request the add user request
+     * @return response of request
+     */
     public Response addUser(AddUserServerReq request)
     {
         try
@@ -104,6 +125,11 @@ public class ServerService
         }
     }
 
+    /**
+     * handles create server request
+     * @param request the create server request
+     * @return response of request
+     */
     public synchronized Response creatServer(CreateServerReq request)
     {
         try
@@ -139,6 +165,11 @@ public class ServerService
         }
     }
 
+    /**
+     * handles delete server request
+     * @param request the delete server request
+     * @return response of request
+     */
     public Response deleteServer(DeleteServerReq request)
     {
         try
@@ -165,6 +196,11 @@ public class ServerService
         }
     }
 
+    /**
+     * handles get status of server's users request
+     * @param request the request
+     * @return response of request
+     */
     public Response getUsersStatus(GetUsersStatusReq request)
     {
         try
@@ -190,6 +226,11 @@ public class ServerService
         }
     }
 
+    /**
+     * handles remove user request
+     * @param request the remove user request
+     * @return response of request
+     */
     public Response removeUser(RemoveUserServerReq request)
     {
         try
@@ -226,6 +267,11 @@ public class ServerService
         }
     }
 
+    /**
+     * handles rename server request
+     * @param request the rename request
+     * @return response of request
+     */
     public Response renameServer(RenameServerReq request)
     {
         try
@@ -251,6 +297,11 @@ public class ServerService
         }
     }
 
+    /**
+     * handles set server's image request
+     * @param request the request
+     * @return response of request
+     */
     public Response setImage(SetServerImageReq request)
     {
         try
@@ -278,6 +329,11 @@ public class ServerService
         }
     }
 
+    /**
+     * handles get server's info request
+     * @param request the request
+     * @return response of request
+     */
     public Response getInfo(GetServerInfoReq request)
     {
         try
@@ -299,6 +355,11 @@ public class ServerService
         }
     }
 
+    /**
+     * handles remove rule from server
+     * @param request the request
+     * @return response of request
+     */
     public Response RemoveRule(RemoveRuleReq request)
     {
         try

@@ -18,6 +18,9 @@ public class Sender
 
     private static Sender sender;
 
+    /**
+     * @return the sender object
+     */
     protected static Sender getSender()
     {
         if(null == sender)
@@ -32,8 +35,13 @@ public class Sender
         connectionHandler =ConnectionHandler.getConnectionHandler();
     }
 
-    //returns that message is sent or not (user is online or not)
-    public void sendMessage(Message message , String receiverId)
+    /**
+     * sends a message to client
+     * @param message the message
+     * @param receiverId the messages receiver
+     * @throws ServerThreadNotFoundException throws if server thread wasn't exists (user was offline)
+     */
+    protected void sendMessage(Message message , String receiverId)
             throws ServerThreadNotFoundException
     {
         ServerThread serverThread = connectionHandler.getServerThread(receiverId);
@@ -49,8 +57,13 @@ public class Sender
 
     }
 
-    //it may return a value to determine that response is sent or not
-    public void sendResponse(Response response) throws ServerThreadNotFoundException {
+
+    /**
+     * sends a response to client
+     * @param response the response
+     * @throws ServerThreadNotFoundException throws if server thread wasn't exists (user was offline)
+     */
+    protected void sendResponse(Response response) throws ServerThreadNotFoundException {
         ServerThread serverThread = connectionHandler.getServerThread(response.getReceiverId());
 
         if(null != serverThread)
@@ -63,7 +76,13 @@ public class Sender
         }
     }
 
-    public void sendResponse(Response response , ServerThread serverThread) throws ServerThreadNotFoundException {
+    /**
+     * sends a response to client
+     * @param response the response
+     * @param serverThread the receiver's server thread
+     * @throws ServerThreadNotFoundException throws if server thread wasn't exists (user was offline)
+     */
+    protected void sendResponse(Response response , ServerThread serverThread) throws ServerThreadNotFoundException {
         if(null != serverThread)
         {
             serverThread.send(response);

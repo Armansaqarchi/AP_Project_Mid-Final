@@ -23,7 +23,7 @@ public class AuthenticationApi
     /**
      * the constructor of class that initializes fileds
      */
-    public AuthenticationApi()
+    protected AuthenticationApi()
     {
         service = new AuthenticationService();
         sender = Sender.getSender();
@@ -34,7 +34,7 @@ public class AuthenticationApi
      * @param request the authentication request
      * @throws InvalidTypeException throws if inputted requests type was invalid
      */
-    public void getRequest(AuthenticationReq request) throws InvalidTypeException {
+    protected void getRequest(AuthenticationReq request) throws InvalidTypeException {
         switch(request.subType())
         {
             case LOGIN -> login((LoginReq) request);

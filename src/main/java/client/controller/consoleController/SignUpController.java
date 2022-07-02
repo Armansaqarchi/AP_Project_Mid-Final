@@ -80,6 +80,7 @@ public class SignUpController extends InputController {
             phoneNumber = null;
         }
 
+        clientSocket.setId(id);
 
         //sends the related req to the server
         clientSocket.send(new SignupReq(clientSocket.getId(), id, password,

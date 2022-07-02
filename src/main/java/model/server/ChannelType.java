@@ -1,5 +1,8 @@
 package model.server;
 
+/**
+ * this class provides types of channel
+ */
 public enum ChannelType
 {
     TEXT("text") , VOICE("voice");
@@ -12,6 +15,11 @@ public enum ChannelType
     }
 
 
+    /**
+     * returns ChannelType using its value
+     * @param value the enums value
+     * @return type of the value
+     */
     public static ChannelType getTypeFromValue(String value){
         switch(value){
             case "voice":
@@ -25,6 +33,11 @@ public enum ChannelType
         return null;
     }
 
+    /**
+     * returns channels value from its type
+     * @param channelType the enums name
+     * @return the enums value
+     */
     public static String getValueFromType(ChannelType channelType){
         switch(channelType.name()){
             case "VOICE" :

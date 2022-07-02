@@ -14,6 +14,9 @@ import model.user.UserStatus;
 
 import java.util.UUID;
 
+/**
+ * gets and handles requests related to user
+ */
 public class UserApi
 {
     private final UserService service;
@@ -21,13 +24,21 @@ public class UserApi
     //sender object to send responses to client
     private final Sender sender;
 
-    public UserApi()
+    /**
+     * the constructor of class
+     */
+    protected UserApi()
     {
         service = new UserService();
         sender = Sender.getSender();
     }
 
-    public void getRequest(UserRequest request) throws InvalidTypeException {
+    /**
+     * gets and handles requests
+     * @param request the request
+     * @throws InvalidTypeException throws if inputted requests type was invalid
+     */
+    protected void getRequest(UserRequest request) throws InvalidTypeException {
         switch(request.subType())
         {
             case BLOCK_USER -> blockUser((BlockUserReq) request);

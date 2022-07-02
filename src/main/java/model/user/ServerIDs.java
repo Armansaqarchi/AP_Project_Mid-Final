@@ -1,17 +1,18 @@
 package model.user;
 
-//this class is only used to save servers id and
-// its channels ids in a user object
 import java.io.Serializable;
 import java.util.LinkedList;
 
+/***
+ * holds a server's id with list of its channels
+ */
 public class ServerIDs implements Serializable
 {
     //the servers id
-    private String id;
+    private final String id;
 
     //name of channels that the user is a member of them
-    LinkedList<String> channels;
+    private final LinkedList<String> channels;
 
     public ServerIDs(String id, LinkedList<String> channels)
     {
@@ -19,15 +20,27 @@ public class ServerIDs implements Serializable
         this.channels = channels;
     }
 
+    /**
+     * @return the servers id
+     */
     public String getId()
     {
         return id;
     }
 
+    /**
+     * @return list of server's channels
+     */
     public LinkedList<String> getChannels() {
         return channels;
     }
 
+    /**
+     * checks that inputted object is equals with this or not
+     * using its server id
+     * @param o the inputted object
+     * @return equals or not
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

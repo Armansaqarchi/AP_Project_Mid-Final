@@ -29,6 +29,10 @@ public class ServerThread implements Runnable
     //user id of the client that connected to this socket
     private String id;
 
+    /**
+     * the constructor of class
+     * @param socket the socket that connected to client
+     */
     public ServerThread(Socket socket)
     {
         receiver = Receiver.getReceiver();
@@ -46,6 +50,9 @@ public class ServerThread implements Runnable
         }
     }
 
+    /**
+     * this method gets objects from client
+     */
     @Override
     public void run()
     {
@@ -86,6 +93,10 @@ public class ServerThread implements Runnable
         receiver.turnUserStatus(id , UserStatus.OFFLINE);
     }
 
+    /**
+     * sends a transferable object to client
+     * @param transferable the object that must be sent to client
+     */
     public void send(Transferable transferable)
     {
         try
@@ -98,6 +109,11 @@ public class ServerThread implements Runnable
         }
     }
 
+    /**
+     * it used when authentication is accepted
+     * sets client's id and looks for its messages
+     * @param id the verified id
+     */
     public void verified(String id)
     {
         //setting verified id
@@ -109,6 +125,11 @@ public class ServerThread implements Runnable
         //look for messages of user
         receiver.getUnreadMessages(id);
     }
+
+    /**
+     * sets the serverThreads id
+     * @param id the id
+     */
     public void setId(String id)
     {
         this.id = id;
