@@ -141,7 +141,7 @@ public abstract class Op {
 
 
     protected ResultSet findByConfig(String config, String columnName, String tableName)
-            throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
+            throws SQLException, ConfigNotFoundException{
 
         String query = "SELECT * FROM " + tableName + " WHERE " + columnName + " = ?";
 
