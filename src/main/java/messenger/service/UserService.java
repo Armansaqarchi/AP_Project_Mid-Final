@@ -83,7 +83,7 @@ public class UserService
     {
         try
         {
-            database.getUserOp().updateList(UpdateType.REMOVE , "blocked_users" ,
+            database.getUserOp().updateList(UpdateType.ADD , "blocked_users" ,
                     request.getSenderId(), request.getUserId());
 
             //adding user to blocked list
