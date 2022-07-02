@@ -48,7 +48,7 @@ public class ServerService
 
             if(server.getOwnerId().equals(request.getSenderId()))
             {
-                database.getServerOp().updateServerHashList(UpdateType.ADD ,"rules",  server.getId(), request.getSenderId() , request.getRule());
+                database.getServerOp().updateServerHashList(UpdateType.ADD ,"rules",  server.getId(), request.getRule().getId() , request.getRule());
 
                 return new Response(request.getSenderId() , true , "rule added successfully.");
             }
