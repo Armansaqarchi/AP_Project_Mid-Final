@@ -1,6 +1,5 @@
-package menus;
+package client.menus;
 
-import ch.qos.logback.core.net.server.Client;
 import client.ClientSocket;
 import client.controller.consoleController.Controllers;
 import client.controller.consoleController.InputController;

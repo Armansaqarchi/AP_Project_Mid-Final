@@ -1,7 +1,6 @@
 package client.controller.consoleController;
 
 import client.ClientSocket;
-import menus.TerminalMenu;
 import model.exception.ResponseNotFoundException;
 import model.request.Authentication.LoginReq;
 import model.response.Response;
