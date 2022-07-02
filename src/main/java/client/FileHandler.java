@@ -19,6 +19,7 @@ public class FileHandler
     private final String messageUrl;
     private final String fileUrl;
 
+
     public static FileHandler getFileHandler()
     {
         if(null == fileHandler)
@@ -36,6 +37,11 @@ public class FileHandler
         new File(fileUrl).mkdirs();
     }
 
+    /**
+     * this method takes a message and saves it to the file specified
+     * @param message, the message
+     * @author mahdi kalhor
+     */
     public void saveMessage(Message message)
     {
         try
@@ -98,6 +104,12 @@ public class FileHandler
         }
     }
 
+    /**
+     * this method takes linked list of messages and then, saves linked list of messages
+     * into the file
+     * @param messages, linked list of messages
+     * @author mahdi kalhor
+     */
     public void saveMessage(LinkedList<Message> messages)
     {
         //if list was empty it will not be written in file
@@ -145,8 +157,14 @@ public class FileHandler
         }
     }
 
+    /**
+     * takes the getFileResponse and saves it to the file name specified
+     * @param response, response which contains content of file in bytes
+     * @author mahdi kalhor
+     */
     public void saveFile(GetFileMsgRes response)
     {
+        //static url of file
         String url = fileUrl + '/' + response.getFileName();
 
         Path path = Paths.get(url);
@@ -156,6 +174,7 @@ public class FileHandler
 
             try
             {
+                //creates the file
                 Files.createFile(path);
 
                 //write content into file

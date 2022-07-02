@@ -22,6 +22,10 @@ public class TerminalMenu {
         return terminalMenu;
     }
 
+    /**
+     * connection menu
+     * the first menu which manifests himself at the start
+     */
     public void connectionMenu(){
 
         while(true){
@@ -33,6 +37,7 @@ public class TerminalMenu {
             boolean entryAccepted = false;
 
             switch(choice){
+                //options
                 case 1 -> entryAccepted = controllers.getSignInController().getUserDetails();
                 case 2 -> entryAccepted = controllers.getSignUpController().getUserInfo();
                 case 3 -> System.exit(0);
@@ -41,6 +46,7 @@ public class TerminalMenu {
             if(entryAccepted) mainMenu();
         }
     }
+
 
     private void mainMenu(){
 

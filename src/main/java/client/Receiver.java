@@ -15,7 +15,11 @@ public class Receiver
     private Response response;
 
 
-
+    /**
+     * gets parameter transferable and then checks the type of it
+     * @param transferable, the response received from server
+     * @throws InvalidObjectException, if type of object is invalid
+     */
     public void getInput(Transferable transferable) throws InvalidObjectException {
 
         try
@@ -44,6 +48,13 @@ public class Receiver
         this.response = response;
     }
 
+    /**
+     * response from server might have some delay
+     * because of that, there is a loop in the method runs after 50 m seconds
+     * which updates the socked to see if anything is received from server.
+     * @return response received from server
+     * @throws ResponseNotFoundException, if the response time out occurs
+     */
     public Response getResponse() throws ResponseNotFoundException
     {
         for (int i = 0; i < 1000; i++)
