@@ -19,30 +19,36 @@ public class ServerOp extends Op{
         super(connection);
     }
 
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : findByConfigChannel
+     * @author Arman sagharchi
+     */
     private Server findByConfigMessage(String config, String columnName)
             throws IOException, SQLException,
             ClassNotFoundException, ConfigNotFoundException{
         return createServerFromData(findByConfig(config, columnName, "server"));
     }
 
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : findById
+     * @author Arman sagharchi
+     */
     public  Server findByServerId(String id)
             throws IOException, SQLException,
             ClassNotFoundException, ConfigNotFoundException{
         return findByConfigMessage(id, "server_id");
     }
 
-    public  Server findByOwnerId(String ownerId)
-            throws IOException, ClassNotFoundException,
-            SQLException, ConfigNotFoundException{
-        return findByConfigMessage(ownerId, "owner_id");
-    }
-
-    public  Server findByReceiverId(String name)
-            throws IOException, ClassNotFoundException,
-            SQLException, ConfigNotFoundException{
-        return findByConfigMessage(name, "name");
-    }
-
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : updateProfile
+     * @author Arman sagharchi
+     */
     public void updateServerProfileImage(byte[] newImage ,String id)
             throws ConfigNotFoundException, SQLException{
 
@@ -50,6 +56,12 @@ public class ServerOp extends Op{
                 "server_id", "server");
     }
 
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : insertChannel
+     * @author Arman sagharchi
+     */
     public void insertServer(String id, String ownerId, String name) throws SQLException,
             IOException{
         PreparedStatement pst = connection.prepareStatement(
@@ -70,6 +82,12 @@ public class ServerOp extends Op{
     }
 
 
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : updateProfile
+     * @author Arman sagharchi
+     */
     public void updateServerConfig(String id, String type, String newValue)
             throws SQLException, ConfigNotFoundException{
         String query = "UPDATE server SET " + type +" = ? where server_id = ?";
@@ -85,7 +103,12 @@ public class ServerOp extends Op{
         }
     }
 
-
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : updateChannelList
+     * @author Arman sagharchi
+     */
     public <T> boolean updateServerList(UpdateType type, String columnName, String id, T t)
         throws SQLException, IOException, ClassNotFoundException, ConfigNotFoundException {
 
@@ -144,31 +167,56 @@ public class ServerOp extends Op{
     }
 
 
-
-
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : deleteChannelById
+     * @author Arman sagharchi
+     */
     public boolean deleteServerById(String id) throws SQLException, ConfigNotFoundException {
         return deleteById(id, "server", "server_id", "server");
     }
 
-
+    /**
+     * this method updates any hash list existing in server details
+     * the method is generic, so it takes one parameter t which is of type hash list's elements
+     * and also another parameter u, t rules as a key and u rules as a value.
+     * @param type, type of update, could be : add or remove
+     * @param columnName, name of column
+     * @param id, server id
+     * @param key, elements key
+     * @param value, elements value
+     * @param <T>, type of element's key being added to the hash list
+     * @param <U>, type of element's value being added to the hash list
+     * @return true if the modification was successful, false if its was now
+     * @throws SQLException, is thrown while there is something wrong with executing the query
+     * @throws IOException, while there is something wrong with conversion of byte convertor
+     * @author Arman sagharchi
+     */
     public <T,U>boolean updateServerHashList(UpdateType type, String columnName, String id, T key, U value)
     throws SQLException, IOException, ClassNotFoundException, ConfigNotFoundException{
 
         HashMap<T, U> targetList = null;
 
+        //the query
         String query = "SELECT * FROM server WHERE server_id = ?";
 
         PreparedStatement pst = connection.prepareStatement(query);
 
+        //placing value instead of ? in query
         pst.setString(1, id);
+        //executing query
+        //a result is returned by this method including servers which matches the given info s
         ResultSet resultSet = pst.executeQuery();
 
         if(resultSet == null){
+            //if result set is null, it means nothing was found with this info s
             throw new ConfigNotFoundException(id, "server_id", "server");
         }
 
         Object o = null;
         while (resultSet.next()) {
+            //converting hash list bytes to object in order to modify
             o = byteConvertor(resultSet.getBytes("rules"));
         }
         if (o instanceof HashMap<?,?>) {
@@ -178,7 +226,7 @@ public class ServerOp extends Op{
 
         switch (type.showValue()) {
 
-
+            //operation is executed based on type of update
             case "Add":
                 if(targetList == null){
                     targetList = new HashMap<>();
@@ -187,6 +235,9 @@ public class ServerOp extends Op{
                 break;
 
             case "Remove":
+                if(targetList == null){
+                    targetList = new HashMap<>();
+                }
                 targetList.remove(key, value);
                 break;
 
@@ -195,7 +246,7 @@ public class ServerOp extends Op{
 
         }
 
-
+        //converting the object to the byte again in order to store in the db
         byte[] updatedList = objectConvertor(targetList);
 
         String query2 = "UPDATE server SET " + columnName +  " = ? WHERE server_id = ?";
@@ -210,7 +261,12 @@ public class ServerOp extends Op{
         return true;
     }
 
-
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : createChannelFromData
+     * @author Arman sagharchi
+     */
     public Server createServerFromData(ResultSet resultSet)
             throws SQLException, IOException, ClassNotFoundException{
 
@@ -246,6 +302,12 @@ public class ServerOp extends Op{
 
     }
 
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : isExists
+     * @author Arman sagharchi
+     */
     public boolean isExists(String id)
     {
         try
