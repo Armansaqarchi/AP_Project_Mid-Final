@@ -49,7 +49,7 @@ public class SignUpController extends InputController {
         }
 
         //takes the name
-        getUserName();
+        getName();
         if(name == null){
             return false;
         }
@@ -124,7 +124,7 @@ public class SignUpController extends InputController {
      * takes the name from client
      * @author Arman sagharchi
      */
-    private void getUserName(){
+    private void getName(){
 
         //stuck in a loop till the client wants to be back or
         //enters the info
