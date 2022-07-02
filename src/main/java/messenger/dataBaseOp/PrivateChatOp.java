@@ -14,17 +14,34 @@ public class PrivateChatOp extends Op{
         super(connection);
     }
 
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : findByConfigChannel
+     * @author Arman sagharchi
+     */
     public PrivateChat findByConfigPrivateChat(String config, String columnName)
             throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
         return createPrivateChatFromData(findByConfig(config, columnName, "private_chats"));
     }
 
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : findById
+     * @author Arman sagharchi
+     */
     public PrivateChat findById(String id)
             throws IOException, SQLException, ClassNotFoundException, ConfigNotFoundException{
         return findByConfigPrivateChat(id, "id");
     }
 
-
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : insertChannel
+     * @author Arman sagharchi
+     */
     public void insertPrivateMessage(String id)
             throws SQLException, IOException{
 
@@ -45,6 +62,12 @@ public class PrivateChatOp extends Op{
     }
 
 
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : updateChannel
+     * @author Arman sagharchi
+     */
     public <T> boolean updatePrivateChat(UpdateType type, String columnName, String id, T t)
             throws SQLException, IOException, ClassNotFoundException, ConfigNotFoundException {
 
@@ -100,6 +123,12 @@ public class PrivateChatOp extends Op{
         return true;
     }
 
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : createChannelFromData
+     * @author Arman sagharchi
+     */
     public PrivateChat createPrivateChatFromData(ResultSet resultSet)
             throws SQLException, IOException, ClassNotFoundException{
 
@@ -122,10 +151,17 @@ public class PrivateChatOp extends Op{
 
     }
 
+    /**
+     * a method checks if a privateChat exists or not
+     * @param id, private chat id
+     * @return true if user exists, false if user doesnt exists
+     */
     public boolean isExists(String id)
     {
         try
         {
+
+            //testing find by id, if user does not exist in db, throws configNotFoundException
             PrivateChat privateChat = findById(id);
             return true;
         }
