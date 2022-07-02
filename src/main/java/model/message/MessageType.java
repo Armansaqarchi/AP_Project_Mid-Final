@@ -1,5 +1,8 @@
 package model.message;
 
+/**
+ * types of messages in messenger
+ */
 public enum MessageType
 {
     CHANNEL("channel"), PRIVATE_CHAT("privateChat");
@@ -10,6 +13,11 @@ public enum MessageType
         this.value = value;
     }
 
+    /**
+     * creates object from inputted value
+     * @param value the types value
+     * @return Message Type
+     */
     public static MessageType getNameFromValue(String value){
         switch (value){
             case "channel":
@@ -21,6 +29,11 @@ public enum MessageType
         return null;
     }
 
+    /**
+     * makes value of enum from its type
+     * @param messageType the enum's name
+     * @return value of the enum
+     */
     public static String getValueFromName(MessageType messageType){
         switch(messageType.name()){
             case "PRIVATE_CHAT" :

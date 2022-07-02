@@ -1,5 +1,8 @@
 package model.message;
 
+/**
+ * types of reaction to message
+ */
 public enum Reaction
 {
     LIKE("like") , DISLIKE("dislike") , LAUGH("laugh");

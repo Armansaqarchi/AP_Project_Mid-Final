@@ -3,6 +3,9 @@ package model.server;
 import java.io.Serializable;
 import java.util.LinkedList;
 
+/**
+ * type of rules that a user can Rule can hold in for a user
+ */
 public enum RuleType implements Serializable
 {
     CREATE_CHANNEL("creat channel"), DELETE_CHANNEL("delete channel"),
@@ -19,6 +22,9 @@ public enum RuleType implements Serializable
         this.value = value;
     }
 
+    /**
+     * @return the value of rule
+     */
     public String getValue() {
         return value;
     }

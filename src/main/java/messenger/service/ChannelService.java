@@ -19,15 +19,26 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.UUID;
 
+/**
+ * this class is handles requests related to channel and returns responses
+ */
 public class ChannelService
 {
     private final Database database;
 
+    /**
+     * the constructor of class
+     */
     public ChannelService()
     {
         database = Database.getDatabase();
     }
 
+    /**
+     * adds user to a channel
+     * @param request the add user request
+     * @return response related to request
+     */
     public Response addUser(AddUserChannelReq request)
     {
         try
@@ -74,6 +85,11 @@ public class ChannelService
         }
     }
 
+    /**
+     * gets and handles request of creating channel
+     * @param request the request
+     * @return response related to request
+     */
     public synchronized Response creatChannel(CreateChannelReq request)
     {
         try
@@ -138,6 +154,11 @@ public class ChannelService
         }
     }
 
+    /**
+     * gets and handles request of deleting channel
+     * @param request the request
+     * @return response related to request
+     */
     public Response deleteChannel(DeleteChannelReq request)
     {
         try
@@ -188,6 +209,11 @@ public class ChannelService
         }
     }
 
+    /**
+     * gets and handles get chat history of channel
+     * @param request the request
+     * @return response related to request
+     */
     public Response getChatHistory(GetChatHistoryReq request)
     {
         try
@@ -225,6 +251,11 @@ public class ChannelService
         }
     }
 
+    /**
+     * gets and handles pin message in channel request
+     * @param request the request
+     * @return response related to request
+     */
     public Response pinMessage(PinMessageReq request)
     {
         try
@@ -260,6 +291,11 @@ public class ChannelService
         }
     }
 
+    /**
+     * gets and handles get pinned message in channel request
+     * @param request the request
+     * @return response related to request
+     */
     public Response getPinnedMessage(GetPinnedMsgReq request)
     {
         try
@@ -297,6 +333,11 @@ public class ChannelService
         }
     }
 
+    /**
+     * gets and handles remove user of channel request
+     * @param request the request
+     * @return response related to request
+     */
     public Response removeUser(RemoveUserChannelReq request)
     {
         try
@@ -342,6 +383,11 @@ public class ChannelService
         }
     }
 
+    /**
+     * gets and handles rename channel request
+     * @param request the request
+     * @return response related to request
+     */
     public Response renameChannel(RenameChannelReq request)
     {
         try
@@ -377,6 +423,11 @@ public class ChannelService
         }
     }
 
+    /**
+     * gets and handles un pin a message of channel request
+     * @param request the request
+     * @return response related to request
+     */
     public Response unPinMessage(UnpinMessageReq request)
     {
         try

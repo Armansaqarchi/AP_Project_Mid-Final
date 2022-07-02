@@ -6,6 +6,9 @@ import model.exception.ServerThreadNotFoundException;
 import model.request.priavteChat.GetPrivateChatHisReq;
 import model.request.priavteChat.PrivateChatReq;
 
+/**
+ * this class gets and handles requests related to private chat
+ */
 public class PrivateChatApi
 {
     private final PrivateChatService service;
@@ -16,13 +19,18 @@ public class PrivateChatApi
     /**
      * the constructor of class that initializes fields
      */
-    public PrivateChatApi()
+    protected PrivateChatApi()
     {
         service = new PrivateChatService();
         sender = Sender.getSender();
     }
 
-    public void getRequest(PrivateChatReq request) throws InvalidTypeException {
+    /**
+     * gets and handles requests
+     * @param request the request
+     * @throws InvalidTypeException throws it when request's type is invalid
+     */
+    protected void getRequest(PrivateChatReq request) throws InvalidTypeException {
         switch (request.subType())
         {
             case GET_CHAT_HISTORY -> getChatHistory((GetPrivateChatHisReq) request);

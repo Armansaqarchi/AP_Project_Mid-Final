@@ -7,6 +7,9 @@ import model.exception.ServerThreadNotFoundException;
 import model.request.server.*;
 import model.response.Response;
 
+/**
+ * gets and handles requests related to server
+ */
 public class ServerApi
 {
     private final ServerService service;
@@ -14,12 +17,21 @@ public class ServerApi
     //sender object to send responses to client
     private final Sender sender;
 
-    public ServerApi()
+    /**
+     * the classes constructor
+     */
+    protected ServerApi()
     {
         service = new ServerService();
         sender = Sender.getSender();
     }
-    public void getRequest(ServerReq request) throws InvalidTypeException {
+
+    /**
+     * gets and handle requests
+     * @param request the request
+     * @throws InvalidTypeException throw's if requests type was invalid
+     */
+    protected void getRequest(ServerReq request) throws InvalidTypeException {
         switch (request.subType())
         {
             case ADD_RULE -> addRule((AddRuleServerReq) request);

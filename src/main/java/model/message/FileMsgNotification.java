@@ -10,7 +10,10 @@ public class FileMsgNotification extends Message
     //file's length in bytes
     private final long fileSize;
 
-    //makes notification for a file message
+    /**
+     * the constructor of class that
+     * makes notification for a file message
+     */
     public FileMsgNotification(FileMessage message)
     {
         super(message.getId() , message.getSenderId() , message.getReceiverId() ,
@@ -19,6 +22,9 @@ public class FileMsgNotification extends Message
         fileSize = message.getContent().length;
     }
 
+    /**
+     * @return messages information as a string
+     */
     @Override
     public String toString()
     {
@@ -44,12 +50,19 @@ public class FileMsgNotification extends Message
        }
     }
 
+    /**
+     * returns the files name and its size
+     * @return
+     */
     @Override
     public Object getContent()
     {
         return "file message , size : " + fileSize + " bytes.";
     }
 
+    /**
+     * @return the files size
+     */
     public long getFileLength() {
         return fileSize;
     }

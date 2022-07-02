@@ -14,15 +14,26 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.UUID;
 
+/**
+ * handles request related to private chat
+ */
 public class PrivateChatService
 {
     private Database database;
 
+    /**
+     * the constructor
+     */
     public PrivateChatService()
     {
         database = Database.getDatabase();
     }
 
+    /**
+     * gets request of getting private chat history
+     * @param request request of getting private chat history
+     * @return response fo getting private chats history
+     */
     public GetPrivateChatHisRes getChatHistory(GetPrivateChatHisReq request)
     {
         if(!database.getUserOp().isExists(request.getUserId()))

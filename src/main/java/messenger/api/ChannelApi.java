@@ -7,6 +7,9 @@ import model.request.Channel.*;
 import model.request.server.RemoveRuleReq;
 import model.response.Response;
 
+/**
+ * this class is used to get and handle requests related to channel
+ */
 public class ChannelApi
 {
     private final ChannelService service;
@@ -14,14 +17,21 @@ public class ChannelApi
     //sender object to send responses to client
     private final Sender sender;
 
+    /**
+     * the constructor of class
+     */
     public ChannelApi()
     {
         service = new ChannelService();
         sender = Sender.getSender();
     }
 
-
-    public void getRequest(ChannelReq request) throws InvalidTypeException {
+    /**
+     * gets and handles requests
+     * @param request the request
+     * @throws InvalidTypeException throws when invalid request being sent to this mehod
+     */
+    protected void getRequest(ChannelReq request) throws InvalidTypeException {
         switch(request.subType())
         {
             case REMOVE_USER -> removeUser((RemoveUserChannelReq) request);

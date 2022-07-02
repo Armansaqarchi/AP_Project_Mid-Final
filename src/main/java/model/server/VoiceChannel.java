@@ -3,6 +3,11 @@ package model.server;
 import java.util.LinkedList;
 import java.util.UUID;
 
+/**
+ * INCOMPLETE
+ *
+ * simulates a voice channel in server
+ */
 public class VoiceChannel extends Channel
 {
 
