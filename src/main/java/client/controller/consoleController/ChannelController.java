@@ -295,7 +295,7 @@ public class ChannelController extends InputController {
         }
     }
 
-    public void unPinMessage()
+    public void unpinMessage()
     {
         System.out.println("enter server id");
         serverId = scanner.nextLine();
@@ -339,6 +339,7 @@ public class ChannelController extends InputController {
         }
         System.out.println("\n");
     }
+
 
     /**
      * creates a channel which need parameters channel name and server id

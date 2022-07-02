@@ -88,7 +88,10 @@ public class SignUpController extends InputController {
             //takes the response from server about whether it was successful
             Response response = clientSocket.getReceiver().getResponse();
             System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
-            if(response.isAccepted()) return true;
+            if(response.isAccepted()){
+                clientSocket.setId(id);
+                return true;
+            }
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
@@ -104,19 +107,21 @@ public class SignUpController extends InputController {
      */
     private void getId(){
 
-        try {
-            System.out.println("enter id : ");
-            System.out.println("enter '-0' in order to be back");
-            id = scanner.nextLine();
-            if (id.equals("-0")) {
-                id = null;
+        while(true) {
+            try {
+                System.out.println("enter id : ");
+                System.out.println("enter '-0' in order to be back");
+                id = scanner.nextLine();
+                if (id.equals("-0")) {
+                    id = null;
+                    return;
+                }
+                InfoVerifier.checkUserValidity(id);
                 return;
-            }
-            InfoVerifier.checkUserValidity(id);
 
-        }
-        catch(InvalidUsernameException e){
-            System.out.println(e.getMessage());
+            } catch (InvalidUsernameException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 

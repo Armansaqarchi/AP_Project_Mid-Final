@@ -54,7 +54,6 @@ public class Receiver
         {
 
             getRequest((Request) transferable);
-            System.out.println("dsafas");
         }
         catch (ClassCastException e)
         {
