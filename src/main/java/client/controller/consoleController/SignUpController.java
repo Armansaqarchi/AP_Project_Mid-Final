@@ -104,19 +104,23 @@ public class SignUpController extends InputController {
      */
     private void getId(){
 
-        try {
-            System.out.println("enter id : ");
-            System.out.println("enter '-0' in order to be back");
-            id = scanner.nextLine();
-            if (id.equals("-0")) {
-                id = null;
+        while(true)
+        {
+            try {
+                System.out.println("enter id : ");
+                System.out.println("enter '-0' in order to be back");
+                id = scanner.nextLine();
+                if (id.equals("-0")) {
+                    id = null;
+                    return;
+                }
+                InfoVerifier.checkUserValidity(id);
+
                 return;
             }
-            InfoVerifier.checkUserValidity(id);
-
-        }
-        catch(InvalidUsernameException e){
-            System.out.println(e.getMessage());
+            catch(InvalidUsernameException e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 
