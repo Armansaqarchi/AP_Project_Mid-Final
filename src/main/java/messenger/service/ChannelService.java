@@ -122,7 +122,6 @@ public class ChannelService
 
                 database.getServerOp().updateServerHashList(UpdateType.ADD , "channels" , request.getServerId(), request.getChannelName() , channel.getId());
 
-                Channel c = database.getChannelOp().findById(channel.getId().toString());
                 //adding users of server into channel
                 for(String userId : server.getUsers())
                 {
