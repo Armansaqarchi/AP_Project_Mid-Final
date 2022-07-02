@@ -155,6 +155,7 @@ public class PrivateChatOp extends Op{
      * a method checks if a privateChat exists or not
      * @param id, private chat id
      * @return true if user exists, false if user doesnt exists
+     * @author mahdi kalhor
      */
     public boolean isExists(String id)
     {
