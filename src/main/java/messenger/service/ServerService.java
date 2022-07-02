@@ -82,7 +82,7 @@ public class ServerService
             if(server.getUsers().contains(request.getSenderId()))
             {
                 //add user to server
-                database.getServerOp().updateServerList(UpdateType.ADD , server.getId(), "users" , request.getUserIds());
+                database.getServerOp().updateServerList(UpdateType.ADD , "users", server.getId(), request.getUserIds());
 
                 ServerIDs serverId = new ServerIDs(server.getId(), new LinkedList<>());
 
@@ -115,6 +115,13 @@ public class ServerService
 
             database.getServerOp().insertServer(request.getServerId() , request.getSenderId() , request.getName());
 
+            database.getServerOp().updateServerList(UpdateType.ADD , "users" , request.getServerId(), request.getSenderId());
+
+            ServerIDs serverId = new ServerIDs(request.getServerId(), new LinkedList<>());
+
+            //add serverID to owners servers
+            database.getUserOp().updateList(UpdateType.ADD , "servers" , request.getSenderId() , serverId);
+
             if(null != request.getImage())
             {
                 database.getServerOp().updateServerProfileImage(request.getImage(), request.getServerId());
@@ -126,7 +133,7 @@ public class ServerService
         {
             return new Response(request.getSenderId() , false , e.getMessage());
         }
-        catch (SQLException | IOException e)
+        catch (SQLException | IOException | ClassNotFoundException e)
         {
             throw new RuntimeException();
         }
@@ -197,7 +204,7 @@ public class ServerService
             if(checkRule(request.getSenderId() , request.getServerId(), RuleType.REMOVE_MEMBER))
             {
                 //remove user from server
-                database.getServerOp().updateServerList(UpdateType.REMOVE , server.getId(), "users" , request.getUserIds());
+                database.getServerOp().updateServerList(UpdateType.REMOVE , "users" , server.getId() , request.getUserIds());
 
                 ServerIDs serverId = new ServerIDs(server.getId(), new LinkedList<>());
 

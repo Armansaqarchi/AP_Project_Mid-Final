@@ -10,10 +10,7 @@ import model.request.Channel.*;
 import model.response.Response;
 import model.response.channel.GetChatHistoryRes;
 import model.response.channel.GetPinnedMsgRes;
-import model.server.ChannelType;
-import model.server.RuleType;
-import model.server.Server;
-import model.server.TextChannel;
+import model.server.*;
 import model.user.ServerIDs;
 import model.user.User;
 
@@ -105,10 +102,26 @@ public class ChannelService
             {
                 TextChannel channel = new TextChannel(UUID.randomUUID() , request.getChannelName() , ChannelType.TEXT);
 
+                database.getChannelOp().insertChannel(channel.getId().toString() , channel.getName(), ChannelType.TEXT);
+
+                database.getServerOp().updateServerHashList(UpdateType.ADD , "channels" , request.getServerId(), request.getChannelName() , channel.getId());
+
+                Channel c = database.getChannelOp().findById(channel.getId().toString());
                 //adding users of server into channel
                 for(String userId : server.getUsers())
                 {
+
                     database.getChannelOp().updateChannelList(UpdateType.ADD , "users" , channel.getId().toString() , userId);
+
+
+                    User user = database.getUserOp().findById(userId);
+
+                    ServerIDs serverIDs = user.getServers().get(user.getServers().indexOf(new ServerIDs(server.getId() , null)));
+                    serverIDs.getChannels().add(channel.getName());
+
+                    database.getUserOp().updateList(UpdateType.REMOVE , "servers" , userId , serverIDs);
+                    database.getUserOp().updateList(UpdateType.ADD , "servers" , userId , serverIDs);
+
                 }
 
                 return new Response(request.getSenderId(), true , "channel added successfully.");
@@ -147,6 +160,20 @@ public class ChannelService
 
             //delete channel
             database.getChannelOp().deleteChannelById(channelId.toString());
+
+            database.getServerOp().updateServerHashList(UpdateType.REMOVE , "channels" , request.getServerId(), request.getChannelName() , channelId);
+            //adding users of server into channel
+            for(String userId : server.getUsers())
+            {
+                User user = database.getUserOp().findById(userId);
+
+                ServerIDs serverIDs = user.getServers().get(user.getServers().indexOf(new ServerIDs(server.getId() , null)));
+                serverIDs.getChannels().remove(request.getChannelName());
+
+                database.getUserOp().updateList(UpdateType.REMOVE , "servers" , userId , serverIDs);
+                database.getUserOp().updateList(UpdateType.ADD , "servers" , userId , serverIDs);
+
+            }
 
             return new Response(request.getSenderId() , true ,
                     "channel deleted successfully.");

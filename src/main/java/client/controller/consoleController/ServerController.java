@@ -350,7 +350,7 @@ public class ServerController extends InputController
 
         //iterates and prints all the statuses
         for(String i : users.keySet()){
-            System.out.println("" + i + "Status : " + users.get(i));
+            System.out.println("" + i + "  ,Status : " + users.get(i));
         }
     }
 

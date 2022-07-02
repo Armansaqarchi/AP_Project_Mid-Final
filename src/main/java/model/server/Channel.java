@@ -31,6 +31,10 @@ public abstract class Channel implements Serializable
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public LinkedList<String> getUsers()
     {
         return users;

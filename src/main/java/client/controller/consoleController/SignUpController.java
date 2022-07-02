@@ -49,7 +49,7 @@ public class SignUpController extends InputController {
         }
 
         //takes the name
-        getUserName();
+        getName();
         if(name == null){
             return false;
         }
@@ -88,10 +88,7 @@ public class SignUpController extends InputController {
             //takes the response from server about whether it was successful
             Response response = clientSocket.getReceiver().getResponse();
             System.out.println("\033[0;31m" + response.getMessage() + "\033[0m");
-            if(response.isAccepted()){
-                clientSocket.setId(id);
-                return true;
-            }
+            if(response.isAccepted()) return true;
         }
         catch(ResponseNotFoundException e){
             System.out.println(e.getMessage());
@@ -107,7 +104,8 @@ public class SignUpController extends InputController {
      */
     private void getId(){
 
-        while(true) {
+        while(true)
+        {
             try {
                 System.out.println("enter id : ");
                 System.out.println("enter '-0' in order to be back");
@@ -117,9 +115,10 @@ public class SignUpController extends InputController {
                     return;
                 }
                 InfoVerifier.checkUserValidity(id);
-                return;
 
-            } catch (InvalidUsernameException e) {
+                return;
+            }
+            catch(InvalidUsernameException e){
                 System.out.println(e.getMessage());
             }
         }
@@ -129,7 +128,7 @@ public class SignUpController extends InputController {
      * takes the name from client
      * @author Arman sagharchi
      */
-    private void getUserName(){
+    private void getName(){
 
         //stuck in a loop till the client wants to be back or
         //enters the info

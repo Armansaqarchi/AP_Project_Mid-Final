@@ -25,12 +25,12 @@ public class InfoVerifier {
         Matcher matcher = Pattern.compile("[a-zA-Z0-9]+!*$").matcher(id);
         if(!matcher.find()){
             //if matcher did not find anything, it means its invalid
-            throw new InvalidUsernameException("name must have only" +
+            throw new InvalidUsernameException("id must have only" +
                     " english characters and numbers");
         }
 
         if(size < 6){
-            throw new InvalidUsernameException("username must have at least 6 characters");
+            throw new InvalidUsernameException("id must have at least 6 characters");
         }
 
     }
