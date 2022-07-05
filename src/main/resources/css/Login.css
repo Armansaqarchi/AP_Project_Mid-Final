@@ -13,4 +13,11 @@
     -fx-background-color: #808080;
 }
 
+.greyGround{
+    -fx-background-color: #696969;
+}
+.noColor{
+    -fx-background-color: none;
+}
+
 

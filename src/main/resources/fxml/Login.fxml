@@ -5,25 +5,41 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="505.0" prefWidth="843.0" styleClass="root" stylesheets="@../css/Login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.fxController.LoginController">
+<AnchorPane prefHeight="459.0" prefWidth="848.0" styleClass="root" stylesheets="@../css/Login.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.fxController.LoginController">
    <children>
-      <VBox layoutX="134.0" layoutY="100.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="216.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="100.0">
+      <VBox layoutX="134.0" layoutY="55.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="371.0" prefWidth="608.0" AnchorPane.bottomAnchor="33.0" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="55.0">
          <children>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="539.0" text="ID" textFill="WHITE">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="664.0" text="Welcome Back!" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
                <VBox.margin>
                   <Insets />
-               </VBox.margin></Label>
+               </VBox.margin>
+               <font>
+                  <Font size="33.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="712.0" text="We're so excited to see you again!" textFill="WHITE" />
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="539.0" text="ID" textFill="WHITE">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font></Label>
             <TextField fx:id="IDText" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="360.0" promptText="ID" styleClass="textField">
                <VBox.margin>
                   <Insets />
                </VBox.margin></TextField>
-            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="360.0" text="PASSWORD" textFill="WHITE">
+            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="482.0" text="PASSWORD" textFill="WHITE">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
             </Label>
             <TextField fx:id="passwordText" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="360.0" promptText="Password" styleClass="textField" stylesheets="@../css/Login.css" />
             <Button fx:id="loginButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLogin" prefHeight="42.0" prefWidth="644.0" styleClass="Login-button" stylesheets="@../css/Login.css" text="Login" textFill="WHITE">
@@ -34,6 +50,26 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
+            <HBox prefHeight="22.0" prefWidth="608.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="107.0" text="Need an account ? " textFill="#ff8989">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Button fx:id="RegisterButton" mnemonicParsing="false" onAction="#onRegister" prefHeight="26.0" prefWidth="64.0" styleClass="noColor" text="Register" textFill="WHITE">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>
