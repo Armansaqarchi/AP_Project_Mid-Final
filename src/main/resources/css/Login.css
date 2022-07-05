@@ -4,10 +4,13 @@
 .root{
     -fx-background-image: url("../image/Login.png");
     -fx-background-repeat: stretch;
-    -fx-background-size: 900 506;
+    -fx-background-size: 100% 100%;
     -fx-background-position: center center;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+
 }
 .textField{
     -fx-background-color: #808080;
 }
+
+
