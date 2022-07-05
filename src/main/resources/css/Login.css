@@ -2,7 +2,7 @@
     -fx-background-color: #5169E9;
 }
 .root{
-    -fx-background-image: url("../image/Login2.png");
+    -fx-background-image: url("../image/Login.png");
     -fx-background-repeat: stretch;
     -fx-background-size: 900 506;
     -fx-background-position: center center;
