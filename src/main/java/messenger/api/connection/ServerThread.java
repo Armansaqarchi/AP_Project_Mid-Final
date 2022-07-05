@@ -1,22 +1,26 @@
 package messenger.api.connection;
 
-import messenger.api.MessageReceiver;
-import messenger.api.RequestReceiver;
-import messenger.service.model.Transferable;
-import messenger.service.model.exception.InvalidObjectException;
-import messenger.service.model.exception.InvalidTypeException;
-import messenger.service.model.message.Message;
-import messenger.service.model.request.Request;
 
+import messenger.api.Receiver;
+import model.Transferable;
+import model.exception.InvalidObjectException;
+import model.exception.InvalidTypeException;
+import model.request.Authentication.AuthenticationReq;
+import model.request.Authentication.LoginReq;
+import model.request.Authentication.SignupReq;
+import model.user.UserStatus;
+
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class ServerThread implements Runnable
 {
-    private MessageReceiver messageReceiver;
-    private RequestReceiver requestReceiver;
+
+    private final Receiver receiver;
 
     private final Socket socket;
     private ObjectInputStream inputStream;
@@ -25,10 +29,13 @@ public class ServerThread implements Runnable
     //user id of the client that connected to this socket
     private String id;
 
+    /**
+     * the constructor of class
+     * @param socket the socket that connected to client
+     */
     public ServerThread(Socket socket)
     {
-        messageReceiver = MessageReceiver.getMessageReceiver();
-        requestReceiver = RequestReceiver.getRequestReceiver();
+        receiver = Receiver.getReceiver();
 
         this.socket =socket;
 
@@ -43,6 +50,9 @@ public class ServerThread implements Runnable
         }
     }
 
+    /**
+     * this method gets objects from client
+     */
     @Override
     public void run()
     {
@@ -52,31 +62,41 @@ public class ServerThread implements Runnable
             {
                 Transferable input = (Transferable)inputStream.readObject();
 
-                if(input instanceof Message)
+                //server thread most be saved in authentication request
+                //because it does not added to connections before
+                if(input instanceof SignupReq || input instanceof LoginReq)
                 {
-                    messageReceiver.getMessage((Message) input);
+                    ((AuthenticationReq) input).setServerThread(this);
                 }
-                else if (input instanceof Request)
-                {
-                    requestReceiver.getRequest((Request) input);
-                }
-                else
-                {
-                    throw new InvalidObjectException();
-                }
+
+                receiver.receive(input);
+            }
+            catch (SocketException | EOFException e)
+            {
+                ConnectionHandler.getConnectionHandler().removeConnection(id);
+
+                //user status must turn to offline in this line
+                receiver.turnUserStatus(id , UserStatus.OFFLINE);
+                return;
             }
             catch (IOException | ClassNotFoundException |
                    InvalidTypeException | InvalidObjectException e)
             {
                 e.printStackTrace();
+                return;
             }
         }
 
         ConnectionHandler.getConnectionHandler().removeConnection(id);
 
         //user status must turn to offline in this line
+        receiver.turnUserStatus(id , UserStatus.OFFLINE);
     }
 
+    /**
+     * sends a transferable object to client
+     * @param transferable the object that must be sent to client
+     */
     public void send(Transferable transferable)
     {
         try
@@ -87,5 +107,31 @@ public class ServerThread implements Runnable
         {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * it used when authentication is accepted
+     * sets client's id and looks for its messages
+     * @param id the verified id
+     */
+    public void verified(String id)
+    {
+        //setting verified id
+        setId(id);
+
+        //turn user status to online
+        receiver.turnUserStatus(id , UserStatus.ONLINE);
+
+        //look for messages of user
+        receiver.getUnreadMessages(id);
+    }
+
+    /**
+     * sets the serverThreads id
+     * @param id the id
+     */
+    public void setId(String id)
+    {
+        this.id = id;
     }
 }
