@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="938.0" styleClass="home-wall" stylesheets="@../css/Home.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="938.0" styleClass="home-wall" stylesheets="@../css/Home.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.fxController.HomeController">
    <children>
       <HBox prefHeight="390.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -44,7 +44,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="27.0" prefWidth="54.0" styleClass="custom-button" stylesheets="@../css/Home.css" text="Online" textFill="WHITE">
+                        <Button fx:id="online" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onOnline" prefHeight="27.0" prefWidth="54.0" styleClass="custom-button" stylesheets="@../css/Home.css" text="Online" textFill="WHITE">
                            <HBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </HBox.margin>
@@ -52,22 +52,22 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="37.0" prefWidth="35.0" styleClass="custom-button" stylesheets="@../css/Home.css" text="All" textFill="WHITE">
+                        <Button fx:id="all" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAll" prefHeight="37.0" prefWidth="35.0" styleClass="custom-button" stylesheets="@../css/Home.css" text="All" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="37.0" prefWidth="68.0" styleClass="custom-button" stylesheets="@../css/Home.css" text="Pending" textFill="WHITE">
+                        <Button fx:id="pending" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onPending" prefHeight="37.0" prefWidth="68.0" styleClass="custom-button" stylesheets="@../css/Home.css" text="Pending" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="37.0" prefWidth="64.0" styleClass="custom-button" stylesheets="@../css/Home.css" text="Blocked" textFill="WHITE">
+                        <Button fx:id="blocked" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBlocked" prefHeight="37.0" prefWidth="64.0" styleClass="custom-button" stylesheets="@../css/Home.css" text="Blocked" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="37.0" prefWidth="77.0" styleClass="custom-button" stylesheets="@../css/Home.css" text="Add friend" textFill="WHITE">
+                        <Button fx:id="addFriend" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAddFriend" prefHeight="37.0" prefWidth="77.0" styleClass="custom-button" stylesheets="@../css/Home.css" text="Add friend" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>

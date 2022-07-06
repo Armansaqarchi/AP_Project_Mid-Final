@@ -2,8 +2,10 @@ package client.controller.fxController;
 
 import javafx.fxml.FXML;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
+
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 public class EditProfileController
 {

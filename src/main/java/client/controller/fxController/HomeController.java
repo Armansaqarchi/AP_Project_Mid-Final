@@ -8,19 +8,17 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 
-import java.awt.event.ActionEvent;
+import javafx.event.ActionEvent;
 import java.util.ArrayList;
 
 
-public class HomeController extends Controller {
+public class HomeController {
 
-    public HomeController(ClientSocket clientSocket) {
-        super(clientSocket);
-    }
 
     @FXML
     private ListView<String> serverStatusView;
@@ -82,11 +80,6 @@ public class HomeController extends Controller {
     }
 
     @FXML
-    public void onOnline(ActionEvent event) {
-
-    }
-
-    @FXML
     public void onPending(ActionEvent event) {
 
     }
@@ -107,5 +100,15 @@ public class HomeController extends Controller {
     }
 
 
+    @FXML
+    public void onServerItem(MouseEvent mouseEvent) {
+    }
 
+    @FXML
+    public void onFriendItem(MouseEvent mouseEvent) {
+    }
+
+
+    public void onOnline(ActionEvent event) {
+    }
 }

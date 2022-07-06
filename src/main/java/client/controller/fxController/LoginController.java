@@ -13,11 +13,9 @@ import javax.swing.text.html.ImageView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginController extends Controller implements Initializable {
+public class LoginController implements Initializable {
 
-    public LoginController(ClientSocket clientSocket) {
-        super(clientSocket);
-    }
+
 
     @FXML
     private ImageView image;
