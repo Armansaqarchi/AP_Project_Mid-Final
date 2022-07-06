@@ -18,6 +18,7 @@ public class EditProfileController
 
     @FXML
     private Button cancel;
+    @FXML
     private Button done;
 
     @FXML
