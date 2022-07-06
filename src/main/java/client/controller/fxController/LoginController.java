@@ -4,10 +4,26 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
-public class LoginController {
+import javax.swing.text.html.ImageView;
+import java.awt.*;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class LoginController implements Initializable {
+
+
+    @FXML
+    private ImageView image;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
 
     @FXML
     private TextField IDText;
@@ -30,5 +46,6 @@ public class LoginController {
     void onRegister(ActionEvent event) {
 
     }
+
 
 }
