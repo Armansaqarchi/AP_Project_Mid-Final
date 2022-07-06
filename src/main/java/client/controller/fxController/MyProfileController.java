@@ -22,6 +22,10 @@ public class MyProfileController
 
     @FXML
     private Button editImage;
+    @FXML
+    private Button changePassword;
+    @FXML
+    private Button logout;
 
     @FXML
     private TextField userId;

@@ -31,6 +31,28 @@
     -fx-font-size: 20px;
     -fx-font-family: "Abyssinica SIL";
 }
+.logoutButton
+{
+    -fx-font-size: 16px;
+    -fx-font-family: "Abyssinica SIL";
+    -fx-background-color: #fb3f3f;
+    -fx-background-radius: 8 8 8 8;
+}
+.logoutButton:focused {
+    -fx-background-color: #c22323;
+    -fx-background-insets: none;
+}
+.passwordButton
+{
+    -fx-font-size: 16px;
+    -fx-font-family: "Abyssinica SIL";
+    -fx-background-color:  #03A9F4 ;
+    -fx-background-radius: 8 8 8 8;
+}
+.passwordButton:focused {
+    -fx-background-color: #035b83;
+    -fx-background-insets: #none;
+}
 .profileField
 {
     -fx-font-size: 20px;
