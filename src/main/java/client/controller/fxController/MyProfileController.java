@@ -2,6 +2,7 @@ package client.controller.fxController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.shape.Circle;
 
 import java.awt.*;
 
@@ -23,7 +24,21 @@ public class MyProfileController
     private Button editImage;
 
     @FXML
-    void onLogin(ActionEvent event) {
+    private TextField userId;
+    @FXML
+    private TextField name;
+    @FXML
+    private TextField email;
+    @FXML
+    private TextField phoneNumber;
+
+    @FXML
+    private Circle image;
+    @FXML
+    private Circle status;
+
+    @FXML
+    private void eventHandler(ActionEvent event) {
 
     }
 }
