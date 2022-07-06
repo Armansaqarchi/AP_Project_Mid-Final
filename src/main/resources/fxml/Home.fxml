@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="487.0" prefWidth="938.0" styleClass="home-wall" stylesheets="@../css/Home.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="390.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="606.0" prefWidth="235.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <ListView fx:id="channelView" maxHeight="1.7976931348623157E308" prefHeight="542.0" prefWidth="72.0" HBox.hgrow="NEVER" />
+                  <ListView fx:id="friendView" maxHeight="1.7976931348623157E308" prefHeight="572.0" prefWidth="166.0" stylesheets="@../css/Home.css" HBox.hgrow="NEVER" />
+               </children>
+            </HBox>
+            <BorderPane prefHeight="487.0" prefWidth="702.0" HBox.hgrow="ALWAYS">
+               <top>
+                  <HBox fx:id="friendStatusView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="62.0" prefWidth="704.0" styleClass="hBox" stylesheets="@../css/Home.css" BorderPane.alignment="CENTER" />
+               </top>
+               <right>
+                  <ListView fx:id="ChannelStatusView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="425.0" prefWidth="153.0" />
+               </right>
+               <center>
+                  <StackPane fx:id="mainView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="502.0" prefWidth="622.0" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

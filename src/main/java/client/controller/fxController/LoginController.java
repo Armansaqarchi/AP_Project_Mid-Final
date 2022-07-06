@@ -1,5 +1,6 @@
 package client.controller.fxController;
 
+import client.ClientSocket;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -9,12 +10,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 import javax.swing.text.html.ImageView;
-import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+public class LoginController extends Controller implements Initializable {
 
+    public LoginController(ClientSocket clientSocket) {
+        super(clientSocket);
+    }
 
     @FXML
     private ImageView image;

@@ -1,0 +1,22 @@
+.home-wall{
+    -fx-background-image: url("../image/HomeWall.png");
+    -fx-background-repeat: space;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+
+}
+
+.list-view{
+    -fx-background-color: grey;
+    -fx-border-color: Grey;
+    -fx-effect: dropshadow(three-pass-box, black, 5, 0.5, 0, 0);
+    -fx-opacity: 0.27;
+
+}
+
+.hBox{
+    -fx-border-color: Grey;
+    -fx-background-color: Grey;
+    -fx-opacity: 0.27;
+}

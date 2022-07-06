@@ -1,12 +1,17 @@
 package client.controller.fxController;
 
+import client.ClientSocket;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 
-public class SignUpController {
+public class SignUpController extends Controller {
+
+    public SignUpController(ClientSocket clientSocket) {
+        super(clientSocket);
+    }
 
     @FXML
     private TextField IDText;
