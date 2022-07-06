@@ -1,4 +1,44 @@
 package client.controller.fxController;
 
-public class MyProfileController {
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.shape.Circle;
+
+import java.awt.*;
+
+public class MyProfileController
+{
+    @FXML
+    private Button escape;
+
+    @FXML
+    private Button editId;
+    @FXML
+    private Button editName;
+    @FXML
+    private Button editEmail;
+    @FXML
+    private Button editPhoneNumber;
+
+    @FXML
+    private Button editImage;
+
+    @FXML
+    private TextField userId;
+    @FXML
+    private TextField name;
+    @FXML
+    private TextField email;
+    @FXML
+    private TextField phoneNumber;
+
+    @FXML
+    private Circle image;
+    @FXML
+    private Circle status;
+
+    @FXML
+    private void eventHandler(ActionEvent event) {
+
+    }
 }
