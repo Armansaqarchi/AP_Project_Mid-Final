@@ -1,14 +1,192 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Circle?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fxml.Profile"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" styleClass="gridpane" stylesheets="@../css/myProfile.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.5999755859375" minWidth="10.0" prefWidth="103.19999999999999" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="985.5999999999999" minWidth="10.0" prefWidth="977.5999999999999" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="586.3999755859375" minWidth="10.0" prefWidth="120.00004882812505" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="160.00000610351563" minHeight="10.0" prefHeight="136.8000030517578" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="490.79999084472655" minHeight="10.0" prefHeight="480.7999969482422" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="108.60001220703123" minHeight="8.000036621093727" prefHeight="82.20004882812498" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <GridPane prefHeight="138.0" prefWidth="847.0" GridPane.columnIndex="1">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="421.00006103515625" minWidth="10.0" prefWidth="260.0000244140625" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="654.4000000000001" minWidth="10.0" prefWidth="601.3999755859375" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="239.39996337890625" minWidth="0.5999511718749773" prefWidth="110.20002441406245" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="139.99999084472657" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="140.0" minHeight="0.0" prefHeight="121.6" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="58.0" prefWidth="58.0" styleClass="exitButton" stylesheets="@../css/myProfile.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Button>
+            <Label alignment="CENTER" prefHeight="104.0" prefWidth="255.0" styleClass="myAccountLabel" stylesheets="@../css/myProfile.css" text="My Account" textFill="#28cbfc" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="479.20001220703125" minWidth="10.0" prefWidth="239.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="753.5999999999999" minWidth="10.0" prefWidth="671.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane prefHeight="490.0" prefWidth="238.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="336.0000366210937" minHeight="10.0" prefHeight="279.20000610351565" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="194.3999755859375" minHeight="10.0" prefHeight="70.19998779296873" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="194.3999755859375" minHeight="10.0" prefHeight="131.00001220703126" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Circle fill="#fff" radius="125.0" stroke="BLACK" strokeType="INSIDE" style="-fx-background-image: url(../image/user-default.png); -fx-background-color: none ;">
+                     <GridPane.margin>
+                        <Insets top="20.0" />
+                     </GridPane.margin></Circle>
+                  <Circle fill="DODGERBLUE" radius="40.0" stroke="BLACK" strokeType="INSIDE">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" left="165.0" right="10.0" top="180.0" />
+                     </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </Circle>
+                  <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" styleClass="editButton" stylesheets="../css/myProfile.css" GridPane.rowIndex="1">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <GridPane.margin>
+                        <Insets left="180.0" />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+            </GridPane>
+            <GridPane opacity="0.8" prefHeight="490.0" prefWidth="695.0" styleClass="profileGrid" stylesheets="@../css/myProfile.css" GridPane.columnIndex="1">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="685.8000335693359" minWidth="10.0" prefWidth="583.2000244140625" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="685.8000335693359" minWidth="10.0" prefWidth="148.79997558593755" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="154.59998168945313" minHeight="10.0" prefHeight="50.2" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="154.59998168945313" minHeight="10.0" prefHeight="62.39999389648438" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="167.3999923706055" minHeight="10.0" prefHeight="55.80002441406249" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="252.1999954223633" minHeight="10.0" prefHeight="72.5999755859375" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="204.59999999999997" minHeight="0.0" prefHeight="50.400006103515636" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="257.59999389648436" minHeight="10.0" prefHeight="71.19999389648439" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="257.59999389648436" minHeight="10.0" prefHeight="46.19998779296873" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="257.59999389648436" minHeight="10.0" prefHeight="86.19998779296873" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label prefHeight="55.0" prefWidth="500.0" styleClass="profileLabel" stylesheets="../css/myProfile.css" text="USER ID" textFill="WHITE">
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding></Label>
+                  <Label prefHeight="55.0" prefWidth="500.0" styleClass="profileField" stylesheets="../css/myProfile.css" text="user id" GridPane.rowIndex="1">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin></Label>
+                  <Label prefHeight="55.0" prefWidth="500.0" styleClass="profileLabel" stylesheets="../css/myProfile.css" text="NAME" textFill="WHITE" GridPane.rowIndex="2">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin></Label>
+                   <Label prefHeight="55.0" prefWidth="500.0" styleClass="profileField" stylesheets="../css/myProfile.css" text="name" GridPane.rowIndex="3">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin></Label>
+                   <Label prefHeight="55.0" prefWidth="500.0" styleClass="profileLabel" stylesheets="../css/myProfile.css" text="EMAIL" textFill="WHITE" GridPane.rowIndex="4">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin></Label>
+                   <Label prefHeight="55.0" prefWidth="500.0" styleClass="profileField" stylesheets="../css/myProfile.css" text="email" GridPane.rowIndex="5">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin></Label>
+                   <Label prefHeight="55.0" prefWidth="500.0" styleClass="profileLabel" stylesheets="../css/myProfile.css" text="PHONE NUMBER" textFill="WHITE" GridPane.rowIndex="6">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin></Label>
+                   <Label prefHeight="55.0" prefWidth="500.0" styleClass="profileField" stylesheets="../css/myProfile.css" text="phone number" GridPane.rowIndex="7">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="30.0" />
+                     </GridPane.margin></Label>
+                   <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" styleClass="editButton" stylesheets="../css/myProfile.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                   <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" styleClass="editButton" stylesheets="../css/myProfile.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                   <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" styleClass="editButton" stylesheets="../css/myProfile.css" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets left="30.0" />
+                     </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                   <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" styleClass="editButton" stylesheets="../css/myProfile.css" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <GridPane.margin>
+                        <Insets bottom="15.0" left="30.0" />
+                     </GridPane.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+               </children>
+            </GridPane>
+         </children>
+      </GridPane>
+   </children>
+</GridPane>
