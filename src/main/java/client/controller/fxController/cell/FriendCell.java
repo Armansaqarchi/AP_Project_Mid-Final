@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.TextAlignment;
 import model.user.User;
@@ -39,10 +40,15 @@ public class FriendCell extends ListCell<String> {
             setGraphic(null);
         }
         else{
-            //sends a request and gets friend image
             label.setText(item);
-            label.setStyle("-fx-text-fill: white;");
-            //placing the image into the circle
+            //sends a request and gets friend image
+            if(item.equals("friends")){
+                circle.setFill(new ImagePattern(new Image("src\\main\\resources\\image\\human-icon.png")));
+            }
+            else {
+                label.setStyle("-fx-text-fill: white;");
+                //placing the image into the circle
+            }
 
             setGraphic(hBox);
         }

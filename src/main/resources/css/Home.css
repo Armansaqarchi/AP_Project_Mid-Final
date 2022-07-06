@@ -11,12 +11,25 @@
     -fx-background-color: grey;
     -fx-border-color: Grey;
     -fx-effect: dropshadow(three-pass-box, black, 5, 0.5, 0, 0);
-    -fx-opacity: 0.27;
+    -fx-opacity: 0.5;
 
 }
 
 .hBox{
     -fx-border-color: Grey;
     -fx-background-color: Grey;
-    -fx-opacity: 0.27;
+    -fx-opacity: 0.8;
+}
+
+
+.custom-button{
+    -fx-background-color: none;
+}
+
+.custom-button:focused{
+    -fx-background-color: #353535;
+}
+
+.custom-button:hover{
+    -fx-background-color: #353535;
 }
