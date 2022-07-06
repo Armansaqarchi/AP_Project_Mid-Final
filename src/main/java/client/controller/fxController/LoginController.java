@@ -16,10 +16,18 @@ public class LoginController {
     private Button loginButton;
 
     @FXML
+    private Button RegisterButton;
+
+    @FXML
     private TextField passwordText;
 
     @FXML
     void onLogin(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onRegister(ActionEvent event) {
 
     }
 
