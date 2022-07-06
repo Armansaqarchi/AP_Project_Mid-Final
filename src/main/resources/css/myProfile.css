@@ -12,7 +12,7 @@
 }
 .myAccountLabel
 {
-    -fx-font-size: 36px;
+    -fx-font-size: 20px;
     -fx-font-family: "Abyssinica SIL";
 }
 .profileGrid
@@ -28,14 +28,14 @@
 }
 .profileLabel
 {
-    -fx-font-size: 24px;
+    -fx-font-size: 20px;
     -fx-font-family: "Abyssinica SIL";
 }
 .profileField
 {
-    -fx-font-size: 24px;
+    -fx-font-size: 20px;
     -fx-background-color: #c0c0c0;
-    -fx-background-radius: 15 15 15 15;
+    -fx-background-radius: 10 10 10 10;
     -fx-font-family: "Abyssinica SIL";
 }
 .editButton
