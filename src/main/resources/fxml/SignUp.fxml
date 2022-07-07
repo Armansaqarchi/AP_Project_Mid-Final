@@ -70,7 +70,7 @@
                         <Insets left="20.0" right="20.0" />
                      </VBox.margin>
                   </Label>
-                  <TextField fx:id="emailText1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="360.0" promptText="Email" styleClass="textField">
+                  <TextField fx:id="emailText" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="360.0" promptText="Email" styleClass="textField">
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" />
                      </VBox.margin>
@@ -113,7 +113,7 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                      <Button fx:id="loginButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLogin" prefHeight="38.0" prefWidth="51.0" styleClass="Login-button" stylesheets="@../css/Login.css" text="Login" textFill="WHITE">
+                      <Button fx:id="signUp" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSignUp" prefHeight="38.0" prefWidth="51.0" styleClass="Login-button" stylesheets="@../css/Login.css" text="Sign up" textFill="WHITE">
                           <VBox.margin>
                               <Insets left="20.0" right="20.0" top="40.0" />
                           </VBox.margin>
@@ -139,5 +139,10 @@
          </children>
       </GridPane>
       <TitledPane animated="false" layoutX="-34.0" layoutY="-48.0" text="untitled" />
+      <Label fx:id="errorText" disable="true" layoutX="120.0" layoutY="45.0" prefHeight="19.0" prefWidth="594.0" text="password must have at least 8 characters containing a number and an upperCase and a loweCase" textFill="RED" wrapText="true">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

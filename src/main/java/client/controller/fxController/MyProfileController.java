@@ -8,7 +8,7 @@ import javafx.scene.shape.Circle;
 
 
 
-public class MyProfileController
+public class MyProfileController extends Controller
 {
     @FXML
     private Button escape;

@@ -6,6 +6,7 @@ import client.controller.fxController.cell.ServerCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -17,7 +18,7 @@ import javafx.event.ActionEvent;
 import java.util.ArrayList;
 
 
-public class HomeController {
+public class HomeController extends Controller {
 
 
     @FXML
@@ -67,6 +68,10 @@ public class HomeController {
                 return new ServerCell();
             }
         });
+    }
+
+    public void setClientSocket(String id){
+        clientSocket.setId(id);
     }
 
     @FXML
