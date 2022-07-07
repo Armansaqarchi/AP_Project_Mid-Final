@@ -48,6 +48,7 @@ public class HomeController extends Controller {
 
 
         friendObservableList.add("Friends");
+        friendObservableList.add("DIRECT MESSAGES");
         friendObservableList.addAll(friends);
 
         friendView.setItems(friendObservableList);
