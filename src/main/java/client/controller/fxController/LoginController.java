@@ -22,7 +22,7 @@ import javax.swing.text.html.ImageView;
 import java.io.IOException;
 
 
-public class LoginController {
+public class LoginController extends Controller {
 
     private final ClientSocket clientSocket = new ClientSocket();
 
@@ -72,22 +72,9 @@ public class LoginController {
     }
 
     private void moveToHomeScreen(String id, ActionEvent event){
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("Home.fxml"));
-            Parent homeParent = loader.load();
-
-            HomeController controller = loader.getController();
+        HomeController controller = changeView("Home", event).getController();
+        if(controller != null) {
             controller.setClientSocket(id);
-
-            Stage window = (Stage) ((Button)event.getSource()).getScene().getWindow();
-
-            window.setScene(new Scene(homeParent));
-
-        }
-        catch(IOException e){
-            e.printStackTrace();
-            System.out.println("could not load Home.fxml class");
         }
     }
 
