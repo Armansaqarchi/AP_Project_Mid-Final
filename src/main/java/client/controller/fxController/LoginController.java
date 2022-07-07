@@ -20,12 +20,12 @@ import model.request.Authentication.LoginReq;
 import model.response.Response;
 
 
-import java.io.IOException;
+
 
 
 public class LoginController extends Controller {
 
-    private final ClientSocket clientSocket = new ClientSocket();
+    private ClientSocket clientSocket;
 
     @FXML
     private ImageView image;
@@ -53,11 +53,14 @@ public class LoginController extends Controller {
                 passwordText.getText(), null));
 
         try{
+
             Response response = clientSocket.getReceiver().getResponse();
+
             if(response.isAccepted()){
                 moveToHomeScreen(clientSocket.getId(), event);
             }
             else{
+                errorText.setVisible(true);
                 errorText.setText("No user found with the given information");
             }
         }
@@ -80,7 +83,12 @@ public class LoginController extends Controller {
     }
 
     private void moveToSignUpScreen(ActionEvent e){
-        changeView("SignUp", e);
+        SignUpController controller =  changeView("SignUp", e).getController();
+        controller.setClientSocket(clientSocket);
+    }
+
+    public void setClientSocket(ClientSocket clientSocket){
+        this.clientSocket = clientSocket;
     }
 
 

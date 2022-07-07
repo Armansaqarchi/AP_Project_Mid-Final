@@ -121,7 +121,7 @@
                               <Font name="System Bold" size="12.0" />
                           </font>
                       </Button>
-                  <Button fx:id="haveAnAccount" mnemonicParsing="false" onAction="#onHaveAnAccount" prefHeight="5.0" styleClass="noColor" stylesheets="@../css/SignUp.css" text="Already have an account?" textFill="#ff8989">
+                  <Button fx:id="haveAnAccount" mnemonicParsing="false" onAction="#onHaveAnAccount" prefHeight="5.0" styleClass="needAccountButton" stylesheets="@../css/SignUp.css" text="Already have an account?" textFill="#ff8989">
                      <VBox.margin>
                         <Insets left="20.0" right="20.0" />
                      </VBox.margin>
@@ -139,7 +139,7 @@
          </children>
       </GridPane>
       <TitledPane animated="false" layoutX="-34.0" layoutY="-48.0" text="untitled" />
-      <Label fx:id="errorText" disable="true" layoutX="120.0" layoutY="45.0" prefHeight="19.0" prefWidth="594.0" text="password must have at least 8 characters containing a number and an upperCase and a loweCase" textFill="RED" wrapText="true">
+      <Label fx:id="errorText" layoutX="120.0" layoutY="45.0" prefHeight="19.0" prefWidth="594.0" textFill="RED" wrapText="true">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

@@ -21,7 +21,7 @@ import java.io.IOException;
 
 public class SignUpController extends Controller{
 
-    private final ClientSocket clientSocket = new ClientSocket();
+    private ClientSocket clientSocket;
 
     @FXML
     private TextField IDText;
@@ -89,7 +89,9 @@ public class SignUpController extends Controller{
                 phoneNumberText.getText(), null));
 
         try{
+            System.out.println("1");
             Response response = clientSocket.getReceiver().getResponse();
+            System.out.println("2");
             if(response.isAccepted()){
                 moveToHomeScreen(IDText.getText(), event);
             }
@@ -103,6 +105,10 @@ public class SignUpController extends Controller{
             errorText.setText("No response was received from server");
         }
 
+    }
+
+    public void setClientSocket(ClientSocket clientSocket){
+        this.clientSocket = clientSocket;
     }
 
 

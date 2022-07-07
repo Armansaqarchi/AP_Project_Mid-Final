@@ -24,27 +24,30 @@
             <Label alignment="CENTER" prefHeight="18.0" prefWidth="712.0" text="We're so excited to see you again!" textFill="WHITE" />
             <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="539.0" text="ID" textFill="WHITE">
                <VBox.margin>
-                  <Insets top="20.0" />
+                  <Insets left="150.0" right="150.0" top="20.0" />
                </VBox.margin>
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Label>
-            <TextField fx:id="IDText" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="360.0" promptText="ID" styleClass="textField">
+            <TextField fx:id="IDText" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="584.0" promptText="ID" styleClass="textField">
                <VBox.margin>
-                  <Insets />
+                  <Insets left="150.0" right="150.0" />
                </VBox.margin></TextField>
             <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="40.0" prefWidth="482.0" text="PASSWORD" textFill="WHITE">
                <VBox.margin>
-                  <Insets top="5.0" />
+                  <Insets left="150.0" right="150.0" top="5.0" />
                </VBox.margin>
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="passwordText" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="360.0" promptText="Password" styleClass="textField" stylesheets="@../css/Login.css" />
+            <TextField fx:id="passwordText" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="360.0" promptText="Password" styleClass="textField" stylesheets="@../css/Login.css">
+               <VBox.margin>
+                  <Insets left="150.0" right="150.0" />
+               </VBox.margin></TextField>
             <Button fx:id="loginButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLogin" prefHeight="42.0" prefWidth="644.0" styleClass="Login-button" stylesheets="@../css/Login.css" text="Login" textFill="WHITE">
                <VBox.margin>
-                  <Insets top="30.0" />
+                  <Insets left="150.0" right="150.0" top="30.0" />
                </VBox.margin>
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -60,7 +63,7 @@
                         <Insets top="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Button fx:id="RegisterButton" mnemonicParsing="false" onAction="#onRegister" prefHeight="26.0" prefWidth="64.0" styleClass="noColor" text="Register" textFill="WHITE">
+                  <Button fx:id="RegisterButton" mnemonicParsing="false" onAction="#onRegister" prefHeight="38.0" prefWidth="81.0" styleClass="Register-button" stylesheets="@../css/Login.css" text="Register">
                      <HBox.margin>
                         <Insets top="10.0" />
                      </HBox.margin>
@@ -69,10 +72,13 @@
                      </font>
                   </Button>
                </children>
+               <VBox.margin>
+                  <Insets left="150.0" right="150.0" />
+               </VBox.margin>
             </HBox>
          </children>
       </VBox>
-      <Label fx:id="errorText" disable="true" layoutX="120.0" layoutY="14.0" prefHeight="18.0" prefWidth="608.0" text="Error cause" textFill="RED">
+      <Label fx:id="errorText" layoutX="120.0" layoutY="14.0" prefHeight="18.0" prefWidth="608.0" textFill="RED">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

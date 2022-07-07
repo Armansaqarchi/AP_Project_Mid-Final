@@ -17,7 +17,7 @@ public class Controller{
     public FXMLLoader changeView(String newView, ActionEvent event){
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(newView + ".fxml"));
+            loader.setLocation(getClass().getResource("/fxml/" + newView + ".fxml"));
             Parent homeParent = loader.load();
 
             Stage window = (Stage) ((Button)event.getSource()).getScene().getWindow();
