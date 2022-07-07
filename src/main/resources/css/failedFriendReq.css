@@ -8,18 +8,11 @@
 }
 .centerLabel
 {
-    -fx-font-size: 20px;
-    -fx-font-family: "Abyssinica SIL";
+    -fx-font-size: 16px;
     -fx-background-color: none;
 }
 .okay
 {
-    -fx-font-size: 16px;
-    -fx-font-family: "Abyssinica SIL";
     -fx-background-color:  #03A9F4 ;
     -fx-background-radius: 8 8 8 8;
-}
-.okay:focused {
-    -fx-background-color: #035b83;
-    -fx-background-insets: none;
 }
