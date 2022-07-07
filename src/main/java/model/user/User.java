@@ -2,6 +2,7 @@ package model.user;
 
 import java.io.Serializable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.UUID;
@@ -115,6 +116,16 @@ public class User implements Serializable
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ArrayList<String> getServerIds(){
+        ArrayList<String> serverIds = new ArrayList<>();
+
+        for(ServerIDs serverIDs : servers){
+            serverIds.add(serverIDs.getId());
+        }
+
+        return serverIds;
     }
 
     /**
