@@ -1,10 +1,12 @@
 package client.controller.fxController;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 
-import java.awt.*;
 
 public class MyProfileController
 {

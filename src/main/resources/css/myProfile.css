@@ -51,7 +51,7 @@
 }
 .passwordButton:focused {
     -fx-background-color: #035b83;
-    -fx-background-insets: #none;
+    -fx-background-insets: none;
 }
 .profileField
 {

@@ -57,14 +57,14 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="done" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="done" stylesheets="@../css/editProfile.css" text="Done" GridPane.columnIndex="2">
+            <Button fx:id="done" mnemonicParsing="false" onAction="#eventHandler" prefHeight="50.0" prefWidth="100.0" styleClass="done" stylesheets="@../css/editProfile.css" text="Done" GridPane.columnIndex="2">
                <GridPane.margin>
                   <Insets bottom="15.0" left="20.0" />
                </GridPane.margin>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></Button>
-            <Button fx:id="cancel" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" styleClass="cancel" stylesheets="@../css/editProfile.css" text="Cancel" GridPane.columnIndex="1">
+            <Button fx:id="cancel" mnemonicParsing="false" onAction="#eventHandler" prefHeight="50.0" prefWidth="100.0" styleClass="cancel" stylesheets="@../css/editProfile.css" text="Cancel" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets bottom="15.0" left="20.0" />
                </GridPane.margin>
