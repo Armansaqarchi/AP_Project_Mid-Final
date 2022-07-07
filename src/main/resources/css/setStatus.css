@@ -1,0 +1,64 @@
+.gridpane
+{
+    -fx-background-color: #717D7E;
+}
+.online
+{
+    -fx-background-image: url("../image/online.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left;
+    -fx-background-size: 48px;
+    -fx-font-size: 20px;
+    -fx-font-family: "Abyssinica SIL";
+    -fx-background-color: #495d67;
+    -fx-background-radius: 8 8 8 8;
+}
+.idle
+{
+    -fx-background-image: url("../image/idle.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left;
+    -fx-background-size: 40px;
+    -fx-font-size: 20px;
+    -fx-font-family: "Abyssinica SIL";
+    -fx-background-color: #495d67;
+    -fx-background-radius: 8 8 8 8;
+}
+.disturb
+{
+    -fx-background-image: url("../image/disturb.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left;
+    -fx-background-size: 48px;
+    -fx-font-size: 18px;
+    -fx-font-family: "Abyssinica SIL";
+    -fx-background-color: #495d67;
+    -fx-background-radius: 8 8 8 8;
+}
+.invisible
+{
+    -fx-background-image: url("../image/invisible.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left;
+    -fx-background-size: 48px;
+    -fx-font-size: 16px;
+    -fx-font-family: "Abyssinica SIL";
+    -fx-background-color: #495d67;
+    -fx-background-radius: 8 8 8 8;
+}
+.online:focused {
+    -fx-background-color: #35444b;
+    -fx-background-insets: none;
+}
+.idle:focused {
+    -fx-background-color: #35444b;
+    -fx-background-insets: none;
+}
+.disturb:focused {
+    -fx-background-color: #35444b;
+    -fx-background-insets: none;
+}
+.invisible:focused {
+    -fx-background-color: #35444b;
+    -fx-background-insets: none;
+}
