@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class SetStatusController
+public class SetStatusController extends Controller
 {
     @FXML
     private Button online;

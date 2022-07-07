@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
-public class EditProfileController
+public class EditProfileController extends Controller
 {
     @FXML
     private Label topLabel;
