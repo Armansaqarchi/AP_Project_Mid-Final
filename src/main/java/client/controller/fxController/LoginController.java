@@ -13,12 +13,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.exception.ResponseNotFoundException;
 import model.request.Authentication.LoginReq;
 import model.response.Response;
 
-import javax.swing.text.html.ImageView;
+
 import java.io.IOException;
 
 
@@ -54,7 +55,7 @@ public class LoginController extends Controller {
         try{
             Response response = clientSocket.getReceiver().getResponse();
             if(response.isAccepted()){
-
+                moveToHomeScreen(clientSocket.getId(), event);
             }
             else{
                 errorText.setText("No user found with the given information");
@@ -68,7 +69,7 @@ public class LoginController extends Controller {
 
     @FXML
     void onRegister(ActionEvent event) {
-
+        moveToSignUpScreen(event);
     }
 
     private void moveToHomeScreen(String id, ActionEvent event){
@@ -76,6 +77,10 @@ public class LoginController extends Controller {
         if(controller != null) {
             controller.setClientSocket(id);
         }
+    }
+
+    private void moveToSignUpScreen(ActionEvent e){
+        changeView("SignUp", e);
     }
 
 
