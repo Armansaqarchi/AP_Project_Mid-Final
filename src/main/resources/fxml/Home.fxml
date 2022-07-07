@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -31,7 +32,7 @@
                <top>
                   <HBox fx:id="friendStatusView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="702.0" styleClass="hBox" stylesheets="@../css/Home.css" BorderPane.alignment="CENTER">
                      <children>
-                        <ImageView fitHeight="36.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../image/human-icon.png" />
                            </image>
@@ -56,21 +57,37 @@
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
                         </Button>
                         <Button fx:id="pending" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onPending" prefHeight="37.0" prefWidth="68.0" styleClass="custom-button" stylesheets="@../css/Home.css" text="Pending" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
                         </Button>
                         <Button fx:id="blocked" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBlocked" prefHeight="37.0" prefWidth="64.0" styleClass="custom-button" stylesheets="@../css/Home.css" text="Blocked" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
                         </Button>
-                        <Button fx:id="addFriend" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAddFriend" prefHeight="37.0" prefWidth="77.0" styleClass="custom-button" stylesheets="@../css/Home.css" text="Add friend" textFill="WHITE">
+                        <Button fx:id="addFriend" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onAddFriend" prefHeight="37.0" prefWidth="77.0" stylesheets="@../css/Home.css" text="Add friend" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin>
+                           <styleClass>
+                              <String fx:value="custom-button" />
+                              <String fx:value="add-friend-button" />
+                           </styleClass>
                         </Button>
                      </children></HBox>
                </top>

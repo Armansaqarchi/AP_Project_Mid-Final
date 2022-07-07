@@ -17,3 +17,16 @@
 .noColor{
     -fx-background-color: none;
 }
+
+.needAccountButton{
+    -fx-background-color: none;
+    -fx-text-fill: #ff8989;
+}
+.needAccountButton:focused{
+    -fx-text-fill: #ff0505;
+    -fx-opacity: 0.7;
+}
+
+.needAccountButton:hover{
+    -fx-text-fill: #ff0505;
+}

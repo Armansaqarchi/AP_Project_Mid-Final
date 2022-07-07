@@ -16,8 +16,30 @@
 .greyGround{
     -fx-background-color: #696969;
 }
-.noColor{
-    -fx-background-color: none;
+
+.Login-button:hover {
+    -fx-background-color: #354eed;
+    -fx-text-fill: black;
 }
+
+.Login-button:focused {
+    -fx-background-color: #5169E9;
+    -fx-opacity: 0.5;
+}
+
+.Register-button{
+    -fx-background-color: none;
+    -fx-text-fill: white;
+}
+.Register-button:hover{
+    -fx-text-fill: #354eed;
+}
+.Register-button:focused{
+    -fx-text-fill: #354eed;
+    -fx-opacity: 0.5;
+}
+
+
+
 
 

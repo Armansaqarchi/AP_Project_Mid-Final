@@ -11,8 +11,24 @@
     -fx-background-color: grey;
     -fx-border-color: Grey;
     -fx-effect: dropshadow(three-pass-box, black, 5, 0.5, 0, 0);
-    -fx-opacity: 0.5;
+    -fx-opacity: 0.7;
 
+}
+
+.list-view .scroll-bar:horizontal {
+    -fx-scale-x: 0;
+}
+
+.list-cell:odd{
+    -fx-background-color: none;
+    -fx-border-color: none;
+    -fx-cell-size: 37;
+}
+
+.list-cell:even{
+    -fx-background-color: none;
+    -fx-border-color: none;
+    -fx-cell-size: 37;
 }
 
 .hBox{
@@ -32,4 +48,12 @@
 
 .custom-button:hover{
     -fx-background-color: #353535;
+}
+.add-friend-button{
+    -fx-background-color: #19a419;
+}
+
+.add-friend-button:focused{
+    -fx-background-color: none;
+    -fx-text-fill: #066306;
 }
