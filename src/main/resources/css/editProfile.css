@@ -20,11 +20,31 @@
     -fx-font-family: "Abyssinica SIL";
     -fx-background-color: #B0BEC5;
 }
+.cancel:focused
+{
+    -fx-text-fill : #fff;
+    -fx-background-color: #fb3f3f;
+}
+.cancel:hover
+{
+    -fx-text-fill : #fff;
+    -fx-background-color: #fb3f3f;
+}
 .done
 {
     -fx-font-size: 22px;
     -fx-font-family: "Abyssinica SIL";
     -fx-background-color: #42A5F5 ;
+}
+.done:focused
+{
+    -fx-text-fill : #fff;
+    -fx-background-color: #035b83;
+}
+.done:hover
+{
+    -fx-text-fill : #fff;
+    -fx-background-color: #035b83;
 }
 .gridpane
 {
