@@ -16,25 +16,23 @@
 }
 .cancel
 {
-    -fx-font-size: 22px;
-    -fx-font-family: "Abyssinica SIL";
-    -fx-background-color: #B0BEC5;
+    -fx-background-color: #fb3f3f;
+    -fx-background-radius: 8 8 8 8;
 }
 .cancel:focused
 {
     -fx-text-fill : #fff;
-    -fx-background-color: #fb3f3f;
+    -fx-background-color: #c22323;
 }
 .cancel:hover
 {
     -fx-text-fill : #fff;
-    -fx-background-color: #fb3f3f;
+    -fx-background-color: #c22323;
 }
 .done
 {
-    -fx-font-size: 22px;
-    -fx-font-family: "Abyssinica SIL";
     -fx-background-color: #42A5F5 ;
+    -fx-background-radius: 8 8 8 8;
 }
 .done:focused
 {
