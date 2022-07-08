@@ -22,3 +22,16 @@
 .create:hover {
     -fx-background-color: #035b83;
 }
+.cancel
+{
+    -fx-background-color: #fb3f3f;
+    -fx-background-radius: 8 8 8 8;
+}
+.cancel:focused
+{
+    -fx-background-color: #c22323;
+}
+.cancel:hover
+{
+    -fx-background-color: #c22323;
+}

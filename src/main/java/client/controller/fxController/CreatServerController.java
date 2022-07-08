@@ -10,6 +10,8 @@ public class CreatServerController
 {
     @FXML
     private Button create;
+    @FXML
+    private Button cancel;
 
     @FXML
     private TextField id;
@@ -21,6 +23,12 @@ public class CreatServerController
 
     @FXML
     private void create(ActionEvent event)
+    {
+
+    }
+
+    @FXML
+    private void cancel(ActionEvent event)
     {
 
     }
