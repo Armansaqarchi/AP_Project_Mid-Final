@@ -1,6 +1,6 @@
 package client.controller.fxController.cell;
 
-import client.controller.consoleController.Controllers;
+import client.ClientSocket;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -10,18 +10,25 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.TextAlignment;
-import model.user.User;
+import model.exception.ResponseNotFoundException;
+import model.request.user.GetUserProfileReq;
+import model.response.Response;
+import model.response.user.GetUserProfileRes;
 
-import java.awt.*;
+import java.io.ByteArrayInputStream;
 
-public class FriendCell extends ListCell<String> {
+
+public class ImageTextCell extends ListCell<String> {
     private HBox hBox = new HBox();
     private Label label = new Label();
     private Circle circle = new Circle();
+    private ClientSocket clientSocket;
 
 
 
-    public FriendCell(){
+    public ImageTextCell(ClientSocket clientSocket){
+
+        this.clientSocket = clientSocket;
 
         circle.setRadius(15);
 
@@ -51,6 +58,7 @@ public class FriendCell extends ListCell<String> {
             label.setText(item);
             label.setStyle("-fx-font-weight: bold;" +
                     "-fx-text-fill: #ffffff");
+
             if (item.equals("Friends")) {
                 circle.setFill(new ImagePattern(new Image("/image/human-icon.png")));
 
@@ -59,17 +67,49 @@ public class FriendCell extends ListCell<String> {
                 label.setStyle("-fx-font-size: 12;" +
                         "-fx-text-fill: white;" +
                         "-fx-font-weight: bold");
-                label.setText(item);
                 label.setPadding(new Insets(0, 0, 8, 0));
             }
             else {
-
                 label.setStyle("-fx-text-fill: white;");
-                //placing the image into the circle
+                byte[] friendImageInByte = getImageById(item);
+                if(friendImageInByte == null){
+                    circle.setFill(new ImagePattern(new Image("/image/no-profile-logo.png")));
+                }
+                else{
+                    circle.setFill(new ImagePattern(new Image(new ByteArrayInputStream(getImageById(item)))));
+                }
+
+
             }
 
             setGraphic(hBox);
         }
 
     }
+
+    public byte[] getImageById(String id){
+        clientSocket.send(new GetUserProfileReq(clientSocket.getId(), id));
+        try{
+            Response response = clientSocket.getReceiver().getResponse();
+            if (response instanceof GetUserProfileRes) {
+                if(response.isAccepted()) {
+                    return ((GetUserProfileRes) response).getProfileImage();
+                }
+                else{
+                    System.out.println("access denied to get " + id + "'s image");
+                }
+            }
+
+
+        }
+        catch(ResponseNotFoundException e){
+            e.printStackTrace();
+            System.out.println("no response was receiver from server");;
+        }
+
+        return null;
+    }
+
+
+
 }

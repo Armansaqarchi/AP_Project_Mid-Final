@@ -28,9 +28,6 @@ public class LoginController extends Controller {
     private ClientSocket clientSocket;
 
     @FXML
-    private ImageView image;
-
-    @FXML
     private Label errorText;
 
     @FXML
