@@ -3,13 +3,20 @@ package client.controller.fxController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class MyProfileController extends Controller
+public class MyProfileController extends Controller implements Initializable
 {
     @FXML
     private Button escape;
@@ -31,13 +38,13 @@ public class MyProfileController extends Controller
     private Button logout;
 
     @FXML
-    private TextField userId;
+    private Label userId;
     @FXML
-    private TextField name;
+    private Label name;
     @FXML
-    private TextField email;
+    private Label email;
     @FXML
-    private TextField phoneNumber;
+    private Label phoneNumber;
 
     @FXML
     private Circle image;
@@ -47,5 +54,17 @@ public class MyProfileController extends Controller
     @FXML
     private void eventHandler(ActionEvent event) {
 
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+        Image image = new Image("image/user-default.png");
+        ImagePattern pattern = new ImagePattern(image);
+        this.image.setFill(pattern);
+
+        Image status = new Image("image/idle.png");
+        ImagePattern status_pattern = new ImagePattern(status);
+        this.status.setFill(status_pattern);
     }
 }
