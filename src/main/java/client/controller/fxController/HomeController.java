@@ -123,10 +123,9 @@ public class HomeController extends Controller {
         clientSocket.send(new GetFriendListReq(clientSocket.getId()));
         try {
             Response response = clientSocket.getReceiver().getResponse();
-            if(response instanceof GetFriendListRes && response.isAccepted()){
-                HashSet<String> set = (HashSet<String>)
-                        ((GetFriendListRes) response).getFriendList().keySet();
-                return new ArrayList<>(set);
+            if(response instanceof GetFriendListRes && response.isAccepted())
+            {
+                return new ArrayList<>(((GetFriendListRes) response).getFriendList().keySet());
             }
         }
         catch(ResponseNotFoundException e){

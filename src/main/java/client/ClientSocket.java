@@ -45,8 +45,9 @@ public class ClientSocket implements Runnable
 
 
     public static ClientSocket getClientSocket(){
-        if(clientSocket == null){
-            return new ClientSocket();
+        if(clientSocket == null)
+        {
+            clientSocket = new ClientSocket();
         }
 
         return clientSocket;
