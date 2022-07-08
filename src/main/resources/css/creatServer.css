@@ -1,0 +1,24 @@
+.gridpane
+{
+    -fx-background-color: #717D7E;
+}
+
+.textField
+{
+    -fx-font-size: 18px;
+    -fx-background-color: #CFD8DC;
+    -fx-background-radius: 10 10 10 10;
+}
+.create
+{
+    -fx-background-color:  #03A9F4 ;
+    -fx-background-radius: 8 8 8 8;
+}
+.create:focused
+{
+    -fx-background-color: #035b83;
+}
+
+.create:hover {
+    -fx-background-color: #035b83;
+}
