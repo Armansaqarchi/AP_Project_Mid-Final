@@ -26,9 +26,9 @@ public class ImageTextCell extends ListCell<String> {
 
 
 
-    public ImageTextCell(ClientSocket clientSocket){
+    public ImageTextCell(){
 
-        this.clientSocket = clientSocket;
+        this.clientSocket = ClientSocket.getClientSocket();
 
         circle.setRadius(15);
 
@@ -55,6 +55,7 @@ public class ImageTextCell extends ListCell<String> {
             setGraphic(null);
         }
         else {
+
             label.setText(item);
             label.setStyle("-fx-font-weight: bold;" +
                     "-fx-text-fill: #ffffff");
@@ -64,13 +65,11 @@ public class ImageTextCell extends ListCell<String> {
 
             } else if (item.equals("DIRECT MESSAGES")){
                 circle.setRadius(0);
-                label.setStyle("-fx-font-size: 12;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-font-weight: bold");
+
                 label.setPadding(new Insets(0, 0, 8, 0));
             }
             else {
-                label.setStyle("-fx-text-fill: white;");
+
                 byte[] friendImageInByte = getImageById(item);
                 if(friendImageInByte == null){
                     circle.setFill(new ImagePattern(new Image("/image/no-profile-logo.png")));

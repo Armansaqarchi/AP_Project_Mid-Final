@@ -7,7 +7,11 @@
 
 }
 
-.list-view{
+.scroll-bar{
+    -fx-background-color: black;
+}
+
+.custom-list-view{
     -fx-background-color: grey;
     -fx-border-color: Grey;
     -fx-effect: dropshadow(three-pass-box, black, 5, 0.5, 0, 0);
@@ -15,18 +19,76 @@
 
 }
 
-.list-view .scroll-bar:horizontal {
+.scroll-bar:horizontal {
     -fx-scale-x: 0;
 }
 
-.list-cell:odd{
+.main-view{
     -fx-background-color: none;
+}
+
+.chat-hBox{
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+}
+
+.file-button{
+    -fx-background-color: #888888;
+    -fx-background-radius: 15;
+}
+
+
+.list-cell:odd{
     -fx-border-color: none;
     -fx-cell-size: 37;
 }
 
-.list-cell:even{
+.chat-field{
+    -fx-border-color: none;
     -fx-background-color: none;
+    -fx-background-radius: 15;
+}
+
+.list-cell:odd:hover{
+    -fx-background-color: white;
+    -fx-opacity: 0.5;
+    -fx-text-fill: #fffefe;
+}
+
+
+
+.send-button{
+    -fx-background-color: #07bf07;
+    -fx-background-radius: 15;
+}
+.send-button:hover{
+    -fx-background-color: #353535;
+}
+
+.send-button:focused{
+    -fx-background-color: #07bf07;
+}
+
+.list-cell:odd:focused{
+    -fx-background-color: white;
+    -fx-opacity: 0.65;
+    -fx-text-fill: #fffefe;
+}
+
+.list-cell:even:focused{
+    -fx-background-color: white;
+    -fx-opacity: 0.65;
+    -fx-text-fill: #fffefe;
+}
+
+.list-cell:even:hover{
+    -fx-background-color: white;
+    -fx-opacity: 0.5;
+    -fx-text-fill: #fffefe;
+}
+
+.list-cell:even{
+    -fx-background-color: white;
     -fx-border-color: none;
     -fx-cell-size: 37;
 }

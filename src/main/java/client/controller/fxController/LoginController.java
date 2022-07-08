@@ -45,9 +45,9 @@ public class LoginController extends Controller {
                 passwordText.getText(), null));
 
         try{
-            System.out.println("1 is here");
+
             Response response = clientSocket.getReceiver().getResponse();
-            System.out.println("2");
+
 
             if(response.isAccepted()){
                 moveToHomeScreen(event);
