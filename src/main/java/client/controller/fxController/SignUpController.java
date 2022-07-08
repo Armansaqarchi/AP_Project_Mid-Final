@@ -21,7 +21,6 @@ import java.io.IOException;
 
 public class SignUpController extends Controller{
 
-    private ClientSocket clientSocket;
 
     @FXML
     private TextField IDText;
@@ -93,7 +92,7 @@ public class SignUpController extends Controller{
             Response response = clientSocket.getReceiver().getResponse();
             System.out.println("2");
             if(response.isAccepted()){
-                moveToHomeScreen(IDText.getText(), event);
+                moveToHomeScreen(event);
             }
             else{
                 errorText.setText("something is wrong with registering, try again.");
@@ -107,16 +106,9 @@ public class SignUpController extends Controller{
 
     }
 
-    public void setClientSocket(ClientSocket clientSocket){
-        this.clientSocket = clientSocket;
-    }
 
-
-    private void moveToHomeScreen(String id, ActionEvent event){
-        HomeController controller = changeView("Home", event).getController();
-        if(controller != null) {
-            controller.setClientSocket(id);
-        }
+    private void moveToHomeScreen(ActionEvent event){
+       changeView("Home", event).getController();
     }
 
     private void moveToSignInScreen(ActionEvent event){

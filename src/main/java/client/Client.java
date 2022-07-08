@@ -8,7 +8,7 @@ public class Client
 {
     public static void main(String[] args)
     {
-        ClientSocket clientSocket = new ClientSocket();
+        ClientSocket clientSocket = ClientSocket.getClientSocket();
 
         Executors.newCachedThreadPool().execute(clientSocket);
 

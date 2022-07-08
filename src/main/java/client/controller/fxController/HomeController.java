@@ -1,12 +1,11 @@
 package client.controller.fxController;
 
 import client.ClientSocket;
-import client.controller.fxController.cell.FriendCell;
-import client.controller.fxController.cell.ServerCell;
+import client.controller.fxController.cell.ImageTextCell;
+import client.controller.fxController.cell.ImageCell;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -15,11 +14,16 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Callback;
 
 import javafx.event.ActionEvent;
+import model.exception.ResponseNotFoundException;
+import model.request.user.GetFriendListReq;
+import model.response.Response;
+import model.response.user.GetFriendListRes;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class HomeController extends Controller {
-
 
     @FXML
     private ListView<String> serverStatusView;
@@ -38,7 +42,7 @@ public class HomeController extends Controller {
 
     @FXML
     public void initialize(){
-        ArrayList<String> friends = new ArrayList<>();
+        ArrayList<String> friends = getFriendsId();
         ArrayList<String> servers = new ArrayList<>();
         //the part that takes all the friends images and details
 
@@ -59,20 +63,16 @@ public class HomeController extends Controller {
         friendView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
             public ListCell<String> call(ListView<String> userListView) {
-                return new FriendCell();
+                return new ImageTextCell(clientSocket);
             }
         });
 
         serverView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
             public ListCell<String> call(ListView<String> userListView) {
-                return new ServerCell();
+                return new ImageCell();
             }
         });
-    }
-
-    public void setClientSocket(String id){
-        clientSocket.setId(id);
     }
 
     @FXML
@@ -117,4 +117,26 @@ public class HomeController extends Controller {
 
     public void onOnline(ActionEvent event) {
     }
+
+    public ArrayList<String> getFriendsId(){
+
+        clientSocket.send(new GetFriendListReq(clientSocket.getId()));
+        try {
+            Response response = clientSocket.getReceiver().getResponse();
+            if(response instanceof GetFriendListRes && response.isAccepted()){
+                HashSet<String> set = (HashSet<String>)
+                        ((GetFriendListRes) response).getFriendList().keySet();
+                return new ArrayList<>(set);
+            }
+        }
+        catch(ResponseNotFoundException e){
+            e.printStackTrace();
+            System.out.println("no response was receiver from server");
+        }
+
+        return new ArrayList<>();
+
+    }
+
+
 }

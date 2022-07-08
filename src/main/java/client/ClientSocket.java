@@ -11,6 +11,10 @@ import java.net.Socket;
 public class ClientSocket implements Runnable
 {
     //has a receiver which receives responses from server
+
+    private static ClientSocket clientSocket;
+
+
     private final Receiver receiver;
 
     //client id
@@ -22,7 +26,7 @@ public class ClientSocket implements Runnable
     private final ObjectOutputStream outputStream;
 
 
-    public ClientSocket()
+    private ClientSocket()
     {
         //setting primary configs for client
         receiver = new Receiver();
@@ -37,6 +41,15 @@ public class ClientSocket implements Runnable
         catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public static ClientSocket getClientSocket(){
+        if(clientSocket == null){
+            return new ClientSocket();
+        }
+
+        return clientSocket;
     }
 
     /**

@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Controller{
-    protected final ClientSocket clientSocket = new ClientSocket();
+    protected final ClientSocket clientSocket = ClientSocket.getClientSocket();
 
 
     public FXMLLoader changeView(String newView, ActionEvent event){
