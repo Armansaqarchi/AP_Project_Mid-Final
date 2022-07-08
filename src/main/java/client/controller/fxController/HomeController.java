@@ -1,5 +1,6 @@
 package client.controller.fxController;
 
+import client.ClientSocket;
 import client.controller.fxController.cell.ImageTextCell;
 import client.controller.fxController.cell.ImageCell;
 import javafx.collections.FXCollections;
@@ -23,7 +24,6 @@ import java.util.HashSet;
 
 
 public class HomeController extends Controller {
-
 
     @FXML
     private ListView<String> serverStatusView;
@@ -75,10 +75,6 @@ public class HomeController extends Controller {
         });
     }
 
-    public void setClientSocket(String id){
-        clientSocket.setId(id);
-    }
-
     @FXML
     public void onServerItem(ActionEvent event){
 
@@ -123,6 +119,7 @@ public class HomeController extends Controller {
     }
 
     public ArrayList<String> getFriendsId(){
+
         clientSocket.send(new GetFriendListReq(clientSocket.getId()));
         try {
             Response response = clientSocket.getReceiver().getResponse();
