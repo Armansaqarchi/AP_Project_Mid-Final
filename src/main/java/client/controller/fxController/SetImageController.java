@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
 
 public class SetImageController extends Controller
 {
+    private String id;
     private SetImageType type;
 
     @FXML
@@ -97,5 +98,10 @@ public class SetImageController extends Controller
     public void setType(SetImageType type)
     {
         this.type = type;
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
     }
 }
