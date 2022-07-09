@@ -8,13 +8,13 @@ import java.util.LinkedList;
  */
 public enum RuleType implements Serializable
 {
-    CREATE_CHANNEL("creat channel"), DELETE_CHANNEL("delete channel"),
-    REMOVE_MEMBER("Remove member"), RENAME_CHANNEL("rename channel"),
+    CREATE_CHANNEL("Create channel"), DELETE_CHANNEL("Delete channel"),
+    REMOVE_MEMBER("Remove member"), RENAME_CHANNEL("Rename channel"),
 
     //remove member of channel
     RESTRICT_MEMBER("Restrict member"),
-    RENAME_SERVER("Rename server"), SET_IMAGE("set image") ,
-    WATCH_HISTORY("get history"), PIN_MESSAGE("Pin message");
+    RENAME_SERVER("Rename server"), SET_IMAGE("Set image") ,
+    WATCH_HISTORY("Get history"), PIN_MESSAGE("Pin message");
     private final String value;
 
     private RuleType(String value)
