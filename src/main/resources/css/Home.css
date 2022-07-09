@@ -37,10 +37,22 @@
     -fx-background-radius: 15;
 }
 
+.file-button:hover{
+    -fx-background-color: #3e3e3e;
+}
+
 
 .list-cell:odd{
     -fx-border-color: none;
     -fx-cell-size: 37;
+}
+
+.cancel-button{
+    -fx-background-color: #d90000;
+    -fx-background-radius: 15;
+}
+.cancel-button:hover{
+    -fx-background-color: #870000;
 }
 
 .chat-field{

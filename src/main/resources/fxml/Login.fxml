@@ -45,7 +45,7 @@
                <VBox.margin>
                   <Insets left="150.0" right="150.0" />
                </VBox.margin></TextField>
-            <Button fx:id="loginButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLogin" prefHeight="42.0" prefWidth="644.0" styleClass="Login-button" stylesheets="@../css/Login.css" text="Login" textFill="WHITE">
+            <Button fx:id="loginButton" defaultButton="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLogin" onKeyPressed="#onKeyLogin" prefHeight="42.0" prefWidth="644.0" styleClass="Login-button" stylesheets="@../css/Login.css" text="Login" textFill="WHITE">
                <VBox.margin>
                   <Insets left="150.0" right="150.0" top="30.0" />
                </VBox.margin>

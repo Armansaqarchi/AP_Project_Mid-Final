@@ -1,5 +1,7 @@
 package client;
 
+import client.controller.fxController.cell.testFx;
+import javafx.fxml.FXMLLoader;
 import model.Transferable;
 import model.exception.InvalidObjectException;
 
@@ -13,6 +15,7 @@ public class ClientSocket implements Runnable
     //has a receiver which receives responses from server
 
     private static ClientSocket clientSocket;
+
 
 
     private final Receiver receiver;
@@ -30,6 +33,8 @@ public class ClientSocket implements Runnable
     {
         //setting primary configs for client
         receiver = new Receiver();
+
+
 
         try
         {
@@ -62,6 +67,7 @@ public class ClientSocket implements Runnable
     {
         //beside the main thread, client has a second thread
         // which checks the responses coming from server
+
         while(socket.isConnected())
         {
             try

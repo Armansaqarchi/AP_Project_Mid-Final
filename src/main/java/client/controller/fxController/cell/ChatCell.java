@@ -18,8 +18,12 @@ import model.message.TextMessage;
 import model.request.user.GetUserProfileReq;
 import model.response.Response;
 import model.response.user.GetUserProfileRes;
-
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ChatCell extends ListCell<Message> {
     private HBox hBox = new HBox(8);
@@ -86,15 +90,24 @@ public class ChatCell extends ListCell<Message> {
             setGraphic(null);
         }
         else {
-            byte[] image = getImageById(item.getSenderId());
-            if(image == null){
-                circle.setFill(new ImagePattern(new Image("/image/no-profile-logo.png")));
+            byte[] fileImage = null;
+
+            try {
+                fileImage = Files.readAllBytes(Path.of("image/friends/" + item.getSenderId()));
             }
-            else{
-                circle.setFill(new ImagePattern
-                        (new Image(new ByteArrayInputStream(image))));
+            catch(IOException e){
+                System.out.println(item.getSenderId() + "'s image not found");
 
             }
+
+            if(fileImage != null) {
+                Image image = new Image(new ByteArrayInputStream(fileImage));
+                circle.setFill(new ImagePattern(image));
+            }
+            else{
+                circle.setFill(new ImagePattern(new Image("/image/no-profile-logo.png")));
+            }
+
 
             hBox.setStyle("-fx-background-color: white");
 
@@ -107,8 +120,9 @@ public class ChatCell extends ListCell<Message> {
             if(item instanceof TextMessage){
                 messageLabel.setText(((TextMessage) item).getContent());
             }
-            else{
-                messageLabel.setText("File message" );
+            else if (item instanceof FileMessage){
+                System.out.println("4332442");
+                messageLabel.setText("File message : " + ((FileMessage) item).getFileName() );
                 innerVBox.setStyle("-fx-background-color: #555555;");
             }
 
@@ -117,26 +131,5 @@ public class ChatCell extends ListCell<Message> {
 
     }
 
-    public byte[] getImageById(String id){
-        clientSocket.send(new GetUserProfileReq(clientSocket.getId(), id));
-        try{
-            Response response = clientSocket.getReceiver().getResponse();
-            if (response instanceof GetUserProfileRes) {
-                if(response.isAccepted()) {
-                    return ((GetUserProfileRes) response).getProfileImage();
-                }
-                else{
-                    System.out.println("access denied to get " + id + "'s image");
-                }
-            }
 
-
-        }
-        catch(ResponseNotFoundException e){
-            e.printStackTrace();
-            System.out.println("no response was receiver from server");;
-        }
-
-        return null;
-    }
 }

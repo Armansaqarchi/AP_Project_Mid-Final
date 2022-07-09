@@ -2,6 +2,7 @@ package client.controller.fxController;
 
 import client.ClientSocket;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -14,10 +15,13 @@ public class Controller{
     protected final ClientSocket clientSocket = ClientSocket.getClientSocket();
 
 
-    public FXMLLoader changeView(String newView, ActionEvent event){
+    public FXMLLoader changeView(String newView, Event event){
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/fxml/" + newView + ".fxml"));
+
+            clientSocket.getReceiver().setLoader(loader);
+
             Parent homeParent = loader.load();
 
             Stage window = (Stage) ((Button)event.getSource()).getScene().getWindow();

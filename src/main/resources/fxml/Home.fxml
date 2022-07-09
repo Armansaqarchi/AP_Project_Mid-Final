@@ -108,7 +108,7 @@
                               <Insets bottom="5.0" left="15.0" right="15.0" />
                            </VBox.margin>
                            <children>
-                              <Button fx:id="FileChooser" mnemonicParsing="false" onAction="#onFileChooser" prefHeight="26.0" prefWidth="36.0" styleClass="file-button" stylesheets="@../css/Home.css" text="+" textFill="#2e2e2e">
+                              <Button fx:id="FileChooser" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onFileChooser" prefHeight="26.0" prefWidth="29.0" styleClass="file-button" stylesheets="@../css/Home.css" text="+" textFill="#2e2e2e">
                                  <HBox.margin>
                                     <Insets bottom="2.0" left="4.0" right="4.0" top="2.0" />
                                  </HBox.margin>
@@ -118,7 +118,8 @@
                                     <Insets left="8.0" />
                                  </HBox.margin>
                               </TextField>
-                              <Button fx:id="sendButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#onSendButton" prefHeight="30.0" prefWidth="99.0" styleClass="send-button" text="send" textFill="WHITE" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="cancel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onCancel" prefHeight="30.0" prefWidth="50.0" styleClass="cancel-button" text="cancel" textFill="WHITE" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="sendButton1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onSendButton" prefHeight="30.0" prefWidth="44.0" styleClass="send-button" text="send" textFill="WHITE" />
                            </children>
                         </HBox>
                      </children>

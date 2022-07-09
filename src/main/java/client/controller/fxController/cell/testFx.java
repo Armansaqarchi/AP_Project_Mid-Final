@@ -15,7 +15,7 @@ public class testFx extends Application {
 
         ClientSocket clientSocket = ClientSocket.getClientSocket();
 
-        Executors.newCachedThreadPool().execute(ClientSocket.getClientSocket());
+        Executors.newCachedThreadPool().execute(clientSocket);
 
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(testFx.class.getResource("/fxml/Login.fxml"));

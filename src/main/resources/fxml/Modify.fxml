@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="102.0" prefWidth="156.0" styleClass="root" stylesheets="@../css/Modify.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.fxController.ModifyController">
+   <children>
+      <VBox layoutX="86.0" layoutY="100.0" prefHeight="164.0" prefWidth="271.0" styleClass="root" stylesheets="@../css/Modify.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="49.0" prefWidth="474.0">
+               <children>
+                  <Button fx:id="like" mnemonicParsing="false" onAction="#onLike" prefHeight="48.0" prefWidth="50.0" styleClass="react-button">
+                     <graphic>
+                        <ImageView fitHeight="29.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/like.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="dislike" mnemonicParsing="false" onAction="#onDislike" prefHeight="51.0" prefWidth="52.0" styleClass="react-button">
+                     <graphic>
+                        <ImageView fitHeight="37.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/dislike.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="laugh" mnemonicParsing="false" onAction="#onLaugh" prefHeight="42.0" prefWidth="41.0" styleClass="react-button">
+                     <graphic>
+                        <ImageView fitHeight="37.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../image/laugh.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+            <Button fx:id="Reactions" mnemonicParsing="false" onAction="#onReactions" prefHeight="39.0" prefWidth="140.0" styleClass="show-button" text="Reactions">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="30.0" right="30.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

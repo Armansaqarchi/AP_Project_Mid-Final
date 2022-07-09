@@ -25,4 +25,12 @@ public class MessageReaction
     public String toString() {
         return senderId + " " + reaction + ", ";
     }
+
+    public Reaction getReaction() {
+        return reaction;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
 }
