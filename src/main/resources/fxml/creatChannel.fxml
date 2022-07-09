@@ -24,7 +24,7 @@
         <RowConstraints maxHeight="117.0" minHeight="7.600012207031227" prefHeight="89.40004882812497" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label fx:id="topLabel" alignment="CENTER" prefHeight="86.0" prefWidth="510.0" text="CREAT CHANNEL" textFill="WHITE" GridPane.columnIndex="1">
+        <Label fx:id="topLabel" alignment="CENTER" prefHeight="86.0" prefWidth="510.0" text="CREATE CHANNEL" textFill="WHITE" GridPane.columnIndex="1">
             <font>
                 <Font name="System Bold" size="24.0" />
             </font></Label>
