@@ -1,5 +1,6 @@
 package client.controller.fxController;
 
+import client.controller.fxController.type.EditProfileType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,8 +14,9 @@ import javafx.scene.paint.Paint;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EditProfileController extends Controller implements Initializable
+public class EditProfileController extends Controller
 {
+    private EditProfileType type;
     @FXML
     private Label topLabel;
 
@@ -33,11 +35,14 @@ public class EditProfileController extends Controller implements Initializable
     private void eventHandler(ActionEvent event)
     {
 
+        //incomplete
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle)
+    public void setType(EditProfileType type)
     {
-        topLabel.setText("dddd");
+        this.type = type;
+
+        //incomplete
+        //initializing labels
     }
 }
