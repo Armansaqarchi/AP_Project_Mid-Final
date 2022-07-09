@@ -14,7 +14,7 @@ public enum RuleType implements Serializable
     //remove member of channel
     RESTRICT_MEMBER("Restrict member"),
     RENAME_SERVER("Rename server"), SET_IMAGE("set image") ,
-    WATCH_HISTORY("Watch server"), PIN_MESSAGE("Pin message");
+    WATCH_HISTORY("get history"), PIN_MESSAGE("Pin message");
     private final String value;
 
     private RuleType(String value)
