@@ -75,8 +75,7 @@ public class Controller{
                 Response response = clientSocket.getReceiver().getResponse();
                 if (response instanceof GetFriendListRes && response.isAccepted()) {
 
-                    imageSaver(((GetUserProfileRes) response).getId(), "friends",
-                            ((GetUserProfileRes) response).getProfileImage());
+
 
                     return new ArrayList<>(((GetFriendListRes) response).getFriendList().keySet());
                 }

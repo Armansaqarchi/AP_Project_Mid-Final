@@ -73,6 +73,21 @@ public class StatusViewController extends Controller {
     public void getAllFriends(){
         ArrayList<String> allFriends = (ArrayList<String>) getIds("friends");
 
+        for(String i : allFriends){
+            try{
+                clientSocket.send(new GetUserProfileReq(clientSocket.getId(), i));
+                Response response = clientSocket.getReceiver().getResponse();
+
+                if(response.isAccepted()){
+                    imageSaver(((GetUserProfileRes) response).getId(), "friends",
+                        ((GetUserProfileRes) response).getProfileImage());
+                }
+            }
+            catch(ResponseNotFoundException e){
+                e.printStackTrace();
+            }
+        }
+
         ObservableList<String> list = FXCollections.observableArrayList(allFriends);
         list.addAll(allFriends);
         list.addAll(allFriends);
