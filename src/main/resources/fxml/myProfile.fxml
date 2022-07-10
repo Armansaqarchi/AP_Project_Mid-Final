@@ -10,14 +10,14 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="gridpane" stylesheets="@../css/myProfile.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.fxController.MyProfileController">
+<GridPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="gridpane" stylesheets="@../css/myProfile.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.fxController.MyProfileController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.5999755859375" minWidth="10.0" prefWidth="44.00000915527344" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="985.5999999999999" minWidth="10.0" prefWidth="885.5999755859375" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="586.3999755859375" minWidth="10.0" prefWidth="71.20002441406245" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints maxHeight="160.00000610351563" minHeight="10.0" prefHeight="141.39999542236328" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="160.00000610351563" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="490.79999084472655" minHeight="10.0" prefHeight="411.0000045776367" vgrow="SOMETIMES" />
     <RowConstraints maxHeight="108.60001220703123" minHeight="8.000036621093727" prefHeight="82.20004882812498" vgrow="SOMETIMES" />
   </rowConstraints>
@@ -33,7 +33,7 @@
           <RowConstraints maxHeight="140.0" minHeight="0.0" prefHeight="121.6" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="escape" contentDisplay="CENTER" mnemonicParsing="false" onAction="#eventHandler" prefHeight="55.0" prefWidth="55.0" styleClass="exitButton" stylesheets="@../css/myProfile.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button fx:id="escape" contentDisplay="CENTER" mnemonicParsing="false" onAction="#escape" prefHeight="55.0" prefWidth="55.0" styleClass="exitButton" stylesheets="@../css/myProfile.css" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor>
@@ -78,7 +78,7 @@
                         <Cursor fx:constant="DEFAULT" />
                      </cursor>
                   </Circle>
-                  <Button fx:id="editImage" mnemonicParsing="false" onAction="#eventHandler" prefHeight="35.0" prefWidth="150.0" styleClass="passwordButton" stylesheets="@../css/myProfile.css" text="image &amp; status" GridPane.rowIndex="1">
+                  <Button fx:id="editImage" mnemonicParsing="false" onAction="#editImage" prefHeight="35.0" prefWidth="150.0" styleClass="passwordButton" stylesheets="@../css/myProfile.css" text="image &amp; status" GridPane.rowIndex="1">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -95,14 +95,14 @@
                       <RowConstraints maxHeight="51.19998779296875" minHeight="10.0" prefHeight="51.19998779296875" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="logout" mnemonicParsing="false" onAction="#eventHandler" prefHeight="35.0" prefWidth="150.0" styleClass="logoutButton" stylesheets="@../css/myProfile.css" text="Log Out" GridPane.rowIndex="1">
+                        <Button fx:id="logout" mnemonicParsing="false" onAction="#logout" prefHeight="35.0" prefWidth="150.0" styleClass="logoutButton" stylesheets="@../css/myProfile.css" text="Logout" GridPane.rowIndex="1">
                            <GridPane.margin>
                               <Insets left="20.0" />
                            </GridPane.margin>
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
-                        <Button fx:id="changePassword" mnemonicParsing="false" onAction="#eventHandler" prefHeight="35.0" prefWidth="150.0" styleClass="passwordButton" stylesheets="@../css/myProfile.css" text="Change Password">
+                        <Button fx:id="changePassword" mnemonicParsing="false" onAction="#editProfile" prefHeight="35.0" prefWidth="150.0" styleClass="passwordButton" stylesheets="@../css/myProfile.css" text="Change Password">
                            <GridPane.margin>
                               <Insets left="20.0" />
                            </GridPane.margin>
@@ -188,28 +188,28 @@
                      <GridPane.margin>
                         <Insets bottom="15.0" left="30.0" />
                      </GridPane.margin></Label>
-                   <Button fx:id="editId" mnemonicParsing="false" onAction="#eventHandler" prefHeight="50.0" prefWidth="40.0" styleClass="editButton" stylesheets="@../css/myProfile.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                   <Button fx:id="editId" mnemonicParsing="false" onAction="#editProfile" prefHeight="50.0" prefWidth="40.0" styleClass="editButton" stylesheets="@../css/myProfile.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="15.0" />
                      </GridPane.margin>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                   <Button fx:id="editName" mnemonicParsing="false" onAction="#eventHandler" prefHeight="50.0" prefWidth="50.0" styleClass="editButton" stylesheets="@../css/myProfile.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                   <Button fx:id="editName" mnemonicParsing="false" onAction="#editProfile" prefHeight="50.0" prefWidth="50.0" styleClass="editButton" stylesheets="@../css/myProfile.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets left="15.0" />
                      </GridPane.margin>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                   <Button fx:id="editEmail" mnemonicParsing="false" onAction="#eventHandler" prefHeight="50.0" prefWidth="50.0" styleClass="editButton" stylesheets="@../css/myProfile.css" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                   <Button fx:id="editEmail" mnemonicParsing="false" onAction="#editProfile" prefHeight="50.0" prefWidth="50.0" styleClass="editButton" stylesheets="@../css/myProfile.css" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <GridPane.margin>
                         <Insets left="15.0" />
                      </GridPane.margin>
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></Button>
-                   <Button fx:id="editPhoneNumber" mnemonicParsing="false" onAction="#eventHandler" prefHeight="50.0" prefWidth="50.0" styleClass="editButton" stylesheets="@../css/myProfile.css" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                   <Button fx:id="editPhoneNumber" mnemonicParsing="false" onAction="#editProfile" prefHeight="50.0" prefWidth="50.0" styleClass="editButton" stylesheets="@../css/myProfile.css" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <GridPane.margin>
                         <Insets bottom="15.0" left="15.0" />
                      </GridPane.margin>
@@ -220,5 +220,13 @@
             </GridPane>
          </children>
       </GridPane>
+      <Label fx:id="message" alignment="CENTER" prefHeight="54.0" prefWidth="1000.0" text="Label" textFill="RED" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="20.0" left="50.0" />
+         </GridPane.margin>
+      </Label>
    </children>
 </GridPane>
