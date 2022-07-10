@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.exception.ResponseNotFoundException;
@@ -25,6 +26,9 @@ public class EditRoleController extends Controller
     private Button done;
     @FXML
     private Button cancel;
+
+    @FXML
+    private Label message;
 
 
     @FXML
@@ -102,12 +106,18 @@ public class EditRoleController extends Controller
 
             Response response = clientSocket.getReceiver().getResponse();
 
+            if(!response.isAccepted())
+            {
+                setMessage(response.getMessage());
+                return;
+            }
+
             //show responses message
             closeScene();
         }
         catch (ResponseNotFoundException e)
         {
-            closeScene();
+            setMessage("editing failed!");
             //show responses message
         }
 
@@ -176,5 +186,11 @@ public class EditRoleController extends Controller
     {
         Stage stage = (Stage)pane.getScene().getWindow();
         stage.close();
+    }
+
+    private void setMessage(String text)
+    {
+        message.setVisible(true);
+        message.setText(text);
     }
 }
