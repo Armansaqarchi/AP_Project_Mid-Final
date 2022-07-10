@@ -5,11 +5,19 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+import model.exception.ResponseNotFoundException;
+import model.request.server.CreateServerReq;
+import model.response.Response;
 
 import javax.swing.*;
 
-public class CreatServerController
+public class CreatServerController extends Controller
 {
+    @FXML
+    private GridPane pane;
+
     @FXML
     private Button create;
     @FXML
@@ -26,12 +34,43 @@ public class CreatServerController
     @FXML
     private void create(ActionEvent event)
     {
+        try
+        {
+            //sends the related req
+            clientSocket.send(new CreateServerReq(clientSocket.getId() , id.getText() , name.getText() , null));
 
+            //takes the response
+            Response response = clientSocket.getReceiver().getResponse();
+
+            if(!response.isAccepted())
+            {
+                setMessage(response.getMessage());
+                return;
+            }
+
+            closeScene();
+        }
+        catch(ResponseNotFoundException e)
+        {
+            setMessage("Failed to create server!");
+        }
     }
 
     @FXML
     private void cancel(ActionEvent event)
     {
+        closeScene();
+    }
 
+    private void closeScene()
+    {
+        Stage stage = (Stage)pane.getScene().getWindow();
+        stage.close();
+    }
+
+    private void setMessage(String text)
+    {
+        message.setVisible(true);
+        message.setText(text);
     }
 }
