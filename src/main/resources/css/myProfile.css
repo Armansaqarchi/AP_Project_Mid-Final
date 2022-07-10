@@ -10,9 +10,13 @@
     -fx-background-color: none;
     -fx-background-insets: none;
 }
+.exitButton:hover
+{
+    -fx-background-color: none;
+}
 .myAccountLabel
 {
-    -fx-font-size: 20px;
+    -fx-font-size: 28px;
     -fx-font-family: "Abyssinica SIL";
 }
 .profileGrid
@@ -42,12 +46,20 @@
     -fx-background-color: #c22323;
     -fx-background-insets: none;
 }
+.logoutButton:hover
+{
+    -fx-background-color: #c22323;
+}
 .passwordButton
 {
     -fx-font-size: 16px;
     -fx-font-family: "Abyssinica SIL";
     -fx-background-color:  #03A9F4 ;
     -fx-background-radius: 8 8 8 8;
+}
+.passwordButton:hover
+{
+    -fx-background-color: #035b83;
 }
 .passwordButton:focused {
     -fx-background-color: #035b83;
@@ -71,8 +83,7 @@
     -fx-background-color: none;
     -fx-background-insets: none;
 }
-.myAccountLabel
+.editButton:hover
 {
-    -fx-font-size: 36px;
-    -fx-font-family: "Abyssinica SIL";
+    -fx-background-color: none;
 }

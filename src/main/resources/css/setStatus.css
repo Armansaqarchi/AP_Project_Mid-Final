@@ -62,3 +62,15 @@
     -fx-background-color: #35444b;
     -fx-background-insets: none;
 }
+.online:hover {
+    -fx-background-color: #35444b;
+}
+.idle:hover {
+    -fx-background-color: #35444b;
+}
+.disturb:hover {
+    -fx-background-color: #35444b;
+}
+.invisible:hover {
+    -fx-background-color: #35444b;
+}

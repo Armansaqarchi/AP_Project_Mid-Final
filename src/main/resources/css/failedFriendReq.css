@@ -16,3 +16,11 @@
     -fx-background-color:  #03A9F4 ;
     -fx-background-radius: 8 8 8 8;
 }
+.okay:focused
+{
+    -fx-background-color: #035b83;
+}
+.okay:hover
+{
+    -fx-background-color: #035b83;
+}
