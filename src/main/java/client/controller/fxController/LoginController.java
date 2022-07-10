@@ -77,7 +77,6 @@ public class LoginController extends Controller {
 
     @FXML
     void onKeyLogin(KeyEvent event) {
-        System.out.println("dsgfads gha gha");
         if(event.getCode() == KeyCode.ENTER){
             onLogin(event);
         }

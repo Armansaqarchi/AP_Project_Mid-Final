@@ -13,6 +13,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.TextAlignment;
 import model.exception.ResponseNotFoundException;
 import model.message.FileMessage;
+import model.message.FileMsgNotification;
 import model.message.Message;
 import model.message.TextMessage;
 import model.request.user.GetUserProfileReq;
@@ -114,16 +115,18 @@ public class ChatCell extends ListCell<Message> {
             senderlabel.setText(item.getSenderId());
             senderlabel.setStyle("-fx-font-weight: bold");
 
-            datelabel.setText(item.getDate().toString());
+
             datelabel.setStyle("-fx-font-weight: bold");
 
             if(item instanceof TextMessage){
+                datelabel.setText(item.getDate().toString());
                 messageLabel.setText(((TextMessage) item).getContent());
             }
-            else if (item instanceof FileMessage){
+            else if (item instanceof FileMsgNotification){
                 System.out.println("4332442");
-                messageLabel.setText("File message : " + ((FileMessage) item).getFileName() );
-                innerVBox.setStyle("-fx-background-color: #555555;");
+                messageLabel.setText("File message : " + ((FileMsgNotification) item).getFileName() );
+                messageLabel.setStyle("-fx-font-weight: bold");
+                messageLabel.setStyle("-fx-text-fill: rgba(43,87,51,0.65)");
             }
 
             setGraphic(hBox);

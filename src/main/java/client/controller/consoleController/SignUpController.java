@@ -77,7 +77,7 @@ public class SignUpController extends InputController {
             getPhoneNumber();
         }
         else{
-            phoneNumber = null;
+            phoneNumber = "";
         }
 
         clientSocket.setId(id);

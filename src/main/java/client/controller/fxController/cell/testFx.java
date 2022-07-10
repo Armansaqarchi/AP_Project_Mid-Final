@@ -3,9 +3,12 @@ package client.controller.fxController.cell;
 import client.ClientSocket;
 import client.controller.fxController.LoginController;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.util.concurrent.Executors;
 
@@ -26,9 +29,22 @@ public class testFx extends Application {
         stage.setMinHeight(400);
 
         stage.show();
+
+
     }
 
     public static void main(String[] args){
         launch(args);
     }
+
+
+    public static void setOnClose(Stage stage){
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                Platform.exit();
+            }
+        });
+    }
 }
+

@@ -1,10 +1,14 @@
 package model.message;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * this class is used to send a notification of file message
  */
-public class FileMsgNotification extends Message
+public class FileMsgNotification extends Message implements Serializable
 {
+
     private final String fileName;
 
     //file's length in bytes
@@ -64,6 +68,14 @@ public class FileMsgNotification extends Message
      * @return the files size
      */
     public long getFileLength() {
+        return fileSize;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public long getFileSize() {
         return fileSize;
     }
 }

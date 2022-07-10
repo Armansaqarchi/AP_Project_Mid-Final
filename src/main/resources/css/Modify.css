@@ -23,6 +23,15 @@
     -fx-opacity: 0.3;
 }
 
-.react-button:selected{
-    -fx-opacity: 0;
+
+.download-button{
+    -fx-background-color: none;
+}
+
+.download-button:hover{
+    -fx-opacity: 0.5;
+}
+
+.download-button:focused{
+    -fx-opacity: 0.3;
 }

@@ -44,14 +44,30 @@
                   </Button>
                </children>
             </HBox>
-            <Button fx:id="Reactions" mnemonicParsing="false" onAction="#onReactions" prefHeight="39.0" prefWidth="140.0" styleClass="show-button" text="Reactions">
-               <VBox.margin>
-                  <Insets bottom="15.0" left="30.0" right="30.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="Reactions" mnemonicParsing="false" onAction="#onReactions" prefHeight="43.0" prefWidth="94.0" styleClass="show-button" text="Reactions">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="download" mnemonicParsing="false" onAction="#onDownload" styleClass="download-button">
+                     <HBox.margin>
+                        <Insets right="5.0" top="5.0" />
+                     </HBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="49.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" styleClass="download-button">
+                           <image>
+                              <Image url="@../image/download-icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </children>

@@ -21,7 +21,7 @@ public class ReactionsController extends Controller {
 
     public void initialize(){
         reactions = FXCollections.observableArrayList();
-        ReactionsView = new ListView<>();
+
 
         ReactionsView.setCellFactory(new Callback<ListView<MessageReaction>, ListCell<MessageReaction>>() {
             @Override

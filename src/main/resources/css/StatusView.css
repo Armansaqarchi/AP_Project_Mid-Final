@@ -1,0 +1,32 @@
+.root{
+    -fx-background-image: url("../image/statusImage.png");
+    -fx-background-repeat: space;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 20, 0.5, 0, 0);
+}
+
+.list-view{
+    -fx-opacity: 0.7;
+    -fx-background-color: #3e3e3e;
+   -fx-background-radius: 30;
+
+}
+
+.list-cell:hover{
+    -fx-background-color: black;
+    -fx-opacity: 0.8;
+}
+
+.vbox{
+    -fx-background-radius: 30;
+}
+
+.exit-button{
+    -fx-background-radius: 30;
+    -fx-background-color: none;
+}
+
+.scroll-bar:horizontal{
+    -fx-scale-x: 0;
+}

@@ -69,7 +69,7 @@ public abstract class Op {
     }
 
     public byte[] objectConvertor(Object o) throws IOException{
-
+        System.out.println(o);
         return SerializationUtils.serialize(o);
     }
 
