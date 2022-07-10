@@ -21,8 +21,11 @@ import javafx.stage.StageStyle;
 import model.exception.ResponseNotFoundException;
 import model.request.user.GetMyProfileReq;
 import model.response.user.GetMyProfileRes;
+import model.user.UserStatus;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -161,16 +164,21 @@ public class MyProfileController extends Controller implements Initializable
 
             if(!response.isAccepted())
             {
-                System.out.println(response);
-
+                closeScene();
             }
+
+            userId.setText(response.getId());
+            name.setText(response.getName());
+            email.setText(response.getEmail());
+
+            setPhoneNumber(response.getPhoneNumber());
+            setImage(response.getProfileImage());
+            setStatus(response.getUserStatus());
         }
-        catch(ResponseNotFoundException e){
-            System.out.println(e.getMessage());
+        catch(ResponseNotFoundException e)
+        {
+            closeScene();
         }
-        Image image = new Image("image/user-default.png");
-        ImagePattern pattern = new ImagePattern(image);
-        this.image.setFill(pattern);
 
     }
 
@@ -187,5 +195,57 @@ public class MyProfileController extends Controller implements Initializable
         stage.setScene(scene);
 
         stage.show();
+    }
+
+    private void closeScene()
+    {
+        Stage stage = (Stage)pane.getScene().getWindow();
+        stage.close();
+    }
+
+    private void setImage(byte[] image)
+    {
+        Image proImage;
+
+        if(null == image)
+        {
+            proImage = new Image("image/user-default.png");
+        }
+        else
+        {
+            InputStream inputStream = new ByteArrayInputStream(image);
+            proImage = new Image(inputStream);
+        }
+
+        ImagePattern pattern = new ImagePattern(proImage);
+
+        this.image.setFill(pattern);
+    }
+    private void setStatus(UserStatus status)
+    {
+        Image statusImage = null;
+
+        switch (status)
+        {
+            case ONLINE -> statusImage = new Image("image/online.png");
+            case OFFLINE, IDLE -> statusImage = new Image("image/idle.png");
+            case DO_NOT_DISTURB -> statusImage = new Image("image/disturb.png");
+            case INVISIBLE -> statusImage = new Image("image/invisible.png");
+        }
+
+        ImagePattern pattern = new ImagePattern(statusImage);
+
+        this.status.setFill(pattern);
+    }
+    private void setPhoneNumber(String phoneNumber)
+    {
+        if(null == phoneNumber || phoneNumber.equals(""))
+        {
+            this.phoneNumber.setText("don't added yet");
+        }
+        else
+        {
+            this.phoneNumber.setText(phoneNumber);
+        }
     }
 }
