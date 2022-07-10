@@ -52,6 +52,7 @@ public class CreatServerController extends Controller
         }
         catch(ResponseNotFoundException e)
         {
+            System.out.println(e.getMessage());
             setMessage("Failed to create server!");
         }
     }

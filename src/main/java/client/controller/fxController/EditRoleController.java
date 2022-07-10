@@ -117,6 +117,7 @@ public class EditRoleController extends Controller
         }
         catch (ResponseNotFoundException e)
         {
+            System.out.println(e.getMessage());
             setMessage("editing failed!");
             //show responses message
         }
@@ -178,6 +179,7 @@ public class EditRoleController extends Controller
         catch (ResponseNotFoundException e)
         {
             //close the scene if getting roles failed
+            System.out.println(e.getMessage());
             closeScene();
         }
     }

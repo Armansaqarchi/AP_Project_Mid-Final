@@ -52,6 +52,7 @@ public class CreatChannelController extends Controller
         }
         catch(ResponseNotFoundException e)
         {
+            System.out.println(e.getMessage());
             setMessage("Creating channel failed!");
         }
     }
