@@ -67,6 +67,11 @@ public class SetImageController extends Controller
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(null);
 
+        if(null == file)
+        {
+            return;
+        }
+
         try
         {
             InputStream inputStream = new FileInputStream(file);
@@ -202,6 +207,7 @@ public class SetImageController extends Controller
 
                     GetServerInfoRes response = (GetServerInfoRes) clientSocket.getReceiver().getResponse();
 
+                    System.out.println(response.getMessage());
                     if(!response.isAccepted())
                     {
                         closeScene();
@@ -257,7 +263,7 @@ public class SetImageController extends Controller
         }
         else if(null == image && SetImageType.SERVER == type)
         {
-            proImage = new Image("image/server-default.png");
+            proImage = new Image("image/server-default.jpg");
         }
         else
         {

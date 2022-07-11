@@ -1,5 +1,6 @@
 package client.controller.fxController;
 
+import client.controller.fxController.type.SetImageType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +40,9 @@ public class ServerRClickController extends Controller
     @FXML
     private void addUser(ActionEvent event)
     {
+        stage.focusedProperty().addListener((obs , oldFocus , newFocus) -> focusHandler(newFocus , stage));
 
+        //incomplete
     }
 
     @FXML
@@ -47,14 +50,24 @@ public class ServerRClickController extends Controller
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/renameServer.fxml"));
         Parent parent = loader.load();
+
+        RenameServerController controller = loader.getController();
+        controller.setServerId(serverId);
+
         showScene(new Scene(parent));
     }
 
     @FXML
-    private void creatChannel(ActionEvent event) throws IOException {
+    private void creatChannel(ActionEvent event) throws IOException
+    {
+        stage.focusedProperty().addListener((obs , oldFocus , newFocus) -> focusHandler(newFocus , stage));
+
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/fxml/creatChannel.fxml"));
         Parent parent = loader.load();
+
+        CreatChannelController controller = loader.getController();
+        controller.setServerId(serverId);
         showScene(new Scene(parent));
     }
 
@@ -63,7 +76,6 @@ public class ServerRClickController extends Controller
         this.serverId = serverId;
 
         stage = new Stage();
-        stage.focusedProperty().addListener((obs , oldFocus , newFocus) -> focusHandler(newFocus , stage));
 
         stage.initStyle(StageStyle.UNDECORATED);
         stage.initStyle(StageStyle.TRANSPARENT);
