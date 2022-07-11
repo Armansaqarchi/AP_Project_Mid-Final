@@ -409,6 +409,21 @@ public class ChannelService
             database.getChannelOp().updateChannelConfig(channelId.toString() ,
                     "name" , request.getNewName());
 
+            database.getServerOp().updateServerHashList(UpdateType.ADD , "channels" , request.getServerId(), channelId , request.getNewName());
+
+            for(String userId : server.getUsers())
+            {
+                User user = database.getUserOp().findById(userId);
+
+                ServerIDs serverIDs = user.getServers().get(user.getServers().indexOf(new ServerIDs(server.getId() , null)));
+                serverIDs.getChannels().remove(request.getChannelName());
+                serverIDs.getChannels().add(request.getNewName());
+
+                database.getUserOp().updateList(UpdateType.REMOVE , "servers" , userId , serverIDs);
+                database.getUserOp().updateList(UpdateType.ADD , "servers" , userId , serverIDs);
+
+            }
+
             return new Response(request.getSenderId() , true ,
                     "user renamed successfully.");
         }
