@@ -409,7 +409,7 @@ public class ChannelService
             database.getChannelOp().updateChannelConfig(channelId.toString() ,
                     "name" , request.getNewName());
 
-            database.getServerOp().updateServerHashList(UpdateType.ADD , "channels" , request.getServerId(), channelId , request.getNewName());
+            database.getServerOp().updateServerHashList(UpdateType.ADD , "channels" , request.getServerId() , request.getNewName() , channelId);
 
             for(String userId : server.getUsers())
             {
