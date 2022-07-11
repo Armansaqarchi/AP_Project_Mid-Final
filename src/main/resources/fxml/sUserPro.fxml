@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" styleClass="gridpane" stylesheets="@../css/sUserPro.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.fxController.SUserProController">
+<GridPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" styleClass="gridpane" stylesheets="@../css/sUserPro.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.fxController.SUserProController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -42,7 +42,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="userId" prefHeight="30.0" prefWidth="380.0" styleClass="profileField" stylesheets="@../css/sUserPro.css" text="user id" GridPane.rowIndex="1">
+            <Label fx:id="userId" prefHeight="30.0" prefWidth="500.0" styleClass="profileField" stylesheets="@../css/sUserPro.css" text="user id" GridPane.rowIndex="1">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
@@ -67,7 +67,7 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </Label>
-            <Label fx:id="name" prefHeight="30.0" prefWidth="380.0" styleClass="profileField" stylesheets="@../css/sUserPro.css" text="name" GridPane.rowIndex="3">
+            <Label fx:id="name" prefHeight="30.0" prefWidth="500.0" styleClass="profileField" stylesheets="@../css/sUserPro.css" text="name" GridPane.rowIndex="3">
                <padding>
                   <Insets left="10.0" />
                </padding>
@@ -105,49 +105,49 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="role9" alignment="CENTER" prefHeight="30.0" prefWidth="120.0" text="Label" textFill="WHITE" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                  <Label fx:id="role9" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" text="Label" textFill="WHITE" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <font>
-                        <Font size="12.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="role4" alignment="CENTER" prefHeight="30.0" prefWidth="120.0" text="label" textFill="WHITE" visible="false" GridPane.rowIndex="1">
+                  <Label fx:id="role4" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" text="label" textFill="WHITE" visible="false" GridPane.rowIndex="1">
                      <font>
-                        <Font size="12.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="role5" alignment="CENTER" prefHeight="30.0" prefWidth="120.0" text="Label" textFill="WHITE" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label fx:id="role5" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" text="Label" textFill="WHITE" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
-                        <Font size="12.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="role6" alignment="CENTER" prefHeight="30.0" prefWidth="120.0" text="Label" textFill="WHITE" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <Label fx:id="role6" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" text="Label" textFill="WHITE" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
-                        <Font size="12.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="role3" alignment="CENTER" prefHeight="30.0" prefWidth="120.0" text="Label" textFill="WHITE" visible="false" GridPane.columnIndex="2">
+                  <Label fx:id="role3" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" text="Label" textFill="WHITE" visible="false" GridPane.columnIndex="2">
                      <font>
-                        <Font size="12.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="role7" alignment="CENTER" prefHeight="30.0" prefWidth="120.0" text="Label" textFill="WHITE" visible="false" GridPane.rowIndex="2">
+                  <Label fx:id="role7" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" text="Label" textFill="WHITE" visible="false" GridPane.rowIndex="2">
                      <font>
-                        <Font size="12.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="role8" alignment="CENTER" prefHeight="30.0" prefWidth="120.0" text="Label" textFill="WHITE" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Label fx:id="role8" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" text="Label" textFill="WHITE" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
-                        <Font size="12.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="role1" alignment="CENTER" prefHeight="30.0" prefWidth="120.0" text="Label" textFill="WHITE" visible="false">
+                  <Label fx:id="role1" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" text="Label" textFill="WHITE" visible="false">
                      <font>
-                        <Font size="12.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="role2" alignment="CENTER" prefHeight="30.0" prefWidth="120.0" text="Label" textFill="WHITE" visible="false" GridPane.columnIndex="1">
+                  <Label fx:id="role2" alignment="CENTER" prefHeight="30.0" prefWidth="200.0" text="Label" textFill="WHITE" visible="false" GridPane.columnIndex="1">
                      <font>
-                        <Font size="12.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
                </children>
@@ -179,7 +179,7 @@
          <children>
             <Button fx:id="editRole" mnemonicParsing="false" onAction="#editRole" prefHeight="30.0" prefWidth="100.0" styleClass="editRole" text="Edit Role" textFill="WHITE" visible="false" GridPane.columnIndex="1">
                <GridPane.margin>
-                  <Insets left="25.0" right="20.0" />
+                  <Insets left="100.0" right="20.0" />
                </GridPane.margin>
                <font>
                   <Font name="System Bold" size="13.0" />
