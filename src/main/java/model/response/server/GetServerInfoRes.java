@@ -25,6 +25,18 @@ public class GetServerInfoRes extends GetInfoRes
         return image;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
     @Override
     public String toString()
     {

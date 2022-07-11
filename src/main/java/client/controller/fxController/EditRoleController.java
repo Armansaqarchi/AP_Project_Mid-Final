@@ -142,7 +142,7 @@ public class EditRoleController extends Controller
     {
         try
         {
-            clientSocket.send(new GetRulesServerReq(userId , serverId));
+            clientSocket.send(new GetRulesServerReq(clientSocket.getId(), serverId));
 
             GetRulesServerRes response = (GetRulesServerRes)clientSocket.getReceiver().getResponse();
 
@@ -152,7 +152,7 @@ public class EditRoleController extends Controller
                 closeScene();
             }
 
-            Rule rule = response.getRules().get(clientSocket.getId());
+            Rule rule = response.getRules().get(userId);
 
             if(null == rule)
             {
@@ -187,7 +187,7 @@ public class EditRoleController extends Controller
     private void closeScene()
     {
         Stage stage = (Stage)pane.getScene().getWindow();
-        stage.close();
+        stage.hide();
     }
 
     private void setMessage(String text)

@@ -3,6 +3,7 @@ package client.controller.fxController;
 
 import client.controller.fxController.type.EditProfileType;
 import client.controller.fxController.type.SetImageType;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -78,6 +79,7 @@ public class MyProfileController extends Controller implements Initializable
     @FXML
     private void editProfile(ActionEvent event) throws IOException
     {
+        stage.focusedProperty().addListener((obs , oldFocus , newFocus) -> focusHandler(newFocus , stage));
 
         FXMLLoader loader = new FXMLLoader();
 
@@ -125,7 +127,7 @@ public class MyProfileController extends Controller implements Initializable
 
         SetImageController controller = loader.getController();
 
-        controller.setType(SetImageType.USER);
+        controller.initialize(SetImageType.USER , clientSocket.getId());
 
         Scene scene = new Scene(parent);
 
@@ -150,7 +152,7 @@ public class MyProfileController extends Controller implements Initializable
     {
         stage = new Stage();
 
-        stage.focusedProperty().addListener((obs , oldFocus , newFocus) -> focusHandler(newFocus , stage));
+        stage.setOnHidden(e -> hideHandler());
 
         stage.initStyle(StageStyle.UNDECORATED);
         stage.initStyle(StageStyle.TRANSPARENT);
@@ -182,12 +184,44 @@ public class MyProfileController extends Controller implements Initializable
 
     }
 
+    private void initialize()
+    {
+        try
+        {
+            clientSocket.send(new GetMyProfileReq(clientSocket.getId()));
+
+            GetMyProfileRes response = (GetMyProfileRes)clientSocket.getReceiver().getResponse();
+
+            if(!response.isAccepted())
+            {
+                closeScene();
+            }
+
+            userId.setText(response.getId());
+            name.setText(response.getName());
+            email.setText(response.getEmail());
+
+            setPhoneNumber(response.getPhoneNumber());
+            setImage(response.getProfileImage());
+            setStatus(response.getUserStatus());
+        }
+        catch(ResponseNotFoundException e)
+        {
+            closeScene();
+        }
+    }
     private void focusHandler(boolean isFocused , Stage stage)
     {
         if(!isFocused)
         {
             stage.close();
         }
+    }
+
+    private void hideHandler()
+    {
+        stage.close();
+        initialize();
     }
 
     private void showScene(Scene scene)
@@ -241,7 +275,7 @@ public class MyProfileController extends Controller implements Initializable
     {
         if(null == phoneNumber || phoneNumber.equals(""))
         {
-            this.phoneNumber.setText("don't added yet");
+            this.phoneNumber.setText("haven't added yet");
         }
         else
         {

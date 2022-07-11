@@ -3,6 +3,8 @@ import client.controller.InfoVerifier;
 import client.controller.fxController.type.EditProfileType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -11,6 +13,8 @@ import javafx.stage.Stage;
 import model.exception.*;
 import model.request.user.SetMyProfileReq;
 import model.response.Response;
+
+import java.io.IOException;
 
 public class EditProfileController extends Controller
 {
@@ -57,6 +61,8 @@ public class EditProfileController extends Controller
                         setMessage(response.getMessage());
                         return;
                     }
+
+                    clientSocket.setId(value.getText());
 
                     closeScene();
                 }
@@ -244,7 +250,7 @@ public class EditProfileController extends Controller
     private void closeScene()
     {
         Stage stage = (Stage)pane.getScene().getWindow();
-        stage.close();
+        stage.hide();
     }
 
     private void setMessage(String text)
