@@ -38,3 +38,17 @@
     -fx-background-color: #035b83;
     -fx-background-insets: none;
 }
+
+.remove
+{
+    -fx-background-color: #fb3f3f;
+    -fx-background-radius: 8 8 8 8;
+}
+.remove:focused {
+    -fx-background-color: #c22323;
+    -fx-background-insets: none;
+}
+.remove:hover
+{
+    -fx-background-color: #c22323;
+}
