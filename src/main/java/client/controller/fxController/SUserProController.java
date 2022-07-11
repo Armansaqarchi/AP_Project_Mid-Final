@@ -105,6 +105,8 @@ public class SUserProController extends Controller
         {
             System.out.println(e.getMessage());
         }
+
+        closeScene();
     }
 
     public void initialize(String userId , String serverId)
