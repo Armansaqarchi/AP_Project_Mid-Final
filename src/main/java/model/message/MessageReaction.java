@@ -1,9 +1,11 @@
 package model.message;
 
+import java.io.Serializable;
+
 /**
  * simulates a reaction to message
  */
-public class MessageReaction
+public class MessageReaction implements Serializable
 {
     private final String senderId;
     private final Reaction reaction;
@@ -24,5 +26,13 @@ public class MessageReaction
     @Override
     public String toString() {
         return senderId + " " + reaction + ", ";
+    }
+
+    public Reaction getReaction() {
+        return reaction;
+    }
+
+    public String getSenderId() {
+        return senderId;
     }
 }

@@ -3,30 +3,110 @@
     -fx-background-repeat: space;
     -fx-background-size: 100% 100%;
     -fx-background-position: center center;
-    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, black, 20, 0.5, 0, 0);
 
 }
 
-.list-view{
+.scroll-bar{
+    -fx-background-color: black;
+}
+
+.custom-list-view{
     -fx-background-color: grey;
     -fx-border-color: Grey;
-    -fx-effect: dropshadow(three-pass-box, black, 5, 0.5, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, black, 0, 0, 0, 0);
     -fx-opacity: 0.7;
 
 }
 
-.list-view .scroll-bar:horizontal {
+
+.scroll-bar:horizontal {
     -fx-scale-x: 0;
 }
 
-.list-cell:odd{
+.friend-bar{
+    -fx-background-color: #636363;
+    -fx-opacity: 0.85;
+}
+
+.main-view{
     -fx-background-color: none;
+}
+
+.chat-hBox{
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+}
+
+.file-button{
+    -fx-background-color: #888888;
+    -fx-background-radius: 15;
+}
+
+.file-button:hover{
+    -fx-background-color: #3e3e3e;
+}
+
+
+.list-cell:odd{
     -fx-border-color: none;
     -fx-cell-size: 37;
 }
 
-.list-cell:even{
+.cancel-button{
+    -fx-background-color: #d90000;
+    -fx-background-radius: 15;
+}
+.cancel-button:hover{
+    -fx-background-color: #870000;
+}
+
+.chat-field{
+    -fx-border-color: none;
     -fx-background-color: none;
+    -fx-background-radius: 15;
+}
+
+.list-cell:odd:hover{
+    -fx-background-color: white;
+    -fx-opacity: 0.5;
+    -fx-text-fill: #fffefe;
+}
+
+
+
+.send-button{
+    -fx-background-color: #07bf07;
+    -fx-background-radius: 15;
+}
+.send-button:hover{
+    -fx-background-color: #353535;
+}
+
+.send-button:focused{
+    -fx-background-color: #07bf07;
+}
+
+.list-cell:odd:focused{
+    -fx-background-color: white;
+    -fx-opacity: 0.65;
+    -fx-text-fill: #fffefe;
+}
+
+.list-cell:even:focused{
+    -fx-background-color: white;
+    -fx-opacity: 0.65;
+    -fx-text-fill: #fffefe;
+}
+
+.list-cell:even:hover{
+    -fx-background-color: white;
+    -fx-opacity: 0.5;
+    -fx-text-fill: #fffefe;
+}
+
+.list-cell:even{
+    -fx-background-color: white;
     -fx-border-color: none;
     -fx-cell-size: 37;
 }
@@ -34,6 +114,7 @@
 .hBox{
     -fx-border-color: Grey;
     -fx-background-color: Grey;
+    -fx-effect: dropshadow(three-pass-box, black, 0, 0.5, 0, 0);
     -fx-opacity: 0.8;
 }
 

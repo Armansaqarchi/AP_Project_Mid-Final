@@ -79,10 +79,12 @@ public class SUserProController extends Controller
         loader.setLocation(getClass().getResource("/fxml/editRole.fxml"));
         Parent parent = loader.load();
 
+        stage.setScene(new Scene(parent));
+
         EditRoleController controller = loader.getController();
         controller.setId(serverId , UserId);
 
-        showScene(new Scene(parent));
+        stage.show();
     }
 
     public void initialize(String userId , String serverId)
@@ -123,6 +125,31 @@ public class SUserProController extends Controller
         }
         catch(ResponseNotFoundException e)
         {
+            closeScene();
+        }
+
+        //show edit role button for owner of server
+        try
+        {
+            clientSocket.send(new GetServerInfoReq(clientSocket.getId(), serverId));
+
+            GetServerInfoRes response = (GetServerInfoRes) clientSocket.getReceiver().getResponse();
+
+            if(!response.isAccepted())
+            {
+                //close the scene if getting roles failed
+                closeScene();
+            }
+
+            if(response.getOwnerId().equals(clientSocket.getId()))
+            {
+                editRole.setVisible(true);
+            }
+        }
+        catch (ResponseNotFoundException e)
+        {
+            //close the scene if getting roles failed
+            System.out.println(e.getMessage());
             closeScene();
         }
 
@@ -177,31 +204,6 @@ public class SUserProController extends Controller
             System.out.println(e.getMessage());
             closeScene();
         }
-
-        //show edit role button for owner of server
-        try
-        {
-            clientSocket.send(new GetServerInfoReq(clientSocket.getId(), serverId));
-
-            GetServerInfoRes response = (GetServerInfoRes) clientSocket.getReceiver().getResponse();
-
-            if(!response.isAccepted())
-            {
-                //close the scene if getting roles failed
-                closeScene();
-            }
-
-            if(response.getOwnerId().equals(clientSocket.getId()))
-            {
-                editRole.setVisible(true);
-            }
-        }
-        catch (ResponseNotFoundException e)
-        {
-            //close the scene if getting roles failed
-            System.out.println(e.getMessage());
-            closeScene();
-        }
     }
 
     private void focusHandler(boolean isFocused , Stage stage)
@@ -216,13 +218,6 @@ public class SUserProController extends Controller
     {
         stage.close();
         initialize();
-    }
-
-    private void showScene(Scene scene)
-    {
-        stage.setScene(scene);
-
-        stage.show();
     }
 
     private void closeScene()

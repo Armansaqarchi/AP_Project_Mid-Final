@@ -76,7 +76,7 @@ public class FileHandler
                 }
                 catch (FileNotFoundException e)
                 {
-                    System.out.println(e.getMessage());;
+                    System.out.println(e.getMessage());
                 }
             }
 
@@ -178,7 +178,7 @@ public class FileHandler
                 Files.createFile(path);
 
                 //write content into file
-                Files.write(path , response.getContent());
+                Files.write(path, response.getContent());
 
                 System.out.println("file saved as : " + url);
 

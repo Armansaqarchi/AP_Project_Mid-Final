@@ -1,5 +1,11 @@
 package client;
 
+import client.controller.fxController.Controller;
+import client.controller.fxController.HomeController;
+import client.controller.fxController.LoginController;
+import client.controller.fxController.cell.testFx;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
 import model.Transferable;
 import model.exception.InvalidObjectException;
 import model.exception.ResponseNotFoundException;
@@ -7,6 +13,7 @@ import model.message.FileMsgNotification;
 import model.message.Message;
 import model.response.Response;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Receiver
@@ -14,6 +21,12 @@ public class Receiver
     //the latest response that was arrived from server
     private Response response;
 
+    private FXMLLoader loader;
+
+    public Receiver(){
+        loader = new FXMLLoader
+                (testFx.class.getResource("/fxml/Login.fxml"));
+    }
 
     /**
      * gets parameter transferable and then checks the type of it
@@ -34,6 +47,17 @@ public class Receiver
 
                 receiveMessage((Message) transferable);
 
+                Platform.runLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        System.out.println("fdsgds we are here");
+
+                        HomeController controller = getLoader().getController();
+                        controller.realTimeUpdate((Message) transferable);
+                    }
+                });
+
             }
             catch (ClassCastException ex)
             {
@@ -48,6 +72,7 @@ public class Receiver
         this.response = response;
     }
 
+
     /**
      * response from server might have some delay
      * because of that, there is a loop in the method runs after 50 m seconds
@@ -55,7 +80,7 @@ public class Receiver
      * @return response received from server
      * @throws ResponseNotFoundException, if the response time out occurs
      */
-    public Response getResponse() throws ResponseNotFoundException
+    public synchronized Response getResponse() throws ResponseNotFoundException
     {
         for (int i = 0; i < 1000; i++)
         {
@@ -90,5 +115,14 @@ public class Receiver
 
         //store messages in client side
         FileHandler.getFileHandler().saveMessage(message);
+    }
+
+
+    public FXMLLoader getLoader() {
+        return loader;
+    }
+
+    public void setLoader(FXMLLoader loader) {
+        this.loader = loader;
     }
 }

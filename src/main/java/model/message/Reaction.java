@@ -1,9 +1,11 @@
 package model.message;
 
+import java.io.Serializable;
+
 /**
  * types of reaction to message
  */
-public enum Reaction
+public enum Reaction implements Serializable
 {
     LIKE("like") , DISLIKE("dislike") , LAUGH("laugh");
 

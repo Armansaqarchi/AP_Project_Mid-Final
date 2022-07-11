@@ -2,23 +2,30 @@ package client.controller.fxController;
 
 import client.Client;
 import client.ClientSocket;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 
 
-
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import model.exception.ResponseNotFoundException;
 import model.request.Authentication.LoginReq;
 import model.response.Response;
+import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties;
 
-
-
+import java.io.IOException;
+import java.util.concurrent.Executors;
 
 
 public class LoginController extends Controller {
+
+
 
     @FXML
     private Label errorText;
@@ -36,7 +43,7 @@ public class LoginController extends Controller {
     private TextField passwordText;
 
     @FXML
-    void onLogin(ActionEvent event) {
+    void onLogin(Event event) {
         clientSocket.setId(IDText.getText());
 
         System.out.println(clientSocket);
@@ -45,9 +52,9 @@ public class LoginController extends Controller {
                 passwordText.getText(), null));
 
         try{
-            System.out.println("1 is here");
+
             Response response = clientSocket.getReceiver().getResponse();
-            System.out.println("2");
+
 
             if(response.isAccepted()){
                 moveToHomeScreen(event);
@@ -68,7 +75,14 @@ public class LoginController extends Controller {
         moveToSignUpScreen(event);
     }
 
-    private void moveToHomeScreen(ActionEvent event){
+    @FXML
+    void onKeyLogin(KeyEvent event) {
+        if(event.getCode() == KeyCode.ENTER){
+            onLogin(event);
+        }
+    }
+
+    private void moveToHomeScreen(Event event){
         changeView("Home", event);
     }
 
