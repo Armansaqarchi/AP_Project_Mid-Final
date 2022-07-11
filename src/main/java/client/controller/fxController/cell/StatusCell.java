@@ -27,7 +27,6 @@ public class StatusCell extends ListCell<String> {
     private HBox hBox = new HBox();
     private Label label = new Label();
     private Circle circle = new Circle();
-    private Button button = new Button();
     private ClientSocket clientSocket;
 
 

@@ -33,7 +33,7 @@ public class ImageTextCell extends ListCell<String> {
 
         this.clientSocket = ClientSocket.getClientSocket();
 
-        circle.setRadius(15);
+        circle.setRadius(20);
 
         status.setFitHeight(14);
         status.setFitWidth(14);
@@ -55,7 +55,7 @@ public class ImageTextCell extends ListCell<String> {
         hBox.getChildren().addAll(circle, status, label);
 
         setPrefWidth(Double.MAX_VALUE); // use preferred size for cell width
-        setPrefHeight(-1); // use preferred size for cell width
+        setPrefHeight(55); // use preferred size for cell width
     }
 
     @Override

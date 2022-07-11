@@ -49,8 +49,6 @@ public class ModifyController extends Controller {
     @FXML
     void onDislike(ActionEvent event) {
         if (!isUserReactedBefore(message.getSenderId())) {
-            System.out.println("disliking");
-            System.out.println(message.getId());
 
             clientSocket.send(new ReactionToMessageReq(clientSocket.getId(), message.getId(),
                     Reaction.DISLIKE));
@@ -146,7 +144,6 @@ public class ModifyController extends Controller {
 
             fileHandler.saveMessage(message);
 
-            System.out.println("txt message saved");
         }
         else{
 
@@ -157,6 +154,8 @@ public class ModifyController extends Controller {
 
                 if(response.isAccepted() && response instanceof GetFileMsgRes){
                     FileHandler.getFileHandler().saveFile((GetFileMsgRes) response);
+
+                    resultMaker("file saved as : client/file/" + ((GetFileMsgRes) response).getFileName(), "FILE DOWNLOADED");
                 }
                 else{
                     System.out.println("access denied to get file message");

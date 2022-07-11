@@ -95,17 +95,11 @@ public class ChatCell extends ListCell<Message> {
 
             try {
                 fileImage = Files.readAllBytes(Path.of("image/friends/" + item.getSenderId()));
-            }
-            catch(IOException e){
-                System.out.println(item.getSenderId() + "'s image not found");
 
-            }
-
-            if(fileImage != null) {
                 Image image = new Image(new ByteArrayInputStream(fileImage));
                 circle.setFill(new ImagePattern(image));
             }
-            else{
+            catch(IOException e){
                 circle.setFill(new ImagePattern(new Image("/image/no-profile-logo.png")));
             }
 
