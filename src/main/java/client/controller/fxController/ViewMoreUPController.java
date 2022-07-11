@@ -25,6 +25,7 @@ public class ViewMoreUPController extends Controller
     @FXML
     private Button sendMessage;
 
+    @FXML
     private void sendMessage(ActionEvent event)
     {
         //incomplete
@@ -49,8 +50,9 @@ public class ViewMoreUPController extends Controller
         catch (ResponseNotFoundException e)
         {
             System.out.println(e.getMessage());
-            closeScene();
         }
+
+        closeScene();
     }
 
     @FXML
@@ -72,8 +74,9 @@ public class ViewMoreUPController extends Controller
         catch (ResponseNotFoundException e)
         {
             System.out.println(e.getMessage());
-            closeScene();
         }
+
+        closeScene();
     }
 
     public void initialize(String userId)
