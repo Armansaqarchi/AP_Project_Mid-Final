@@ -1,0 +1,40 @@
+.gridpane
+{
+    -fx-background-color: #717D7E;
+}
+.exitButton
+{
+    -fx-background-image: url("../image/exit.png");
+    -fx-background-position: center;
+    -fx-background-size: cover;
+    -fx-background-color: none;
+}
+.exitButton:hover
+{
+    -fx-background-color: none;
+}
+.profileGrid
+{
+    -fx-background-color: #424949;
+    -fx-background-radius: 10 10 10 10;
+    -fx-border-radius: 10 10 10 10;
+}
+.profileField
+{
+    -fx-background-color: #c0c0c0;
+    -fx-background-radius: 5 5 5 5;
+}
+
+.editRole
+{
+    -fx-background-color: #42A5F5 ;
+    -fx-background-radius: 5 5 5 5;
+}
+.editRole:focused {
+    -fx-background-color: #035b83;
+    -fx-background-insets: none;
+}
+.editRole:hover {
+    -fx-background-color: #035b83;
+    -fx-background-insets: none;
+}

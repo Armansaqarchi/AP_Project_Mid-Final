@@ -1,18 +1,7 @@
 .textField
 {
-    -fx-font-size: 18px;
     -fx-background-color: #CFD8DC;
     -fx-background-radius: 10 10 10 10;
-}
-.editValue
-{
-    -fx-font-size: 24px;
-    -fx-font-family: "Abyssinica SIL";
-}
-.responseMessage
-{
-    -fx-font-size: 20px;
-    -fx-font-family: "Abyssinica SIL";
 }
 .cancel
 {
@@ -21,12 +10,10 @@
 }
 .cancel:focused
 {
-    -fx-text-fill : #fff;
     -fx-background-color: #c22323;
 }
 .cancel:hover
 {
-    -fx-text-fill : #fff;
     -fx-background-color: #c22323;
 }
 .done
@@ -36,13 +23,17 @@
 }
 .done:focused
 {
-    -fx-text-fill : #fff;
     -fx-background-color: #035b83;
 }
 .done:hover
 {
-    -fx-text-fill : #fff;
     -fx-background-color: #035b83;
+}
+.setImage
+{
+    -fx-background-image: url("../image/set-image.png");
+    -fx-background-color: none;
+    -fx-background-size: cover;
 }
 .gridpane
 {

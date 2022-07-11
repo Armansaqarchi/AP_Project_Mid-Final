@@ -1,0 +1,44 @@
+.friend
+{
+    -fx-background-color: #717D7E;
+    -fx-background-radius: 0 0 0 0;
+}
+.block
+{
+    -fx-background-color: #fb3f3f;
+    -fx-background-radius: 0 0 0 0;
+}
+.message
+{
+    -fx-background-color: #717D7E;
+    -fx-background-radius: 0 0 0 0;
+}
+
+.block:focused
+{
+    -fx-background-color: #c22323;
+    -fx-background-insets: none;
+}
+.message:focused
+{
+    -fx-background-color: #495d67;
+    -fx-background-insets: none;
+}
+.friend:focused
+{
+    -fx-background-color: #495d67;
+    -fx-background-insets: none;
+}
+
+.block:hover
+{
+    -fx-background-color: #c22323;
+}
+.message:hover
+{
+    -fx-background-color: #495d67;
+}
+.friend:hover
+{
+    -fx-background-color: #495d67;
+}
