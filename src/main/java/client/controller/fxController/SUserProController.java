@@ -16,8 +16,10 @@ import javafx.stage.StageStyle;
 import model.exception.ResponseNotFoundException;
 import model.request.server.GetRulesServerReq;
 import model.request.server.GetServerInfoReq;
+import model.request.server.RemoveUserServerReq;
 import model.request.user.GetMyProfileReq;
 import model.request.user.GetUserProfileReq;
+import model.response.Response;
 import model.response.server.GetRulesServerRes;
 import model.response.server.GetServerInfoRes;
 import model.response.user.GetMyProfileRes;
@@ -42,6 +44,9 @@ public class SUserProController extends Controller
 
     @FXML
     private Button editRole;
+
+    @FXML
+    private Button remove;
 
     @FXML
     private Circle image;
@@ -79,10 +84,29 @@ public class SUserProController extends Controller
         loader.setLocation(getClass().getResource("/fxml/editRole.fxml"));
         Parent parent = loader.load();
 
+        stage.setScene(new Scene(parent));
+
         EditRoleController controller = loader.getController();
         controller.setId(serverId , UserId);
 
-        showScene(new Scene(parent));
+        stage.show();
+    }
+
+    @FXML
+    private void remove(ActionEvent event)
+    {
+        clientSocket.send(new RemoveUserServerReq(clientSocket.getId(), serverId, UserId));
+
+        try
+        {
+            Response response = clientSocket.getReceiver().getResponse();
+        }
+        catch(ResponseNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+        closeScene();
     }
 
     public void initialize(String userId , String serverId)
@@ -126,7 +150,7 @@ public class SUserProController extends Controller
             closeScene();
         }
 
-        //show edit role button for owner of server
+        //show edit role and remove button for owner of server
         try
         {
             clientSocket.send(new GetServerInfoReq(clientSocket.getId(), serverId));
@@ -142,6 +166,7 @@ public class SUserProController extends Controller
             if(response.getOwnerId().equals(clientSocket.getId()))
             {
                 editRole.setVisible(true);
+                remove.setVisible(true);
             }
         }
         catch (ResponseNotFoundException e)
@@ -156,6 +181,13 @@ public class SUserProController extends Controller
             clientSocket.send(new GetRulesServerReq(clientSocket.getId(), serverId));
 
             GetRulesServerRes response = (GetRulesServerRes)clientSocket.getReceiver().getResponse();
+
+            //show remove button if this user has its role
+            if(null != response.getRules().get(clientSocket.getId()) && response.getRules().get(clientSocket.getId()).getRules().contains(RuleType.REMOVE_MEMBER))
+            {
+                remove.setVisible(true);
+            }
+
 
             if(!response.isAccepted())
             {
@@ -216,13 +248,6 @@ public class SUserProController extends Controller
     {
         stage.close();
         initialize();
-    }
-
-    private void showScene(Scene scene)
-    {
-        stage.setScene(scene);
-
-        stage.show();
     }
 
     private void closeScene()

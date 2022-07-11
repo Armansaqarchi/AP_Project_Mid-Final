@@ -2,53 +2,46 @@
 {
     -fx-background-color: #717D7E;
 }
-.exitButton
+.exit
 {
     -fx-background-image: url("../image/exit.png");
     -fx-background-position: center;
     -fx-background-size: cover;
     -fx-background-color: none;
 }
-.exitButton:hover
+
+.exit:focused {
+    -fx-background-color: none;
+    -fx-background-insets: none;
+}
+.exit:hover
 {
     -fx-background-color: none;
 }
-.profileGrid
+.button1
 {
-    -fx-background-color: #424949;
-    -fx-background-radius: 10 10 10 10;
-    -fx-border-radius: 10 10 10 10;
+    -fx-background-color: none ;
+    -fx-background-radius: 0 0 0 0;
 }
-.profileField
-{
-    -fx-background-color: #c0c0c0;
-    -fx-background-radius: 5 5 5 5;
-}
-
-.editRole
-{
-    -fx-background-color: #42A5F5 ;
-    -fx-background-radius: 5 5 5 5;
-}
-.editRole:focused {
+.button1:focused {
     -fx-background-color: #035b83;
     -fx-background-insets: none;
 }
-.editRole:hover {
+.button1:hover {
     -fx-background-color: #035b83;
     -fx-background-insets: none;
 }
 
-.remove
+.button2
 {
-    -fx-background-color: #fb3f3f;
-    -fx-background-radius: 8 8 8 8;
+    -fx-background-color: none;
+    -fx-background-radius: 0 0 0 0;
 }
-.remove:focused {
+.button2:focused {
     -fx-background-color: #c22323;
     -fx-background-insets: none;
 }
-.remove:hover
+.button2:hover
 {
     -fx-background-color: #c22323;
 }

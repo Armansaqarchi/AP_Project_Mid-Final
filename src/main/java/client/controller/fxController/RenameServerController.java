@@ -89,9 +89,11 @@ public class RenameServerController extends Controller
 
         SetImageController controller = loader.getController();
 
+        stage.setScene(new Scene(parent));
+
         controller.initialize( SetImageType.SERVER , serverId);
 
-        showScene(new Scene(parent));
+        stage.show();
     }
 
     private void closeScene()
@@ -116,7 +118,6 @@ public class RenameServerController extends Controller
     {
         stage = new Stage();
 
-        stage.focusedProperty().addListener((obs , oldFocus , newFocus) -> focusHandler(newFocus , stage));
         stage.setOnHidden(e -> hideHandler());
 
         stage.initStyle(StageStyle.UNDECORATED);
@@ -174,12 +175,5 @@ public class RenameServerController extends Controller
     {
         stage.close();
         initialize();
-    }
-
-    private void showScene(Scene scene)
-    {
-        stage.setScene(scene);
-
-        stage.show();
     }
 }
