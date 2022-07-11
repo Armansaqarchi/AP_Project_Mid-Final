@@ -21,14 +21,15 @@ public class testFx extends Application {
         Executors.newCachedThreadPool().execute(clientSocket);
 
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(testFx.class.getResource("/fxml/Login.fxml"));
-        Scene scene = new Scene(loader.load());
+        clientSocket.getReceiver().setLoader(new FXMLLoader(testFx.class.getResource("/fxml/Login.fxml")));
+        Scene scene = new Scene(clientSocket.getReceiver().getLoader().load());
 
         stage.setScene(scene);
         stage.setMinHeight(400);
         stage.setMinHeight(400);
 
         stage.show();
+
 
 
     }

@@ -1,6 +1,7 @@
 package client.controller.fxController;
 
 import client.ClientSocket;
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +9,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.exception.ResponseNotFoundException;
 import model.request.server.GetServerInfoReq;
 import model.request.user.GetFriendListReq;
@@ -37,17 +40,19 @@ public class Controller{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/fxml/" + newView + ".fxml"));
 
+
             clientSocket.getReceiver().setLoader(loader);
 
             Parent homeParent = loader.load();
 
             Stage window = (Stage) ((Button)event.getSource()).getScene().getWindow();
 
-            double height = window.getHeight();
-            double width = window.getWidth();
+            Scene scene = ((Button)event.getSource()).getScene();
+            scene.setRoot(homeParent);
 
+            window.setMinHeight(400);
 
-            Scene scene = new Scene(homeParent);
+            window.setMinWidth(800);
 
             window.setScene(scene);
 
@@ -170,6 +175,39 @@ public class Controller{
         }
 
         return null;
+    }
+
+
+    protected void resultMaker(String resMes, String resTitle){
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Result.fxml"));
+        try {
+
+            Scene scene = new Scene(loader.load());
+            scene.setFill(Color.TRANSPARENT);
+
+            Stage stage = new Stage();
+            stage.setResizable(false);
+
+            stage.setMinWidth(600);
+            stage.setMinHeight(400);
+
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.initStyle(StageStyle.TRANSPARENT);
+
+            ResultController controller = loader.getController();
+            controller.setResLabel(resMes);
+            controller.setResTitle(resTitle);
+
+            stage.setScene(scene);
+
+            stage.show();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+
     }
 
 

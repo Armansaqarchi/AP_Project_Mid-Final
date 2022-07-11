@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="484.0" prefWidth="826.0" styleClass="root" stylesheets="@../css/StatusView.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.fxController.StatusViewController">
+<AnchorPane prefHeight="526.0" prefWidth="815.0" styleClass="root" stylesheets="@../css/StatusView.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.fxController.StatusViewController">
    <children>
       <ListView fx:id="statusListView" layoutX="214.0" prefHeight="312.0" prefWidth="239.0" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="44.0" />
       <Button fx:id="exit" layoutY="2.0" mnemonicParsing="false" onAction="#onExit" styleClass="exit-button" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">

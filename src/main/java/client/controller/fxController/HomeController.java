@@ -27,10 +27,7 @@ import javafx.util.Callback;
 
 import javafx.event.ActionEvent;
 import model.exception.ResponseNotFoundException;
-import model.message.FileMessage;
-import model.message.Message;
-import model.message.MessageType;
-import model.message.TextMessage;
+import model.message.*;
 import model.request.priavteChat.GetPrivateChatHisReq;
 import model.request.server.GetServerInfoReq;
 import model.request.user.GetFriendListReq;
@@ -122,6 +119,8 @@ public class HomeController extends Controller {
     @FXML
     public void initialize(){
 
+
+
         chatHBox.setVisible(false);
         cancel.setVisible(false);
 
@@ -169,19 +168,12 @@ public class HomeController extends Controller {
     }
 
     @FXML
-    public void onServerItem(ActionEvent event){
-
-    }
-
-    @FXML
-    public void onFriendItem(ActionEvent event){
-
-    }
-
-    @FXML
     void onSendButton(ActionEvent event) {
+        chatField.setDisable(false);
+
         Message message = null;
         if(!cancel.isVisible()){
+
             if(chatField.getText().equals("")){
                 return;
             }
@@ -193,6 +185,7 @@ public class HomeController extends Controller {
         }
         else{
             try {
+                cancel.setVisible(false);
                 FileInputStream fl = new FileInputStream(file);
                 byte[] arr = new byte[(int) file.length()];
                 fl.read(arr);
@@ -205,14 +198,20 @@ public class HomeController extends Controller {
                 return;
             }
         }
-
+        if(message instanceof FileMessage){
+            message = new FileMsgNotification((FileMessage) message);
+        }
         realTimeUpdate(message);
 
     }
 
     @FXML
     public void onPending(ActionEvent event) {
+        FXMLLoader loader = changeView("Pending", event);
 
+        PendingController controller = loader.getController();
+
+        controller.getPendingFriendsReq();
     }
 
     @FXML
@@ -229,17 +228,26 @@ public class HomeController extends Controller {
 
     @FXML
     void onAddFriend(ActionEvent event) {
-
+        changeView("AddFriend", event);
     }
 
     @FXML
     public void onBlocked(ActionEvent event){
 
+        FXMLLoader loader = changeView("StatusView", event);
+
+        StatusViewController controller = loader.getController();
+
+        controller.getBlockedFriends();
     }
 
 
     @FXML
     void onCancel(ActionEvent event) {
+        cancel.setVisible(false);
+        chatField.setDisable(false);
+
+        file = null;
 
     }
 
@@ -257,13 +265,6 @@ public class HomeController extends Controller {
 
     }
 
-    @FXML
-    public void onServerItem(MouseEvent mouseEvent) {
-    }
-
-    @FXML
-    public void onFriendItem(MouseEvent mouseEvent) {
-    }
 
     @FXML
     public void onOnline(ActionEvent event) {
