@@ -126,7 +126,7 @@ public class MyProfileController extends Controller implements Initializable
 
         SetImageController controller = loader.getController();
 
-        controller.setType(SetImageType.USER);
+        controller.initialize(SetImageType.USER , clientSocket.getId());
 
         Scene scene = new Scene(parent);
 
