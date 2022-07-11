@@ -2,6 +2,8 @@ package client.controller.fxController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +21,7 @@ import model.response.user.GetUserProfileRes;
 import model.user.UserStatus;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class UserProfileController extends Controller
@@ -65,9 +68,15 @@ public class UserProfileController extends Controller
     }
 
     @FXML
-    private void viewMore(ActionEvent event)
+    private void viewMore(ActionEvent event) throws IOException
     {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/viewMoreUP.fxml"));
+        Parent parent = loader.load();
 
+        ViewMoreUPController controller = loader.getController();
+        controller.initialize(UserId);
+        showScene(new Scene(parent));
     }
 
     public void initialize(String userId)
