@@ -51,10 +51,12 @@ public class ServerRClickController extends Controller
         loader.setLocation(getClass().getResource("/fxml/renameServer.fxml"));
         Parent parent = loader.load();
 
+        stage.setScene(new Scene(parent));
+
         RenameServerController controller = loader.getController();
         controller.setServerId(serverId);
 
-        showScene(new Scene(parent));
+        stage.show();
     }
 
     @FXML
@@ -66,9 +68,12 @@ public class ServerRClickController extends Controller
         loader.setLocation(getClass().getResource("/fxml/creatChannel.fxml"));
         Parent parent = loader.load();
 
+        stage.setScene(new Scene(parent));
+
         CreatChannelController controller = loader.getController();
         controller.setServerId(serverId);
-        showScene(new Scene(parent));
+
+        stage.show();
     }
 
     public void initialize(String serverId)
@@ -152,13 +157,6 @@ public class ServerRClickController extends Controller
         {
             stage.close();
         }
-    }
-
-    private void showScene(Scene scene)
-    {
-        stage.setScene(scene);
-
-        stage.show();
     }
 
     private void closeScene()

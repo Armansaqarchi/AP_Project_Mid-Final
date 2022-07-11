@@ -89,6 +89,8 @@ public class MyProfileController extends Controller implements Initializable
 
         Scene scene = new Scene(parent);
 
+        stage.setScene(scene);
+
         EditProfileController controller = loader.getController();
 
         Object source = event.getSource();
@@ -113,7 +115,7 @@ public class MyProfileController extends Controller implements Initializable
             controller.setType(EditProfileType.PHONE_NUMBER);
         }
 
-        showScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -127,11 +129,11 @@ public class MyProfileController extends Controller implements Initializable
 
         SetImageController controller = loader.getController();
 
+        stage.setScene(new Scene(parent));
+
         controller.initialize(SetImageType.USER , clientSocket.getId());
 
-        Scene scene = new Scene(parent);
-
-        showScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -222,13 +224,6 @@ public class MyProfileController extends Controller implements Initializable
     {
         stage.close();
         initialize();
-    }
-
-    private void showScene(Scene scene)
-    {
-        stage.setScene(scene);
-
-        stage.show();
     }
 
     private void closeScene()

@@ -79,10 +79,12 @@ public class SUserProController extends Controller
         loader.setLocation(getClass().getResource("/fxml/editRole.fxml"));
         Parent parent = loader.load();
 
+        stage.setScene(new Scene(parent));
+
         EditRoleController controller = loader.getController();
         controller.setId(serverId , UserId);
 
-        showScene(new Scene(parent));
+        stage.show();
     }
 
     public void initialize(String userId , String serverId)
@@ -216,13 +218,6 @@ public class SUserProController extends Controller
     {
         stage.close();
         initialize();
-    }
-
-    private void showScene(Scene scene)
-    {
-        stage.setScene(scene);
-
-        stage.show();
     }
 
     private void closeScene()

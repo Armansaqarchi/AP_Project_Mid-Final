@@ -74,9 +74,12 @@ public class UserProfileController extends Controller
         loader.setLocation(getClass().getResource("/fxml/viewMoreUP.fxml"));
         Parent parent = loader.load();
 
+        stage.setScene(new Scene(parent));
+
         ViewMoreUPController controller = loader.getController();
         controller.initialize(UserId);
-        showScene(new Scene(parent));
+
+        stage.show();
     }
 
     public void initialize(String userId)
@@ -131,13 +134,6 @@ public class UserProfileController extends Controller
     {
         stage.close();
         initialize();
-    }
-
-    private void showScene(Scene scene)
-    {
-        stage.setScene(scene);
-
-        stage.show();
     }
 
     private void closeScene()
