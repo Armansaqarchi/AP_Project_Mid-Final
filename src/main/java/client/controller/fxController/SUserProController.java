@@ -126,6 +126,31 @@ public class SUserProController extends Controller
             closeScene();
         }
 
+        //show edit role button for owner of server
+        try
+        {
+            clientSocket.send(new GetServerInfoReq(clientSocket.getId(), serverId));
+
+            GetServerInfoRes response = (GetServerInfoRes) clientSocket.getReceiver().getResponse();
+
+            if(!response.isAccepted())
+            {
+                //close the scene if getting roles failed
+                closeScene();
+            }
+
+            if(response.getOwnerId().equals(clientSocket.getId()))
+            {
+                editRole.setVisible(true);
+            }
+        }
+        catch (ResponseNotFoundException e)
+        {
+            //close the scene if getting roles failed
+            System.out.println(e.getMessage());
+            closeScene();
+        }
+
         try
         {
             clientSocket.send(new GetRulesServerReq(clientSocket.getId(), serverId));
@@ -169,31 +194,6 @@ public class SUserProController extends Controller
             {
                 role[i].setVisible(true);
                 role[i].setText(rules.get(i).getValue());
-            }
-        }
-        catch (ResponseNotFoundException e)
-        {
-            //close the scene if getting roles failed
-            System.out.println(e.getMessage());
-            closeScene();
-        }
-
-        //show edit role button for owner of server
-        try
-        {
-            clientSocket.send(new GetServerInfoReq(clientSocket.getId(), serverId));
-
-            GetServerInfoRes response = (GetServerInfoRes) clientSocket.getReceiver().getResponse();
-
-            if(!response.isAccepted())
-            {
-                //close the scene if getting roles failed
-                closeScene();
-            }
-
-            if(response.getOwnerId().equals(clientSocket.getId()))
-            {
-                editRole.setVisible(true);
             }
         }
         catch (ResponseNotFoundException e)
