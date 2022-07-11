@@ -79,6 +79,7 @@ public class MyProfileController extends Controller implements Initializable
     @FXML
     private void editProfile(ActionEvent event) throws IOException
     {
+        stage.focusedProperty().addListener((obs , oldFocus , newFocus) -> focusHandler(newFocus , stage));
 
         FXMLLoader loader = new FXMLLoader();
 
@@ -151,7 +152,6 @@ public class MyProfileController extends Controller implements Initializable
     {
         stage = new Stage();
 
-        stage.focusedProperty().addListener((obs , oldFocus , newFocus) -> focusHandler(newFocus , stage));
         stage.setOnHidden(e -> hideHandler());
 
         stage.initStyle(StageStyle.UNDECORATED);

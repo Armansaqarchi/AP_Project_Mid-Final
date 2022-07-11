@@ -103,46 +103,40 @@ public class SetImageController extends Controller
     @FXML
     private void done(ActionEvent actionEvent)
     {
-        if(null != imageFile)
+        switch (type)
         {
-            switch (type)
+            case USER :
             {
-                case USER :
-                {
-                    clientSocket.send(new SetMyProfileReq(clientSocket.getId() , null
-                            , null , null , null ,
-                            null , imageFile , null));
-                    break;
-                }
-                case SERVER :
-                {
-                    clientSocket.send(new SetServerImageReq(clientSocket.getId() , id , imageFile));
-                    break;
-                }
+                clientSocket.send(new SetMyProfileReq(clientSocket.getId() , null
+                        , null , null , null ,
+                        null , imageFile , null));
+                break;
             }
-
-            try
+            case SERVER :
             {
-                Response response = clientSocket.getReceiver().getResponse();
-
-                if(!response.isAccepted())
-                {
-                    setMessage(response.getMessage());
-                    return;
-                }
-
-                closeScene();
-            }
-            catch (ResponseNotFoundException e)
-            {
-                System.out.println(e.getMessage());
-                setMessage("Failed to set image");
+                clientSocket.send(new SetServerImageReq(clientSocket.getId() , id , imageFile));
+                break;
             }
         }
-        else
+
+        try
         {
-            setMessage("Choose a file first!");
+            Response response = clientSocket.getReceiver().getResponse();
+
+            if(!response.isAccepted())
+            {
+                setMessage(response.getMessage());
+                return;
+            }
+
+            closeScene();
         }
+        catch (ResponseNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+            setMessage("Failed to set image");
+        }
+
     }
 
     @FXML
@@ -261,7 +255,7 @@ public class SetImageController extends Controller
         {
             proImage = new Image("image/user-default.png");
         }
-        if(null == image && SetImageType.SERVER == type)
+        else if(null == image && SetImageType.SERVER == type)
         {
             proImage = new Image("image/server-default.png");
         }
