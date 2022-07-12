@@ -717,7 +717,7 @@ public class HomeController extends Controller {
 
     @FXML
     void onProfile(ActionEvent event) {
-        changeView("myProfile", event);
+        newStageMaker("myProfile");
     }
 
     @FXML

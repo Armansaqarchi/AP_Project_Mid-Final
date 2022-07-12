@@ -42,6 +42,7 @@ public class Controller
             loader.setLocation(getClass().getResource("/fxml/" + newView + ".fxml"));
 
 
+
             clientSocket.getReceiver().setLoader(loader);
 
             Parent homeParent = loader.load();
@@ -57,6 +58,7 @@ public class Controller
 
             window.setScene(scene);
 
+            clientSocket.getReceiver().setStage(window);
 
             return loader;
 

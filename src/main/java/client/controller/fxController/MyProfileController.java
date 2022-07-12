@@ -149,10 +149,14 @@ public class MyProfileController extends Controller implements Initializable
         FXMLLoader loader = new FXMLLoader();
         clientSocket.getReceiver().setLoader(loader);
         loader.setLocation(getClass().getResource("/fxml/Login.fxml"));
-        Parent parent = loader.load();
+        Parent parent = loader.getRoot();
 
         Stage stage = clientSocket.getReceiver().getStage();
-        stage.setScene(new Scene(parent));
+        stage.getScene().setRoot(parent);
+        Scene scene = stage.getScene();
+        scene.setRoot(parent);
+
+        stage.setScene(scene);
         stage.setMinHeight(400);
         stage.setMinHeight(400);
 

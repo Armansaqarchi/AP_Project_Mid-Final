@@ -34,7 +34,7 @@ public class SearchFriendCtr extends Controller{
                 resultMaker("The user has blocked you", "ACCESS DENIED");
             }
             else{
-                resultMaker("no user found with the give id", "INVALID ID");
+                resultMaker("no user found with the given id : " + searchText.getText(), "INVALID ID");
             }
         }
         catch(ResponseNotFoundException e){
