@@ -25,6 +25,7 @@ public class TerminalMenu {
     /**
      * connection menu
      * the first menu which manifests himself at the start
+     * @author Arman sagharchi
      */
     public void connectionMenu(){
 
@@ -162,22 +163,26 @@ public class TerminalMenu {
 
         while(isRunning) {
             System.out.println("\033[1;32m[1]-Chat");
-            System.out.println("[2]-Create Channel");
-            System.out.println("[3]-Delete Channel");
-            System.out.println("[4]-Rename Channel");
-            System.out.println("[5]-Add User");
-            System.out.println("[6]-Remove User");
-            System.out.println("[7]-Back\033[0m");
+            System.out.println("[2]-Pin Message");
+            System.out.println("[3]-Unpin Message");
+            System.out.println("[4]-Create Channel");
+            System.out.println("[5]-Delete Channel");
+            System.out.println("[6]-Rename Channel");
+            System.out.println("[7]-Add User");
+            System.out.println("[8]-Remove User");
+            System.out.println("[9]-Back\033[0m");
 
-            int choice = InputController.getOptionalInput(1, 8);
+            int choice = InputController.getOptionalInput(1, 99);
             switch (choice) {
                 case 1 -> controllers.getChannelController().ChannelChat();
-                case 2 -> controllers.getChannelController().createChannel();
-                case 3 -> controllers.getChannelController().deleteChannel();
-                case 4 -> controllers.getChannelController().renameChannel();
-                case 5 -> controllers.getChannelController().addUserChannel();
-                case 6 -> controllers.getChannelController().removeUser();
-                case 7 -> isRunning = false;
+                case 2 -> controllers.getChannelController().pinMessage();
+                case 3 -> controllers.getChannelController().unpinMessage();
+                case 4 -> controllers.getChannelController().createChannel();
+                case 5 -> controllers.getChannelController().deleteChannel();
+                case 6 -> controllers.getChannelController().renameChannel();
+                case 7 -> controllers.getChannelController().addUserChannel();
+                case 8 -> controllers.getChannelController().removeUser();
+                case 9 -> isRunning = false;
             }
         }
 

@@ -6,12 +6,16 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.UUID;
 
+/**
+ * simulates a chatting server of messenger
+ * that holds channels to make communication between users
+ */
 public class Server implements Serializable
 {
     private byte[] image;
 
     private String id;
-    private String ownerId;
+    private final String ownerId;
     private String name;
     //id of users
     private LinkedList<String> users;
@@ -19,13 +23,6 @@ public class Server implements Serializable
     private HashMap<String , Rule> rules;
     //list of channels (key is the name of channel)
     private HashMap<String , UUID> channels;
-
-
-    public Server(String id, String ownerId, String name) {
-        this.id = id;
-        this.ownerId = ownerId;
-        this.name = name;
-    }
 
     public Server(byte[] image, String id, String ownerId, String name,
                   LinkedList<String> users, HashMap<String, Rule> rules,
@@ -39,64 +36,87 @@ public class Server implements Serializable
         this.channels = channels;
     }
 
-
+    /**
+     * @return servers image
+     */
     public byte[] getImage() {
         return image;
     }
 
+    /**
+     * @param image servers image
+     */
     public void setImage(byte[] image) {
         this.image = image;
     }
 
+    /**
+     * @return servers id
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * @param id servers id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * @return the owners id
+     */
     public String getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(String ownerId) {
-        this.ownerId = ownerId;
-    }
-
+    /**
+     * @return servers name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @param name servers name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @return servers users
+     */
     public LinkedList<String> getUsers() {
         return users;
     }
 
+    /**
+     * @param users servers users
+     */
     public void setUsers(LinkedList<String> users) {
         this.users = users;
     }
 
+    /**
+     * @return rules of users in this server
+     */
     public HashMap<String, Rule> getRules() {
         return rules;
     }
 
-    public void setRules(HashMap<String, Rule> rules) {
-        this.rules = rules;
-    }
-
+    /**
+     * @return channels of this server
+     */
     public HashMap<String, UUID> getChannels() {
         return channels;
     }
 
-    public void setChannels(HashMap<String, UUID> channels) {
-        this.channels = channels;
-    }
-
-
+    /**
+     * information of server as a string
+     * @return
+     */
     @Override
     public String toString() {
         return "Server{" +

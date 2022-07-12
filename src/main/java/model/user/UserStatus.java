@@ -1,5 +1,8 @@
 package model.user;
 
+/**
+ * types of users status of user
+ */
 public enum UserStatus
 {
 
@@ -13,6 +16,11 @@ public enum UserStatus
         this.value = value;
     }
 
+    /**
+     * creates a users status from its value
+     * @param value the value of enum
+     * @return the enum related to value
+     */
     public static UserStatus getValueFromStatus(String value){
         switch(value){
             case "Online":
@@ -35,6 +43,9 @@ public enum UserStatus
         return null;
     }
 
+    /**
+     * @return users value
+     */
     @Override
     public String toString()
     {

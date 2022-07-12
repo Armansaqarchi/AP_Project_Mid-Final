@@ -3,6 +3,11 @@ package model.server;
 import java.util.LinkedList;
 import java.util.UUID;
 
+/**
+ * simulates a text channel of server
+ * users can share text or file messaeg over this channel
+ */
+
 public class TextChannel extends Channel
 {
     private LinkedList<UUID> messages;
@@ -10,13 +15,6 @@ public class TextChannel extends Channel
 
     public TextChannel(UUID id, String name, ChannelType type) {
         super(id, name, type);
-    }
-
-    public TextChannel(UUID id, String name, ChannelType type, LinkedList<String> users)
-    {
-        super(id, name, type, users);
-        messages = new LinkedList<>();
-        pinnedMessages = new LinkedList<>();
     }
 
     public TextChannel(UUID id, String name, ChannelType type, LinkedList<String> users,
@@ -27,10 +25,16 @@ public class TextChannel extends Channel
         this.pinnedMessages = pinnedMessages;
     }
 
+    /**
+     * @return messages that being sent in this channel
+     */
     public LinkedList<UUID> getMessages() {
         return messages;
     }
 
+    /**
+     * @return messages that are pinned in this channel
+     */
     public LinkedList<UUID> getPinnedMessages() {
         return pinnedMessages;
     }

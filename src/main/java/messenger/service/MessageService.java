@@ -19,11 +19,18 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.UUID;
 
+/**
+ * this class gets and handles requests related to message
+ */
 public class MessageService
 {
     private final Database database;
     private final MessageApi messageApi;
 
+    /**
+     * constructor of class that need a messageApi object
+     * @param messageApi the messageApi object
+     */
     public MessageService(MessageApi messageApi)
     {
         database = Database.getDatabase();
@@ -136,6 +143,11 @@ public class MessageService
         return messages;
     }
 
+    /**
+     * handles channel message
+     * @param message the message that sends to chanenl
+     * @return response of message
+     */
     public Response handleChannelMessage(Message message)
     {
         String[] ides = message.getReceiverId().split("-");
@@ -177,6 +189,11 @@ public class MessageService
         }
     }
 
+    /**
+     * handles message that being sent in private chat
+     * @param message the message
+     * @return response of message
+     */
     public Response handlePrivateMessage(Message message)
     {
         String privateChatId;
@@ -260,6 +277,11 @@ public class MessageService
         messageApi.sendMessage(message , receiver);
     }
 
+    /**
+     * handles request to get file message
+     * @param request the getting file message request
+     * @return response of request
+     */
     public Response getFileMsg(GetFileMsgReq request)
     {
         try

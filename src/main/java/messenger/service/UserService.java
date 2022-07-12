@@ -16,6 +16,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.UUID;
 
+/**
+ * this class gets and handles requests related to user
+ */
 public class UserService
 {
     private final Database database;
@@ -28,6 +31,11 @@ public class UserService
         database = Database.getDatabase();
     }
 
+    /**
+     * handles request of answer friend request
+     * @param request the answer friend request
+     * @return response to request
+     */
     public Response answerFriendReq(AnswerFriendReq request)
     {
         try
@@ -79,6 +87,11 @@ public class UserService
         }
     }
 
+    /**
+     * handles request of block a user request
+     * @param request the answer friend request
+     * @return response to request
+     */
     public Response blockUser(BlockUserReq request)
     {
         try
@@ -100,6 +113,11 @@ public class UserService
         }
     }
 
+    /**
+     * handles request of friend request
+     * @param request the friend request
+     * @return response to request
+     */
     public Response friendReq(FriendReq request)
     {
         try
@@ -133,6 +151,11 @@ public class UserService
         }
     }
 
+    /**
+     * handles request of getting friends list
+     * @param request the request of getting friends list
+     * @return response to request
+     */
     public Response getFriendListReq(GetFriendListReq request)
     {
         try
@@ -155,6 +178,11 @@ public class UserService
         }
     }
 
+    /**
+     * handles request of getting profile
+     * @param request the request of getting profile
+     * @return response to request
+     */
     public Response getMyProfile(GetMyProfileReq request)
     {
 
@@ -178,6 +206,11 @@ public class UserService
         }
     }
 
+    /**
+     * handles request of getting another users profile
+     * @param request the request of getting another users profile
+     * @return response to request
+     */
     public Response getUserProfile(GetUserProfileReq request)
     {
         try
@@ -207,6 +240,11 @@ public class UserService
         }
     }
 
+    /**
+     * handles request of reaction to message
+     * @param request the request of reaction to message
+     * @return response to request
+     */
     public Response reactionToMessage(ReactionToMessageReq request)
     {
         try
@@ -228,6 +266,11 @@ public class UserService
         }
     }
 
+    /**
+     * handles request of setting profile
+     * @param request the request of setting profile
+     * @return response to request
+     */
     public Response setMyProfile(SetMyProfileReq request)
     {
         try
@@ -288,6 +331,11 @@ public class UserService
         }
     }
 
+    /**
+     * handles request of getting blocked list of user
+     * @param request the request of getting blocked list of user
+     * @return response to request
+     */
     public Response getBlockedUsers(GetBlockedUsersReq request)
     {
 
@@ -308,6 +356,11 @@ public class UserService
         }
     }
 
+    /**
+     * handles request of getting servers list of user
+     * @param request the request of getting servers list of user
+     * @return response to request
+     */
     public Response getServers(GetServersReq request)
     {
 
@@ -328,6 +381,11 @@ public class UserService
         }
     }
 
+    /**
+     * handles request of getting private chats list of user
+     * @param request the request of getting private chats list of user
+     * @return response to request
+     */
     public Response getPrivateChats(GetPrivateChatsReq request)
     {
         try
@@ -347,6 +405,11 @@ public class UserService
         }
     }
 
+    /**
+     * handles request of getting friend requests list
+     * @param request the request of getting friend requests list
+     * @return response to request
+     */
     public Response getFriendReqList(GetFriendReqList request)
     {
         try
@@ -366,6 +429,11 @@ public class UserService
         }
     }
 
+    /**
+     * handles request of removing friend requests
+     * @param request the request of removing friend requests
+     * @return response to request
+     */
     public Response removeFriend(RemoveFriendReq request)
     {
         try
@@ -389,6 +457,11 @@ public class UserService
         }
     }
 
+    /**
+     * handles request of unblock a user
+     * @param request the request of unblock a user
+     * @return response to request
+     */
     public Response unBlockUser(UnBlockUserReq request)
     {
         try
@@ -459,6 +532,11 @@ public class UserService
         return friendRequests;
     }
 
+    /**
+     * changes users status
+     * @param id the users id
+     * @param status the new status
+     */
     public void turnUserStatus(String id , UserStatus status)
     {
         try {
