@@ -1,5 +1,6 @@
 package client.controller.fxController;
 
+import client.controller.fxController.type.AddUserType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -43,9 +44,17 @@ public class EditChannelController extends Controller
     private Button delete;
 
     @FXML
-    private void addUser(ActionEvent event)
+    private void addUser(ActionEvent event) throws IOException
     {
-        //incomplete
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/AddUser.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+
+        AddUserController controller = loader.getController();
+        controller.initialize(AddUserType.ADD_CHANNEL , serverId , channelName);
+
+        stage.show();
     }
 
     @FXML
@@ -65,10 +74,17 @@ public class EditChannelController extends Controller
     }
 
     @FXML
-    private void removeUser(ActionEvent event)
+    private void removeUser(ActionEvent event) throws IOException
     {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/AddUser.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
 
-        //incomplete
+        AddUserController controller = loader.getController();
+        controller.initialize(AddUserType.REMOVE_CHANNEL , serverId , channelName);
+
+        stage.show();
     }
 
     @FXML
