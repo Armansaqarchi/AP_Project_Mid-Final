@@ -225,7 +225,7 @@ public class SUserProController extends Controller
     private void closeScene()
     {
         Stage stage = (Stage)pane.getScene().getWindow();
-        stage.close();
+        stage.hide();
     }
 
     private void setImage(byte[] image)

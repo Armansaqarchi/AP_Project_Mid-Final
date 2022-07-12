@@ -67,7 +67,7 @@ public class CreatServerController extends Controller
     private void closeScene(ActionEvent event)
     {
         Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
-        stage.close();
+        stage.hide();
     }
 
     private void setMessage(String text)

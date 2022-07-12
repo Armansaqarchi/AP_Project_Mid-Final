@@ -173,7 +173,7 @@ public class RenameServerController extends Controller
 
     private void hideHandler()
     {
-        stage.close();
+        stage.hide();
         initialize();
     }
 }

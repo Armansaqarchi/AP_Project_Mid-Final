@@ -204,6 +204,6 @@ public class EditChannelController extends Controller
     private void closeScene()
     {
         Stage stage = (Stage)pane.getScene().getWindow();
-        stage.close();
+        stage.hide();
     }
 }

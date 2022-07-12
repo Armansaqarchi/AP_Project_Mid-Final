@@ -79,3 +79,16 @@
 {
     -fx-background-color: none;
 }
+.delete
+{
+    -fx-background-color: #fb3f3f;
+    -fx-background-radius: 0 0 0 0;
+}
+.delete:focused
+{
+    -fx-background-color: #c22323;
+}
+.delete:hover
+{
+    -fx-background-color: #c22323;
+}

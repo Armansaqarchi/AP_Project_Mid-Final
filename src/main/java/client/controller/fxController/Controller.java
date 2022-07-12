@@ -221,7 +221,6 @@ public class Controller{
 
             Stage stage = new Stage();
             stage.setResizable(false);
-
             stage.setMinWidth(600);
             stage.setMinHeight(400);
 
@@ -239,6 +238,4 @@ public class Controller{
 
         return loader;
     }
-
-
 }
