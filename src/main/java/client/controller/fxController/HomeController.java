@@ -267,7 +267,7 @@ public class HomeController extends Controller {
                 }
                 else{
                     message = new FileMessage(null, clientSocket.getId(), serverId + "-" + fieldId,
-                            MessageType.PRIVATE_CHAT, LocalDateTime.now(), file.getName(), arr);
+                            MessageType.CHANNEL, LocalDateTime.now(), file.getName(), arr);
                 }
                 clientSocket.send(message);
             }
