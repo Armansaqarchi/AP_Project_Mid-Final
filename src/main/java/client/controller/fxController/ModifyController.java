@@ -16,6 +16,7 @@ import model.message.Message;
 import model.message.MessageReaction;
 import model.message.Reaction;
 import model.message.TextMessage;
+import model.request.Channel.PinMessageReq;
 import model.request.GetFileMsgReq;
 import model.request.user.ReactionToMessageReq;
 import model.response.GetFileMsgRes;
@@ -32,6 +33,9 @@ public class ModifyController extends Controller {
 
     @FXML
     private Button Reactions;
+
+    @FXML
+    private Button pin;
 
 
     @FXML
@@ -113,6 +117,8 @@ public class ModifyController extends Controller {
 
     }
 
+
+
     @FXML
     public void onLaugh(ActionEvent event) {
         if(!isUserReactedBefore(message.getSenderId())) {
@@ -185,5 +191,19 @@ public class ModifyController extends Controller {
 
 
 
+    }
+
+    @FXML
+    void onPin(ActionEvent event) {
+
+        String serverId = ((HomeController)clientSocket.getReceiver()
+                .getLoader().getController()).getServerId();
+
+        String channelName = ((HomeController)clientSocket.getReceiver()
+                .getLoader().getController()).getChannelName();
+
+
+        clientSocket.send(new PinMessageReq(clientSocket.getId(), serverId,
+                channelName, message.getId()));
     }
 }

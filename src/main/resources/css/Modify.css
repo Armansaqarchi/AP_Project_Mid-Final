@@ -35,3 +35,7 @@
 .download-button:focused{
     -fx-opacity: 0.3;
 }
+
+.pin{
+    -fx-background-color: none;
+}
