@@ -453,7 +453,7 @@ public class HomeController extends Controller {
 
         System.out.println("statusHandler method");
 
-        SUserProController controller = newStageMaker("SUserPro").getController();
+        SUserProController controller = newStageMaker("sUserPro").getController();
 
         controller.initialize(newValue.getKey(), serverId);
     }
@@ -462,6 +462,8 @@ public class HomeController extends Controller {
 
         if(NValue.equals(serverId)){
 
+
+
             targetFriendHBox.setVisible(false);
             chatListView.setItems(null);
             chatField.setDisable(true);
@@ -469,7 +471,9 @@ public class HomeController extends Controller {
             cancel.setVisible(true);
 
 
-            newStageMaker("serverRClick");
+            ServerRClickController controller = newStageMaker("serverRClick").getController();
+
+            controller.initialize(serverId);
             return;
         }
         else if(NValue.equals("TEXT CHANNELS")){
