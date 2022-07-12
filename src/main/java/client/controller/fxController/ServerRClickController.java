@@ -29,6 +29,8 @@ public class ServerRClickController extends Controller
     private GridPane pane;
 
     @FXML
+    private Button escape;
+    @FXML
     private Button addUser;
 
     @FXML
@@ -36,6 +38,12 @@ public class ServerRClickController extends Controller
 
     @FXML
     private Button creatChannel;
+
+    @FXML
+    private void escape(ActionEvent event)
+    {
+        closeScene();
+    }
 
     @FXML
     private void addUser(ActionEvent event)

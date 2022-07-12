@@ -20,11 +20,6 @@
       <RowConstraints maxHeight="17.800024414062506" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="Server Boost" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </Label>
       <Button fx:id="addUser" mnemonicParsing="false" onAction="#addUser" prefHeight="50.0" prefWidth="200.0" styleClass="user" stylesheets="@../css/serverRClick.css" text="add people" textFill="WHITE" GridPane.rowIndex="1">
          <font>
             <Font name="System Bold" size="16.0" />
@@ -55,5 +50,23 @@
             <Insets left="5.0" right="5.0" />
          </GridPane.margin>
       </Button>
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="60.39996337890625" minWidth="10.0" prefWidth="5.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.20002441406248" minWidth="10.0" prefWidth="147.40003662109373" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.20002441406248" minWidth="10.0" prefWidth="25.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" prefHeight="50.0" prefWidth="200.0" text="Server Boost" textFill="WHITE" GridPane.columnIndex="1">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="escape" mnemonicParsing="false" onAction="#escape" prefHeight="25.0" prefWidth="25.0" styleClass="exit" stylesheets="@../css/serverRClick.css" GridPane.columnIndex="2" />
+         </children>
+      </GridPane>
    </children>
 </GridPane>

@@ -62,3 +62,20 @@
     -fx-background-color: #717D7E;
     -fx-background-radius: 0 0 0 0;
 }
+
+.exit
+{
+    -fx-background-image: url("../image/exit.png");
+    -fx-background-position: center;
+    -fx-background-size: cover;
+    -fx-background-color: none;
+}
+
+.exit:focused {
+    -fx-background-color: none;
+    -fx-background-insets: none;
+}
+.exit:hover
+{
+    -fx-background-color: none;
+}
