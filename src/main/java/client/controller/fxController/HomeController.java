@@ -31,6 +31,7 @@ import model.request.priavteChat.GetPrivateChatHisReq;
 import model.request.server.GetServerInfoReq;
 import model.request.server.GetUsersStatusReq;
 import model.request.user.GetFriendListReq;
+import model.request.user.GetPrivateChatsReq;
 import model.request.user.GetServersReq;
 import model.request.user.GetUserProfileReq;
 import model.response.Response;
@@ -39,6 +40,7 @@ import model.response.privateChat.GetPrivateChatHisRes;
 import model.response.server.GetServerInfoRes;
 import model.response.server.GetUserStatusRes;
 import model.response.user.GetFriendListRes;
+import model.response.user.GetPrivateChatsRes;
 import model.response.user.GetServersRes;
 import model.response.user.GetUserProfileRes;
 import model.server.Server;
@@ -143,7 +145,7 @@ public class HomeController extends Controller {
 
         friendObservableList.add("Friends");
         friendObservableList.add("DIRECT MESSAGES");
-        friendObservableList.addAll((ArrayList<String>)getIds("friends"));
+        friendObservableList.addAll(getDirectMessages());
 
         friendView.setItems(friendObservableList);
 
@@ -184,6 +186,43 @@ public class HomeController extends Controller {
                 .addListener((obs, olaValue, newValue) -> serverHandler(newValue));
         serverStatusView.getSelectionModel().selectedItemProperty()
                 .addListener((obs, oldValue, newValue) -> serverMemberHandler(newValue));
+    }
+
+    public ObservableList<String> getDirectMessages(){
+        clientSocket.send(new GetPrivateChatsReq(clientSocket.getId()));
+
+        ObservableList<String> obsList = FXCollections.observableArrayList();
+
+        try{
+            Response response = clientSocket.getReceiver().getResponse();
+
+            if(response.isAccepted() && response instanceof GetPrivateChatsRes){
+                ArrayList<String> privateChats = new ArrayList<>(((GetPrivateChatsRes) response).getPrivateChats());
+
+                for(String i : privateChats){
+                    String[] ids = i.split("-");
+
+                    if(ids[0].equals(clientSocket.getId())){
+
+                        i = ids[1];
+
+                    }
+                    else{
+                        i = ids[0];
+
+                    }
+
+                    obsList.add(i);
+                }
+
+                return obsList;
+            }
+        }
+        catch(ResponseNotFoundException e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     @FXML
@@ -327,7 +366,7 @@ public class HomeController extends Controller {
 
             friendObservableList = FXCollections.observableArrayList();
             friendObservableList.addAll("Friends", "DIRECT MESSAGES");
-            friendObservableList.addAll((ArrayList<String>)getIds("friends"));
+            friendObservableList.addAll(getDirectMessages());
 
 
 
@@ -487,13 +526,8 @@ public class HomeController extends Controller {
             CreatChannelController controller = newStageMaker("creatChannel").getController();
 
             controller.setServerId(serverId);
-
-
-
             return;
         }
-
-
 
         friendName.setText(NValue);
         targetFriendHBox.setVisible(true);
@@ -502,22 +536,15 @@ public class HomeController extends Controller {
 
         fieldId = NValue;
 
-
         chatField.setDisable(false);
         chatHBox.setVisible(true);
         cancel.setVisible(false);
 
 
 
-
-
-
         chatObservableList = getChannelMessages(NValue);
 
         chatListView.setItems(chatObservableList);
-
-
-
 
 
 

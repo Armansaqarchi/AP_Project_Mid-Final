@@ -32,6 +32,7 @@ public class StatusViewController extends Controller {
                 return new StatusCell();
             }
         });
+
     }
 
     @FXML
@@ -74,7 +75,15 @@ public class StatusViewController extends Controller {
 
         statusListView.setItems(FXCollections.observableArrayList(onlineFriends));
 
+        statusListView.getSelectionModel().selectedItemProperty()
+                .addListener((obs, oldValue, newValue) -> statusHandler(newValue));
+
     }
+
+    public void statusHandler(String newValue){
+
+    }
+
 
     public ObservableList<String> getBlockedFriends(){
 
