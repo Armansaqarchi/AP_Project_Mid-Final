@@ -1,21 +1,15 @@
 package client;
 
-import client.controller.fxController.Controller;
 import client.controller.fxController.HomeController;
-import client.controller.fxController.LoginController;
-import client.controller.fxController.cell.testFx;
+import client.controller.fxController.cell.FxClient;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import model.Transferable;
 import model.exception.InvalidObjectException;
 import model.exception.ResponseNotFoundException;
-import model.message.FileMsgNotification;
 import model.message.Message;
 import model.response.Response;
-
-import java.io.IOException;
-import java.util.Scanner;
 
 public class Receiver
 {
@@ -27,7 +21,7 @@ public class Receiver
 
     public Receiver(){
         loader = new FXMLLoader
-                (testFx.class.getResource("/fxml/Login.fxml"));
+                (FxClient.class.getResource("/fxml/Login.fxml"));
     }
 
     /**

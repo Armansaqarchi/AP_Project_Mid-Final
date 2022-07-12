@@ -1,6 +1,6 @@
 package client;
 
-import client.controller.fxController.cell.testFx;
+import client.controller.fxController.cell.FxClient;
 import client.menus.TerminalMenu;
 
 import java.util.Scanner;
@@ -12,7 +12,7 @@ public class Client
     {
         if(1 == clientMode())
         {
-            testFx.main(args);
+            FxClient.start(args);
             return;
         }
         ClientSocket clientSocket = ClientSocket.getClientSocket();

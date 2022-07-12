@@ -1,7 +1,6 @@
 package client.controller.fxController.cell;
 
 import client.ClientSocket;
-import client.controller.fxController.LoginController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -12,7 +11,7 @@ import javafx.stage.WindowEvent;
 
 import java.util.concurrent.Executors;
 
-public class testFx extends Application {
+public class FxClient extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -21,7 +20,7 @@ public class testFx extends Application {
         Executors.newCachedThreadPool().execute(clientSocket);
 
         Stage stage = new Stage();
-        clientSocket.getReceiver().setLoader(new FXMLLoader(testFx.class.getResource("/fxml/Login.fxml")));
+        clientSocket.getReceiver().setLoader(new FXMLLoader(FxClient.class.getResource("/fxml/Login.fxml")));
         clientSocket.getReceiver().setStage(stage);
         Scene scene = new Scene(clientSocket.getReceiver().getLoader().load());
 
@@ -35,7 +34,7 @@ public class testFx extends Application {
 
     }
 
-    public static void main(String[] args){
+    public static void start(String[] args){
         launch(args);
     }
 

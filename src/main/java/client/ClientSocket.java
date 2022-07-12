@@ -1,7 +1,5 @@
 package client;
 
-import client.controller.fxController.cell.testFx;
-import javafx.fxml.FXMLLoader;
 import model.Transferable;
 import model.exception.InvalidObjectException;
 
