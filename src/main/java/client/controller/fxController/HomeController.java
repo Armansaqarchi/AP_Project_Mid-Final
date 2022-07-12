@@ -356,6 +356,7 @@ public class HomeController extends Controller {
     private void serverHandler(ServerIDs newValue){
 
         targetFriendHBox.setVisible(false);
+        chatListView.setItems(null);
         chatField.setDisable(true);
         chatHBox.setVisible(false);
         cancel.setVisible(true);
@@ -384,6 +385,10 @@ public class HomeController extends Controller {
 
 
 
+
+
+            serverStatusView.setItems(getServerMembers(serverId));
+
             serverStatusView.setCellFactory(new Callback<ListView<Map.Entry<String, UserStatus>>, ListCell<Map.Entry<String, UserStatus>>>() {
                 @Override
                 public ListCell<Map.Entry<String, UserStatus>> call(ListView<Map.Entry<String, UserStatus>> entryListView) {
@@ -391,19 +396,17 @@ public class HomeController extends Controller {
                 }
             });
 
-            serverStatusView.setItems(getServerMembers(serverId));
-
 
             ObservableList<String> channelObs = FXCollections.observableArrayList();
             channelObs.addAll(serverId, "TEXT CHANNELS");
             channelObs.addAll(newValue.getChannels());
             friendView.setItems(channelObs);
 
-            friendView.getSelectionModel().selectedItemProperty().removeListener(currentListener);
+            friendView.getSelectionModel().selectedItemProperty().addListener(currentListener);
 
             currentListener = (obs, OValue, NValue) -> channelHandler(NValue);
 
-            friendView.getSelectionModel().selectedItemProperty().addListener(currentListener);
+
         }
     }
 
