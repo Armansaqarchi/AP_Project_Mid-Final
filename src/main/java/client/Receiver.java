@@ -51,7 +51,6 @@ public class Receiver
 
                     @Override
                     public void run() {
-                        System.out.println("fdsgds we are here");
 
                         HomeController controller = getLoader().getController();
                         controller.realTimeUpdate((Message) transferable);
@@ -62,6 +61,10 @@ public class Receiver
             catch (ClassCastException ex)
             {
                 throw new InvalidObjectException();
+            }
+            catch (IllegalArgumentException ex)
+            {
+
             }
 
         }
