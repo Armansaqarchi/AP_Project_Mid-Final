@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="526.0" prefWidth="815.0" styleClass="root" stylesheets="@../css/StatusView.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.fxController.AddFriendController">
+   <children>
+      <Button fx:id="exit" layoutY="2.0" mnemonicParsing="false" onAction="#onExit" styleClass="exit-button" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <graphic>
+            <ImageView fitHeight="44.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/exit.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <VBox layoutX="357.0" layoutY="163.0" prefHeight="200.0" prefWidth="100.0" styleClass="addVbox" stylesheets="@../css/Pending.css" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="44.0">
+         <children>
+            <Label prefHeight="55.0" prefWidth="410.0" text=" ADD FRIEND" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="21.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="5.0" />
+               </VBox.margin>
+            </Label>
+            <Label prefHeight="30.0" prefWidth="410.0" text="you can add a friend with their discord id. its cAsE sEnSiTiVe!" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <HBox prefHeight="47.0" prefWidth="415.0" styleClass="add-hBox">
+               <children>
+                  <TextField fx:id="addText" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="500.0" promptText="Enter an ID" styleClass="add-text" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="addButton" maxWidth="-Infinity" minWidth="140.0" mnemonicParsing="false" onAction="#onAdd" prefHeight="33.0" prefWidth="0.0" styleClass="add-button" text="Send Friend Request" textFill="WHITE" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets bottom="8.0" right="5.0" top="6.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+            <Label maxHeight="1.7976931348623157E308" prefHeight="206.0" prefWidth="415.0" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

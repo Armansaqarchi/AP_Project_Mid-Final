@@ -1,6 +1,7 @@
 package client.controller.fxController.cell;
 
 import client.ClientSocket;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -84,28 +85,22 @@ public class ChatCell extends ListCell<Message> {
     @Override
     public void updateItem(Message item, boolean empty){
 
-
-
         super.updateItem(item, empty);
         if(item == null || empty){
             setGraphic(null);
         }
+
+
         else {
             byte[] fileImage = null;
 
             try {
                 fileImage = Files.readAllBytes(Path.of("image/friends/" + item.getSenderId()));
-            }
-            catch(IOException e){
-                System.out.println(item.getSenderId() + "'s image not found");
 
-            }
-
-            if(fileImage != null) {
                 Image image = new Image(new ByteArrayInputStream(fileImage));
                 circle.setFill(new ImagePattern(image));
             }
-            else{
+            catch(IOException e){
                 circle.setFill(new ImagePattern(new Image("/image/no-profile-logo.png")));
             }
 
@@ -123,7 +118,6 @@ public class ChatCell extends ListCell<Message> {
                 messageLabel.setText(((TextMessage) item).getContent());
             }
             else if (item instanceof FileMsgNotification){
-                System.out.println("4332442");
                 messageLabel.setText("File message : " + ((FileMsgNotification) item).getFileName() );
                 messageLabel.setStyle("-fx-font-weight: bold");
                 messageLabel.setStyle("-fx-text-fill: rgba(43,87,51,0.65)");

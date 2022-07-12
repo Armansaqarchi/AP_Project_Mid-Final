@@ -1,6 +1,6 @@
 package client.controller.fxController;
 
-import client.controller.fxController.type.SetImageType;
+import client.controller.fxController.type.AddUserType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +11,10 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.exception.ResponseNotFoundException;
+import model.request.Channel.DeleteChannelReq;
 import model.request.server.GetRulesServerReq;
 import model.request.server.GetServerInfoReq;
+import model.response.Response;
 import model.response.server.GetRulesServerRes;
 import model.response.server.GetServerInfoRes;
 import model.server.Rule;
@@ -20,9 +22,11 @@ import model.server.RuleType;
 
 import java.io.IOException;
 
-public class ServerRClickController extends Controller
+public class EditChannelController extends Controller
 {
     private String serverId;
+    private String channelName;
+
     private Stage stage;
 
     @FXML
@@ -32,63 +36,87 @@ public class ServerRClickController extends Controller
     private Button escape;
     @FXML
     private Button addUser;
+    @FXML
+    private Button rename;
+    @FXML
+    private Button removeUser;
+    @FXML
+    private Button delete;
 
     @FXML
-    private Button setting;
+    private void addUser(ActionEvent event) throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/AddUser.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+
+        AddUserController controller = loader.getController();
+        controller.initialize(AddUserType.ADD_CHANNEL , serverId , channelName);
+
+        stage.show();
+    }
 
     @FXML
-    private Button creatChannel;
+    private void rename(ActionEvent event) throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/renameChannel.fxml"));
 
+        Parent parent = loader.load();
+
+        stage.setScene(new Scene(parent));
+
+        RenameChannelController controller = loader.getController();
+        controller.initialize(serverId , channelName);
+
+        stage.show();
+    }
+
+    @FXML
+    private void removeUser(ActionEvent event) throws IOException
+    {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/fxml/AddUser.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+
+        AddUserController controller = loader.getController();
+        controller.initialize(AddUserType.REMOVE_CHANNEL , serverId , channelName);
+
+        stage.show();
+    }
+
+    @FXML
+    private void delete(ActionEvent event)
+    {
+        clientSocket.send(new DeleteChannelReq(clientSocket.getId(), serverId, channelName));
+
+        try
+        {
+            Response response = clientSocket.getReceiver().getResponse();
+        }
+        catch(ResponseNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+        closeScene();
+    }
     @FXML
     private void escape(ActionEvent event)
     {
         closeScene();
     }
 
-    @FXML
-    private void addUser(ActionEvent event)
-    {
-        stage.focusedProperty().addListener((obs , oldFocus , newFocus) -> focusHandler(newFocus , stage));
-
-        //incomplete
-    }
-
-    @FXML
-    private void setting(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/renameServer.fxml"));
-        Parent parent = loader.load();
-
-        stage.setScene(new Scene(parent));
-
-        RenameServerController controller = loader.getController();
-        controller.setServerId(serverId);
-
-        stage.show();
-    }
-
-    @FXML
-    private void creatChannel(ActionEvent event) throws IOException
-    {
-        stage.focusedProperty().addListener((obs , oldFocus , newFocus) -> focusHandler(newFocus , stage));
-
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/creatChannel.fxml"));
-        Parent parent = loader.load();
-
-        stage.setScene(new Scene(parent));
-
-        CreatChannelController controller = loader.getController();
-        controller.setServerId(serverId);
-
-        stage.show();
-    }
-
-    public void initialize(String serverId)
+    public void initialize(String serverId , String channelName)
     {
         this.serverId = serverId;
+        this.channelName = channelName;
 
         stage = new Stage();
+
+        stage.focusedProperty().addListener((obs , oldFocus , newFocus) -> focusHandler(newFocus , stage));
 
         stage.initStyle(StageStyle.UNDECORATED);
         stage.initStyle(StageStyle.TRANSPARENT);
@@ -109,8 +137,9 @@ public class ServerRClickController extends Controller
 
             if(response.getOwnerId().equals(clientSocket.getId()))
             {
-                setting.setVisible(true);
-                creatChannel.setVisible(true);
+                rename.setVisible(true);
+                removeUser.setVisible(true);
+                delete.setVisible(true);
                 return;
             }
         }
@@ -140,14 +169,19 @@ public class ServerRClickController extends Controller
                 return;
             }
 
-            if(rule.getRules().contains(RuleType.SET_IMAGE) || rule.getRules().contains(RuleType.RENAME_SERVER))
+            if(rule.getRules().contains(RuleType.RENAME_CHANNEL))
             {
-                setting.setVisible(true);
+                rename.setVisible(true);
             }
 
-            if(rule.getRules().contains(RuleType.CREATE_CHANNEL))
+            if(rule.getRules().contains(RuleType.RESTRICT_MEMBER))
             {
-                creatChannel.setVisible(true);
+                removeUser.setVisible(true);
+            }
+
+            if(rule.getRules().contains(RuleType.DELETE_CHANNEL))
+            {
+                delete.setVisible(true);
             }
 
         }

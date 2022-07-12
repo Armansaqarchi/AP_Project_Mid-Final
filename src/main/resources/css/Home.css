@@ -4,6 +4,7 @@
     -fx-background-size: 100% 100%;
     -fx-background-position: center center;
     -fx-effect: dropshadow(three-pass-box, black, 20, 0.5, 0, 0);
+    -fx-background-color: #626262;
 
 }
 
@@ -11,16 +12,72 @@
     -fx-background-color: black;
 }
 
-.custom-list-view{
-    -fx-background-color: grey;
-    -fx-border-color: Grey;
-    -fx-effect: dropshadow(three-pass-box, black, 0, 0, 0, 0);
-    -fx-opacity: 0.7;
+
+
+
+
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
 
 }
 
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+
+
+.scroll-bar:vertical .track{
+    -fx-background-color :transparent;
+    -fx-border-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-border-radius :2.0em;
+}
+
+
+
+
+.scroll-bar:vertical{
+    -fx-background-color: #272727;
+}
+
+.scroll-bar:horizontal{
+    -fx-scale-x: 0;
+}
+
+.scroll-bar > .corner {
+    -fx-background-color: none ;
+}
+
+.custom-list-view{
+    -fx-background-color: rgba(66, 66, 66, 0.9);
+    -fx-border-color: Grey;
+    -fx-effect: dropshadow(three-pass-box, black, 0, 0, 0, 0);
+    -fx-opacity: 0.8;
+
+}
+
+.list-cell{
+    -fx-background-color: #434343;
+    -fx-background-radius: 15;
+}
+
+
 
 .scroll-bar:horizontal {
+    -fx-scale-x: 0;
+}
+
+.scroll-bar:vertical {
     -fx-scale-x: 0;
 }
 
@@ -32,6 +89,8 @@
 .main-view{
     -fx-background-color: none;
 }
+
+
 
 .chat-hBox{
     -fx-background-color: white;
@@ -89,7 +148,6 @@
 
 .list-cell:odd:focused{
     -fx-background-color: white;
-    -fx-opacity: 0.65;
     -fx-text-fill: #fffefe;
 }
 

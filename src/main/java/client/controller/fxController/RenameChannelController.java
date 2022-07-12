@@ -8,38 +8,39 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.exception.ResponseNotFoundException;
-import model.request.server.CreateServerReq;
+import model.request.Channel.CreateChannelReq;
+import model.request.Channel.RenameChannelReq;
 import model.response.Response;
+import model.server.ChannelType;
 
-import javax.swing.*;
-
-public class CreatServerController extends Controller
+public class RenameChannelController extends Controller
 {
+    private String serverId;
+    private String channelName;
+
     @FXML
     private GridPane pane;
 
     @FXML
-    private Button create;
-    @FXML
-    private Button cancel;
+    private TextField newName;
 
     @FXML
-    private TextField id;
+    private Button done;
+
     @FXML
-    private TextField name;
+    private Button cancel;
 
     @FXML
     private Label message;
 
     @FXML
-    private void create(ActionEvent event)
+    private void done(ActionEvent event)
     {
         try
         {
-            //sends the related req
-            clientSocket.send(new CreateServerReq(clientSocket.getId() , id.getText() , name.getText() , null));
+            clientSocket.send(new RenameChannelReq(clientSocket.getId(), serverId,
+                    channelName , newName.getText()));
 
-            //takes the response
             Response response = clientSocket.getReceiver().getResponse();
 
             if(!response.isAccepted())
@@ -48,25 +49,24 @@ public class CreatServerController extends Controller
                 return;
             }
 
-            closeScene(event);
+            closeScene();
         }
         catch(ResponseNotFoundException e)
         {
             System.out.println(e.getMessage());
-            setMessage("Failed to create server!");
+            setMessage("Renaming channel failed!");
         }
     }
 
     @FXML
     private void cancel(ActionEvent event)
     {
-
-        closeScene(event);
+        closeScene();
     }
 
-    private void closeScene(ActionEvent event)
+    private void closeScene()
     {
-        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
+        Stage stage = (Stage)pane.getScene().getWindow();
         stage.close();
     }
 
@@ -74,5 +74,11 @@ public class CreatServerController extends Controller
     {
         message.setVisible(true);
         message.setText(text);
+    }
+
+    public void initialize(String serverId , String channelName)
+    {
+        this.serverId = serverId;
+        this.channelName = channelName;
     }
 }
