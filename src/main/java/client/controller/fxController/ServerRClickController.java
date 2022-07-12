@@ -170,6 +170,6 @@ public class ServerRClickController extends Controller
     private void closeScene(Button button)
     {
         Stage stage = (Stage)button.getScene().getWindow();
-        stage.close();
+        stage.hide();
     }
 }

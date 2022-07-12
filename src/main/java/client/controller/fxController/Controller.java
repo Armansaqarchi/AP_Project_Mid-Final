@@ -210,5 +210,32 @@ public class Controller{
 
     }
 
+    public FXMLLoader newStageMaker(String fxmlFile){
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + fxmlFile + ".fxml"));
+
+        try {
+
+            Scene scene = new Scene(loader.load());
+            scene.setFill(Color.TRANSPARENT);
+
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setMinWidth(600);
+            stage.setMinHeight(400);
+
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.initStyle(StageStyle.TRANSPARENT);
+
+            stage.setScene(scene);
+
+            stage.show();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+
+        return loader;
+    }
 }
