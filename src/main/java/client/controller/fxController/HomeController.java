@@ -180,7 +180,7 @@ public class HomeController extends Controller {
         serverView.getSelectionModel().selectedItemProperty()
                 .addListener((obs, olaValue, newValue) -> serverHandler(newValue));
         serverStatusView.getSelectionModel().selectedItemProperty()
-                .addListener((obs, oldValue, newValue) -> serverStatusHandler(newValue));
+                .addListener((obs, oldValue, newValue) -> serverMemberHandler(newValue));
     }
 
     @FXML
@@ -303,6 +303,10 @@ public class HomeController extends Controller {
 
     public void friendHandler(String newValue){
 
+        if(newValue == null){
+            return;
+        }
+
         serverId = null;
 
         fieldId = newValue;
@@ -321,6 +325,8 @@ public class HomeController extends Controller {
             friendObservableList = FXCollections.observableArrayList();
             friendObservableList.addAll("Friends", "DIRECT MESSAGES");
             friendObservableList.addAll((ArrayList<String>)getIds("friends"));
+
+
 
             friendView.setItems(friendObservableList);
 
@@ -372,6 +378,13 @@ public class HomeController extends Controller {
 
         }
         else if(newValue.getId().equals("Home")){
+
+            friendView.getSelectionModel().selectedItemProperty().removeListener(currentListener);
+
+            currentListener = (obs, oldValue, newVal) -> friendHandler(newVal);
+
+            friendView.getSelectionModel().selectedItemProperty().addListener(currentListener);
+
             friendHandler("DIRECT MESSAGES");
         }
         else{
@@ -402,9 +415,13 @@ public class HomeController extends Controller {
             channelObs.addAll(newValue.getChannels());
             friendView.setItems(channelObs);
 
-            friendView.getSelectionModel().selectedItemProperty().addListener(currentListener);
+            friendView.getSelectionModel().selectedItemProperty().removeListener(currentListener);
 
             currentListener = (obs, OValue, NValue) -> channelHandler(NValue);
+
+            friendView.getSelectionModel().selectedItemProperty().addListener(currentListener);
+
+
 
 
         }
@@ -429,23 +446,36 @@ public class HomeController extends Controller {
 
         return null;
     }
-    public void serverStatusHandler(Map.Entry<String, UserStatus> newValue){
+    public void serverMemberHandler(Map.Entry<String, UserStatus> newValue){
+
+        System.out.println("statusHandler method");
+
         SUserProController controller = newStageMaker("SUserPro").getController();
-        System.out.println(serverId);
-        System.out.println(newValue.getKey());
+
         controller.initialize(newValue.getKey(), serverId);
     }
 
     public void channelHandler(String NValue){
 
-
-
-
         if(NValue.equals(serverId)){
+
+            targetFriendHBox.setVisible(false);
+            chatListView.setItems(null);
+            chatField.setDisable(true);
+            chatHBox.setVisible(false);
+            cancel.setVisible(true);
+
+
             newStageMaker("serverRClick");
             return;
         }
         else if(NValue.equals("TEXT CHANNELS")){
+
+            targetFriendHBox.setVisible(false);
+            chatListView.setItems(null);
+            chatField.setDisable(true);
+            chatHBox.setVisible(false);
+            cancel.setVisible(true);
 
             CreatChannelController controller = newStageMaker("creatChannel").getController();
 
@@ -472,18 +502,22 @@ public class HomeController extends Controller {
 
 
 
+
+
+
         chatObservableList = getChannelMessages(NValue);
 
         chatListView.setItems(chatObservableList);
+
+
+
+
 
 
     }
 
 
     private ObservableList<Message> getChannelMessages(String NValue){
-
-        System.out.println(serverId);
-        System.out.println(NValue);
 
         clientSocket.send(new GetChatHistoryReq(clientSocket.getId(), serverId, NValue));
         try{
