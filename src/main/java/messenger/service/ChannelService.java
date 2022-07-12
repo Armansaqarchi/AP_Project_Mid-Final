@@ -240,7 +240,7 @@ public class ChannelService
                         "you don't have access to this channel." , null);
             }
         }
-        catch (ConfigNotFoundException e)
+        catch (ConfigNotFoundException | ClassCastException e)
         {
             return new GetChatHistoryRes(request.getSenderId() , false , e.getMessage() , null);
         }
