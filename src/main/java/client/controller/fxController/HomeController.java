@@ -135,6 +135,9 @@ public class HomeController extends Controller {
 
         targetFriendHBox.setVisible(false);
 
+        friendObservableList.clear();
+        serverObservableList.clear();
+
         friendObservableList.add("Friends");
         friendObservableList.add("DIRECT MESSAGES");
         friendObservableList.addAll((ArrayList<String>)getIds("friends"));
@@ -538,7 +541,40 @@ public class HomeController extends Controller {
 
 
 
+    public FXMLLoader newStageMaker(String fxmlFile){
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + fxmlFile + ".fxml"));
+
+        try {
+
+            Scene scene = new Scene(loader.load());
+            scene.setFill(Color.TRANSPARENT);
+
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setOnHidden(e -> hideHandler());
+            stage.setMinWidth(600);
+            stage.setMinHeight(400);
+
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.initStyle(StageStyle.TRANSPARENT);
+
+            stage.setScene(scene);
+
+            stage.show();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+
+        return loader;
+    }
+
+    private void hideHandler()
+    {
+        initialize();
+    }
 
 
 }
