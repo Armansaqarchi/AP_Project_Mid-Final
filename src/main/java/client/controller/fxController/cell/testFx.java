@@ -22,6 +22,7 @@ public class testFx extends Application {
 
         Stage stage = new Stage();
         clientSocket.getReceiver().setLoader(new FXMLLoader(testFx.class.getResource("/fxml/Login.fxml")));
+        clientSocket.getReceiver().setStage(stage);
         Scene scene = new Scene(clientSocket.getReceiver().getLoader().load());
 
         stage.setScene(scene);
