@@ -64,7 +64,7 @@ public class Receiver
             {
                 throw new InvalidObjectException();
             }
-            catch (IllegalArgumentException | NullPointerException ex)
+            catch (IllegalArgumentException | NullPointerException | IllegalStateException ex)
             {
 
             }

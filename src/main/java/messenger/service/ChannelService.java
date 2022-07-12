@@ -2,6 +2,7 @@ package messenger.service;
 
 import messenger.dataBaseOp.Database;
 import messenger.dataBaseOp.UpdateType;
+import model.PrivateChat;
 import model.exception.ConfigNotFoundException;
 import model.message.FileMessage;
 import model.message.FileMsgNotification;
@@ -120,6 +121,8 @@ public class ChannelService
 
                 database.getChannelOp().insertChannel(channel.getId().toString() , channel.getName(), ChannelType.TEXT);
 
+                database.getPrivateChatOp().insertPrivateMessage(channel.getId().toString());
+
                 database.getServerOp().updateServerHashList(UpdateType.ADD , "channels" , request.getServerId(), request.getChannelName() , channel.getId());
 
                 //adding users of server into channel
@@ -219,20 +222,22 @@ public class ChannelService
         {
             Server server  = database.getServerOp().findByServerId(request.getServerId());
 
-            if(!server.getChannels().containsKey(request.getChannelName()))
+            UUID channelId = server.getChannels().get(request.getChannelName());
+
+            if(null == channelId)
             {
                 return new GetChatHistoryRes(request.getSenderId() , false ,
                         "channel not found in server!" , null);
             }
 
-            UUID channelId = server.getChannels().get(request.getChannelName());
-
             TextChannel channel = (TextChannel) database.getChannelOp().findById(channelId.toString());
+
+            PrivateChat privateChat = database.getPrivateChatOp().findById(channelId.toString());
 
             if(channel.getUsers().contains(request.getSenderId()))
             {
                 return new GetChatHistoryRes(request.getSenderId(), true ,
-                        "chat history sent" , getMessages(channel.getMessages()));
+                        "chat history sent" , getMessages(privateChat.getMessages()));
             }
             else
             {

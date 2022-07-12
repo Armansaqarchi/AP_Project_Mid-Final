@@ -174,6 +174,9 @@ public class MessageService
             database.getChannelOp().updateChannelList(UpdateType.ADD ,
                     "messages" , channelId.toString() , message.getId().toString());
 
+            database.getPrivateChatOp().updatePrivateChat(UpdateType.ADD ,
+                    "messages",channelId.toString() , message.getId());
+
             //insert message in database
             database.getMessageOp().insertMessage(message);
 
