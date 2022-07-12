@@ -1,5 +1,6 @@
 package client.controller.fxController;
 
+import client.ClientSocket;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,8 +18,10 @@ import javafx.stage.StageStyle;
 import model.exception.ResponseNotFoundException;
 import model.request.server.GetRulesServerReq;
 import model.request.server.GetServerInfoReq;
+import model.request.server.RemoveUserServerReq;
 import model.request.user.GetMyProfileReq;
 import model.request.user.GetUserProfileReq;
+import model.response.Response;
 import model.response.server.GetRulesServerRes;
 import model.response.server.GetServerInfoRes;
 import model.response.user.GetMyProfileRes;
@@ -41,6 +44,11 @@ public class SUserProController extends Controller
     @FXML
     private GridPane pane;
 
+    @FXML
+    private Button escape;
+
+    @FXML
+    private Button remove;
     @FXML
     private Button editRole;
 
@@ -72,6 +80,25 @@ public class SUserProController extends Controller
     private Label role8;
     @FXML
     private Label role9;
+
+    @FXML
+    private void escape(ActionEvent event)
+    {
+        closeScene();
+    }
+
+    @FXML
+    private void remove(ActionEvent event)
+    {
+       clientSocket.send(new RemoveUserServerReq(clientSocket.getId() , serverId , UserId));
+       try{
+           Response response = clientSocket.getReceiver().getResponse();
+       }
+       catch (ResponseNotFoundException e)
+       {
+           System.out.println(e.getMessage());
+       }
+    }
 
     @FXML
     private void editRole(ActionEvent event) throws IOException
@@ -146,6 +173,7 @@ public class SUserProController extends Controller
             if(response.getOwnerId().equals(clientSocket.getId()))
             {
                 editRole.setVisible(true);
+                remove.setVisible(true);
             }
         }
         catch (ResponseNotFoundException e)
@@ -165,6 +193,11 @@ public class SUserProController extends Controller
             {
                 //close the scene if getting roles failed
                 closeScene();
+            }
+
+            if(response.getRules().get(clientSocket.getId()) != null && response.getRules().get(clientSocket.getId()).getRules().contains(RuleType.REMOVE_MEMBER))
+            {
+                remove.setVisible(true);
             }
 
             if(null == response.getRules().get(UserId))

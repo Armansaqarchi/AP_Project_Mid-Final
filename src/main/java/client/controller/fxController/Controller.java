@@ -31,7 +31,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Controller{
+public class Controller
+{
     protected final ClientSocket clientSocket = ClientSocket.getClientSocket();
 
 

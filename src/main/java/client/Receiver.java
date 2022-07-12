@@ -6,6 +6,7 @@ import client.controller.fxController.LoginController;
 import client.controller.fxController.cell.testFx;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
 import model.Transferable;
 import model.exception.InvalidObjectException;
 import model.exception.ResponseNotFoundException;
@@ -22,6 +23,7 @@ public class Receiver
     private Response response;
 
     private FXMLLoader loader;
+    private Stage stage;
 
     public Receiver(){
         loader = new FXMLLoader
@@ -62,7 +64,7 @@ public class Receiver
             {
                 throw new InvalidObjectException();
             }
-            catch (IllegalArgumentException | NullPointerException ex)
+            catch (IllegalArgumentException | NullPointerException | IllegalStateException ex)
             {
 
             }
@@ -127,5 +129,13 @@ public class Receiver
 
     public void setLoader(FXMLLoader loader) {
         this.loader = loader;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 }
