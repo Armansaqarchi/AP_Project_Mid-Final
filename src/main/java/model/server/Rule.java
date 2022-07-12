@@ -25,6 +25,10 @@ public class Rule implements Serializable
         return rules;
     }
 
+    public String getId() {
+        return id;
+    }
+
     /**
      * @return the rules type as a string
      */

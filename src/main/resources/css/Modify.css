@@ -1,0 +1,37 @@
+.root{
+    -fx-background-radius: 20
+}
+
+.show-button{
+    -fx-background-radius: 25;
+    -fx-background-color: #acacac;
+}
+
+.show-button:hover{
+    -fx-background-color: #5e5e5e;
+}
+
+.react-button{
+    -fx-background-color: none;
+}
+
+.react-button:hover{
+    -fx-opacity: 0.5;
+}
+
+.react-button:focused{
+    -fx-opacity: 0.3;
+}
+
+
+.download-button{
+    -fx-background-color: none;
+}
+
+.download-button:hover{
+    -fx-opacity: 0.5;
+}
+
+.download-button:focused{
+    -fx-opacity: 0.3;
+}

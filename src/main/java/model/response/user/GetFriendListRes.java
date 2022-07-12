@@ -14,6 +14,8 @@ public class GetFriendListRes extends GetInfoRes
         this.friendList = friendList;
     }
 
+
+
     public HashMap<String, UserStatus> getFriendList() {
         return friendList;
     }

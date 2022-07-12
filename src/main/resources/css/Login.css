@@ -1,0 +1,45 @@
+.Login-button{
+    -fx-background-color: #5169E9;
+}
+.root{
+    -fx-background-image: url("../image/Login.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+
+}
+.textField{
+    -fx-background-color: #808080;
+}
+
+.greyGround{
+    -fx-background-color: #696969;
+}
+
+.Login-button:hover {
+    -fx-background-color: #354eed;
+    -fx-text-fill: black;
+}
+
+.Login-button:focused {
+    -fx-background-color: #5169E9;
+    -fx-opacity: 0.5;
+}
+
+.Register-button{
+    -fx-background-color: none;
+    -fx-text-fill: white;
+}
+.Register-button:hover{
+    -fx-text-fill: #354eed;
+}
+.Register-button:focused{
+    -fx-text-fill: #354eed;
+    -fx-opacity: 0.5;
+}
+
+
+
+
+

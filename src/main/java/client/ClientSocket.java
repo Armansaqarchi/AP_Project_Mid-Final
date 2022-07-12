@@ -1,5 +1,7 @@
 package client;
 
+import client.controller.fxController.cell.testFx;
+import javafx.fxml.FXMLLoader;
 import model.Transferable;
 import model.exception.InvalidObjectException;
 
@@ -11,6 +13,11 @@ import java.net.Socket;
 public class ClientSocket implements Runnable
 {
     //has a receiver which receives responses from server
+
+    private static ClientSocket clientSocket;
+
+
+
     private final Receiver receiver;
 
     //client id
@@ -22,10 +29,12 @@ public class ClientSocket implements Runnable
     private final ObjectOutputStream outputStream;
 
 
-    public ClientSocket()
+    private ClientSocket()
     {
         //setting primary configs for client
         receiver = new Receiver();
+
+
 
         try
         {
@@ -39,6 +48,16 @@ public class ClientSocket implements Runnable
         }
     }
 
+
+    public static ClientSocket getClientSocket(){
+        if(clientSocket == null)
+        {
+            clientSocket = new ClientSocket();
+        }
+
+        return clientSocket;
+    }
+
     /**
      * this method is overRide method of runnable interface
      * this is used to take messages and requests coming from the server
@@ -48,6 +67,7 @@ public class ClientSocket implements Runnable
     {
         //beside the main thread, client has a second thread
         // which checks the responses coming from server
+
         while(socket.isConnected())
         {
             try

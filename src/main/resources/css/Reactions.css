@@ -1,0 +1,14 @@
+.root{
+    -fx-background-color: none;
+    -fx-background-radius: 30;
+
+}
+
+.list-view{
+    -fx-background-color: #7693a4;
+    -fx-background-radius: 30;
+}
+
+.scroll-bar:horizontal {
+    -fx-scale-x: 0;
+}

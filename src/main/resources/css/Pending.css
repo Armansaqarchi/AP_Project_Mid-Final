@@ -1,0 +1,37 @@
+.text{
+    -fx-background-color: none;
+}
+
+
+.addVbox{
+    -fx-background-color: #5e5e5e;
+    -fx-opacity: 0.78;
+    -fx-background-radius: 20;
+}
+
+.add-button{
+    -fx-background-radius: 5;
+    -fx-background-color: #3434a4;
+}
+
+.add-text{
+    -fx-background-color: none;
+    -fx-text-fill: white;
+}
+
+.add-hBox{
+    -fx-background-color: #292929;
+    -fx-background-radius: 5;
+}
+
+.add-button:hover{
+    -fx-background-color: #212166;
+}
+
+.add-button:focused{
+    -fx-background-color: #1313e2;
+}
+
+.curve{
+    -fx-background-radius: 10;
+}

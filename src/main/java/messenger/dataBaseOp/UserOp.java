@@ -22,35 +22,35 @@ public class UserOp extends Op{
 
     }
 
-
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : findByConfigChannel
+     * @author Arman sagharchi
+     */
     private User findByConfigUser(String config, String columnName)
             throws SQLException, ClassNotFoundException, IOException, ConfigNotFoundException{
         ResultSet resultSet = findByConfig(config, columnName, "users");
         return createUserFromData(resultSet);
     }
 
-
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : findById
+     * @author Arman sagharchi
+     */
     public User findById(String id) throws SQLException, IOException,
             ClassNotFoundException, ConfigNotFoundException{
         return findByConfigUser(id, "user_id");
     }
 
-    public User findByName(String name) throws SQLException, ClassNotFoundException,
-            ConfigNotFoundException, IOException{
-        return findByConfigUser(name, "name");
-    }
-
-    public User findByEmail(String email) throws SQLException, IOException,
-            ConfigNotFoundException, ClassNotFoundException{
-        return findByConfigUser(email, "email");
-    }
-
-    public User findByPhoneNumber(String phoneNumber) throws SQLException, ClassNotFoundException,
-            ConfigNotFoundException, IOException{
-        return findByConfigUser(phoneNumber, "phone_number");
-    }
-
-
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : updateChannel
+     * @author Arman sagharchi
+     */
     public void updateUserProfileImage(byte[] newImage ,String id)
             throws ConfigNotFoundException, SQLException{
 
@@ -58,6 +58,12 @@ public class UserOp extends Op{
                 "user_id", "users");
     }
 
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : insertChannel
+     * @author Arman sagharchi
+     */
     public void insertUser(String id, String name, String password, String email, String phoneNumber)
     throws SQLException, IOException{
 
@@ -86,13 +92,24 @@ public class UserOp extends Op{
 
     }
 
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : insertChannel(overloaded version)
+     * @author Arman sagharchi
+     */
     public void insertUser(User user)throws SQLException, IOException{
         insertUser(user.getId(), user.getName(), user.getPassword(),
                 user.getEmail(), user.getPhoneNumber());
     }
 
 
-
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : updateProfile
+     * @author Arman sagharchi
+     */
     public void updateProfile(String id, String type, String newValue)
             throws SQLException, ConfigNotFoundException{
         String query = "UPDATE users SET " + type +" = ? where user_id = ?";
@@ -114,7 +131,12 @@ public class UserOp extends Op{
 
     }
 
-
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : updateChannelList
+     * @author Arman sagharchi
+     */
     public <T> boolean updateList(UpdateType type, String columnName, String id, T t)
             throws SQLException, IOException, ClassNotFoundException, UserNotFoundException {
 
@@ -200,8 +222,12 @@ public class UserOp extends Op{
 
 
 
-
-
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : createChannelFromData
+     * @author Arman sagharchi
+     */
     private User createUserFromData(ResultSet resultSet) throws SQLException, IOException,
             ClassNotFoundException {
 
@@ -265,7 +291,12 @@ public class UserOp extends Op{
                 unreadMessages, friendRequests);
     }
 
-
+    /**
+     * the same as channelOp
+     * there is a parallel method is channelOp
+     * @see ChannelOp class, method : isExists
+     * @author mahdi kalhor
+     */
     public boolean isExists(String id)
     {
         try

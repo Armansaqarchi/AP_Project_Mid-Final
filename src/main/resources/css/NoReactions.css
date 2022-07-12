@@ -1,0 +1,23 @@
+.root{
+    -fx-background-color: #cecece;
+}
+
+
+.Ok-button{
+    -fx-background-color: #4d4be7;
+    -fx-background-radius: 5;
+}
+
+.Ok-button:hover{
+    -fx-background-color: #2b29d8;
+}
+
+.res-root{
+    -fx-background-color: #393939;
+}
+
+.ok-hBox{
+    -fx-background-color: #2e2e2e;
+}
+
+

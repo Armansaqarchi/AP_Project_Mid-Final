@@ -48,7 +48,7 @@ public class ServerService
 
             if(server.getOwnerId().equals(request.getSenderId()))
             {
-                database.getServerOp().updateServerHashList(UpdateType.ADD ,"rules",  server.getId(), request.getSenderId() , request.getRule());
+                database.getServerOp().updateServerHashList(UpdateType.ADD ,"rules",  server.getId(), request.getRule().getId() , request.getRule());
 
                 return new Response(request.getSenderId() , true , "rule added successfully.");
             }
@@ -378,7 +378,7 @@ public class ServerService
                 }
 
                 //remove rule
-                database.getServerOp().updateServerHashList(UpdateType.REMOVE , "rules", server.getId(), request.getSenderId() , rule);
+                database.getServerOp().updateServerHashList(UpdateType.REMOVE , "rules", server.getId(), request.getUserId() , rule);
 
                 //remove rule types that are sent in request
                 for(RuleType ruleType : request.getRules())
@@ -389,7 +389,7 @@ public class ServerService
                 //add new rule if it is not empty
                 if(! rule.getRules().isEmpty())
                 {
-                    database.getServerOp().updateServerHashList(UpdateType.ADD ,"rules", server.getId(), request.getSenderId() , rule);
+                    database.getServerOp().updateServerHashList(UpdateType.ADD ,"rules", server.getId(), request.getUserId() , rule);
                 }
 
                 return new Response(request.getSenderId() , true , "rules removed successfully.");

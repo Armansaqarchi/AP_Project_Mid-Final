@@ -161,6 +161,11 @@ public class MessageService
 
             UUID channelId = server.getChannels().get(channelName);
 
+            if(null == channelId)
+            {
+                return new Response(message.getSenderId() , false ,
+                        "channel : " + channelName + " not found in server : " + serverId + ".");
+            }
 
             Channel channel =
                     database.getChannelOp().findById(channelId.toString());
@@ -261,6 +266,7 @@ public class MessageService
 
         for(String receiver : receivers)
         {
+            System.out.println(receiver);
             messageApi.sendMessage(message , receiver);
         }
     }

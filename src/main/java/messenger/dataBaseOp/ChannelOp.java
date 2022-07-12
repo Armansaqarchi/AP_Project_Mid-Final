@@ -154,7 +154,7 @@ public class ChannelOp extends Op{
         PreparedStatement pst2 = connection.prepareStatement(query2);
 
         pst2.setBytes(1, updatedList);
-        pst2.setString(2, "3");
+        pst2.setString(2, id);
 
         //executes the updates
         pst2.executeUpdate();

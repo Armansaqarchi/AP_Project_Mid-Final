@@ -1,0 +1,89 @@
+.exitButton
+{
+    -fx-background-image: url("../image/exit.png");
+    -fx-background-position: center;
+    -fx-background-size: cover;
+    -fx-background-color: none;
+}
+
+.exitButton:focused {
+    -fx-background-color: none;
+    -fx-background-insets: none;
+}
+.exitButton:hover
+{
+    -fx-background-color: none;
+}
+.myAccountLabel
+{
+    -fx-font-size: 28px;
+    -fx-font-family: "Abyssinica SIL";
+}
+.profileGrid
+{
+    -fx-background-color: #424949;
+    -fx-background-radius: 20 20 20 20;
+    -fx-border-radius: 20 20 20 20;
+}
+.gridpane
+{
+    -fx-background-image: url("../image/Login.png");
+    -fx-background-size: cover;
+}
+.profileLabel
+{
+    -fx-font-size: 20px;
+    -fx-font-family: "Abyssinica SIL";
+}
+.logoutButton
+{
+    -fx-font-size: 16px;
+    -fx-font-family: "Abyssinica SIL";
+    -fx-background-color: #fb3f3f;
+    -fx-background-radius: 8 8 8 8;
+}
+.logoutButton:focused {
+    -fx-background-color: #c22323;
+    -fx-background-insets: none;
+}
+.logoutButton:hover
+{
+    -fx-background-color: #c22323;
+}
+.passwordButton
+{
+    -fx-font-size: 16px;
+    -fx-font-family: "Abyssinica SIL";
+    -fx-background-color:  #03A9F4 ;
+    -fx-background-radius: 8 8 8 8;
+}
+.passwordButton:hover
+{
+    -fx-background-color: #035b83;
+}
+.passwordButton:focused {
+    -fx-background-color: #035b83;
+    -fx-background-insets: none;
+}
+.profileField
+{
+    -fx-font-size: 20px;
+    -fx-background-color: #c0c0c0;
+    -fx-background-radius: 10 10 10 10;
+    -fx-font-family: "Abyssinica SIL";
+}
+.editButton
+{
+    -fx-background-image: url("../image/edit-icon.png");
+    -fx-background-position: center;
+    -fx-background-size: cover;
+    -fx-background-color: none;
+}
+.editButton:focused {
+    -fx-background-color: none;
+    -fx-background-insets: none;
+}
+.editButton:hover
+{
+    -fx-background-color: none;
+}

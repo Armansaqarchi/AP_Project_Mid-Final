@@ -1,0 +1,64 @@
+.setting
+{
+    -fx-background-color: #717D7E;
+    -fx-background-radius: 0 0 0 0;
+    -fx-background-image: url("../image/setting.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left;
+    -fx-background-size: 26px;
+}
+.setting:focused
+{
+    -fx-background-color: #495d67;
+    -fx-background-insets: none;
+}
+.setting:hover
+{
+    -fx-background-color: #495d67;
+    -fx-background-insets: none;
+}
+.user
+{
+    -fx-background-color: #717D7E;
+    -fx-background-radius: 0 0 0 0;
+
+    -fx-background-image: url("../image/add-user.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left;
+    -fx-background-size: 28px;
+}
+.user:focused
+{
+    -fx-background-color: #495d67;
+    -fx-background-insets: none;
+}
+.user:hover
+{
+    -fx-background-color: #495d67;
+    -fx-background-insets: none;
+}
+.channel
+{
+    -fx-background-color: #717D7E;
+    -fx-background-radius: 0 0 0 0;
+
+    -fx-background-image: url("../image/add-channel.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left;
+    -fx-background-size: 26px;
+}
+.channel:focused
+{
+    -fx-background-color: #495d67;
+    -fx-background-insets: none;
+}
+.channel:hover
+{
+    -fx-background-color: #495d67;
+    -fx-background-insets: none;
+}
+.gridpane
+{
+    -fx-background-color: #717D7E;
+    -fx-background-radius: 0 0 0 0;
+}

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="206.0" prefWidth="415.0" styleClass="root" stylesheets="@../css/Modify.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.fxController.ResultController">
+   <children>
+      <VBox prefHeight="180.0" prefWidth="348.0" styleClass="res-root" stylesheets="@../css/NoReactions.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="resTitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="141.0" prefWidth="443.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="resLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="114.0" prefWidth="413.0" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </VBox.margin>
+            </Label>
+            <HBox prefHeight="154.0" prefWidth="443.0" styleClass="ok-hBox">
+               <children>
+                  <Button fx:id="ok" mnemonicParsing="false" onAction="#onOk" prefHeight="79.0" prefWidth="443.0" styleClass="Ok-button" stylesheets="@../css/NoReactions.css" text="Okay" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets bottom="15.0" left="20.0" right="20.0" top="15.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
