@@ -28,21 +28,22 @@ import model.exception.ResponseNotFoundException;
 import model.message.*;
 import model.request.Channel.GetChatHistoryReq;
 import model.request.priavteChat.GetPrivateChatHisReq;
+import model.request.server.GetRulesServerReq;
 import model.request.server.GetServerInfoReq;
 import model.request.server.GetUsersStatusReq;
-import model.request.user.GetFriendListReq;
-import model.request.user.GetPrivateChatsReq;
-import model.request.user.GetServersReq;
-import model.request.user.GetUserProfileReq;
+import model.request.user.*;
 import model.response.Response;
 import model.response.channel.GetChatHistoryRes;
 import model.response.privateChat.GetPrivateChatHisRes;
+import model.response.server.GetRulesServerRes;
 import model.response.server.GetServerInfoRes;
 import model.response.server.GetUserStatusRes;
 import model.response.user.GetFriendListRes;
 import model.response.user.GetPrivateChatsRes;
 import model.response.user.GetServersRes;
 import model.response.user.GetUserProfileRes;
+import model.server.Rule;
+import model.server.RuleType;
 import model.server.Server;
 import model.user.ServerIDs;
 import model.user.UserStatus;
@@ -57,10 +58,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
 
 public class HomeController extends Controller {
@@ -128,6 +126,9 @@ public class HomeController extends Controller {
     private Button cancel;
 
     @FXML
+    Button pinMessages;
+
+    @FXML
     private ListView<String> friendView;
 
     @FXML
@@ -141,6 +142,8 @@ public class HomeController extends Controller {
         chatHBox.setVisible(false);
         cancel.setVisible(false);
 
+
+        pinMessages.setVisible(false);
 
         //the part that takes all the friends images and details
 
@@ -185,7 +188,6 @@ public class HomeController extends Controller {
 
         friendView.getSelectionModel().selectedItemProperty()
                 .addListener(currentListener);
-
         chatListView.getSelectionModel().selectedItemProperty()
                 .addListener((list, oldValue, newValue) -> chatHandler(newValue));
         serverView.getSelectionModel().selectedItemProperty()
@@ -395,6 +397,7 @@ public class HomeController extends Controller {
         imageSaver(newValue, "friends", getImageById(newValue, "friends"));
 
         targetFriendHBox.setVisible(true);
+        pinMessages.setVisible(false);
         friendName.setText(fieldId);
 
 
@@ -434,6 +437,8 @@ public class HomeController extends Controller {
         }
         else if(newValue.getId().equals("Home")){
 
+            serverStatusView.setItems(null);
+
             friendView.getSelectionModel().selectedItemProperty().removeListener(currentListener);
 
             currentListener = (obs, oldValue, newVal) -> friendHandler(newVal);
@@ -454,8 +459,8 @@ public class HomeController extends Controller {
 
 
 
-
             serverStatusView.setItems(getServerMembers(serverId));
+
 
             serverStatusView.setCellFactory(new Callback<ListView<Map.Entry<String, UserStatus>>, ListCell<Map.Entry<String, UserStatus>>>() {
                 @Override
@@ -463,6 +468,9 @@ public class HomeController extends Controller {
                     return new SMemberStatusCell();
                 }
             });
+
+            serverStatusView.getSelectionModel().selectedItemProperty()
+                    .addListener((obs, oldValue, newVal) -> serverMemberHandler(newVal));
 
 
             ObservableList<String> channelObs = FXCollections.observableArrayList();
@@ -544,7 +552,7 @@ public class HomeController extends Controller {
 
         friendName.setText(NValue);
         targetFriendHBox.setVisible(true);
-
+        pinMessages.setVisible(true);
 
 
         fieldId = NValue;
@@ -627,8 +635,40 @@ public class HomeController extends Controller {
 
 
     public void chatHandler(Message newValue){
+
+        FXMLLoader loader;
+
+        if(serverId != null){
+            loader = new FXMLLoader(getClass().getResource("/fxml/Modify.fxml"));
+        }
+        else{
+            clientSocket.send(new GetRulesServerReq(clientSocket.getId(), serverId));
+
+            try{
+                Response response = clientSocket.getReceiver().getResponse();
+
+                if(response instanceof GetRulesServerRes && response.isAccepted()){
+                    HashMap<String, Rule> roles = ((GetRulesServerRes) response).getRules();
+
+                    if(roles.get(clientSocket.getId()).getRules().contains(RuleType.PIN_MESSAGE)){
+                        loader = new FXMLLoader(getClass().getResource("/fxml/ChannelModify.fxml"));
+                    }
+                    else{
+                        loader = new FXMLLoader(getClass().getResource("/fxml/Modify.fxml"));
+                    }
+                }
+                else{
+                    return;
+                }
+            }
+            catch(ResponseNotFoundException e){
+                e.printStackTrace();
+                return;
+            }
+        }
+
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Modify.fxml"));
+
             Stage modifyStage = new Stage();
 
             Point p = MouseInfo.getPointerInfo().getLocation();
@@ -671,7 +711,7 @@ public class HomeController extends Controller {
         }
     }
 
-    public void addItemFriendView(String id){
+    public void addItemFriendView(String id) {
         friendObservableList.add(id);
 
         friendView.setItems(friendObservableList);
@@ -723,6 +763,46 @@ public class HomeController extends Controller {
     @FXML
     void onSearch(ActionEvent event) {
         changeView("searchFriend", event);
+    }
+
+    public String getServerId(){
+        return serverId;
+    }
+
+    public String getChannelName(){
+        return fieldId;
+    }
+
+    @FXML
+    void onPinMessages(ActionEvent event) {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PinMessages.fxml"));
+
+        try {
+
+            Scene scene = new Scene(loader.load());
+            scene.setFill(Color.TRANSPARENT);
+
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setOnHidden(e -> hideHandler());
+            stage.setMinWidth(600);
+            stage.setMinHeight(400);
+
+            stage.focusedProperty().addListener((obs, oldFocus, newFocus) -> focusHandler(newFocus, stage));
+
+
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.initStyle(StageStyle.TRANSPARENT);
+
+            stage.setScene(scene);
+
+            stage.show();
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
     }
 
 

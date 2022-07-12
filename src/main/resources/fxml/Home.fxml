@@ -147,6 +147,14 @@
                                     <Insets left="5.0" top="20.0" />
                                  </HBox.margin>
                               </ImageView>
+                              <Button fx:id="pinMessages" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onPinMessages" prefHeight="41.0" prefWidth="362.0" styleClass="file-button" text="Pin messages" textFill="WHITE" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font name="System Bold" size="19.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </HBox.margin>
+                              </Button>
                            </children></HBox>
                         <ListView fx:id="chatListView" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="654.0" prefWidth="679.0" styleClass="main-view">
                            <VBox.margin>
