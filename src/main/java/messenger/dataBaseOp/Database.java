@@ -25,7 +25,7 @@ public class Database {
             Class.forName("org.postgresql.Driver");
 
             Connection connection = DriverManager.getConnection(
-                    "jdbc:postgresql://127.0.0.1:5432/postgres" ,
+                    "jdbc:postgresql://127.0.0.1:5432/Discord" ,
                     "postgres" , "postgres");
 
             //initializing all the operators

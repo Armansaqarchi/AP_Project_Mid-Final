@@ -147,10 +147,14 @@ public class MyProfileController extends Controller implements Initializable
     private void logout(ActionEvent event) throws IOException {
         FXMLLoader loader = clientSocket.getReceiver().getLoader();
         loader.setLocation(getClass().getResource("/fxml/Login.fxml"));
-        Parent parent = loader.load();
+        Parent parent = loader.getRoot();
 
         Stage stage = clientSocket.getReceiver().getStage();
-        stage.setScene(new Scene(parent));
+        stage.getScene().setRoot(parent);
+        Scene scene = stage.getScene();
+        scene.setRoot(parent);
+
+        stage.setScene(scene);
         stage.setMinHeight(400);
         stage.setMinHeight(400);
 

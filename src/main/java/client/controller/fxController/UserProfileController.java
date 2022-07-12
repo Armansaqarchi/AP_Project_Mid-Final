@@ -64,7 +64,34 @@ public class UserProfileController extends Controller
     @FXML
     private void sendMessage(ActionEvent event)
     {
-        //incomplete
+        escape.fire();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Home.fxml"));
+
+        clientSocket.getReceiver().setLoader(loader);
+
+
+        Stage stage = clientSocket.getReceiver().getStage();
+        Scene scene = stage.getScene();
+
+
+        try {
+
+             scene.setRoot(loader.load());
+
+            stage.setScene(scene);
+
+
+        }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+
+
+
+
+        ((HomeController)clientSocket.getReceiver().getLoader()
+                .getController()).friendHandler(userId.getText());
     }
 
     @FXML
@@ -139,7 +166,7 @@ public class UserProfileController extends Controller
     private void closeScene()
     {
         Stage stage = (Stage)pane.getScene().getWindow();
-        stage.hide();
+        stage.close();
     }
 
     private void setImage(byte[] image)
