@@ -146,7 +146,7 @@ public class MyProfileController extends Controller implements Initializable
     @FXML
     private void logout(ActionEvent event)
     {
-        //incomplete
+
     }
 
     @Override
