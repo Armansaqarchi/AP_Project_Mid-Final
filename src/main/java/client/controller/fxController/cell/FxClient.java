@@ -34,7 +34,7 @@ public class FxClient extends Application {
 
     }
 
-    public static void start(String[] args){
+    public static void main(String[] args){
         launch(args);
     }
 

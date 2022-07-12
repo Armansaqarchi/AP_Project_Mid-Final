@@ -12,7 +12,7 @@ public class Client
     {
         if(1 == clientMode())
         {
-            FxClient.start(args);
+            FxClient.main(args);
             return;
         }
         ClientSocket clientSocket = ClientSocket.getClientSocket();
