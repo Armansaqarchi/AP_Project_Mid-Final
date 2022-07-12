@@ -59,6 +59,11 @@ public class ImageCell extends ListCell<ServerIDs> {
 
             setGraphic(stackPane);
         }
+        else if(item.getId().equals("Home")){
+            circle.setFill(new ImagePattern(new Image("image/no-profile-logo.png")));
+
+            setGraphic(stackPane);
+        }
         else{
             byte[] fileImage = null;
 
@@ -75,7 +80,13 @@ public class ImageCell extends ListCell<ServerIDs> {
             }
             else {
                 circle.setFill(Color.BLACK);
-                Label label = new Label(item.getId().substring(0, 2));
+                Label label;
+                try {
+                    label = new Label(item.getId().substring(0, 2));
+                }
+                catch(StringIndexOutOfBoundsException e){
+                    label = new Label(item.getId().substring(0, 1));
+                }
                 label.setStyle("-fx-font-weight: bold;" +
                         "-fx-font-size: 16;" +
                         "-fx-text-fill: white");

@@ -16,10 +16,8 @@ import javafx.stage.StageStyle;
 import model.exception.ResponseNotFoundException;
 import model.request.server.GetRulesServerReq;
 import model.request.server.GetServerInfoReq;
-import model.request.server.RemoveUserServerReq;
 import model.request.user.GetMyProfileReq;
 import model.request.user.GetUserProfileReq;
-import model.response.Response;
 import model.response.server.GetRulesServerRes;
 import model.response.server.GetServerInfoRes;
 import model.response.user.GetMyProfileRes;
@@ -44,9 +42,6 @@ public class SUserProController extends Controller
 
     @FXML
     private Button editRole;
-
-    @FXML
-    private Button remove;
 
     @FXML
     private Circle image;
@@ -92,23 +87,6 @@ public class SUserProController extends Controller
         stage.show();
     }
 
-    @FXML
-    private void remove(ActionEvent event)
-    {
-        clientSocket.send(new RemoveUserServerReq(clientSocket.getId(), serverId, UserId));
-
-        try
-        {
-            Response response = clientSocket.getReceiver().getResponse();
-        }
-        catch(ResponseNotFoundException e)
-        {
-            System.out.println(e.getMessage());
-        }
-
-        closeScene();
-    }
-
     public void initialize(String userId , String serverId)
     {
         this.UserId = userId;
@@ -150,7 +128,7 @@ public class SUserProController extends Controller
             closeScene();
         }
 
-        //show edit role and remove button for owner of server
+        //show edit role button for owner of server
         try
         {
             clientSocket.send(new GetServerInfoReq(clientSocket.getId(), serverId));
@@ -166,7 +144,6 @@ public class SUserProController extends Controller
             if(response.getOwnerId().equals(clientSocket.getId()))
             {
                 editRole.setVisible(true);
-                remove.setVisible(true);
             }
         }
         catch (ResponseNotFoundException e)
@@ -181,13 +158,6 @@ public class SUserProController extends Controller
             clientSocket.send(new GetRulesServerReq(clientSocket.getId(), serverId));
 
             GetRulesServerRes response = (GetRulesServerRes)clientSocket.getReceiver().getResponse();
-
-            //show remove button if this user has its role
-            if(null != response.getRules().get(clientSocket.getId()) && response.getRules().get(clientSocket.getId()).getRules().contains(RuleType.REMOVE_MEMBER))
-            {
-                remove.setVisible(true);
-            }
-
 
             if(!response.isAccepted())
             {

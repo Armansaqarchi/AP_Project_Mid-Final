@@ -1,0 +1,14 @@
+.root{
+    -fx-background-radius: 10;
+    -fx-background-color: #696969;
+}
+
+.Accept-button{
+    -fx-background-color: #0fbd0f;
+    -fx-background-radius: 20;
+}
+
+.Ignore-button{
+    -fx-background-color: #af1919;
+    -fx-background-radius: 20;
+}

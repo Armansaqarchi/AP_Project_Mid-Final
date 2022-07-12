@@ -1,6 +1,7 @@
 package client.controller.fxController;
 
 import client.FileHandler;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -139,34 +140,50 @@ public class ModifyController extends Controller {
     @FXML
     void onDownload(ActionEvent event) {
 
-        if(message instanceof TextMessage){
-            FileHandler fileHandler = FileHandler.getFileHandler();
 
-            fileHandler.saveMessage(message);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if(message instanceof TextMessage){
+                    FileHandler fileHandler = FileHandler.getFileHandler();
 
-        }
-        else{
+                    fileHandler.saveMessage(message);
 
-            clientSocket.send(new GetFileMsgReq(clientSocket.getId(), message.getId()));
-
-            try{
-                Response response = clientSocket.getReceiver().getResponse();
-
-                if(response.isAccepted() && response instanceof GetFileMsgRes){
-                    FileHandler.getFileHandler().saveFile((GetFileMsgRes) response);
-
-                    resultMaker("file saved as : client/file/" + ((GetFileMsgRes) response).getFileName(), "FILE DOWNLOADED");
                 }
                 else{
-                    System.out.println("access denied to get file message");
+
+                    clientSocket.send(new GetFileMsgReq(clientSocket.getId(), message.getId()));
+
+                    try{
+                        Response response = clientSocket.getReceiver().getResponse();
+
+                        if(response.isAccepted() && response instanceof GetFileMsgRes){
+                            FileHandler.getFileHandler().saveFile((GetFileMsgRes) response);
+
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    resultMaker("file saved as : client/file/" + ((GetFileMsgRes) response).getFileName(), "FILE DOWNLOADED");
+                                }
+                            });
+
+                        }
+                        else{
+                            System.out.println("access denied to get file message");
+                        }
+
+                    }
+                    catch(ResponseNotFoundException e){
+                        e.printStackTrace();
+                    }
+
                 }
-
             }
-            catch(ResponseNotFoundException e){
-                e.printStackTrace();
-            }
+        });
 
-        }
+        thread.start();
+
+
 
     }
 }

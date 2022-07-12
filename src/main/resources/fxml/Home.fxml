@@ -16,11 +16,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="634.0" prefWidth="1069.0" styleClass="home-wall" stylesheets="@../css/Home.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.fxController.HomeController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="910.0" styleClass="home-wall" stylesheets="@../css/Home.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controller.fxController.HomeController">
    <children>
       <HBox prefHeight="390.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="606.0" prefWidth="235.0" HBox.hgrow="ALWAYS">
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefHeight="606.0" prefWidth="235.0" styleClass="friend-list" stylesheets="@../css/Home.css" HBox.hgrow="ALWAYS">
                <children>
                   <ListView fx:id="serverView" maxHeight="1.7976931348623157E308" prefHeight="542.0" prefWidth="72.0" styleClass="custom-list-view" HBox.hgrow="NEVER">
                      <HBox.margin>
@@ -29,14 +29,10 @@
                      <padding>
                         <Insets top="10.0" />
                      </padding></ListView>
-                  <ListView fx:id="friendView" maxHeight="1.7976931348623157E308" opacity="0.27" prefHeight="572.0" prefWidth="166.0" stylesheets="@../css/Home.css" HBox.hgrow="NEVER">
+                  <ListView fx:id="friendView" maxHeight="1.7976931348623157E308" opacity="0.27" prefHeight="572.0" prefWidth="166.0" styleClass="custom-list-view" stylesheets="@../css/Home.css" HBox.hgrow="NEVER">
                      <effect>
                         <ColorInput />
-                     </effect>
-                     <styleClass>
-                        <String fx:value="custom-list-view" />
-                        <String fx:value="scroll-bar" />
-                     </styleClass></ListView>
+                     </effect></ListView>
                </children>
             </HBox>
             <BorderPane maxHeight="1.7976931348623157E308" prefHeight="487.0" prefWidth="702.0" HBox.hgrow="ALWAYS">
@@ -103,7 +99,7 @@
                      </children></HBox>
                </top>
                <right>
-                  <ListView fx:id="serverStatusView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="475.0" prefWidth="154.0" styleClass="custom-list-view" />
+                  <ListView fx:id="serverStatusView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="486.0" prefWidth="189.0" styleClass="custom-list-view" />
                </right>
                <center>
                   <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
@@ -135,7 +131,7 @@
                            <children>
                               <Button fx:id="FileChooser" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onFileChooser" prefHeight="26.0" prefWidth="29.0" styleClass="file-button" stylesheets="@../css/Home.css" text="+" textFill="#2e2e2e">
                                  <HBox.margin>
-                                    <Insets bottom="2.0" left="4.0" right="4.0" top="2.0" />
+                                    <Insets bottom="3.0" left="4.0" right="4.0" top="3.0" />
                                  </HBox.margin>
                               </Button>
                               <TextField fx:id="chatField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="466.0" styleClass="chat-field" HBox.hgrow="ALWAYS">

@@ -2,6 +2,7 @@ package client.controller.fxController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -44,6 +45,14 @@ public class CreatChannelController extends Controller
 
             if(!response.isAccepted())
             {
+
+                HomeController controller = clientSocket.getReceiver().getLoader().getController();
+
+
+                controller.addItemFriendView(channelName.getText());
+
+
+
                 setMessage(response.getMessage());
                 return;
             }

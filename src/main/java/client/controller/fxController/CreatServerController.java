@@ -48,7 +48,7 @@ public class CreatServerController extends Controller
                 return;
             }
 
-            closeScene();
+            closeScene(event);
         }
         catch(ResponseNotFoundException e)
         {
@@ -60,12 +60,13 @@ public class CreatServerController extends Controller
     @FXML
     private void cancel(ActionEvent event)
     {
-        closeScene();
+
+        closeScene(event);
     }
 
-    private void closeScene()
+    private void closeScene(ActionEvent event)
     {
-        Stage stage = (Stage)pane.getScene().getWindow();
+        Stage stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         stage.close();
     }
 

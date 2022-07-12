@@ -1,5 +1,8 @@
 package model.message;
 
+/**
+ * simulates a reaction to message
+ */
 import java.io.Serializable;
 
 /**

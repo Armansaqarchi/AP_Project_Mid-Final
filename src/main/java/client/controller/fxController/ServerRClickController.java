@@ -1,6 +1,5 @@
 package client.controller.fxController;
 
-import client.controller.fxController.type.AddUserType;
 import client.controller.fxController.type.SetImageType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,19 +38,11 @@ public class ServerRClickController extends Controller
     private Button creatChannel;
 
     @FXML
-    private void addUser(ActionEvent event) throws IOException
+    private void addUser(ActionEvent event)
     {
         stage.focusedProperty().addListener((obs , oldFocus , newFocus) -> focusHandler(newFocus , stage));
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/AddUser.fxml"));
-        Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-
-        AddUserController controller = loader.getController();
-        controller.initialize(AddUserType.ADD_SERVER , serverId , null);
-
-        stage.show();
+        //incomplete
     }
 
     @FXML

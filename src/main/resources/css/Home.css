@@ -59,12 +59,18 @@
 }
 
 .custom-list-view{
-    -fx-background-color: grey;
+    -fx-background-color: rgba(66, 66, 66, 0.9);
     -fx-border-color: Grey;
     -fx-effect: dropshadow(three-pass-box, black, 0, 0, 0, 0);
-    -fx-opacity: 0.7;
+    -fx-opacity: 0.8;
 
 }
+
+.list-cell{
+    -fx-background-color: #434343;
+    -fx-background-radius: 15;
+}
+
 
 
 .scroll-bar:horizontal {
@@ -83,6 +89,8 @@
 .main-view{
     -fx-background-color: none;
 }
+
+
 
 .chat-hBox{
     -fx-background-color: white;
@@ -140,7 +148,6 @@
 
 .list-cell:odd:focused{
     -fx-background-color: white;
-    -fx-opacity: 0.65;
     -fx-text-fill: #fffefe;
 }
 

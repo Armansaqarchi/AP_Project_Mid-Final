@@ -1,5 +1,8 @@
 package model.message;
 
+/**
+ * types of reaction to message
+ */
 import java.io.Serializable;
 
 /**

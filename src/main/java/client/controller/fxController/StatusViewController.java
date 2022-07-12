@@ -59,11 +59,12 @@ public class StatusViewController extends Controller {
                 Response response = clientSocket.getReceiver().getResponse();
                 if(response.isAccepted()){
 
-                    if(((GetUserProfileRes)response).getUserStatus() == UserStatus.ONLINE)
+                    if(((GetUserProfileRes)response).getUserStatus() == UserStatus.ONLINE) {
                         imageSaver(((GetUserProfileRes) response).getId(), "friends",
                                 ((GetUserProfileRes) response).getProfileImage());
 
                         onlineFriends.add(i);
+                    }
                 }
             }
             catch(ResponseNotFoundException e){
