@@ -145,7 +145,9 @@ public class MyProfileController extends Controller implements Initializable
 
     @FXML
     private void logout(ActionEvent event) throws IOException {
-        FXMLLoader loader = clientSocket.getReceiver().getLoader();
+
+        FXMLLoader loader = new FXMLLoader();
+        clientSocket.getReceiver().setLoader(loader);
         loader.setLocation(getClass().getResource("/fxml/Login.fxml"));
         Parent parent = loader.load();
 
