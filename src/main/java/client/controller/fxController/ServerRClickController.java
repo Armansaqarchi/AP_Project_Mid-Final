@@ -11,8 +11,10 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.exception.ResponseNotFoundException;
+import model.request.server.DeleteServerReq;
 import model.request.server.GetRulesServerReq;
 import model.request.server.GetServerInfoReq;
+import model.response.Response;
 import model.response.server.GetRulesServerRes;
 import model.response.server.GetServerInfoRes;
 import model.server.Rule;
@@ -32,6 +34,8 @@ public class ServerRClickController extends Controller
     private Button escape;
     @FXML
     private Button addUser;
+    @FXML
+    private Button delete;
 
     @FXML
     private Button setting;
@@ -84,6 +88,22 @@ public class ServerRClickController extends Controller
         stage.show();
     }
 
+    @FXML
+    private void delete(ActionEvent event)
+    {
+        clientSocket.send(new DeleteServerReq(clientSocket.getId() , serverId));
+
+        try {
+            Response response = clientSocket.getReceiver().getResponse();
+        }
+        catch (ResponseNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+        closeScene((Button) event.getSource());
+    }
+
     public void initialize(String serverId)
     {
         this.serverId = serverId;
@@ -111,6 +131,7 @@ public class ServerRClickController extends Controller
             {
                 setting.setVisible(true);
                 creatChannel.setVisible(true);
+                delete.setVisible(true);
                 return;
             }
         }
