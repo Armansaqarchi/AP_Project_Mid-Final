@@ -453,7 +453,7 @@ public class HomeController extends Controller {
 
         System.out.println("statusHandler method");
 
-        SUserProController controller = newStageMaker("SUserPro").getController();
+        SUserProController controller = newStageMaker("sUserPro").getController();
 
         controller.initialize(newValue.getKey(), serverId);
     }
