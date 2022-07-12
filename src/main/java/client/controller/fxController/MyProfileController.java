@@ -144,9 +144,18 @@ public class MyProfileController extends Controller implements Initializable
     }
 
     @FXML
-    private void logout(ActionEvent event)
-    {
-        //incomplete
+    private void logout(ActionEvent event) throws IOException {
+        FXMLLoader loader = clientSocket.getReceiver().getLoader();
+        loader.setLocation(getClass().getResource("/fxml/Login.fxml"));
+        Parent parent = loader.load();
+
+        Stage stage = clientSocket.getReceiver().getStage();
+        stage.setScene(new Scene(parent));
+        stage.setMinHeight(400);
+        stage.setMinHeight(400);
+
+        stage.show();
+        closeScene();
     }
 
     @Override
