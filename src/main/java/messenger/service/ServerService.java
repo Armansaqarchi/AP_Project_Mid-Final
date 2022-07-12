@@ -178,6 +178,14 @@ public class ServerService
 
             if(server.getOwnerId().equals(request.getSenderId()))
             {
+                for(String userId : server.getUsers())
+                {
+                    User user = database.getUserOp().findById(userId);
+                    ServerIDs serverIDs = user.getServers().get(user.getServers().indexOf(new ServerIDs(server.getId() , null)));
+
+                    database.getUserOp().updateList(UpdateType.REMOVE , "servers" , userId , serverIDs);
+                }
+
                 //delete server in database
                 database.getServerOp().deleteServerById(request.getServerId());
 
