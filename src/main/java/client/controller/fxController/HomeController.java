@@ -104,6 +104,12 @@ public class HomeController extends Controller {
     private Label friendName;
 
     @FXML
+    private Button myProfile;
+
+    @FXML
+    private Button search;
+
+    @FXML
     private HBox friendStatusView;
 
     @FXML
@@ -254,8 +260,15 @@ public class HomeController extends Controller {
                 FileInputStream fl = new FileInputStream(file);
                 byte[] arr = new byte[(int) file.length()];
                 fl.read(arr);
-                message = new FileMessage(null, clientSocket.getId(), fieldId,
-                        MessageType.PRIVATE_CHAT, LocalDateTime.now(), file.getName(),  arr);
+
+                if(serverId == null) {
+                    message = new FileMessage(null, clientSocket.getId(), fieldId,
+                            MessageType.PRIVATE_CHAT, LocalDateTime.now(), file.getName(), arr);
+                }
+                else{
+                    message = new FileMessage(null, clientSocket.getId(), serverId + "-" + fieldId,
+                            MessageType.PRIVATE_CHAT, LocalDateTime.now(), file.getName(), arr);
+                }
                 clientSocket.send(message);
             }
             catch(IOException e){
@@ -700,6 +713,16 @@ public class HomeController extends Controller {
     private void hideHandler()
     {
         initialize();
+    }
+
+    @FXML
+    void onProfile(ActionEvent event) {
+        changeView("myProfile", event);
+    }
+
+    @FXML
+    void onSearch(ActionEvent event) {
+        changeView("searchFriend", event);
     }
 
 

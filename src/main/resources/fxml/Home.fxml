@@ -96,6 +96,34 @@
                               <String fx:value="add-friend-button" />
                            </styleClass>
                         </Button>
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="78.0" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="search" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onSearch" prefHeight="38.0" prefWidth="91.0" styleClass="custom-button" stylesheets="@../css/Home.css" text="Search" textFill="WHITE" HBox.hgrow="NEVER">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <graphic>
+                              <ImageView fitHeight="26.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/search.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="myProfile" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onProfile" prefHeight="37.0" prefWidth="46.0" styleClass="custom-button" stylesheets="@../css/Home.css" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="29.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../image/default-user-icon-13.jpg" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                      </children></HBox>
                </top>
                <right>

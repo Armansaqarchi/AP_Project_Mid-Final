@@ -81,7 +81,9 @@ public class StatusViewController extends Controller {
     }
 
     public void statusHandler(String newValue){
-
+        exit.fire();
+        ((HomeController)clientSocket.getReceiver().getLoader()
+                .getController()).friendHandler(newValue);
     }
 
 
@@ -132,6 +134,9 @@ public class StatusViewController extends Controller {
         ObservableList<String> list = FXCollections.observableArrayList(allFriends);
 
         statusListView.setItems(list);
+
+        statusListView.getSelectionModel().selectedItemProperty()
+                .addListener((obs, oldValue, newValue) -> statusHandler(newValue));
     }
 
 
