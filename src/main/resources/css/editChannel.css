@@ -1,0 +1,47 @@
+.gridpane
+{
+    -fx-background-color: #717D7E;
+}
+.exit
+{
+    -fx-background-image: url("../image/exit.png");
+    -fx-background-position: center;
+    -fx-background-size: cover;
+    -fx-background-color: none;
+}
+
+.exit:focused {
+    -fx-background-color: none;
+    -fx-background-insets: none;
+}
+.exit:hover
+{
+    -fx-background-color: none;
+}
+.button1
+{
+    -fx-background-color: none ;
+    -fx-background-radius: 0 0 0 0;
+}
+.button1:focused {
+    -fx-background-color: #035b83;
+    -fx-background-insets: none;
+}
+.button1:hover {
+    -fx-background-color: #035b83;
+    -fx-background-insets: none;
+}
+
+.button2
+{
+    -fx-background-color: none;
+    -fx-background-radius: 0 0 0 0;
+}
+.button2:focused {
+    -fx-background-color: #c22323;
+    -fx-background-insets: none;
+}
+.button2:hover
+{
+    -fx-background-color: #c22323;
+}
