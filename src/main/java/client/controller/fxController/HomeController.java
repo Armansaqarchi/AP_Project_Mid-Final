@@ -29,6 +29,7 @@ import model.message.*;
 import model.request.Channel.GetChatHistoryReq;
 import model.request.priavteChat.GetPrivateChatHisReq;
 import model.request.server.GetServerInfoReq;
+import model.request.server.GetUsersStatusReq;
 import model.request.user.GetFriendListReq;
 import model.request.user.GetServersReq;
 import model.request.user.GetUserProfileReq;
@@ -36,6 +37,7 @@ import model.response.Response;
 import model.response.channel.GetChatHistoryRes;
 import model.response.privateChat.GetPrivateChatHisRes;
 import model.response.server.GetServerInfoRes;
+import model.response.server.GetUserStatusRes;
 import model.response.user.GetFriendListRes;
 import model.response.user.GetServersRes;
 import model.response.user.GetUserProfileRes;
@@ -56,6 +58,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Map;
 
 
 public class HomeController extends Controller {
@@ -82,7 +85,7 @@ public class HomeController extends Controller {
     private ObservableList<Message> chatObservableList = FXCollections.observableArrayList();
 
     @FXML
-    private ListView<String> serverStatusView;
+    private ListView<Map.Entry<String, UserStatus>> serverStatusView;
 
     private ServerIDs serverIDs;
 
@@ -169,6 +172,7 @@ public class HomeController extends Controller {
             }
         });
 
+
         currentListener = (list, oldValue, newValue) -> friendHandler(newValue);
 
         friendView.getSelectionModel().selectedItemProperty()
@@ -178,6 +182,8 @@ public class HomeController extends Controller {
                 .addListener((list, oldValue, newValue) -> chatHandler(newValue));
         serverView.getSelectionModel().selectedItemProperty()
                 .addListener((obs, olaValue, newValue) -> serverHandler(newValue));
+        serverStatusView.getSelectionModel().selectedItemProperty()
+                .addListener((obs, oldValue, newValue) -> serverStatusHandler(newValue));
     }
 
     @FXML
@@ -352,6 +358,8 @@ public class HomeController extends Controller {
 
     private void serverHandler(ServerIDs newValue){
 
+        targetFriendHBox.setVisible(false);
+        chatListView.setItems(null);
         chatField.setDisable(true);
         chatHBox.setVisible(false);
         cancel.setVisible(true);
@@ -377,17 +385,58 @@ public class HomeController extends Controller {
                 }
             });
 
+
+
+
+
+
+            serverStatusView.setItems(getServerMembers(serverId));
+
+            serverStatusView.setCellFactory(new Callback<ListView<Map.Entry<String, UserStatus>>, ListCell<Map.Entry<String, UserStatus>>>() {
+                @Override
+                public ListCell<Map.Entry<String, UserStatus>> call(ListView<Map.Entry<String, UserStatus>> entryListView) {
+                    return new SMemberStatusCell();
+                }
+            });
+
+
             ObservableList<String> channelObs = FXCollections.observableArrayList();
             channelObs.addAll(serverId, "TEXT CHANNELS");
             channelObs.addAll(newValue.getChannels());
             friendView.setItems(channelObs);
 
-            friendView.getSelectionModel().selectedItemProperty().removeListener(currentListener);
+            friendView.getSelectionModel().selectedItemProperty().addListener(currentListener);
 
             currentListener = (obs, OValue, NValue) -> channelHandler(NValue);
 
-            friendView.getSelectionModel().selectedItemProperty().addListener(currentListener);
+
         }
+    }
+
+    public ObservableList<Map.Entry<String, UserStatus>> getServerMembers(String serverId){
+        clientSocket.send(new GetUsersStatusReq(clientSocket.getId(), serverId));
+
+        try{
+            Response response = clientSocket.getReceiver().getResponse();
+
+            if(response.isAccepted() && response instanceof GetUserStatusRes){
+
+                ArrayList<Map.Entry<String, UserStatus>> res = new ArrayList<>(((GetUserStatusRes) response).getUsers().entrySet());
+
+                return FXCollections.observableArrayList(res);
+            }
+        }
+        catch(ResponseNotFoundException e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+    public void serverStatusHandler(Map.Entry<String, UserStatus> newValue){
+        SUserProController controller = newStageMaker("SUserPro").getController();
+        System.out.println(serverId);
+        System.out.println(newValue.getKey());
+        controller.initialize(newValue.getKey(), serverId);
     }
 
     public void channelHandler(String NValue){
@@ -410,6 +459,8 @@ public class HomeController extends Controller {
             return;
         }
 
+
+
         friendName.setText(NValue);
         targetFriendHBox.setVisible(true);
 
@@ -422,7 +473,10 @@ public class HomeController extends Controller {
         chatHBox.setVisible(true);
         cancel.setVisible(false);
 
+
+
         chatObservableList = getChannelMessages(NValue);
+
         chatListView.setItems(chatObservableList);
 
 
@@ -430,6 +484,10 @@ public class HomeController extends Controller {
 
 
     private ObservableList<Message> getChannelMessages(String NValue){
+
+        System.out.println(serverId);
+        System.out.println(NValue);
+
         clientSocket.send(new GetChatHistoryReq(clientSocket.getId(), serverId, NValue));
         try{
 
@@ -437,8 +495,11 @@ public class HomeController extends Controller {
 
             if(response.isAccepted() && response instanceof GetChatHistoryRes){
                 LinkedList<Message> messages = ((GetChatHistoryRes)response).getMessages();
+
                 return FXCollections.observableArrayList(new ArrayList<>(messages));
+
             }
+
         }
         catch(ResponseNotFoundException e){
             e.printStackTrace();

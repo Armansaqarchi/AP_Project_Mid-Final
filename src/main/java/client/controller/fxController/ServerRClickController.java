@@ -42,7 +42,7 @@ public class ServerRClickController extends Controller
     @FXML
     private void escape(ActionEvent event)
     {
-        closeScene();
+        closeScene(setting);
     }
 
     @FXML
@@ -104,7 +104,7 @@ public class ServerRClickController extends Controller
             if(!response.isAccepted())
             {
                 //close the scene if getting roles failed
-                closeScene();
+                closeScene(setting);
             }
 
             if(response.getOwnerId().equals(clientSocket.getId()))
@@ -118,7 +118,7 @@ public class ServerRClickController extends Controller
         {
             //close the scene if getting roles failed
             System.out.println(e.getMessage());
-            closeScene();
+            closeScene(setting);
         }
 
         try
@@ -130,7 +130,7 @@ public class ServerRClickController extends Controller
             if(!response.isAccepted())
             {
                 //close the scene if getting roles failed
-                closeScene();
+                closeScene(setting);
             }
 
             Rule rule = response.getRules().get(clientSocket.getId());
@@ -155,7 +155,7 @@ public class ServerRClickController extends Controller
         {
             //close the scene if getting roles failed
             System.out.println(e.getMessage());
-            closeScene();
+            closeScene(setting);
         }
     }
 
@@ -167,9 +167,9 @@ public class ServerRClickController extends Controller
         }
     }
 
-    private void closeScene()
+    private void closeScene(Button button)
     {
-        Stage stage = (Stage)pane.getScene().getWindow();
+        Stage stage = (Stage)button.getScene().getWindow();
         stage.close();
     }
 }

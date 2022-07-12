@@ -260,4 +260,12 @@ public class SUserProController extends Controller
 
         this.status.setFill(pattern);
     }
+
+    public void setUserId(String userId) {
+        UserId = userId;
+    }
+
+    public void setServerId(String serverId) {
+        this.serverId = serverId;
+    }
 }
