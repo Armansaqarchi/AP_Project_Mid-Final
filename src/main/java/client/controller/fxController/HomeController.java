@@ -639,19 +639,27 @@ public class HomeController extends Controller {
 
     public void chatHandler(Message newValue){
 
+
+
         FXMLLoader loader;
 
-        if(serverId != null){
+        if(serverId == null){
             loader = new FXMLLoader(getClass().getResource("/fxml/Modify.fxml"));
         }
         else{
             clientSocket.send(new GetRulesServerReq(clientSocket.getId(), serverId));
 
             try{
+
+
+
                 Response response = clientSocket.getReceiver().getResponse();
 
                 if(response instanceof GetRulesServerRes && response.isAccepted()){
                     HashMap<String, Rule> roles = ((GetRulesServerRes) response).getRules();
+
+                    System.out.println("there");
+                    System.out.println(roles.get(clientSocket.getId()).getRules());
 
                     if(roles.get(clientSocket.getId()).getRules().contains(RuleType.PIN_MESSAGE)){
                         loader = new FXMLLoader(getClass().getResource("/fxml/ChannelModify.fxml"));
