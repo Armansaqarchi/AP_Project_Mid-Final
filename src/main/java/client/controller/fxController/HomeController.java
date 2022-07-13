@@ -281,7 +281,10 @@ public class HomeController extends Controller {
         if(message instanceof FileMessage){
             message = new FileMsgNotification((FileMessage) message);
         }
-        realTimeUpdate(message);
+
+        if(message.getType() == MessageType.PRIVATE_CHAT) {
+            realTimeUpdate(message);
+        }
 
     }
 
