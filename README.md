@@ -5,10 +5,8 @@ note that if you want to use this app as an evaluation, first need to configure 
 else, the program will encounter an error at the beginnig of execution.
 
 and also, this application consists of two part including:
-CLI : all the application features are provided in this part so using terminal, you can test this app
+CLI,
 GUI : this part are created using javafx, contains xml and css stylings.
-
-*if anything went wrong, check the libraries first
 
 ![IMG_20230223_140006_907](https://user-images.githubusercontent.com/99171905/220995480-5903712a-44e2-44f7-9243-ccf9d2399652.jpg)
 ![IMG_20230223_140002_653](https://user-images.githubusercontent.com/99171905/220995506-2fc8f6c9-b3c2-44e0-8b49-c87f98d3c656.jpg)
