@@ -1,13 +1,65 @@
 # AP_Project_Mid-Final
 a discord like application for AP final project
 
-note that if you want to use this app as an evaluation, first need to configure applicatoin database connection depending on your own db.
-else, the program will encounter an error at the beginnig of execution.
+<ul>
+  <li><a href=#built_with>Built with</a></li>
+  <li><a href=#requirements>Requirements</a></li>
+  <li><a href=#install>Install</a></li>
+  <li><a href=#screen_shots>Screen shots</a></li>
+</ul>
 
-and also, this application consists of two part including:
-CLI,
-GUI : this part are created using javafx, contains xml and css stylings.
 
+
+
+
+## Built_with
+##### JAVA
+[![My Skills](https://skillicons.dev/icons?i=java&perline=1)](https://skillicons.dev)
+##### CSS
+[![My Skills](https://skillicons.dev/icons?i=css&perline=1)](https://skillicons.dev)
+##### Postgres
+[![My Skills](https://skillicons.dev/icons?i=postgres&perline=1)](https://skillicons.dev)
+
+
+
+## Requirements
+
+
+   #### javafx : open source client application framework 
+
+   #### postgresql : a relational database management system for data manipulation
+
+
+## Install
+  ### javafx: this package is already added to the project, but it can be downloaded from <a href=https://openjfx.io/>Javafx</a>
+  #### maven dependency:
+  ```md
+  <!-- https://mvnrepository.com/artifact/org.openjfx/javafx -->
+<dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx</artifactId>
+    <version>21-ea+5</version>
+    <type>pom</type>
+</dependency>
+
+  ```
+  
+   
+  ### postgresql
+   
+  #### linux:
+  run this command in terminal
+  
+  ```md
+  $ sudo apt-get install postgresql
+  ```
+  #### windows:
+   
+   <a href=https://www.postgresql.org/>download link</a>
+  
+
+
+## Screen_shots
 
 ![Screenshot from 2023-03-21 13-24-39](https://user-images.githubusercontent.com/99171905/226715592-67ee695b-c021-44d7-9499-1be59a0fb494.png)
 ![Screenshot from 2023-03-21 13-25-05](https://user-images.githubusercontent.com/99171905/226715663-0e379af4-0738-45a7-a0a5-2d647e16e922.png)
@@ -21,12 +73,11 @@ GUI : this part are created using javafx, contains xml and css stylings.
 ![Screenshot from 2023-03-21 13-33-54](https://user-images.githubusercontent.com/99171905/226715997-675f0e64-b97d-4796-a4d1-610352e15de1.png)
 ![Screenshot from 2023-03-21 13-33-57](https://user-images.githubusercontent.com/99171905/226716034-3ea7530f-7e69-425b-bb03-4c7989bfceb7.png)
 ![Screenshot from 2023-03-21 13-34-03](https://user-images.githubusercontent.com/99171905/226716076-e9eb4d82-4317-4832-8358-e829a295d4e7.png)
-
-
-
 ![Screenshot from 2023-03-21 13-34-18](https://user-images.githubusercontent.com/99171905/226716112-c2dd481d-b1ba-43ee-bc09-3005e59e226c.png)
-
-
-
 ![Screenshot from 2023-03-21 13-34-33](https://user-images.githubusercontent.com/99171905/226716188-e1205097-9436-457a-bb77-c7ddb12aae26.png)
+
+
+
+
+
 
